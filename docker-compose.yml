@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/test:/app/test
+    ports:
+      - 3000:3000
