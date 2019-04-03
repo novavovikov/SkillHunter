@@ -14,5 +14,21 @@
     "arrow-parens": false,
     "object-literal-sort-keys": false
   },
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "semicolon": [
+    true, 
+    "never"
+  ],
+  "trailing-comma": [
+    false,
+    {
+      "multiline": {
+        "objects": "never",
+        "arrays": "never",
+        "functions": "never",
+        "typeLiterals": "ignore"
+      },
+      "esSpecCompliant": true
+    }
+  ]
 }
