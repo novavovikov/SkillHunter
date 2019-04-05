@@ -9,3 +9,23 @@ services:
       - ./backend:/app
     ports:
       - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      default:
+        aliases:
+          - sh.local
+
+  postgres:
+    image: postgres:11
+    volumes:
+      - ./backend/pgdata:/var/lib/postgresql/data/pgdata
+    environment:
+      - POSTGRES_PASSWORD=skillhunter
+      - POSTGRES_USER=skillhunter
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_INITDB_ARGS=-N
+    networks:
+      default:
+        aliases:
+          - postgres.sh.local
