@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { SubscribeEntity } from './subscribe.entity';
-import { SubscribeController } from './subscribe.controller';
-import { SubscribeService } from './subscribe.service';
+import { SubscribeEntity } from './subscribe.entity'
+import { SubscribeController } from './subscribe.controller'
+import { SubscribeService } from './subscribe.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([SubscribeEntity])],
