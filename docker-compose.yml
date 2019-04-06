@@ -9,6 +9,7 @@ services:
       - ./backend:/app
     ports:
       - 3000:3000
+    user: $USER_ID:$GROUP_ID
     depends_on:
       - postgres
     networks:
@@ -27,6 +28,7 @@ services:
       - POSTGRES_USER=skillhunter
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_INITDB_ARGS=-N
+    user: $USER_ID:$GROUP_ID
     networks:
       default:
         aliases:
