@@ -1,18 +1,16 @@
 # SkillHunter
 SkillHunter project
 
-## Сборка образов
-```sh
-docker-compose build
-```
-
 ## Запуск проекта
 ```sh
-docker-compose up
+./build/run.sh
 ```
 
 ## backend 
 [Framework nest](https://nestjs.com/)
+
+## database 
+[PostgreSQL](https://www.postgresql.org)
 
 ### Запуск команд
 переход в терминал образа

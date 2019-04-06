@@ -1,0 +1,14 @@
+{
+  "type": "postgres",
+  "host": "postgres.sh.local",
+  "port": "5432",
+  "username": "skillhunter",
+  "password": "skillhunter",
+  "database": "skillhunter",
+  "synchronize": "true",
+  "logging": "true",
+  "entities": [
+    "./src/**/*.entity.ts",
+    "./dist/**/*.entity.ts"
+  ]
+}
