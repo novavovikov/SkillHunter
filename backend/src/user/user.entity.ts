@@ -3,11 +3,11 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeor
 @Entity()
 export class UserEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @CreateDateColumn()
-  created: Date;
+  created: Date
 
   @Column('text')
-  description: string;
+  description: string
 }

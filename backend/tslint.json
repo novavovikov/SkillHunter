@@ -12,23 +12,24 @@
     "member-ordering": [false],
     "interface-name": [false],
     "arrow-parens": false,
-    "object-literal-sort-keys": false
+    "space-before-function-paren": false,
+    "object-literal-sort-keys": false,
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "trailing-comma": [
+      false,
+      {
+        "multiline": {
+          "objects": "never",
+          "arrays": "never",
+          "functions": "never",
+          "typeLiterals": "ignore"
+        },
+        "esSpecCompliant": true
+      }
+    ]
   },
-  "rulesDirectory": [],
-  "semicolon": [
-    true, 
-    "never"
-  ],
-  "trailing-comma": [
-    false,
-    {
-      "multiline": {
-        "objects": "never",
-        "arrays": "never",
-        "functions": "never",
-        "typeLiterals": "ignore"
-      },
-      "esSpecCompliant": true
-    }
-  ]
+  "rulesDirectory": []
 }
