@@ -26,12 +26,12 @@ export class UserService {
     return await this.userRepository.findOne({ where: { id }});
   }
 
-  async update(id: string, data: Partial<UserDto>) {
+  async update(id: number, data: Partial<UserDto>) {
     await this.userRepository.update({ id }, data);
     return await this.userRepository.findOne({ id });
   }
 
-  async delete(id: string) {
+  async delete(id: number) {
     await this.userRepository.delete({ id });
     return { deleted: true };
   }

@@ -22,12 +22,12 @@ export class UserController {
   }
 
   @Put(':id')
-  updateUser(@Param('id') id: string, @Body() data: Partial<UserDto>) {
+  updateUser(@Param('id') id: number, @Body() data: Partial<UserDto>) {
     return this.userService.update(id, data);
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: string) {
+  deleteUser(@Param('id') id: number) {
     return this.userService.delete(id);
   }
 }
