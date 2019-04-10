@@ -1,0 +1,14 @@
+.Page {
+  padding-top: 80px;
+  animation: FadeIn ease-in-out 1s;
+}
+
+@keyframes FadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

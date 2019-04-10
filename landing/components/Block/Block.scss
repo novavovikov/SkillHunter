@@ -1,0 +1,28 @@
+.Block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+
+  &--reverse {
+    flex-direction: row-reverse;
+  }
+
+  &__img {
+    max-width: 100%;
+  }
+
+  &__section {
+    width: 560px;
+  }
+
+  &__content {
+    width: 450px;
+  }
+
+  &__text {
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+}
