@@ -5,4 +5,4 @@ WORKDIR /app
 COPY . /app
 RUN npm ci
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "dev" ]

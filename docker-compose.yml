@@ -10,6 +10,8 @@ services:
     ports:
       - 3000:3000
     user: $USER_ID:$GROUP_ID
+    environment:
+      - HOME=/app/.home
     depends_on:
       - postgres
     networks:
@@ -33,3 +35,37 @@ services:
       default:
         aliases:
           - postgres.sh.local
+
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile
+    volumes:
+      - ./landing:/app
+      - landing-static:/app/static
+    working_dir: /app/landing
+    expose:
+      - 3000
+    user: $USER_ID:$GROUP_ID
+    environment:
+      - HOME=/app/.home
+    networks:
+      default:
+        aliases:
+          - landing
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    volumes:
+      - landing-static:/var/www/landing/static
+    ports:
+      - 80:80
+    depends_on:
+      - landing
+      - backend
+
+volumes:
+  landing-static:
+
