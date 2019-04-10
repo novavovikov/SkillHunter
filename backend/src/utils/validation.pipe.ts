@@ -19,9 +19,14 @@ export class ValidationPipe implements PipeTransform<any> {
     return !Object.keys(value).length
   }
 
+  static isNotUnique (value: any) {
+    return !Object.keys(value).length
+  }
+
   async transform (value: any, metadata: ArgumentMetadata) {
     if (value instanceof Object && ValidationPipe.isEmpty(value)) {
-      throw new HttpException('BODY_ERROR',
+      throw new HttpException(
+        'BODY_ERROR',
         HttpStatus.BAD_REQUEST,
       )
     }
@@ -30,11 +35,16 @@ export class ValidationPipe implements PipeTransform<any> {
     if (!metatype || !ValidationPipe.toValidate(metatype)) {
       return value
     }
+
     const object = plainToClass(metatype, value)
     const errors = await validate(object)
     if (errors.length > 0) {
-      throw new HttpException('NOT_VALID', HttpStatus.BAD_REQUEST)
+      throw new HttpException(
+        'NOT_VALID',
+        HttpStatus.BAD_REQUEST
+      )
     }
+
     return value
   }
 }

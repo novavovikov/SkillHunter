@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { HttpException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
@@ -16,5 +16,9 @@ export class SubscribeService {
     const subscriber = this.subscribeRepository.create(data)
     await this.subscribeRepository.save(subscriber)
     return subscriber
+  }
+
+  async findByEmail(email: string) {
+    return await this.subscribeRepository.findOne({ where: { email }})
   }
 }
