@@ -1,0 +1,5 @@
+.config/
+.npm/
+.home/
+.next/
+node_modules/
