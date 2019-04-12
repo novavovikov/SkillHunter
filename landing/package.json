@@ -19,8 +19,6 @@
   },
   "homepage": "https://github.com/novavovikov/SkillHunter#readme",
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "@zeit/next-sass": "^1.0.1",
     "classnames": "^2.2.6",
     "next": "^8.0.4",
@@ -28,6 +26,12 @@
     "postcss-apply": "^0.12.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.1",
-    "postcss-loader": "^3.0.0"
+    "postcss-loader": "^3.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "typed.js": "^2.0.10"
+  },
+  "devDependencies": {
+    "next-images": "^1.1.1"
   }
 }

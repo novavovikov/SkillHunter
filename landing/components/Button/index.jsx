@@ -3,18 +3,19 @@ import css from './Button.scss'
 
 export default (
   {
+    span,
     children,
     theme,
     className,
     ...otherProps
-  }) => (
-  <button
-    className={cn(css.Button, {
-      [css['Button--' + theme]]: theme,
+  }) => {
+  const props = {
+    className: cn(css.Button, {
+      [css['Button_' + theme]]: theme,
       [className]: className,
-    })}
-    {...otherProps}
-  >
-    {children}
-  </button>
-)
+    }),
+    ...otherProps,
+  }
+
+  return span ? <span {...props}>{children}</span> : <button {...props}>{children}</button>
+}

@@ -24,9 +24,15 @@ export default ({ withRegistration = true }) => (
 
         {withRegistration && (
           <Link href={REGISTRATION_ROUTE}>
-            <Button theme="small">
-              Начать
-            </Button>
+            <a>
+              <Button
+                span
+                className={css.Header__btn}
+                theme="small"
+              >
+                Начать
+              </Button>
+            </a>
           </Link>
         )}
       </div>

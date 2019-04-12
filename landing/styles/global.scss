@@ -4,6 +4,7 @@
   * {
     box-sizing: border-box;
     border-radius: 0;
+    outline-color: var(--green);
 
     &:before, &:after {
       box-sizing: border-box;
@@ -16,6 +17,10 @@
     min-width: 320px;
     font-size: 16px;
     overflow-x: hidden;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   img {
@@ -45,5 +50,16 @@
     font-weight: 500;
     padding: 0;
     margin: 0 0 24px;
+  }
+
+  h3, .h3 {
+    color: rgb(66, 66, 66);
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0 0 24px;
+  }
+
+  .typed-cursor {
+    color: var(--blue);
   }
 }

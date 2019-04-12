@@ -1,0 +1,57 @@
+.Registration {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    background-color: #f4f7f9;
+    padding: 35px 45px 40px;
+  }
+
+  &__step {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+    margin: 0 5px 0 0;
+  }
+
+  &__body {
+    padding: 35px 45px 55px;
+    min-height: 295px;
+  }
+
+  &__title {
+    font-size: 26px;
+    line-height: 1.5;
+
+    &_light {
+      font-weight: 300;
+    }
+  }
+
+  &__text {
+    color: rgba(0, 0, 0, .45);
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 15px 0 10px;
+  }
+
+  &__footer {
+    overflow: hidden;
+    padding: 0 45px 50px;
+  }
+
+  &__submit {
+    float: right;
+  }
+}

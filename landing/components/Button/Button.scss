@@ -1,22 +1,67 @@
 @import "../../styles/variables";
 
 .Button {
-  min-width: 200px;
-  height: 55px;
-  font-size: 16px;
-  font-weight: 600;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  height: 45px;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 1.55;
   padding-left: 30px;
   padding-right: 30px;
   color: #fff;
+  overflow: hidden;
   background-color: var(--green);
   border: none;
+  z-index: 0;
+  transition: .6s;
   cursor: pointer;
 
-  &--small {
-    min-width: 110px;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: .6s;
+    z-index: -1;
+  }
+
+  &:hover {
+    box-shadow: 0 0 7px 1px rgba(0, 0, 0, .25);
+
+    &:before {
+      box-shadow:inset 0 0 0 150px var(--blue);
+    }
+  }
+
+  &:active {
+    box-shadow: 0 0 2px rgba(0, 0, 0, .45);
+  }
+
+  &:disabled {
+    opacity: .6;
+    cursor: default;
+  }
+
+  &_gray {
+    background: #cbcbcb;
+  }
+
+  &_large {
+    font-size: 16px;
+    min-width: 200px;
+    height: 55px;
+  }
+
+  &_small {
     height: 40px;
-    font-size: 14px;
-    font-weight: 400;
   }
 }

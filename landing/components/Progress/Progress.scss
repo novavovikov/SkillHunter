@@ -1,0 +1,14 @@
+.Progress {
+  position: relative;
+  height: 5px;
+  background-color: #cbcbcb;
+
+  &__status {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgb(10, 161, 61);
+    transition: .5s;
+  }
+}

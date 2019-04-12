@@ -1,0 +1,23 @@
+.Final {
+  text-align: center;
+
+  &__img {
+    max-width: 510px;
+  }
+
+  &__title {
+    color: #424242;
+    font-size: 42px;
+    line-height: 1.2;
+    font-weight: 500;
+    margin: 0 0 20px;
+  }
+
+  &__text {
+    width: 620px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, .45);
+    margin: 0 auto;
+  }
+}

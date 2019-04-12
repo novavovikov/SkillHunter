@@ -20,9 +20,14 @@ export default () => (
         </div>
 
         <Link href={REGISTRATION_ROUTE}>
-          <Button>
-            Начать
-          </Button>
+          <a>
+            <Button
+              span
+              theme="large"
+            >
+              Начать
+            </Button>
+          </a>
         </Link>
       </div>
     </Container>

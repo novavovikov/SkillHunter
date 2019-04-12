@@ -14,7 +14,7 @@ export default (
   <Container>
     <div
       className={cn(css.Block, {
-        [css['Block--' + theme]]: theme,
+        [css['Block_' + theme]]: theme,
         [className]: className,
       })}
     >

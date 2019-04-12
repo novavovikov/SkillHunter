@@ -1,4 +1,7 @@
 .Page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   padding-top: 80px;
   animation: FadeIn ease-in-out 1s;
 }
