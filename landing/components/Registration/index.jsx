@@ -51,8 +51,21 @@ export default () => {
             error: 'Поле не должно быть пустым',
           })
         }
-
-        Router.push(FINAL_ROUTE)
+        const data = {
+          promession: profession.value,
+          expectations: expectations.value,
+          email: email.value
+        }
+        fetch('/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(resp => resp.json())
+        .then(() => Router.push(FINAL_ROUTE))
+        .catch(err => console.log(err.message))
       }
     }
   }
