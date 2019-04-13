@@ -14,9 +14,17 @@
     background: transparent;
     color: inherit;
 
+    @media(--sm) {
+      height: 40px;
+    }
+
     &_textarea {
       height: 100px;
       padding-top: 10px;
+
+      @media(--sm) {
+        height: 60px;
+      }
     }
 
     &::placeholder {

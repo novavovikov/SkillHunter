@@ -17,6 +17,10 @@
     min-width: 320px;
     font-size: 16px;
     overflow-x: hidden;
+
+    @media(--sm) {
+      font-size: 14px;
+    }
   }
 
   a {
@@ -40,7 +44,15 @@
     line-height: 1.35;
     font-weight: 500;
     padding: 0;
-    margin: 0 0 10px;
+    margin: 0 0 calc(10/35)+em;
+
+    @media(--lg) {
+      font-size: 30px;
+    }
+
+    @media(--sm) {
+      font-size: 24px;
+    }
   }
 
   h2, .h2 {
@@ -49,17 +61,44 @@
     line-height: 1.23;
     font-weight: 500;
     padding: 0;
-    margin: 0 0 24px;
+    margin: 0 0 calc(24/36)+em;
+
+    @media(--lg) {
+      font-size: 30px;
+    }
+
+    @media(--sm) {
+      font-size: 24px;
+    }
   }
 
   h3, .h3 {
     color: rgb(66, 66, 66);
     font-size: 32px;
     font-weight: 500;
-    margin: 0 0 24px;
+    margin: 0 0 calc(24/32)+em;
+
+    @media(--lg) {
+      font-size: 24px;
+      line-height: normal;
+    }
+
+    @media(--sm) {
+      font-size: 20px;
+      line-height: normal;
+    }
   }
 
   .typed-cursor {
     color: var(--blue);
+  }
+
+  .title-label {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    transform: translate(0, -100%);
+    font-size: 12px;
+    color: var(--blue)
   }
 }

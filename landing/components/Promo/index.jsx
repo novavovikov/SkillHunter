@@ -11,6 +11,11 @@ export default () => (
   <div className={css.Promo}>
     <Container>
       <div className={css.Promo__content}>
+        <img
+          className={css.Promo__img}
+          src="/static/undraw_live_collaboration_2r4y.svg"
+          alt=""
+        />
         <div className={cn('h1', css.Promo__title)}>
           Начните развиваться уже сейчас
         </div>
@@ -23,7 +28,7 @@ export default () => (
           <a>
             <Button
               span
-              theme="large"
+              theme="lg"
             >
               Начать
             </Button>

@@ -11,8 +11,14 @@ import css from './Footer.scss'
 export default () => {
   const [visibility, setVisibility] = useState(false)
 
+  const checkWindowPosition = () => {
+    setVisibility(window.scrollY > 60)
+  }
+
   useEffect(() => {
-    setVisibility(window.innerHeight < document.body.clientHeight)
+    checkWindowPosition()
+    window.addEventListener('scroll', checkWindowPosition)
+    return () => window.removeEventListener('scroll', checkWindowPosition)
   })
 
   const handleScrollTop = () => {
@@ -26,14 +32,14 @@ export default () => {
   return (
     <footer>
       <div className={css.Footer}>
-        <div className={css.Footer__section}>
+        <div className={css.Footer__copyright}>
           © 2019 SkillHunter | <a
           className={`${css.Footer__link} ${css.Footer__link_mail}`}
           href="mailto:help@skillhunter.io"
         >help@skillhunter.io</a>
         </div>
 
-        <div className={css.Footer__section}>
+        <div className={css.Footer__links}>
           <Link href={COOKIE_ROUTE}>
             <a className={css.Footer__link}>
               Cookie-файлы
@@ -51,16 +57,14 @@ export default () => {
           </Link>
         </div>
 
-        <div className={css.Footer__section}>
-          {visibility && (
-            <button
-              className={css.Footer__scrolltop}
-              onClick={handleScrollTop}
-            >
-              Вверх
-            </button>
-          )}
-        </div>
+        {visibility && (
+          <button
+            className={css.Footer__scrolltop}
+            onClick={handleScrollTop}
+          >
+            Вверх
+          </button>
+        )}
       </div>
     </footer>
   )
