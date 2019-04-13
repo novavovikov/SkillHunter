@@ -43,7 +43,7 @@ services:
     volumes:
       - ./landing:/app
       - landing-static:/app/static
-    working_dir: /app/landing
+    working_dir: /app
     expose:
       - 3000
     user: $USER_ID:$GROUP_ID
