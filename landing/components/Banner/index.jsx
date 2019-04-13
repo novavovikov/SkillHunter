@@ -15,9 +15,9 @@ export default () => {
         '',
         'Новый лучший',
         '',
-        'Новый легкий и лучший способ саморазвития (скоро)',
+        'Новый легкий и лучший способ саморазвития<span class="title-label">(скоро)</span>',
       ],
-      typeSpeed: 60,
+      typeSpeed: 50,
       backSpeed: 40,
     }
 
@@ -34,15 +34,15 @@ export default () => {
             <span data-typed=''/>
           </h1>
           <div className={css.Banner__text}>
-            <div>
+            <p className={css.Banner__description}>
               Платформа для развития профессиональных и личных навыков
-            </div>
+            </p>
 
             <Link href={REGISTRATION_ROUTE}>
               <a>
                 <Button
                   span
-                  theme="large"
+                  theme="lg"
                   className={css.Banner__btn}
                 >
                   Начать

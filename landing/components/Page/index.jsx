@@ -7,6 +7,7 @@ import Banner from '../Banner'
 import Content from '../Content'
 import Promo from '../Promo'
 import Recommendation from '../Recommendation'
+import Cookie from '../Cookie'
 
 export default (
   {
@@ -33,5 +34,6 @@ export default (
       {recommendation && <Recommendation/>}
     </Main>
     <Footer/>
+    <Cookie/>
   </div>
 )

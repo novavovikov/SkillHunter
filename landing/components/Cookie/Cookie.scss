@@ -1,0 +1,26 @@
+@import "../../styles/global";
+
+.Cookie {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,.3);
+
+  &__text {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  &__link {
+    color: var(--blue);
+
+    &:hover {
+      color: var(--green);
+    }
+  }
+}

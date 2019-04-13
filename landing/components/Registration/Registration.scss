@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .Registration {
   width: 100%;
   max-width: 760px;
@@ -11,11 +13,19 @@
     align-items: top;
     background-color: #f4f7f9;
     padding: 35px 45px 40px;
+
+    @media(--sm) {
+      padding: 20px;
+    }
   }
 
   &__step {
     font-size: 14px;
     line-height: 1.55;
+
+    @media(--sm) {
+      font-size: 12px;
+    }
   }
 
   &__icon {
@@ -28,14 +38,23 @@
   &__body {
     padding: 35px 45px 55px;
     min-height: 295px;
+
+    @media(--sm) {
+      padding: 20px 20px 0;
+      min-height: 0;
+    }
   }
 
   &__title {
     font-size: 26px;
-    line-height: 1.5;
+    line-height: 1.35;
 
     &_light {
       font-weight: 300;
+    }
+
+    @media(--sm) {
+      font-size: 18px;
     }
   }
 
@@ -44,11 +63,19 @@
     font-size: 14px;
     line-height: 1.55;
     margin: 15px 0 10px;
+
+    @media(--sm) {
+      font-size: 12px;
+    }
   }
 
   &__footer {
     overflow: hidden;
     padding: 0 45px 50px;
+
+    @media(--sm) {
+      padding: 20px;
+    }
   }
 
   &__submit {
