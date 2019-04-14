@@ -49,7 +49,7 @@ export default ({ title }) => (
     />
     <meta
       property="og:images"
-      content="//skillhunter.io//static/undraw_investing_7u7.png"
+      content="//skillhunter.io//static/images/undraw_investing_7u7.png"
     />
     <meta
       property="og:images:width"

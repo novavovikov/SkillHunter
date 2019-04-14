@@ -1,28 +1,44 @@
+import React from 'react'
+import { withNamespaces } from '../i18n'
 import Page from '../components/Page'
 import Block from '../components/Block'
 
-export default () => (
-  <Page
-    banner
-    promo
-  >
-    <Block
-      img="undraw_bookmarks_r6u.png"
-      title="Персональные подборки материалов"
-      text="Используйте единую базу знаний, формируйте свою коллекцию статей, книг, видео, курсов, фреймворков и инструментов в разрезе тех навыков, которые нужны для вашей специальности."
-    />
+class MainPage extends React.Component {
+  static async getInitialProps () {
+    return {
+      namespacesRequired: ['main']
+    }
+  }
 
-    <Block
-      theme="reverse"
-      img="undraw_buffer_wq43.png"
-      title="Обмен знаниями"
-      text="Следите за новыми матриалами, от людей, которые уже развили такие же навыки или еще развивают и от людей такой же специальности. Делитесь материалами с коллегами и друзьями."
-    />
+  render () {
+    const { t } = this.props
 
-    <Block
-      img="undraw_accept_reques.png"
-      title="Персональный план развития"
-      text="Создавайте пошаговый план обучения на основе коллекций материалов для достижения целей и следите за прогрессом."
-    />
-  </Page>
-)
+    return (
+      <Page
+        banner
+        promo
+      >
+        <Block
+          img="undraw_bookmarks_r6u.png"
+          title={t('block-title-1')}
+          text={t('block-text-1')}
+        />
+
+        <Block
+          theme="reverse"
+          img="undraw_buffer_wq43.png"
+          title={t('block-title-2')}
+          text={t('block-text-2')}
+        />
+
+        <Block
+          img="undraw_accept_reques.png"
+          title={t('block-title-3')}
+          text={t('block-text-3')}
+        />
+      </Page>
+    )
+  }
+}
+
+export default withNamespaces('main')(MainPage)

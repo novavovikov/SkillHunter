@@ -1,3 +1,4 @@
+import { withNamespaces } from '../../i18n'
 import Router from 'next/router';
 import { useState } from 'react'
 import cn from 'classnames'
@@ -9,7 +10,7 @@ import { FINAL_ROUTE } from '../../constants/routes'
 
 const STEP_COUNT = 2
 
-export default () => {
+const Registration = ({ t }) => {
   const [step, setStep] = useState(1)
   const [profession, setProfession] = useState({
     value: '',
@@ -36,7 +37,7 @@ export default () => {
         if (!profession.value) {
           return setProfession({
             ...profession,
-            error: 'Поле не должно быть пустым',
+            error: t('field.empty'),
           })
         }
 
@@ -48,11 +49,11 @@ export default () => {
         if (!email.value) {
           return setEmail({
             ...email,
-            error: 'Поле не должно быть пустым',
+            error: t('field.empty'),
           })
         }
         const data = {
-          promession: profession.value,
+          profession: profession.value,
           expectations: expectations.value,
           email: email.value
         }
@@ -79,10 +80,10 @@ export default () => {
               <div className={css.Registration__title}>
                 <img
                   className={css.Registration__icon}
-                  src="/static/blank.svg"
+                  src="/static/images/blank.svg"
                   alt=""
                 />
-                Регистрация
+                {t('title')}
               </div>
 
               <div className={css.Registration__step}>
@@ -95,7 +96,7 @@ export default () => {
               css.Registration__title,
               css.Registration__title_light,
             )}>
-              Осталось чуть-чуть
+              {t('email.title')}
             </div>
           )
         }
@@ -109,11 +110,11 @@ export default () => {
       <div className={css.Registration__body}>
         {step === 1 && (
           <Step
-            title="Кто вы сейчас или кем хотите стать"
-            text="Специальность, профессия или должность"
+            title={t('profession.title')}
+            text={t('profession.description')}
             field={{
               ...profession,
-              placeholder: 'Например: продукт-менеджер',
+              placeholder: t('profession.placeholder'),
               onChange: (e) => setProfession({
                 value: e.target.value,
                 error: null,
@@ -124,12 +125,12 @@ export default () => {
 
         {step === 2 && (
           <Step
-            title="Какие у вас ожидания от сервиса?"
-            text="Как считаете чем сервис может помочь? С какими проблемами и сложностями в саморазвитии сталкиваетесь?"
+            title={t('expectations.title')}
+            text={t('expectations.description')}
             field={{
               ...expectations,
               type: 'textarea',
-              placeholder: 'Введите ответ',
+              placeholder: t('expectations.placeholder'),
               onChange: (e) => setExpectations({
                 value: e.target.value,
                 error: null,
@@ -140,10 +141,10 @@ export default () => {
 
         {step === 3 && (
           <Step
-            text="На него придет приглашение"
+            text={t('email.description')}
             field={{
               ...email,
-              placeholder: 'Ваш e-mail',
+              placeholder: t('email.placeholder'),
               onChange: (e) => setEmail({
                 value: e.target.value,
                 error: null,
@@ -160,7 +161,7 @@ export default () => {
             theme="gray"
             onClick={onCancel}
           >
-            Назад
+            {t('common:back')}
           </Button>
         )}
 
@@ -168,11 +169,13 @@ export default () => {
           className={css.Registration__submit}
         >
           {step > STEP_COUNT
-            ? 'Готово'
-            : 'Далее'
+            ? t('common:done')
+            : t('common:further')
           }
         </Button>
       </div>
     </form>
   )
 }
+
+export default withNamespaces('registration')(Registration)

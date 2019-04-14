@@ -27,6 +27,10 @@
     }
   }
 
+  &__text {
+    white-space: pre-line;
+  }
+
   &__description {
     width: 100%;
     max-width: 750px;
