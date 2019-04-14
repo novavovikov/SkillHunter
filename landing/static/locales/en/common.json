@@ -1,4 +1,8 @@
 {
+  "title": {
+    "registration": "Регистрация на SkillHunter",
+    "thanks": "Спасибо!"
+  },
   "start": "Начать",
   "agree": "Согласен",
   "back": "Назад",

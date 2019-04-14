@@ -9,21 +9,63 @@ import css from './Registration.scss'
 import { FINAL_ROUTE } from '../../constants/routes'
 
 const STEP_COUNT = 2
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
 const Registration = ({ t }) => {
   const [step, setStep] = useState(1)
   const [profession, setProfession] = useState({
     value: '',
     error: null,
+    warning: null
   })
   const [expectations, setExpectations] = useState({
     value: '',
     error: null,
+    warning: null
   })
   const [email, setEmail] = useState({
     value: '',
     error: null,
+    warning: null
   })
+
+  const validateEmail = () => {
+    if (!email.value) {
+      return setEmail({
+        ...email,
+        error: t('field.empty'),
+      })
+    }
+
+    if (!email.value.match(EMAIL_REGEX)) {
+      return setEmail({
+        ...email,
+        warning: t('field.email'),
+      })
+    }
+
+    const data = {
+      profession: profession.value,
+      expectations: expectations.value,
+      email: email.value
+    }
+    fetch('/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(resp => resp.json())
+    .then(() => Router.push(FINAL_ROUTE))
+    .catch(err => {
+      console.log(err.message)
+      setEmail({
+        ...email,
+        error: t('field.unknown'),
+      })
+    })
+  }
 
   const onCancel = () => {
     setStep(step - 1)
@@ -45,29 +87,7 @@ const Registration = ({ t }) => {
       }
       case 2:
         return setStep(step + 1)
-      default: {
-        if (!email.value) {
-          return setEmail({
-            ...email,
-            error: t('field.empty'),
-          })
-        }
-        const data = {
-          profession: profession.value,
-          expectations: expectations.value,
-          email: email.value
-        }
-        fetch('/subscribe', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-        .then(resp => resp.json())
-        .then(() => Router.push(FINAL_ROUTE))
-        .catch(err => console.log(err.message))
-      }
+      default: validateEmail()
     }
   }
 
@@ -118,6 +138,7 @@ const Registration = ({ t }) => {
               onChange: (e) => setProfession({
                 value: e.target.value,
                 error: null,
+                warning: null,
               }),
             }}
           />
@@ -134,6 +155,7 @@ const Registration = ({ t }) => {
               onChange: (e) => setExpectations({
                 value: e.target.value,
                 error: null,
+                warning: null,
               }),
             }}
           />
@@ -148,6 +170,7 @@ const Registration = ({ t }) => {
               onChange: (e) => setEmail({
                 value: e.target.value,
                 error: null,
+                warning: null,
               }),
             }}
           />

@@ -1,6 +1,7 @@
 @import "../../styles/variables";
 
 .Footer {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -30,10 +31,16 @@
   }
 
   &__links {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
     white-space: nowrap;
     margin: 0 auto;
 
     @media(--xl) {
+      position: relative;
+      left: 0;
+      transform: translate(0);
       margin-right: 0;
     }
 

@@ -37,4 +37,4 @@ const Cookie = ({ t }) => {
   )
 }
 
-export default withNamespaces('cookie')(Cookie)
+export default withNamespaces('cookie-block')(Cookie)
