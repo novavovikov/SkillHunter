@@ -1,18 +1,20 @@
+import { withNamespaces } from '../../i18n'
 import { useState } from 'react'
 import Link from 'next/link'
 import Button from '../Button'
 import { COOKIE_ROUTE } from '../../constants/routes'
 import css from './Cookie.scss'
 
-export default () => {
+const Cookie = ({ t }) => {
   const [isAccepted, acceptAggrement] = useState(false)
 
   const onSubmit = (e) => {
     e.preventDefault()
     acceptAggrement(true)
+    localStorage.setItem('cookie', 'done')
   }
 
-  if (isAccepted) {
+  if (isAccepted || localStorage.getItem('cookie')) {
     return null
   }
 
@@ -21,16 +23,18 @@ export default () => {
       className={css.Cookie}
       onSubmit={onSubmit}
     >
-      <div className={css.Cookie__text}>Мы используем <Link href={COOKIE_ROUTE}
-      ><a className={css.Cookie__link}>cookie-файлы</a>
+      <div className={css.Cookie__text}>{t('we use')} <Link href={COOKIE_ROUTE}
+      ><a className={css.Cookie__link}>{t('cookie')}</a>
       </Link>
       </div>
 
       <Button
         theme="xs blue"
       >
-        Согласен
+        {t('common:agree')}
       </Button>
     </form>
   )
 }
+
+export default withNamespaces('cookie')(Cookie)

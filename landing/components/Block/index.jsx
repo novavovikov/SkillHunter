@@ -21,7 +21,7 @@ export default (
       <div className={css.Block__section}>
         <img
           className={css.Block__img}
-          src={"/static/" + img}
+          src={"/static/images/" + img}
           alt=""
         />
       </div>

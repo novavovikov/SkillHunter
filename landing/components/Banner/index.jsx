@@ -1,3 +1,4 @@
+import { withNamespaces } from '../../i18n'
 import { useEffect } from 'react'
 import Link from 'next/link'
 import Typed from 'typed.js'
@@ -7,15 +8,15 @@ import { REGISTRATION_ROUTE } from '../../constants/routes'
 
 import css from './Banner.scss'
 
-export default () => {
+const Banner = ({ t }) => {
   useEffect(() => {
     const options = {
       strings: [
-        'Новый легкий',
+        `${t('light')}`,
         '',
-        'Новый лучший',
+        `${t('best')}`,
         '',
-        'Новый легкий и лучший способ саморазвития<span class="title-label">(скоро)</span>',
+        `${t('promo-text')}<span class="title-label">(${t('soon')})</span>`,
       ],
       typeSpeed: 50,
       backSpeed: 40,
@@ -35,7 +36,7 @@ export default () => {
           </h1>
           <div className={css.Banner__text}>
             <p className={css.Banner__description}>
-              Платформа для развития профессиональных и личных навыков
+              {t('description')}
             </p>
 
             <Link href={REGISTRATION_ROUTE}>
@@ -45,7 +46,7 @@ export default () => {
                   theme="lg"
                   className={css.Banner__btn}
                 >
-                  Начать
+                  {t('common:start')}
                 </Button>
               </a>
             </Link>
@@ -54,7 +55,7 @@ export default () => {
 
         <div className={css.Banner__img}>
           <img
-            src="/static/undraw_investing_7u7.png"
+            src="/static/images/undraw_investing_7u7.png"
             alt=""
           />
         </div>
@@ -62,3 +63,5 @@ export default () => {
     </Container>
   )
 }
+
+export default withNamespaces('banner')(Banner)

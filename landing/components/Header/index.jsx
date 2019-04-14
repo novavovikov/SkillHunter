@@ -1,3 +1,4 @@
+import { withNamespaces } from '../../i18n'
 import Link from 'next/link'
 import Container from '../Container'
 import Button from '../Button'
@@ -8,7 +9,7 @@ import {
 
 import css from './Header.scss'
 
-export default ({ withRegistration = true }) => (
+const Header = ({ withRegistration = true, t }) => (
   <header className={css.Header}>
     <Container>
       <div className={css.Header__content}>
@@ -62,7 +63,7 @@ export default ({ withRegistration = true }) => (
                 className={css.Header__btn}
                 theme="sm"
               >
-                Начать
+                {t('start')}
               </Button>
             </a>
           </Link>
@@ -71,3 +72,5 @@ export default ({ withRegistration = true }) => (
     </Container>
   </header>
 )
+
+export default withNamespaces('common')(Header)
