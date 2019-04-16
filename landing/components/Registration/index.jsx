@@ -49,7 +49,7 @@ const Registration = ({ t }) => {
       expectations: expectations.value,
       email: email.value
     }
-    fetch('/subscribe', {
+    fetch('/api/subscribe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
