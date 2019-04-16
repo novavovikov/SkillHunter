@@ -14,27 +14,18 @@ services:
       - HOME=/app/.home
     depends_on:
       - postgres
-    networks:
-      default:
-        aliases:
-          - backend
 
   postgres:
-    image: postgres:11
+    image: postgres:11.2-alpine
     expose:
       - 5432
     volumes:
-      - ./backend/pgdata:/var/lib/postgresql/data/pgdata
+      - postgres-data:/var/lib/postgresql/data/pgdata
     environment:
       - POSTGRES_PASSWORD=skillhunter
       - POSTGRES_USER=skillhunter
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_INITDB_ARGS=-N
-    user: $USER_ID:$GROUP_ID
-    networks:
-      default:
-        aliases:
-          - postgres.sh.local
 
   landing:
     build:
@@ -49,10 +40,6 @@ services:
     user: $USER_ID:$GROUP_ID
     environment:
       - HOME=/app/.home
-    networks:
-      default:
-        aliases:
-          - landing
 
   proxy:
     build:
@@ -66,6 +53,27 @@ services:
       - landing
       - backend
 
+  hasura-db:
+    image: postgres:11.2-alpine
+    volumes:
+      - hasura-db:/var/lib/postgresql/data
+  
+  graphql-engine:
+    image: hasura/graphql-engine:v1.0.0-alpha42
+    ports:
+      - 8080:8080
+    volumes: 
+      - ./qraphql/migrations:/hasura-migrations 
+    depends_on:
+      - hasura-db
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@hasura-db:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      ## uncomment next line to set an admin secret
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+
 volumes:
   landing-static:
+  postgres-data:
+  hasura-db:
 

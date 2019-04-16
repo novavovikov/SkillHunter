@@ -1,6 +1,6 @@
 {
   "type": "postgres",
-  "host": "postgres.sh.local",
+  "host": "postgres",
   "port": "5432",
   "username": "skillhunter",
   "password": "skillhunter",
