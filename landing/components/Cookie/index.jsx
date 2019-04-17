@@ -1,20 +1,26 @@
+import { useState, useEffect } from 'react'
 import { withNamespaces } from '../../i18n'
-import { useState } from 'react'
 import Link from 'next/link'
 import Button from '../Button'
 import { COOKIE_ROUTE } from '../../constants/routes'
 import css from './Cookie.scss'
 
 const Cookie = ({ t }) => {
-  const [isAccepted, acceptAggrement] = useState(false)
+  const [isAccepted, acceptAgreement] = useState(false)
 
   const onSubmit = (e) => {
     e.preventDefault()
-    acceptAggrement(true)
-    localStorage.setItem('cookie', 'done')
+    acceptAgreement(true)
+    localStorage.setItem('cookie', true)
   }
 
-  if (isAccepted || localStorage.getItem('cookie')) {
+  useEffect(() => {
+    if (!isAccepted && localStorage.getItem('cookie')) {
+      acceptAgreement(true)
+    }
+  })
+
+  if (isAccepted) {
     return null
   }
 
