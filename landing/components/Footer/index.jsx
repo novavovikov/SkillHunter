@@ -4,7 +4,6 @@ import Link from 'next/link'
 import {
   AGREEMENT_ROUTE,
   COOKIE_ROUTE,
-  PRIVACY_ROUTE,
 } from '../../constants/routes'
 
 import css from './Footer.scss'
@@ -46,11 +45,13 @@ const Footer = ({ t }) => {
               {t('cookie')}
             </a>
           </Link>
-          <Link href={PRIVACY_ROUTE}>
-            <a className={css.Footer__link}>
-              {t('privacy')}
-            </a>
-          </Link>
+          <a
+            href="/static/files/privacy_policy.pdf"
+            className={css.Footer__link}
+            target="_blank"
+          >
+            {t('privacy')}
+          </a>
           <Link href={AGREEMENT_ROUTE}>
             <a className={css.Footer__link}>
               {t('agreement')}
