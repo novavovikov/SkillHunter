@@ -1,0 +1,15 @@
+FROM node:10.15.3-alpine
+
+WORKDIR /app
+
+COPY package.json /app/
+COPY package-lock.json /app/
+COPY next.config.js /app/
+COPY postcss.config.js /app/
+COPY pages/ /app/pages/
+COPY static/ /app/static/
+COPY styles/ /app/styles/
+COPY components/ /app/components/
+COPY constants/ /app/constants/
+
+RUN npm ci

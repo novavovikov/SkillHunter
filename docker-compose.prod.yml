@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile.prod
+    volumes:
+      - landing:/app/out
+    working_dir: /app
+    expose:
+      - 3000
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile.prod
+    volumes:
+      - landing:/var/www/landing
+    ports:
+      - 80:80
+    depends_on:
+      - landing
+
+volumes:
+  landing:
+
