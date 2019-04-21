@@ -1,4 +1,6 @@
 export interface UserDto {
-  user: string
-  description: string
+  email: string
+  locale?: string
+  picture?: string
+  token?: string
 }

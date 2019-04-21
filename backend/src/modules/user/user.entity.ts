@@ -8,6 +8,16 @@ export class UserEntity {
   @CreateDateColumn()
   created: Date
 
-  @Column('text')
-  description: string
+  @Column({
+    unique: true
+  })
+  email: string
+
+  @Column({
+    nullable: true
+  })
+  picture: string
+
+  @Column()
+  locale: string
 }

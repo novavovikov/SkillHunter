@@ -21,7 +21,7 @@ services:
         - ./backend:/app
     ports:
         - 4000:4000
-    command: sh -c "npm run start"
+    command: sh -c "npm run start:dev"
     depends_on:
         - postgres
         - landing
