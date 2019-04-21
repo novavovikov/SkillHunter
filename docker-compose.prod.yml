@@ -1,0 +1,59 @@
+version: '3.3'
+
+services:
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile.prod
+    volumes:
+      - landing:/app/out
+    working_dir: /app
+    expose:
+      - 3000
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - landing:/app/out
+    environment: 
+      - PORT=3000
+      - DB_CONNECTION
+    working_dir: /app
+    expose:
+      - 3000
+    depends_on: 
+      - postgres
+    restart: always
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile.prod
+    volumes:
+      - landing:/var/www/landing
+    ports:
+      - 80:80
+    depends_on:
+      - landing
+      - backend
+    restart: always
+
+  postgres:
+    image: postgres:11.2-alpine
+    expose:
+      - 5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/pgdata
+    env_file: 
+      - .env.dev
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_INITDB_ARGS=-N
+
+volumes:
+  landing:
+  postgres-data:
+

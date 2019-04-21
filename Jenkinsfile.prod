@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+
+   stages {
+    stage('Build') {
+      steps {
+        sh 'docker-compose -f docker-compose.prod.yml build --no-cache'
+        sh 'docker-compose -f docker-compose.prod.yml stop'
+      }
+    }
+
+    stage('Start') {
+      steps {
+        sh 'docker-compose -f docker-compose.prod.yml up -d'
+      }
+    }
+  }
+}
