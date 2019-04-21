@@ -10,8 +10,7 @@ services:
     working_dir: /app
     expose:
       - 3000
-    restart_policy:
-      condition: on-failure
+    restart: always
 
   backend:
     build:
@@ -24,8 +23,7 @@ services:
     working_dir: /app
     expose:
       - 3000
-    restart_policy:
-      condition: on-failure
+    restart: always
 
   proxy:
     build:
@@ -38,8 +36,7 @@ services:
     depends_on:
       - landing
       - backend
-    restart_policy:
-      condition: on-failure
+    restart: always
 
 volumes:
   landing:
