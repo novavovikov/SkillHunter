@@ -8,7 +8,6 @@ import Content from '../Content'
 import Promo from '../Promo'
 import Recommendation from '../Recommendation'
 import Cookie from '../Cookie'
-import {} from '@next/'
 
 export default (
   {
