@@ -12,6 +12,7 @@ services:
     user: $USER_ID:$GROUP_ID
     environment:
       - HOME=/app/.home
+      - DB_CONNECTION=postgres://skillhunter:skillhunter@postgres:5432/skillhunter
     depends_on:
       - postgres
 
@@ -21,9 +22,9 @@ services:
       - 5432
     volumes:
       - postgres-data:/var/lib/postgresql/data/pgdata
+    env_file: 
+      - .env.dev
     environment:
-      - POSTGRES_PASSWORD=skillhunter
-      - POSTGRES_USER=skillhunter
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_INITDB_ARGS=-N
 

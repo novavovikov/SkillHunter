@@ -10,6 +10,22 @@ services:
     working_dir: /app
     expose:
       - 3000
+    restart_policy:
+      condition: on-failure
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - landing:/app/out
+    environment: 
+      - PORT=3000
+    working_dir: /app
+    expose:
+      - 3000
+    restart_policy:
+      condition: on-failure
 
   proxy:
     build:
@@ -21,6 +37,8 @@ services:
       - 80:80
     depends_on:
       - landing
+    restart_policy:
+      condition: on-failure
 
 volumes:
   landing:
