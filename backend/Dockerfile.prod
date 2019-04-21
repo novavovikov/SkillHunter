@@ -2,7 +2,7 @@ FROM node:10.15.3-alpine
 
 WORKDIR /app
 
-COPY *.json /app
+COPY *.json /app/
 COPY src/ /app/src/
 COPY test/ /app/test/
 
