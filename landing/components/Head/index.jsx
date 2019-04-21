@@ -19,13 +19,9 @@ const googleAnalytics = `
 export default ({ title }) => (
   <Head>
     <meta charSet="utf-8"/>
-    {process.env.NODE_EVN === 'production' && (
-      <>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138742912-1"></script>
-        <script dangerouslySetInnerHTML={{__html: googleTagManager}} />
-        <script dangerouslySetInnerHTML={{__html: googleAnalytics}} />
-      </>
-    )}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138742912-1"></script>
+    <script dangerouslySetInnerHTML={{__html: googleTagManager}} />
+    <script dangerouslySetInnerHTML={{__html: googleAnalytics}} />
     <title>
         {title || 'SkillHunter | Платформа для развития профессиональных и личных навыков'}
     </title>
