@@ -19,21 +19,31 @@ export default (
     header,
   },
 ) => (
-  <div className={css.Page}>
-    <Head {...head}/>
-    <Header {...header}/>
+  <>
+    <noscript>
+      <iframe 
+        src="https://www.googletagmanager.com/ns.html?id=GTM-K4FPF86"
+        height="0" 
+        width="0" 
+        style="display:none;visibility:hidden">
+      </iframe>
+    </noscript>
+    <div className={css.Page}>
+      <Head {...head}/>
+      <Header {...header}/>
 
-    <Main>
-      {banner && <Banner/>}
+      <Main>
+        {banner && <Banner/>}
 
-      <Content>
-        {children}
-      </Content>
+        <Content>
+          {children}
+        </Content>
 
-      {promo && <Promo/>}
-      {recommendation && <Recommendation/>}
-    </Main>
-    <Footer/>
-    <Cookie/>
-  </div>
+        {promo && <Promo/>}
+        {recommendation && <Recommendation/>}
+      </Main>
+      <Footer/>
+      <Cookie/>
+    </div>
+  </>
 )

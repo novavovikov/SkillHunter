@@ -1,0 +1,15 @@
+FROM node:8-alpine
+
+WORKDIR /app
+
+COPY *.json /app/
+COPY *.js /app/
+COPY pages/ /app/pages/
+COPY static/ /app/static/
+COPY styles/ /app/styles/
+COPY components/ /app/components/
+COPY constants/ /app/constants/
+
+RUN npm ci
+RUN npm run build
+RUN npm run export

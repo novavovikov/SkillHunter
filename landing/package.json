@@ -4,9 +4,10 @@
   "description": "SkillHunter project",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js",
-    "build": "next build && next export -o dist",
-    "start": "next start"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export"
   },
   "repository": {
     "type": "git",
