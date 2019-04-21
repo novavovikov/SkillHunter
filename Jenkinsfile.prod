@@ -4,14 +4,14 @@ pipeline {
    stages {
     stage('Build') {
       steps {
-        sh 'docker-compose build --no-cache'
-        sh 'docker-compose stop'
+        sh 'docker-compose -f docker-compose.prod.yml build --no-cache'
+        sh 'docker-compose -f docker-compose.prod.yml stop'
       }
     }
 
     stage('Start') {
       steps {
-        sh 'docker-compose up -d'
+        sh 'docker-compose -f docker-compose.prod.yml up -d'
       }
     }
   }
