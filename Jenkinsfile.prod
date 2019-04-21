@@ -11,7 +11,7 @@ pipeline {
 
     stage('Start') {
       steps {
-        sh 'docker-compose -f docker-compose.prod.yml up -d --forсe-recreate'
+        sh 'docker-compose -f docker-compose.prod.yml up -d --force-recreate'
       }
     }
   }
