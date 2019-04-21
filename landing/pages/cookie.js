@@ -4,18 +4,21 @@ import Page from '../components/Page'
 import Text from '../components/Text'
 import Section from '../components/Section'
 
-const CONTENT = [
-  'notification',
-  'types',
-  'similar',
-  'control',
-  'conclusion',
-]
-
 class Cookie extends React.Component {
   static async getInitialProps () {
     return {
-      namespacesRequired: ['cookie']
+      namespacesRequired: ['cookie'],
+    }
+  }
+
+  getBlocksContent () {
+    const { i18n, lng } = this.props
+
+    try {
+      const content = i18n.store.data[lng].cookie.blocks
+      return i18n.store.data[lng].cookie.blocks
+    } catch (e) {
+      return []
     }
   }
 
@@ -25,11 +28,11 @@ class Cookie extends React.Component {
     return (
       <Page>
         <Text title={t('title')}>
-          {CONTENT.map((type, index) => (
+          {this.getBlocksContent().map((item, index) => (
             <Section
               key={index}
-              title={t(`${type}.title`)}
-              text={t(`${type}.text`)}
+              title={item.title}
+              text={item.text}
             />
           ))}
         </Text>

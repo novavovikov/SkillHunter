@@ -1,23 +1,23 @@
-{
-  "title": "Регистрация",
+﻿{
+  "title": "Sign Up",
   "field": {
-    "empty": "Поле не должно быть пустым",
-    "email": "Email заполнен не верно",
-    "unknown": "Не удалось отправить запрос. Попробуйте снова или напишите нам на help@skillhunter.io."
+    "empty": "This field cannot be empty",
+    "email": "Please enter a valid email address",
+    "unknown": "Failed to send request. Try again later or mail us to help@skillhunter.io."
   },
   "profession": {
-    "title": "Кто вы сейчас или кем хотите стать",
-    "description": "Специальность, профессия или должность",
-    "placeholder": "Например: продукт-менеджер"
+    "title": "What's your profession at the moment\nor who do you want to be?",
+    "description": "Specialty, profession or job position",
+    "placeholder": "e.g. product manager"
   },
   "expectations": {
-    "title": "Какие у вас ожидания от сервиса?",
-    "description": "Как считаете чем сервис может помочь? С какими проблемами и сложностями в саморазвитии сталкиваетесь?",
-    "placeholder": "Введите ответ"
+    "title": "What are your expectations from the service?",
+    "description": "How do you think the service can help you? What problems and difficulties in self-development do you encounter?",
+    "placeholder": "Enter the answer"
   },
   "email": {
-    "title": "Осталось чуть-чуть",
-    "description": "На него придет приглашение",
-    "placeholder": "Ваш e-mail"
+    "title": "We're almost done!",
+    "description": "An invitation will be sent to this address",
+    "placeholder": "Your email"
   }
 }

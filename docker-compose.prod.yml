@@ -1,33 +1,6 @@
-version: '3.3'
+version: '3.4'
 
 services:
-  landing:
-    build:
-      context: ./landing
-      dockerfile: Dockerfile.prod
-    volumes:
-      - landing:/app/out
-    working_dir: /app
-    expose:
-      - 3000
-    restart: always
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.prod
-    volumes:
-      - landing:/app/out
-    environment: 
-      - PORT=3000
-      - DB_CONNECTION
-    working_dir: /app
-    expose:
-      - 3000
-    depends_on: 
-      - postgres
-    restart: always
-
   proxy:
     build:
       context: ./proxy
@@ -41,19 +14,46 @@ services:
       - backend
     restart: always
 
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile.prod
+    volumes:
+      - landing:/app/out
+    working_dir: /app
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - landing:/app/out
+    environment:
+      - PORT=4000
+      - DB_CONNECTION
+      - GOOGLE_CLIENT_ID=71152846727-1i6m8nnkch3morlj2o5fq0jfug55piu9.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=Fuph7bjuvg_8bVnc4QQu5QG3
+      - FACEBOOK_CLIENT_ID=2147135318727842
+      - FACEBOOK_CLIENT_SECRET=cd99bb88dee8c6a5a897adb5606fc949
+    working_dir: /app
+    ports:
+      - 4000:4000
+    depends_on:
+      - postgres
+    restart: always
+
   postgres:
     image: postgres:11.2-alpine
-    expose:
-      - 5432
+    ports:
+      - 5432:5432
     volumes:
-      - postgres-data:/var/lib/postgresql/data/pgdata
-    env_file: 
+      - pgdata:/var/lib/postgresql/data/pgdata
+    env_file:
       - .env.dev
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_INITDB_ARGS=-N
 
 volumes:
+  pgdata:
   landing:
-  postgres-data:
-

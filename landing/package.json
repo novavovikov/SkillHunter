@@ -21,7 +21,8 @@
   "homepage": "https://github.com/novavovikov/SkillHunter#readme",
   "dependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-gtm-module": "^2.0.4"
   },
   "devDependencies": {
     "@zeit/next-sass": "^1.0.1",

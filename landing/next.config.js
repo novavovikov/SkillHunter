@@ -6,5 +6,10 @@ module.exports = withImages(withSass({
   cssLoaderOptions: {
     importLoaders: 1,
     localIdentName: "[local]--[hash:base64:5]",
+  },
+  exportPathMap: async function() {
+    return {
+      '/google8528642f714e0119.html': { page: '/google8528642f714e0119' },
+    }
   }
 }))

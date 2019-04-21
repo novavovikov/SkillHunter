@@ -7,7 +7,7 @@ const Section = (
   },
 ) => (
   <div className={css.Section}>
-    <h6 className={css.Section__title}>{title}</h6>
+    {title && <h6 className={css.Section__title}>{title}</h6>}
     <div className={css.Section__text} dangerouslySetInnerHTML={{ __html: text }}/>
   </div>
 )

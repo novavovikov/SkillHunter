@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.4'
 
 services:
   landing:
@@ -9,10 +9,6 @@ services:
     command: sh -c "npm rebuild node-sass && npm run dev"
     ports:
       - 80:3000
-    networks:
-      default:
-        aliases:
-          - landing.sh.local
 
   backend:
     image: node:10.15.3-alpine
@@ -23,15 +19,12 @@ services:
         - 4000:4000
     command: sh -c "npm run start:dev"
     environment:
+      - PORT=4000
       - HOME=/app/.home
       - DB_CONNECTION=postgres://skillhunter:skillhunter@postgres:5432/skillhunter
     depends_on:
         - postgres
         - landing
-    networks:
-      default:
-        aliases:
-          - backend.sh.local
 
   postgres:
     image: postgres:11
@@ -45,7 +38,6 @@ services:
         - PGDATA=/var/lib/postgresql/data/pgdata
         - POSTGRES_INITDB_ARGS=-N
     user: $USER_ID:$GROUP_ID
-    networks:
-      default:
-        aliases:
-          - postgres.sh.local
+
+volumes:
+  landing:

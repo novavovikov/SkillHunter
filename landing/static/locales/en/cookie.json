@@ -1,23 +1,24 @@
 {
-  "title": "Cookie файлы",
-  "notification": {
-    "title": "Уведомление об использовании cookie файлов",
-    "text": "Наш сайт, как и большинство других, использует файлы cookie и другие похожие технологии (пиксельные тэги и т.п.), чтобы предоставлять услуги, наиболее отвечающие Вашим интересам и потребностям, а также собирать статистическую и маркетинговую информацию для анализа и совершенствования наших услуг и сайтов. \nПри использовании данного сайта, вы подтверждаете свое согласие на использование файлов cookie и других похожих технологий в соответствии с настоящим Уведомлением. \nЕсли Вы не согласны, чтобы мы использовали данный тип файлов, Вы должны соответствующим образом установить настройки Вашего браузера или не использовать наш сайт. \nОбращаем Ваше внимание на то, что при блокировании или удалении cookie файлов, мы не можем гарантировать корректную работу нашего сайта в Вашем браузере. \nCookie файлы, которые сохраняются через веб-сайт, не содержат сведений, на основании которых можно Вас идентифицировать."
-  },
-  "types": {
-    "title": "Cookie файлы бывают различных типов:",
-    "text": "Файл cookie представляет собой небольшой текстовый файл, сохраняемый на вашем компьютере, смартфоне или другом устройстве, которое Вы используете для посещения интернет-сайтов. \nНекоторые посещаемые Вами страницы могут также собирать информацию, используя пиксельные тэги и веб-маяки, представляющие собой электронные изображения, называемые одно-пиксельными (1×1) или пустыми GIF-изображениями.\n\nФайлы cookie могут размещаться на вашем устройстве нами («собственные» файлы cookie) или другими операторами (файлы cookie «третьих лиц»).\n\nМы используем два вида файлов cookie на сайте: «cookie сессии» и «постоянные cookie». Cookie сессии — это временные файлы, которые остаются на устройстве пока вы не покинете сайт. Постоянные cookie остаются на устройстве в течение длительного времени или пока вы вручную не удалите их (как долго cookie останется на вашем устройстве будет зависеть от продолжительности или «времени жизни» конкретного файла и настройки вашего браузера)."
-  },
-  "similar": {
-    "title": "Что такое файл cookie и другие похожие технологии",
-    "text": "<strong><i>Необходимые.</i></strong> Эти файлы нужны для обеспечения правильной работы сайта, использования его функций. Отключение использования таких файлов приведет к падению производительности сайта, невозможности использовать его компоненты и сервисы.\n<strong><i>Файлы cookie, относящиеся к производительности, эффективности и аналитике.</i></strong> Данные файлы позволяют анализировать взаимодействие посетителей с сайтом, оптимизировать содержание сайта, измерять эффективность рекламных кампаний, предоставляя информацию о количестве посетителей сайта, времени его использования, возникающих ошибках.\n<strong><i>Функциональные файлы cookie</i></strong> запоминают пользователей, которые уже заходили на наш сайт, их индивидуальные параметры (такие как язык и регион, например) и предпочтения, и помогают индивидуализировать содержание сайта.\n<strong><i>Рекламные файлы cookie определяют,</i></strong> какие сайты Вы посещали и как часто, какие ссылки Вы выбирали, что позволяет показывать Вам рекламные объявления, которые заинтересуют именно Вас.\n<strong><i>Электронная почта.</i></strong> Мы также можем использовать технологии, позволяющие отслеживать, открывали ли вы, прочитали или переадресовывали определенные сообщения, отправленные нами на вашу электронную почту. Это необходимо, чтобы сделать наши средства коммуникации более полезными для пользователя. Если вы не желаете, чтобы мы получали сведения об этом, вам нужно аннулировать подписку посредством ссылки «Отписаться» («Unsubscribe»), находящейся внизу соответствующей электронной рассылки.\n<strong><i>Кнопки доступа к социальным сетям.</i></strong> Они используются для того, чтобы пользователи могли поделиться ссылкой на страницу в социальных сетях или сделать электронную закладку. Данные кнопки являются ссылками на веб-сайты социальных сетей, принадлежащих третьим лицам, которые, в свою, очередь могут фиксировать информацию о вашей активности в интернете, в том числе на нашем сайте. Пожалуйста, ознакомьтесь с соответствующими условиями использования и политикой конфиденциальности таких сайтов для понимания того, как они используют ваши данные, и того, как можно отказаться от использования ими ваших данных или удалить их.\n <strong><i>Сторонние веб-сервисы.</i></strong> Иногда на данном сайте мы используем сторонние веб-сервисы. Например, для отображения тех или иных элементов (изображения, видео, презентации и т. п.), организации опросов и т. п. Как и в случае с кнопками доступа к социальным сетям, мы не можем препятствовать сбору этими сайтами или внешними доменами информации о том, как вы используете содержание сайта."
-  },
-  "control": {
-    "title": "Как управлять файлами cookie?",
-    "text": "Большинство интернет-браузеров изначально настроены на автоматический прием файлов cookie. В любое время Вы можете изменить настройки вашего браузера таким образом, чтобы блокировать файлы cookie или предупреждать вас о том, когда они будут отправляться к вам на устройство (обратитесь к руководству использования конкретного браузера). Отключение файлов cookie может повлиять на Вашу работу в интернете. Если вы используете несколько устройств и (или) браузеров для доступа в интернет, соответствующие настройки должны быть изменены в каждом из них.\n"
-  },
-  "conclusion": {
-    "title": "Заключительные положения",
-    "text": "По собственному усмотрению мы можем периодически изменять настоящее Уведомление. По возникающим вопросам с нами можно связаться, используя контакты, размещенные на нашем сайте."
-  }
+  "title": "Cookie Notice",
+  "blocks": [
+    {
+      "text": "To make this site work properly, we sometimes place small data files called cookies on your device. Most websites do this too.\n\n"
+    },
+    {
+      "title": "What are cookies?",
+      "text": "Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.\n\nCookies set by the website owner (in this case, Elama Global PTE. LTD.) are called \"first party cookies\". Cookies set by parties other than the website owner are called \"third party cookies\". Third party cookies enable third party features or functionality to be provided on or through the website (e.g. like advertising, interactive content, and analytics). The parties that set these third-party cookies can recognize your computer both when it visits the website in question and also when it visits certain other websites.\n\nUsing cookies is safe. It is impossible to extract personal information such as phone numbers or e-mail addresses by using cookies. Therefore, they are unsuitable for direct marketing techniques like telemarketing and email spam."
+    },
+    {
+      "title": "Why do we use cookies?",
+      "text": "We use first party and third - party cookies for several reasons. Some cookies are required for technical reasons in order for our website to operate, and we refer to these as \"essential\" or \"strictly necessary\" cookies.\n\nFor instance, we use Google reCAPTCHA solution for preventing spam requests on our public contact forms.\n\nThis solution is provided by Google LLC, so that we could perform our contract with you. Its expiry is not set and it is used for sessions only.\n\nOther cookies also enable us to track and target the interests of our users to enhance the experience on our website.\n\nThe cookie - related information is not used to identify you personally and the pattern data is fully under our control. These cookies are not used for any purpose other than those described here."
+    },
+    {
+      "title": "How to control cookies?",
+      "text": "You can control and/or delete cookies as you wish - for details, see http://www.aboutcookies.org. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed. If you do this, however, you may have to manually adjust some preferences every time you visit a site and some services and functionalities may not work."
+    },
+    {
+      "title": "Updates",
+      "text": "We may update this Cookie Notice from time to time in order to reflect, for example, changes to the cookies we use or for other operational, legal or regulatory reasons. Please therefore re-visit this Cookie Notice regularly to stay informed about our use of cookies and related technologies.\n\nThis Cookie Notice will always include information on the effective date of the most recent version."
+    }
+  ]
 }

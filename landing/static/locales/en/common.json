@@ -1,16 +1,16 @@
-{
+﻿{
   "title": {
-    "registration": "Регистрация на SkillHunter",
-    "thanks": "Спасибо!"
+    "registration": "Sign Up for SkillHunter",
+    "thanks": "Thank you!"
   },
-  "start": "Начать",
-  "agree": "Согласен",
-  "back": "Назад",
-  "done": "Готово",
-  "further": "Далее",
-  "search": "Найти",
-  "litres": "Литрес",
+  "start": "Start",
+  "agree": "Accept",
+  "back": "Back",
+  "done": "Submit",
+  "further": "Next",
+  "search": "Find",
+  "litres": "LitRes.ru",
   "google": "Google",
   "ozon": "Ozon",
-  "bukvoed": "Буквоед"
+  "bukvoed": "Bookvoed"
 }

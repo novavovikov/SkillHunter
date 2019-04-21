@@ -3,8 +3,9 @@ import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
 import { UserModule } from '../user/user.module'
 import { UserService } from '../user/user.service'
-import { GoogleStrategy } from './strategies/google.strategy'
-import { JWTStrategy } from './strategies/jwt.strategy'
+import { GoogleStrategy } from './passport/google.strategy'
+import { JWTStrategy } from './passport/jwt.strategy'
+import { FacebookStrategy } from './passport/facebook.strategy'
 
 @Module({
   controllers: [AuthController],
@@ -15,7 +16,8 @@ import { JWTStrategy } from './strategies/jwt.strategy'
     UserService,
     AuthService,
     JWTStrategy,
-    GoogleStrategy
+    GoogleStrategy,
+    FacebookStrategy
   ]
 })
 export class AuthModule {}

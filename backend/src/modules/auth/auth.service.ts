@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common'
 import { UserService } from '../user/user.service'
 import { sign } from 'jsonwebtoken'
-import { JWT_EXPIRY_DATE, JWT_SECRET_KEY } from './constants/jwt'
+import { JWT_STRATEGY } from './constants/auth'
 
 @Injectable()
 export class AuthService {
   constructor (private userService: UserService) {}
 
   async signPayload (payload: any) {
-    return sign(payload, JWT_SECRET_KEY, {
-      expiresIn: JWT_EXPIRY_DATE,
+    return sign(payload, JWT_STRATEGY.secretOrKey, {
+      expiresIn: JWT_STRATEGY.expiresIn,
     })
   }
 

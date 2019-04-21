@@ -16,6 +16,14 @@ export class UserService {
     return await this.userRepository.find()
   }
 
+  async findById (id: number) {
+    return await this.userRepository.findOne({ id })
+  }
+
+  async findByEmail (userDto: UserDto) {
+    return await this.userRepository.findOne(userDto)
+  }
+
   async create (data: UserDto) {
     const user = this.userRepository.create(data)
     await this.userRepository.save(user)
@@ -31,14 +39,31 @@ export class UserService {
     await this.userRepository.update({ id }, data)
     return await this.userRepository.findOne({ id })
   }
-
   async delete (id: number) {
     await this.userRepository.delete({ id })
     return { deleted: true }
   }
 
-  async findByEmail (userDto: UserDto) {
-    return await this.userRepository.findOne(userDto)
+  async findByAuthData (userData: UserDto) {
+    const user = await this.userRepository.findOne({
+      email: userData.email
+    })
+
+    if (!user) {
+      return null
+    }
+
+    if (userData.facebookId && !user.facebookId) {
+      user.facebookId = userData.facebookId
+      this.userRepository.update({ id: user.id }, user)
+    }
+
+    if (userData.googleId && !user.googleId) {
+      user.googleId = userData.googleId
+      this.userRepository.update({ id: user.id }, user)
+    }
+
+    return user
   }
 
   async findByPayload (payload: any) {
