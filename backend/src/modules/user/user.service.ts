@@ -37,6 +37,10 @@ export class UserService {
     return { deleted: true }
   }
 
+  async findById (id: number) {
+    return await this.userRepository.findOne({ id })
+  }
+
   async findByEmail (userDto: UserDto) {
     return await this.userRepository.findOne(userDto)
   }
