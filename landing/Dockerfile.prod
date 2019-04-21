@@ -13,3 +13,5 @@ COPY components/ /app/components/
 COPY constants/ /app/constants/
 
 RUN npm ci
+RUN npm run build
+RUN npm run export

@@ -7,6 +7,7 @@ import { UserModule } from '../user/user.module'
 import { SubscribeModule } from '../subscribe/subscribe.module'
 
 const connectionUrl: string = process.env.DB_CONNECTION
+console.log(connectionUrl)
 
 @Module({
   imports: [
