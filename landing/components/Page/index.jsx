@@ -8,6 +8,7 @@ import Content from '../Content'
 import Promo from '../Promo'
 import Recommendation from '../Recommendation'
 import Cookie from '../Cookie'
+import {} from '@next/'
 
 export default (
   {
@@ -19,21 +20,33 @@ export default (
     header,
   },
 ) => (
-  <div className={css.Page}>
-    <Head {...head}/>
-    <Header {...header}/>
+  <>
+    {process.env.NODE_EVN === 'production' && (
+      <noscript>
+        <iframe 
+          src="https://www.googletagmanager.com/ns.html?id=GTM-K4FPF86"
+          height="0" 
+          width="0" 
+          style="display:none;visibility:hidden">
+        </iframe>
+      </noscript>
+    )}
+    <div className={css.Page}>
+      <Head {...head}/>
+      <Header {...header}/>
 
-    <Main>
-      {banner && <Banner/>}
+      <Main>
+        {banner && <Banner/>}
 
-      <Content>
-        {children}
-      </Content>
+        <Content>
+          {children}
+        </Content>
 
-      {promo && <Promo/>}
-      {recommendation && <Recommendation/>}
-    </Main>
-    <Footer/>
-    <Cookie/>
-  </div>
+        {promo && <Promo/>}
+        {recommendation && <Recommendation/>}
+      </Main>
+      <Footer/>
+      <Cookie/>
+    </div>
+  </>
 )
