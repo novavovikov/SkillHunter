@@ -37,6 +37,7 @@ services:
       - 80:80
     depends_on:
       - landing
+      - backend
     restart_policy:
       condition: on-failure
 
