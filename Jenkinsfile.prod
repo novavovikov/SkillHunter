@@ -5,8 +5,6 @@ pipeline {
     stage('Build') {
       steps {
         sh 'docker-compose -f docker-compose.prod.yml build --no-cache'
-        sh 'docker-compose -f docker-compose.prod.yml run landing npm run build'
-        sh 'docker-compose -f docker-compose.prod.yml run landing npm run export'
       }
     }
 
