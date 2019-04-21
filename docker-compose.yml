@@ -34,7 +34,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./landing:/app
-      - landing-static:/app/static
     working_dir: /app
     expose:
       - 3000
@@ -46,8 +45,6 @@ services:
     build:
       context: ./proxy
       dockerfile: Dockerfile
-    volumes:
-      - landing-static:/var/www/landing/static
     ports:
       - 80:80
     depends_on:
@@ -55,6 +52,5 @@ services:
       - backend
 
 volumes:
-  landing-static:
   postgres-data:
 
