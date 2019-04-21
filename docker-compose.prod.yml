@@ -24,6 +24,8 @@ services:
     working_dir: /app
     expose:
       - 3000
+    depends_on: 
+      - postgres
     restart: always
 
   proxy:
@@ -39,6 +41,19 @@ services:
       - backend
     restart: always
 
+  postgres:
+    image: postgres:11.2-alpine
+    expose:
+      - 5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/pgdata
+    env_file: 
+      - .env.dev
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_INITDB_ARGS=-N
+
 volumes:
   landing:
+  postgres-data:
 
