@@ -62,11 +62,22 @@
     }
   }
 
-  &__error {
-    color: red;
+  &__notification {
     font-size: 13px;
     margin-top: 5px;
     animation: ShowError 1s;
+
+    &_error {
+      color: red;
+    }
+
+    &_warning {
+      color: var(--orange);
+    }
+
+    &_success {
+      color: var(--green);
+    }
   }
 }
 

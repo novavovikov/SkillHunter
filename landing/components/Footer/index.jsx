@@ -1,14 +1,14 @@
+import { withNamespaces } from '../../i18n'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
   AGREEMENT_ROUTE,
   COOKIE_ROUTE,
-  PRIVACY_ROUTE,
 } from '../../constants/routes'
 
 import css from './Footer.scss'
 
-export default () => {
+const Footer = ({ t }) => {
   const [visibility, setVisibility] = useState(false)
 
   const checkWindowPosition = () => {
@@ -42,17 +42,19 @@ export default () => {
         <div className={css.Footer__links}>
           <Link href={COOKIE_ROUTE}>
             <a className={css.Footer__link}>
-              Cookie-файлы
+              {t('cookie')}
             </a>
           </Link>
-          <Link href={PRIVACY_ROUTE}>
-            <a className={css.Footer__link}>
-              Политика конфеденциальности
-            </a>
-          </Link>
+          <a
+            href="/static/files/privacy_policy.pdf"
+            className={css.Footer__link}
+            target="_blank"
+          >
+            {t('privacy')}
+          </a>
           <Link href={AGREEMENT_ROUTE}>
             <a className={css.Footer__link}>
-              Согласие на обработку персональных данных
+              {t('agreement')}
             </a>
           </Link>
         </div>
@@ -62,10 +64,12 @@ export default () => {
             className={css.Footer__scrolltop}
             onClick={handleScrollTop}
           >
-            Вверх
+            {t('up')}
           </button>
         )}
       </div>
     </footer>
   )
 }
+
+export default withNamespaces('footer')(Footer)

@@ -89,8 +89,56 @@
     }
   }
 
+  h4, .h4 {
+    color: rgb(66, 66, 66);
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 0 calc(36/28)+em;
+
+    @media(--lg) {
+      font-size: 24px;
+    }
+
+    @media(--sm) {
+      font-size: 18px;
+    }
+  }
+
+  h5, .h5 {
+    color: rgb(66, 66, 66);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 calc(25/24)+em;
+
+    @media(--lg) {
+      font-size: 18px;
+    }
+
+    @media(--sm) {
+      font-size: 16px;
+    }
+  }
+
+  h6, .h6 {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 0 calc(25/20)+em;
+
+    @media(--lg) {
+      font-size: 18px;
+    }
+
+    @media(--sm) {
+      font-size: 16px;
+    }
+  }
+
   .typed-cursor {
     color: var(--blue);
+  }
+
+  strong, b {
+    font-weight: 500;
   }
 
   .title-label {

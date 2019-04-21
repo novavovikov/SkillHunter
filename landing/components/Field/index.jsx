@@ -8,6 +8,7 @@ export default (
     type,
     className,
     error,
+    warning,
     ...otherProps
   }) => (
   <div
@@ -33,9 +34,12 @@ export default (
       [css['Field__indicator_error']]: error
     })}/>
 
-    {error && (
-      <div className={css.Field__error}>
-        {error}
+    {(error || warning) && (
+      <div className={cn(css.Field__notification, {
+        [css['Field__notification_error']]: error,
+        [css['Field__notification_warning']]: warning,
+      })}>
+        {error || warning}
       </div>
     )}
   </div>

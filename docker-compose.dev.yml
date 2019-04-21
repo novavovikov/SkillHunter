@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  landing:
+    image: node:10.15.3-alpine
+    working_dir: /app
+    volumes:
+      - ./landing:/app
+    command: sh -c "npm rebuild node-sass && npm run dev"
+    ports:
+      - 80:3000
+    networks:
+      default:
+        aliases:
+          - landing.sh.local
+
+  backend:
+    image: node:10.15.3-alpine
+    working_dir: /app
+    volumes:
+        - ./backend:/app
+    ports:
+        - 4000:4000
+    command: sh -c "npm run start"
+    depends_on:
+        - postgres
+        - landing
+    networks:
+      default:
+        aliases:
+          - backend.sh.local
+
+  postgres:
+    image: postgres:11
+    ports:
+        - 5432:5432
+    volumes:
+        - ./backend/pgdata:/var/lib/postgresql/data/pgdata
+    environment:
+        - POSTGRES_PASSWORD=skillhunter
+        - POSTGRES_USER=skillhunter
+        - PGDATA=/var/lib/postgresql/data/pgdata
+        - POSTGRES_INITDB_ARGS=-N
+    user: $USER_ID:$GROUP_ID
+    networks:
+      default:
+        aliases:
+          - postgres.sh.local
