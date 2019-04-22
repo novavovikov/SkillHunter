@@ -3,8 +3,6 @@ import { AuthGuard } from '@nestjs/passport'
 
 @Controller('auth')
 export class AuthController {
-  constructor () {}
-
   @Get()
   @UseGuards(AuthGuard('jwt'))
   testAuth () {

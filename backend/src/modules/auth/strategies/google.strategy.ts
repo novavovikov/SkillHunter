@@ -17,6 +17,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       callbackURL: GOOGLE_CALLBACK_URL,
       passReqToCallback: true,
       scope: GOOGLE_SCOPES,
+      failureRedirect: '/login'
     })
   }
 
