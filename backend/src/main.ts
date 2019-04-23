@@ -11,8 +11,11 @@ const port = process.env.PORT
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule)
-  app.use(cookieParser())
   app.setGlobalPrefix('api')
+  app.use(cookieParser({
+    secure: true,
+    httpOnly: true
+  }))
 
   if (env === 'dev') {
     const options = new DocumentBuilder().setTitle('Skillhunter').

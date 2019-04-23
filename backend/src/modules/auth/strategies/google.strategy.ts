@@ -17,7 +17,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       callbackURL: GOOGLE_CALLBACK_URL,
       passReqToCallback: true,
       scope: GOOGLE_SCOPES,
-      failureRedirect: '/login'
     })
   }
 
@@ -26,6 +25,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     accessToken: string,
     refreshToken: string,
     profile: any,
+    done,
   ) {
     const { email, locale, picture } = profile._json
     let user = await this.userService.findByEmail({ email })
@@ -40,6 +40,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
 
     const token = await this.authService.signPayload({ email: user.email })
 
-    return { ...user, token }
+    done(null, { ...user, token })
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common'
+import { Controller, Get, Next, Req, Res, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 
 @Controller('auth')
@@ -17,7 +17,8 @@ export class AuthController {
 
   @Get('google/signIn')
   @UseGuards(AuthGuard('google'))
-  async googleSignIn (@Req() req): Promise<any> {
-    return req.user
+  async googleSignIn (@Req() req, @Res() res, @Next() next): Promise<any> {
+    res.cookie('authToken', req.user.token)
+    res.redirect('/api')
   }
 }
