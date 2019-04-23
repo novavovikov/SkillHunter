@@ -19,6 +19,6 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   async googleSignIn (@Req() req, @Res() res, @Next() next): Promise<any> {
     res.cookie('authToken', req.user.token)
-    res.redirect('/api')
+    res.redirect('/login')
   }
 }
