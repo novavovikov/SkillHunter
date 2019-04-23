@@ -1,7 +1,7 @@
 import { Injectable, Req } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { Strategy } from 'passport-google-oauth20'
-import { GOOGLE_CALLBACK_URL, GOOGLE_SCOPES } from '../constants/google'
+import { GOOGLE_STRATEGY } from '../constants/auth'
 import { UserService } from '../../user/user.service'
 import { AuthService } from '../auth.service'
 
@@ -14,9 +14,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: GOOGLE_CALLBACK_URL,
-      passReqToCallback: true,
-      scope: GOOGLE_SCOPES,
+      ...GOOGLE_STRATEGY
     })
   }
 
@@ -28,13 +26,18 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     done,
   ) {
     const { email, locale, picture } = profile._json
-    let user = await this.userService.findByEmail({ email })
+    let user = await this.userService.findByAuthData({
+      googleId: profile.id,
+      email
+    })
 
     if (!user && email) {
       user = await this.userService.create({
         email,
         locale,
         picture,
+        name: profile.displayName,
+        googleId: profile.id
       })
     }
 

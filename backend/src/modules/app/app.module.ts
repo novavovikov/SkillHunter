@@ -8,14 +8,14 @@ import { AuthModule } from '../auth/auth.module'
 import { SubscribeModule } from '../subscribe/subscribe.module'
 
 const connectionUrl: string = process.env.DB_CONNECTION
-console.log(connectionUrl)
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: connectionUrl,
-      entities: [`${__dirname}/../**/*.entity{.ts,.js}`]
+      entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
+      synchronize: true,
     }),
     UserModule,
     AuthModule,

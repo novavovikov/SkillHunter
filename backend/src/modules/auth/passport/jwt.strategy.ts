@@ -5,7 +5,7 @@ import {
   Strategy,
   VerifiedCallback,
 } from 'passport-jwt'
-import { JWT_SECRET_KEY } from '../constants/jwt'
+import { JWT_STRATEGY } from '../constants/auth'
 import { AuthService } from '../auth.service'
 
 @Injectable()
@@ -13,7 +13,7 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
   constructor (private authService: AuthService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: JWT_SECRET_KEY,
+      secretOrKey: JWT_STRATEGY.secretOrKey,
     })
   }
 
