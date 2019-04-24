@@ -2,6 +2,13 @@ pipeline {
   agent any
 
    stages {
+    stage('clear') {
+      steps {
+        sh 'build/clear.sh'
+      }
+    }
+
+   stages {
     stage('Build') {
       steps {
         sh 'docker-compose -f docker-compose.prod.yml build --no-cache'
