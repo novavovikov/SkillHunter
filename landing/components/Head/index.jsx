@@ -5,11 +5,9 @@ import '../../styles/global.scss'
 
 class HeadLayout extends React.Component {
   componentDidMount () {
-    const tagManagerArgs = {
-      gtmId: 'GTM-K4FPF86',
-    }
-
-    TagManager.initialize(tagManagerArgs)
+    TagManager.initialize({
+        gtmId: 'GTM-K4FPF86',
+    })
   }
 
   render () {
