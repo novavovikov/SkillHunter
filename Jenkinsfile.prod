@@ -7,6 +7,7 @@ pipeline {
         sh 'build/clear.sh'
       }
     }
+   }
 
    stages {
     stage('Build') {
