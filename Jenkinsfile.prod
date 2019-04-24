@@ -7,9 +7,7 @@ pipeline {
         sh 'build/clear.sh'
       }
     }
-   }
 
-   stages {
     stage('Build') {
       steps {
         sh 'docker-compose -f docker-compose.prod.yml build --no-cache'
