@@ -21,10 +21,7 @@ services:
         - ./backend:/app
     ports:
         - 4000:4000
-    command: sh -c "npm run start:dev"
-    environment:
-      - HOME=/app/.home
-      - DB_CONNECTION=postgres://skillhunter:skillhunter@postgres:5432/skillhunter
+    command: sh -c "npm run start"
     depends_on:
         - postgres
         - landing
