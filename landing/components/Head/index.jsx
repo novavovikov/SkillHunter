@@ -1,15 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
-// import TagManager from 'react-gtm-module'
 import '../../styles/global.scss'
 
 class HeadLayout extends React.Component {
-  componentDidMount () {
-    // TagManager.initialize({
-    //     gtmId: 'GTM-K4FPF86',
-    // })
-  }
-
   render () {
     const {
       title,
@@ -156,7 +149,8 @@ class HeadLayout extends React.Component {
         />
         <link
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600;subset=cyrillic-ext"
-          rel="stylesheet"/>
+          rel="stylesheet"
+        />
       </Head>
     )
   }
