@@ -2,7 +2,7 @@ pipeline {
   agent any
 
    stages {
-    stage('clear') {
+    stage('Network') {
       steps {
         sh 'docker network create skillhunter || true'
       }
