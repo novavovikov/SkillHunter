@@ -4,7 +4,7 @@ pipeline {
    stages {
     stage('clear') {
       steps {
-        sh 'build/clear.sh'
+        sh 'docker network create skillhunter || true'
       }
     }
 
