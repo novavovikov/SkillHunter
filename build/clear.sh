@@ -9,3 +9,7 @@ then
     echo "You must be in docker group or root"
     exit 1
 fi
+
+docker rm $(docker ps -a -f status=exited -q)
+docker rmi $(docker images -a -q)
+docker volume prune
