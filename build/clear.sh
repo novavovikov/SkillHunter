@@ -12,4 +12,5 @@ fi
 
 docker rm -f $(docker ps -a -q)
 docker rmi -f $(docker images -a -q)
-docker volume prune
+docker volume rm $(docker volume ls -q)
+
