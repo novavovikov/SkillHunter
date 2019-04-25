@@ -1,27 +1,19 @@
-import React, { Component } from 'react'
-import {Platform, StyleSheet, Text, View} from 'react-native'
+import React from 'react'
+import NativeTachyons from 'react-native-style-tachyons'
+import { StyleSheet, Text, View } from 'react-native'
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Skillhunter</Text>
-      </View>
-    );
-  }
-}
+NativeTachyons.build({
+  rem: 16,
+  fontRem: 20,
+  clsPropName: 'cls'
+}, StyleSheet)
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#515151',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: '#f2f2f2'
-  }
-})
+const App = () => (
+  <View cls="flx_i flx_row jcc aic ma3 bb max_h3 mh0">
+    <Text cls="f4">
+      Skillhunter
+    </Text>
+  </View>
+)
+
+export default NativeTachyons.wrap(App)
