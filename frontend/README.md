@@ -4,9 +4,8 @@
 yarn
 npm i -g react-native-cli
 
-Запуск web-версии:
-yarn workspace web start
+Запуск для разработки web-версии:
+yarn dev:web
 
-Запуск мобильной версии:
-react-native start
-yarn workspace mobile start
+Запуск разработки мобильной версии:
+yarn dev:mobile
