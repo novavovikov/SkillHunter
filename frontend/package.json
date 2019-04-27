@@ -2,9 +2,19 @@
   "name": "frontend",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "clean": "yarn workspaces run clean",
+    "dev:mobile": "yarn workspace mobile compile && concurrently --kill-others \"yarn workspace mobile compile -w\" \"yarn workspace mobile start\"",
+    "dev:web": "yarn workspace web compile && concurrently --kill-others \"yarn workspace web compile -w\" \"yarn workspace web start\""
+  },
   "workspaces": {
     "packages": [
       "packages/*"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "shx": "^0.3.2",
+    "typescript": "^3.4.5"
   }
 }

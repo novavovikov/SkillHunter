@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "clean": "cd .",
+    "compile": "tsc -b",
     "start": "node ../../node_modules/react-native/local-cli/cli.js start --projectRoot=../../",
     "test": "jest"
   },
