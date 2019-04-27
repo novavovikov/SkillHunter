@@ -16,6 +16,10 @@ class MyDocument extends Document {
             content="srVjcIPunpWU12xJNU6TItAeluJRAW2aADSdUnsfIuc"
           />
           <meta
+            name="yandex-verification"
+            content="5d6a7ae125026c52"
+          />
+          <meta
             httpEquiv="x-ua-compatible"
             content="ie=edge"
           />

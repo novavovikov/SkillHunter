@@ -10,6 +10,8 @@ COPY styles/ /app/styles/
 COPY components/ /app/components/
 COPY constants/ /app/constants/
 
+RUN chmod -R 755 /app/*
+
 RUN npm ci
 RUN npm run build
 RUN npm run export
