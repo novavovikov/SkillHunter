@@ -1,15 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
-import TagManager from 'react-gtm-module'
 import '../../styles/global.scss'
 
 class HeadLayout extends React.Component {
-  componentDidMount () {
-    TagManager.initialize({
-        gtmId: 'GTM-K4FPF86',
-    })
-  }
-
   render () {
     const {
       title,
