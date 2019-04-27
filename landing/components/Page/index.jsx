@@ -17,6 +17,7 @@ export default (
     recommendation,
     head,
     header,
+    lng
   },
 ) => (
   <>
@@ -32,7 +33,11 @@ export default (
         </Content>
 
         {promo && <Promo/>}
-        {recommendation && <Recommendation/>}
+        {
+          lng === 'ru' &&
+          recommendation &&
+          <Recommendation/>
+        }
       </Main>
       <Footer/>
       <Cookie/>
