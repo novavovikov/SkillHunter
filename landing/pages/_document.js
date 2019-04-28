@@ -68,7 +68,7 @@ class MyDocument extends Document {
           />
           <meta
             property="og:images"
-            content="https://skillhunter.io/static/images/logo-512.png"
+            content="https://skillhunter.io/static/images/undraw_investing_7u7.png"
           />
           <meta
             property="og:images:width"
