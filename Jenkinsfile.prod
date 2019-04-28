@@ -2,27 +2,21 @@ pipeline {
   agent any
 
    stages {
-    stage('Clean') {
-      steps {
-        sh './build/clean.sh'
-      }
-    }
-
     stage('Build') {
       steps {
         sh 'docker-compose -f docker-compose.prod.yml build --no-cache'
       }
     }
 
-    stage('Start') {
+    stage('Landing') {
       steps {
-        sh 'docker-compose -f docker-compose.prod.yml up -d --force-recreate'
+        sh 'docker-compose -f docker-compose.prod.yml run landing sh -c "npm run build && npm run export"'
       }
     }
 
-    stage('Permissions') {
+    stage('Start') {
       steps {
-        sh './build/permissions.sh'
+        sh 'docker-compose -f docker-compose.prod.yml up -d --force-recreate'
       }
     }
   }

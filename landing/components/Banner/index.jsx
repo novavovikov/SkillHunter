@@ -46,7 +46,7 @@ const Banner = ({ t }) => {
                   theme="lg"
                   className={css.Banner__btn}
                 >
-                  {t('common:start')}
+                  Test text
                 </Button>
               </a>
             </Link>
