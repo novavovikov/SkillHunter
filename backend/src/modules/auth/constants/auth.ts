@@ -12,6 +12,6 @@ export const GOOGLE_STRATEGY = {
 }
 
 export const FACEBOOK_STRATEGY = {
-  callbackURL: '/api/auth/facebook/callback',
+  callbackURL: 'https://skillhunter.io/api/auth/facebook',
   profileFields: ['id', 'displayName', 'photos', 'email'],
 }
