@@ -15,8 +15,7 @@ class Cookie extends React.Component {
     const { i18n, lng } = this.props
 
     try {
-      const content = i18n.store.data[lng].cookie.blocks
-      return i18n.store.data[lng].cookie.blocks
+      return i18n.store.data[lng].cookie.blocks || []
     } catch (e) {
       return []
     }
