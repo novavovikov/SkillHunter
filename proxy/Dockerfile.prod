@@ -1,5 +1,5 @@
 FROM nginx:1.15.10-alpine
 
-COPY certificate.crt /etc/nginx/certificate.crt
+COPY certificate_bundled.crt /etc/nginx/certificate_bundled.crt
 COPY privatekey.key /etc/nginx/privatekey.key
 COPY nginx.prod.conf /etc/nginx/nginx.conf
