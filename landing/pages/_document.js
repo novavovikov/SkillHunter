@@ -64,11 +64,11 @@ class MyDocument extends Document {
           />
           <meta
             property="og:url"
-            content="//skillhunter.io"
+            content="https://skillhunter.io"
           />
           <meta
             property="og:images"
-            content="//skillhunter.io//static/images/undraw_investing_7u7.png"
+            content="https://skillhunter.io/static/images/logo-512.png"
           />
           <meta
             property="og:images:width"
@@ -114,7 +114,7 @@ class MyDocument extends Document {
           />
           <meta
             name="msapplication-starturl"
-            content="//skillhunter.io/?pinned=true"/>
+            content="https://skillhunter.io/?pinned=true"/>
           <meta
             name="msapplication-tap-highlight"
             content="no"
