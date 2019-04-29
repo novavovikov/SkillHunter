@@ -7,6 +7,11 @@ const App: FunctionComponent = () => {
   return (
     <View style={[s.ba, s.jcfs, s.pa2]}>
       <Text>Skillhunter</Text>
+      <Text>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat natus illo ipsum. Enim
+        ipsam vel ratione qui aliquid veritatis perspiciatis nisi, deserunt voluptatibus minus neque
+        necessitatibus, minima rem cum sint.
+      </Text>
     </View>
   )
 }
