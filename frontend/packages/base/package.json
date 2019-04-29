@@ -5,7 +5,9 @@
   "main": "dist",
   "scripts": {
     "compile": "tsc -b",
-    "clean": "shx rm -rf dist/*"
+    "clean": "shx rm -rf dist/*",
+    "format": "prettier --write '{.,src/**}/*.{js,jsx,ts,tsx}'",
+    "lint": "tslint -p ."
   },
   "dependencies": {
     "react-native-style-tachyons": "^4.0.0"
@@ -13,6 +15,11 @@
   "devDependencies": {
     "@types/react": "^16.8.14",
     "@types/react-native": "^0.57.50",
+    "prettier": "^1.17.0",
+    "tslint": "^5.16.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
     "typescript": "^3.4.5"
   }
 }
