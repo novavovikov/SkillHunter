@@ -21,11 +21,13 @@ export default (
       ? (
         <textarea
           className={cn(css.Field__input, css.Field__input_textarea)}
+          autoFocus
           {...otherProps}
         />
       ) : (
         <input
           className={css.Field__input}
+          autoFocus
           type={type}
           {...otherProps}
         />

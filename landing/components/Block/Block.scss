@@ -29,6 +29,7 @@
 
   &__content {
     width: 450px;
+    white-space: pre-line;
 
     @media(--xl) {
       width: 100%;

@@ -4,3 +4,5 @@
 .next/
 out/
 node_modules/
+dist/
+out/

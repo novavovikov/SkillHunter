@@ -21,5 +21,5 @@ export class SubscribeEntity {
   @Column({
     nullable: true
   })
-  specializations: string
+  expectations: string
 }

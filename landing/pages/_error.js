@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { withNamespaces } from '../i18n'
+import Page from '../components/Page'
+import Error from '../components/Error'
 
-class Error extends React.Component {
+class ErrorPage extends React.Component {
   static defaultProps = {
-    statusCode: null,
+    statusCode: 404,
   }
 
   static propTypes = {
@@ -21,21 +23,20 @@ class Error extends React.Component {
       ({ statusCode } = err)
     }
     return {
-      namespacesRequired: ['common'],
+      namespacesRequired: ['error'],
       statusCode,
     }
   }
 
   render() {
     const { statusCode, t } = this.props
+
     return (
-      <p>
-        {statusCode
-          ? t('error-with-status', { statusCode })
-          : t('error-without-status')}
-      </p>
+      <Page>
+        <Error statusCode={statusCode}/>
+      </Page>
     )
   }
 }
 
-export default withNamespaces('common')(Error)
+export default withNamespaces('common')(ErrorPage)

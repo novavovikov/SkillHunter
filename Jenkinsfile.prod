@@ -5,13 +5,18 @@ pipeline {
     stage('Build') {
       steps {
         sh 'docker-compose -f docker-compose.prod.yml build --no-cache'
-        sh 'docker-compose -f docker-compose.prod.yml stop'
+      }
+    }
+
+    stage('Landing') {
+      steps {
+        sh 'docker-compose -f docker-compose.prod.yml run landing sh -c "npm run build && npm run export"'
       }
     }
 
     stage('Start') {
       steps {
-        sh 'docker-compose -f docker-compose.prod.yml up -d'
+        sh 'docker-compose -f docker-compose.prod.yml up -d --force-recreate'
       }
     }
   }

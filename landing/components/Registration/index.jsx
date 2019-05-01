@@ -150,7 +150,6 @@ const Registration = ({ t }) => {
             text={t('expectations.description')}
             field={{
               ...expectations,
-              type: 'textarea',
               placeholder: t('expectations.placeholder'),
               onChange: (e) => setExpectations({
                 value: e.target.value,

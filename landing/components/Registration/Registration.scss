@@ -38,10 +38,12 @@
   &__body {
     padding: 35px 45px 55px;
     min-height: 295px;
+    white-space: pre-line;
 
     @media(--sm) {
       padding: 20px 20px 0;
       min-height: 0;
+      white-space: normal;
     }
   }
 

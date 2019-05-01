@@ -3,7 +3,7 @@ SkillHunter project
 
 ## Запуск проекта
 ```sh
-./build/run.sh
+./build/run-dev.sh
 ```
 
 ## backend 

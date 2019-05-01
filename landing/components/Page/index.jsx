@@ -17,23 +17,30 @@ export default (
     recommendation,
     head,
     header,
+    lng
   },
 ) => (
-  <div className={css.Page}>
-    <Head {...head}/>
-    <Header {...header}/>
+  <>
+    <div className={css.Page}>
+      <Head {...head}/>
+      <Header {...header}/>
 
-    <Main>
-      {banner && <Banner/>}
+      <Main>
+        {banner && <Banner/>}
 
-      <Content>
-        {children}
-      </Content>
+        <Content>
+          {children}
+        </Content>
 
-      {promo && <Promo/>}
-      {recommendation && <Recommendation/>}
-    </Main>
-    <Footer/>
-    <Cookie/>
-  </div>
+        {promo && <Promo/>}
+        {
+          lng === 'ru' &&
+          recommendation &&
+          <Recommendation/>
+        }
+      </Main>
+      <Footer/>
+      <Cookie/>
+    </div>
+  </>
 )

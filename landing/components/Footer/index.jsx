@@ -8,7 +8,7 @@ import {
 
 import css from './Footer.scss'
 
-const Footer = ({ t }) => {
+const Footer = ({ t, lng }) => {
   const [visibility, setVisibility] = useState(false)
 
   const checkWindowPosition = () => {
@@ -46,7 +46,7 @@ const Footer = ({ t }) => {
             </a>
           </Link>
           <a
-            href="/static/files/privacy_policy.pdf"
+            href={`/static/files/privacy_policy_${lng}.pdf`}
             className={css.Footer__link}
             target="_blank"
           >
