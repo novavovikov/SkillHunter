@@ -7,11 +7,13 @@ services:
       dockerfile: Dockerfile.prod
     volumes:
       - landing:/var/www/landing
+      - web_app:/var/www/web_app
     ports:
       - 80:80
       - 443:443
     depends_on:
       - landing
+      - web_app
       - backend
     restart: always
 
@@ -21,6 +23,14 @@ services:
       dockerfile: Dockerfile.prod
     volumes:
       - landing:/app/out
+    working_dir: /app
+
+  web_app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - web_app:/app/packages/web/dist
     working_dir: /app
 
   backend:
@@ -58,3 +68,4 @@ services:
 volumes:
   pgdata:
   landing:
+  web_app:
