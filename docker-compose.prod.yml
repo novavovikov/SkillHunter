@@ -9,8 +9,10 @@ services:
       - landing:/var/www/landing
       - web_app:/var/www/web_app
     ports:
-      - 80:80
-      - 443:443
+      - 80:80/tcp
+      - 443:443/tcp
+    environment:
+      - CERTBOT_EMAIL=help@skillhunter.io
     depends_on:
       - landing
       - web_app
