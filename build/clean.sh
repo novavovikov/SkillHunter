@@ -10,6 +10,7 @@ then
     exit 1
 fi
 
-docker rm $(docker ps -a -q)
-docker rmi $(docker images -a -q)
+docker container prune
+docker image prune
+docker volume prune
 
