@@ -1,0 +1,12 @@
+FROM node:8-alpine
+
+WORKDIR /app
+
+RUN npm install -g yarn
+
+COPY ./ /app/
+
+RUN chmod -R 755 /app/*
+
+RUN yarn install
+RUN yarn workspace web build
