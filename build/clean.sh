@@ -10,7 +10,6 @@ then
     exit 1
 fi
 
-docker container prune
-docker image prune
-docker volume prune
+docker system prune --all --force --volumes
+
 
