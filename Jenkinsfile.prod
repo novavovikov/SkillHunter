@@ -20,12 +20,6 @@ pipeline {
       }
     }
 
-    stage('Web app') {
-      steps {
-        sh 'docker-compose -f docker-compose.prod.yml run web_app sh -c "yarn workspaces run clean && yarn workspace web build"'
-      }
-    }
-
     stage('Start') {
       steps {
         sh 'docker-compose -f docker-compose.prod.yml up -d --force-recreate'
