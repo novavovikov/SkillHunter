@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import { applyMiddleware, compose, createStore, Store } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { createLogger } from 'redux-logger'
@@ -23,7 +23,7 @@ export interface Props {
   children: any
 }
 
-const ReduxStore: FunctionComponent<Props> = ({ children }) => {
+const ReduxStore: FC<Props> = ({ children }) => {
   return <Provider store={store}>{children}</Provider>
 }
 

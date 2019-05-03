@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import { ReduxStore } from './redux'
-import Main from './containers/Main'
+import Login from './containers/Login'
 
-const App: FunctionComponent = () => (
+const App: FC = () => (
   <ReduxStore>
-    <Main />
+    <Login/>
   </ReduxStore>
 )
 

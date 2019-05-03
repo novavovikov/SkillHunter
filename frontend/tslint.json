@@ -1,6 +1,11 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-airbnb", "tslint-config-prettier"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-airbnb",
+    "tslint-config-prettier"
+  ],
   "jsRules": {},
   "rules": {
     "curly": false,
@@ -11,7 +16,13 @@
     "jsx-no-lambda": false,
     "jsx-no-multiline-js": false,
     "member-access": false,
-    "no-console": [true, "dir", "log", "trace", "warn"],
+    "no-console": [
+      true,
+      "dir",
+      "log",
+      "trace",
+      "warn"
+    ],
     "no-empty-interface": false,
     "no-namespace": false,
     "no-reference": false,
@@ -21,7 +32,10 @@
     "ordered-imports": false,
     "prefer-array-literal": false,
     "prefer-template": false,
-    "semicolon": [true, "never"],
+    "semicolon": [
+      true,
+      "never"
+    ],
     "strict-boolean-expressions": false,
     "ter-arrow-parens": false,
     "ter-indent": false,
