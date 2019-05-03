@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { applyMiddleware, compose, createStore, Store } from 'redux'
+import { applyMiddleware, createStore, Store } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
-// @ts-ignore
-import NativeTachyons from 'react-native-style-tachyons'
 import colors from './theme/colors'
+
+const NativeTachyons = require('react-native-style-tachyons')
 
 export const runAppConfiguration = () => {
   NativeTachyons.build(

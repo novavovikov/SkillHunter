@@ -13,6 +13,6 @@ export const GOOGLE_STRATEGY = {
 
 export const FACEBOOK_STRATEGY = {
   // fb expects absolute path
-  callbackURL: 'https://skillhunter.io/api/auth/facebook/callback',
+  callbackURL: process.env.FACEBOOK_CALLBACK_URL,
   profileFields: ['id', 'displayName', 'photos', 'email'],
 }

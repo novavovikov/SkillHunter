@@ -1,11 +1,15 @@
-import React, { FC } from 'react'
+import * as React from 'react'
 import { ReduxStore } from './redux'
-import Login from './containers/Login'
+import { routes } from './routes'
 
-const App: FC = () => (
+const core = require('@react-navigation/core')
+const web = require('@react-navigation/web')
+
+const Navigation = core.createSwitchNavigator(routes)
+const App = web.createBrowserApp(Navigation)
+
+export default () => (
   <ReduxStore>
-    <Login/>
+    <App />
   </ReduxStore>
 )
-
-export default App

@@ -10,8 +10,10 @@
     "lint": "tslint -p ."
   },
   "dependencies": {
-    "@types/redux-logger": "^3.0.7",
+    "@react-navigation/core": "^3.4.1",
+    "@react-navigation/web": "^1.0.0-alpha.7",
     "react-native-style-tachyons": "^4.0.0",
+    "react-navigation": "^3.9.1",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
@@ -22,7 +24,9 @@
   "devDependencies": {
     "@types/react": "^16.8.14",
     "@types/react-native": "^0.57.50",
+    "@types/react-navigation": "^3.0.6",
     "@types/react-redux": "^7.0.8",
+    "@types/redux-logger": "^3.0.7",
     "prettier": "^1.17.0",
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
