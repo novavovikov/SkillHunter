@@ -63,7 +63,7 @@ const Login: FC = () => {
         <View style={[s.aic, s.mt6]}>
           <H2>Нет аккаунта Google или Facebook?</H2>
           <Text style={[s.midGray, s.tc]}>
-            Нет проблем! Вы можете создать аккаунт Google или Facebook с помощью
+            Нет проблем!!! Вы можете создать аккаунт Google или Facebook с помощью
             вашего email. {'\n'}Gmail аккаунты не поддерживаются.
           </Text>
         </View>

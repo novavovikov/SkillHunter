@@ -13,6 +13,7 @@ const Final = ({ t }) => (
 
       <div className={css.Final__title}>{t('thanks')}</div>
       <div className={css.Final__text}>{t('text')}</div>
+      ...
     </Container>
   </div>
 )
