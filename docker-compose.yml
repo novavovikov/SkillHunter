@@ -10,6 +10,8 @@ services:
     expose:
       - 4000
     user: $USER_ID:$GROUP_ID
+    env_file: 
+      - .env.dev
     environment:
       - HOME=/app/.home
       - DB_CONNECTION=postgres://skillhunter:skillhunter@postgres:5432/skillhunter
@@ -20,9 +22,11 @@ services:
     image: postgres:11.2-alpine
     expose:
       - 5432
+    ports: 
+      - 5432:5432
     volumes:
       - postgres-data:/var/lib/postgresql/data/pgdata
-    env_file: 
+    env_file:
       - .env.dev
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata

@@ -2,7 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
-import { SubscribeEntity } from './subscribe.entity'
+import { SubscribeEntity } from '../../entities/subscribe.entity'
 import { SubscribeDto } from './subscribe.dto'
 
 @Injectable()

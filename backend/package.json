@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node node_modules/.bin/typeorm"
   },
   "dependencies": {
     "@nestjs/common": "^6.0.0",
@@ -25,7 +26,7 @@
     "@nestjs/passport": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
     "@nestjs/swagger": "^3.0.2",
-    "@nestjs/typeorm": "^6.0.0",
+    "@nestjs/typeorm": "^6.1.0",
     "@types/dotenv": "^6.1.1",
     "@types/passport": "^1.0.0",
     "@types/passport-facebook": "^2.1.9",
