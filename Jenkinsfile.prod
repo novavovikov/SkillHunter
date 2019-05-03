@@ -22,7 +22,7 @@ pipeline {
 
     stage('App') {
       steps {
-        sh 'docker-compose -f docker-compose.prod.yml run web_app sh -c "yarn workspace web build"'
+        sh 'docker-compose -f docker-compose.prod.yml run web_app sh -c "yarn clean && yarn workspace web build"'
       }
     }
 
