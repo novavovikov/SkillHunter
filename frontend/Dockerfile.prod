@@ -10,5 +10,5 @@ COPY ./ /app/
 RUN chmod -R 755 /app/*
 
 RUN yarn install
-RUN yarn clean
+RUN yarn run clean
 RUN yarn workspace web build
