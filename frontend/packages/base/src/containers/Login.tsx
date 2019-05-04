@@ -1,11 +1,11 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import { Image, Text, View } from 'react-native'
 import { Container, H1, H2, LoginButton } from '../components'
-import { System } from '../enum/system'
+import { System } from '../constants/system'
 
 const s = require('react-native-style-tachyons').styles
 
-const Login: React.FC = () => {
+const Login: FC = () => {
   return (
     <Container>
       <View style={[s.aic, s.pv5]}>

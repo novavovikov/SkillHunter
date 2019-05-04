@@ -1,12 +1,13 @@
 import React, { FC } from 'react'
+import { Text } from 'react-native'
 import { Container } from '../components'
 
-const Skills: FC = () => {
+const Home: FC = () => {
   return (
     <Container>
-      <div>CLick me</div>
+      <Text>Home</Text>
     </Container>
   )
 }
 
-export default Skills
+export default Home

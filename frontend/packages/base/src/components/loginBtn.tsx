@@ -1,7 +1,8 @@
 import React, { FC, ReactNode } from 'react'
 import { Image, Linking, StyleSheet, Text } from 'react-native'
-import colors from '../theme/colors'
-import { System } from '../enum/system'
+import { OAUTH_ROUTE } from '../constants/routes'
+import colors from '../constants/colors'
+import { System } from '../constants/system'
 
 const s = StyleSheet.create({
   btn: {
@@ -16,8 +17,8 @@ const s = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
-    cursor: 'pointer',
-  },
+    cursor: 'pointer'
+  }
 })
 
 interface Props {
@@ -27,22 +28,17 @@ interface Props {
 
 const LoginButton: FC<Props> = ({ children, system, ...rest }) => {
   const goToSystem = () => {
-    Linking.openURL(`/api/auth/${system}`).
-      catch((err) => console.error('An error occurred', err))
+    Linking.openURL(`${OAUTH_ROUTE}${system}`).catch(err => console.error('An error occurred', err))
   }
 
   return (
-    <Text
-      style={s.btn}
-      onPress={goToSystem}
-      {...rest}
-    >
+    <Text style={s.btn} onPress={goToSystem} {...rest}>
       <Image
         source={{ uri: `/static/${system}-icon.svg` }}
         style={{
           width: 16,
           height: 16,
-          marginRight: 6,
+          marginRight: 6
         }}
       />
       {children}

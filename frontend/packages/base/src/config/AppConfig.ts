@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import colors from './theme/colors'
+import colors from '../constants/colors'
 
 const NativeTachyons = require('react-native-style-tachyons')
 
