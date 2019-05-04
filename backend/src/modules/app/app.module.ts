@@ -6,10 +6,11 @@ import { AppService } from './app.service'
 import { UserModule } from '../user/user.module'
 import { AuthModule } from '../auth/auth.module'
 import { SubscribeModule } from '../subscribe/subscribe.module'
+import config from '../../../ormconfig'
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot(config),
     UserModule,
     AuthModule,
     SubscribeModule,

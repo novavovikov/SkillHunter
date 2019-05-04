@@ -1,8 +1,5 @@
 FROM node:10.15.3-alpine
 
-RUN npm i -g ts-node
-RUN npm i -g typeorm
-
 WORKDIR /app
 
 COPY *.json /app/

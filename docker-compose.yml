@@ -14,7 +14,6 @@ services:
       - .env.dev
     environment:
       - HOME=/app/.home
-      - DB_CONNECTION=postgres://skillhunter:skillhunter@postgres:5432/skillhunter
     depends_on:
       - postgres
 
@@ -25,7 +24,7 @@ services:
     ports: 
       - 5432:5432
     volumes:
-      - postgres-data:/var/lib/postgresql/data/pgdata
+      - sh-pg:/var/lib/postgresql/data/pgdata
     env_file:
       - .env.dev
     environment:
@@ -56,5 +55,5 @@ services:
       - backend
 
 volumes:
-  postgres-data:
+  sh-pg:
 
