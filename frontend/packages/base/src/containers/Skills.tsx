@@ -4,7 +4,7 @@ import { Container } from '../components'
 const Skills: FC = () => {
   return (
     <Container>
-      <div>CLick me</div>
+      <div>123</div>
     </Container>
   )
 }

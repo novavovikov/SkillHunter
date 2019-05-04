@@ -4,7 +4,7 @@ import { AppRegistry } from 'react-native'
 // @ts-ignore
 import App from 'base/src/App'
 // @ts-ignore
-import { runAppConfiguration } from 'base/dist/config/AppConfig'
+import { runAppConfiguration } from 'base/src/config/AppConfig'
 
 runAppConfiguration()
 
