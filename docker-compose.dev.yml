@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  backend:
+    image: node:10.15.3-alpine
+    working_dir: /app
+    volumes:
+        - ./backend:/app
+    ports:
+        - 4000:4000
+    command: sh -c "npm run start:dev"
+    environment:
+      - PORT=4000
+      - HOME=/app/.home
+      - DB_CONNECTION=postgres://skillhunter:skillhunter@postgres:5432/skillhunter
+      - FACEBOOK_CALLBACK_URL=http://localhost:3000/api/auth/facebook/callback
+    restart: always
+    depends_on:
+        - postgres
+
+  postgres:
+    image: postgres:11
+    ports:
+        - 5432:5432
+    volumes:
+        - ./backend/pgdata:/var/lib/postgresql/data/pgdata
+    environment:
+        - POSTGRES_PASSWORD=skillhunter
+        - POSTGRES_USER=skillhunter
+        - PGDATA=/var/lib/postgresql/data/pgdata
+        - POSTGRES_INITDB_ARGS=-N
+    user: $USER_ID:$GROUP_ID

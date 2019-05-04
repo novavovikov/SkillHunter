@@ -8,7 +8,6 @@ import Button from '../Button'
 import css from './Error.scss'
 
 const Error = ({ i18n, lng, t, statusCode }) => {
-
   const getContent = () => {
     try {
       return i18n.store.data[lng].error[statusCode] ||

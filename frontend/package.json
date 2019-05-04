@@ -1,0 +1,41 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "yarn workspaces run clean",
+    "dev:mobile": "yarn workspace mobile compile && concurrently --kill-others \"yarn workspace mobile compile -w\" \"yarn workspace mobile start\"",
+    "dev:web": "yarn workspace web compile && concurrently --kill-others \"yarn workspace web compile -w\" \"yarn workspace web start\"",
+    "format": "yarn workspaces run format",
+    "lint": "yarn workspaces run lint"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "husky": "^2.1.0",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.17.0",
+    "shx": "^0.3.2",
+    "tslint": "^5.16.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.4.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

@@ -13,7 +13,3 @@ COPY constants/ /app/constants/
 RUN chmod -R 755 /app/*
 
 RUN npm ci
-RUN npm run build
-RUN npm run export
-
-RUN chmod -R 755 /app/out
