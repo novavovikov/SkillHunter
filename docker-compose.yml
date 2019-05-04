@@ -14,6 +14,7 @@ services:
       - .env.dev
     environment:
       - HOME=/app/.home
+      - PORT=4000
     depends_on:
       - postgres
 
