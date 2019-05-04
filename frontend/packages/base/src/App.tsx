@@ -1,15 +1,21 @@
-import * as React from 'react'
+import React from 'react'
 import { ReduxStore } from './redux'
-import { routes } from './routes'
+import { routes } from './config/routes'
 
-const core = require('@react-navigation/core')
-const web = require('@react-navigation/web')
+const nav = require('@react-navigation/core')
+const webNav = require('@react-navigation/web')
 
-const Navigation = core.createSwitchNavigator(routes)
-const App = web.createBrowserApp(Navigation)
+const Navigation = nav.createSwitchNavigator(routes, {
+  navigationOptions: {
+    title: 'SkillHunter'
+  }
+})
+const App = webNav.createBrowserApp(Navigation)
 
-export default () => (
-  <ReduxStore>
-    <App />
-  </ReduxStore>
-)
+export default () => {
+  return (
+    <ReduxStore>
+      <App />
+    </ReduxStore>
+  )
+}

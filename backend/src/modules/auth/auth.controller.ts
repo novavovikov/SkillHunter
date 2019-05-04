@@ -6,9 +6,9 @@ import { BACK_URL } from './constants/auth'
 export class AuthController {
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  testAuth () {
+  validateToken () {
     return {
-      auth: true,
+      valid: true,
     }
   }
 
