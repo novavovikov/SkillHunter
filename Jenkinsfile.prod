@@ -2,11 +2,6 @@ pipeline {
   agent any
 
    stages {
-    stage('Clean') {
-      steps {
-        sh './build/clean.sh'
-      }
-    }
 
     stage('Build') {
       steps {
