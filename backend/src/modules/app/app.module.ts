@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { SuggestsModule } from '../suggests/suggests.module'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -20,6 +21,7 @@ const connectionUrl: string = process.env.DB_CONNECTION
     UserModule,
     AuthModule,
     SubscribeModule,
+    SuggestsModule
   ],
   controllers: [AppController],
   providers: [AppService],
