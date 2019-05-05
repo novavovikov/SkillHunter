@@ -10,7 +10,7 @@ export class SuggestsController {
     @Query('position') position: string,
     @Query('skill') skill: string,
   ) {
-    if (position) {
+    if (position && position.length > 1) {
       return this.suggestsService.getByPosition(position)
     }
 
