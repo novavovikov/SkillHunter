@@ -18,10 +18,11 @@ export class SkillService {
           name: text,
         }))
 
-      // Можно игнорить значения, которые есть в базе при insert, но тогда Id могут проставляться не последовательно
+      // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
       const foundSkills = await this.skillRepository.find(skills)
       const uniqueSkills = skills.filter(
-        skill => !foundSkills.find(({ externalId }) => skill.externalId === externalId))
+        skill => !foundSkills.find(({ externalId }) => skill.externalId === externalId),
+      )
 
       if (uniqueSkills.length) {
         this.skillRepository.insert(uniqueSkills)
