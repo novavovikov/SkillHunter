@@ -1,19 +1,14 @@
 import { HttpService, Injectable } from '@nestjs/common'
 import { map } from 'rxjs/operators'
+import { HH_URI, SUGGESTS } from './constants/uri'
 
 @Injectable()
 export class SuggestsService {
   constructor (private readonly http: HttpService) {}
 
-  async getByPosition (position: string) {
+  async getDataFromHH (type: SUGGESTS, query: string) {
     return await this.http
-    .get(encodeURI(`https://api.hh.ru/suggests/positions?text=${position}`))
-    .pipe(map(({ data }) => data))
-  }
-
-  async getBySkill (skill: string) {
-    return await this.http
-    .get(encodeURI(`https://hh.ru/autosuggest/multiprefix/v2?d=key_skill&q=${skill}`))
+    .get(encodeURI(`${HH_URI[type]}${query}`))
     .pipe(map(({ data }) => data))
   }
 }
