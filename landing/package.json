@@ -4,6 +4,7 @@
   "description": "SkillHunter project",
   "main": "index.js",
   "scripts": {
+    "predev": "npm run build",
     "dev": "next",
     "build": "next build",
     "start": "next start",
