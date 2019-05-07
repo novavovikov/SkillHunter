@@ -6,17 +6,11 @@ import { AppService } from './app.service'
 import { UserModule } from '../user/user.module'
 import { AuthModule } from '../auth/auth.module'
 import { SubscribeModule } from '../subscribe/subscribe.module'
-
-const connectionUrl: string = process.env.DB_CONNECTION
+import config from '../../../ormconfig'
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: connectionUrl,
-      entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(config),
     UserModule,
     AuthModule,
     SubscribeModule,

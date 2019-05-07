@@ -47,6 +47,12 @@ services:
       - FACEBOOK_CLIENT_ID=2147135318727842
       - FACEBOOK_CLIENT_SECRET=cd99bb88dee8c6a5a897adb5606fc949
       - FACEBOOK_CALLBACK_URL=https://app.skillhunter.io/api/auth/facebook/callback
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_DB
+
     working_dir: /app
     ports:
       - 4000:4000
@@ -65,6 +71,11 @@ services:
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_INITDB_ARGS=-N
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_DB
 
 volumes:
   pgdata:
