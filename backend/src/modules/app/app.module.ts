@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { SkillModule } from '../skill/skill.module'
+import { SuggestsModule } from '../suggests/suggests.module'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -14,6 +16,8 @@ import config from '../../../ormconfig'
     UserModule,
     AuthModule,
     SubscribeModule,
+    SuggestsModule,
+    SkillModule
   ],
   controllers: [AppController],
   providers: [AppService],
