@@ -5,28 +5,36 @@ services:
     image: node:10.15.3-alpine
     working_dir: /app
     volumes:
-        - ./backend:/app
+      - ./backend:/app
     ports:
-        - 4000:4000
+      - 4000:4000
     command: sh -c "npm run start:dev"
     environment:
       - PORT=4000
       - HOME=/app/.home
-      - DB_CONNECTION=postgres://skillhunter:skillhunter@postgres:5432/skillhunter
-      - FACEBOOK_CALLBACK_URL=http://localhost:3000/api/auth/facebook/callback
+      - GOOGLE_CLIENT_ID=71152846727-1i6m8nnkch3morlj2o5fq0jfug55piu9.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=Fuph7bjuvg_8bVnc4QQu5QG3
+      - FACEBOOK_CLIENT_ID=2147135318727842
+      - FACEBOOK_CLIENT_SECRET=cd99bb88dee8c6a5a897adb5606fc949
+      - FACEBOOK_CALLBACK_URL=http://localhost:4000/api/auth/facebook/callback
+      - POSTGRES_USER=skillhunter
+      - POSTGRES_PASSWORD=skillhunter
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=skillhunter
     restart: always
     depends_on:
-        - postgres
+      - postgres
 
   postgres:
     image: postgres:11
     ports:
-        - 5432:5432
+      - 5432:5432
     volumes:
-        - ./backend/pgdata:/var/lib/postgresql/data/pgdata
+      - ./backend/pgdata:/var/lib/postgresql/data/pgdata
     environment:
-        - POSTGRES_PASSWORD=skillhunter
-        - POSTGRES_USER=skillhunter
-        - PGDATA=/var/lib/postgresql/data/pgdata
-        - POSTGRES_INITDB_ARGS=-N
+      - POSTGRES_PASSWORD=skillhunter
+      - POSTGRES_USER=skillhunter
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_INITDB_ARGS=-N
     user: $USER_ID:$GROUP_ID
