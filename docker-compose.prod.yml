@@ -41,7 +41,6 @@ services:
       - landing:/app/out
     environment:
       - PORT=4000
-      - DB_CONNECTION
       - GOOGLE_CLIENT_ID=71152846727-1i6m8nnkch3morlj2o5fq0jfug55piu9.apps.googleusercontent.com
       - GOOGLE_CLIENT_SECRET=Fuph7bjuvg_8bVnc4QQu5QG3
       - FACEBOOK_CLIENT_ID=2147135318727842
