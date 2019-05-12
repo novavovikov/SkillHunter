@@ -23,7 +23,7 @@ async function bootstrap () {
       setVersion('1.0')
       .build()
     const document = SwaggerModule.createDocument(app, options)
-    SwaggerModule.setup('scheme', app, document)
+    SwaggerModule.setup('docs', app, document)
   }
 
   await app.listen(port)
