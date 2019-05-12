@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { SkillEntity } from './skill.entity'
+import { Skill } from './skill.entity'
 
 @Injectable()
 export class SkillService {
   constructor (
-    @InjectRepository(SkillEntity)
-    private skillRepository: Repository<SkillEntity>,
+    @InjectRepository(Skill)
+    private skillRepository: Repository<Skill>,
   ) {}
 
   setSkills (data: any) {

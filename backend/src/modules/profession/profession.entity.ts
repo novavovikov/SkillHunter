@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
 
 @Entity()
-export class Skill {
+export class Profession {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -11,7 +11,7 @@ export class Skill {
   @Column({
     unique: true
   })
-  externalId: number
+  externalId: string
 
   @Column()
   name: string
