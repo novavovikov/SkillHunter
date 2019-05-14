@@ -1,9 +1,9 @@
 import { Injectable, Req } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { Strategy } from 'passport-google-oauth20'
-import { GOOGLE_STRATEGY } from '../constants/auth'
 import { UserService } from '../../user/user.service'
 import { AuthService } from '../auth.service'
+import { GOOGLE_STRATEGY } from '../constants/auth'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
@@ -14,7 +14,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      ...GOOGLE_STRATEGY
+      ...GOOGLE_STRATEGY,
     })
   }
 
@@ -28,7 +28,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     const { email, locale, picture } = profile._json
     let user = await this.userService.findByAuthData({
       googleId: profile.id,
-      email
+      email,
     })
 
     if (!user && email) {
@@ -37,7 +37,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
         locale,
         picture,
         name: profile.displayName,
-        googleId: profile.id
+        googleId: profile.id,
       })
     }
 

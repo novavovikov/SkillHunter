@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Profession } from '../profession/profession.entity'
+import { Skill } from '../skill/skill.entity'
 
 @Entity()
 export class User {
@@ -9,32 +11,44 @@ export class User {
   created: Date
 
   @Column({
-    unique: true
+    unique: true,
   })
   email: string
 
   @Column({
-    nullable: true
+    nullable: true,
   })
   picture: string
 
   @Column({
-    nullable: true
+    nullable: true,
   })
   name: string
 
   @Column({
-    nullable: true
+    nullable: true,
   })
   locale: string
 
   @Column({
-    nullable: true
+    nullable: true,
   })
   googleId: string
 
   @Column({
-    nullable: true
+    nullable: true,
   })
   facebookId: string
+
+  @ManyToMany(() => Skill, (skill: Skill) => skill.users, { cascade: true })
+  @JoinTable({
+    name: 'user_skills',
+  })
+  skills: Skill[]
+
+  @ManyToMany(() => Profession, (profession: Profession) => profession.users, { cascade: true })
+  @JoinTable({
+    name: 'user_professions',
+  })
+  professions: Profession[]
 }

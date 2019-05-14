@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Profession } from '../profession/profession.entity'
+import { User } from '../user/user.entity'
 
 @Entity()
 export class Skill {
@@ -9,10 +11,16 @@ export class Skill {
   created: Date
 
   @Column({
-    unique: true
+    unique: true,
   })
   externalId: number
 
   @Column()
   name: string
+
+  @ManyToMany(() => User, (user: User) => user.skills)
+  users: User[]
+
+  @ManyToMany(() => Profession, (profession: Profession) => profession.skills)
+  professions: User[]
 }
