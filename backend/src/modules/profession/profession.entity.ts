@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Skill } from '../skill/skill.entity'
+import { User } from '../user/user.entity'
 
 @Entity()
 export class Profession {
@@ -15,4 +17,13 @@ export class Profession {
 
   @Column()
   name: string
+
+  @ManyToMany(() => Skill, (skill: Skill) => skill.professions)
+  @JoinTable({
+    name: 'profession_skills',
+  })
+  skills: Skill[]
+
+  @ManyToMany(() => User, (user: User) => user.professions)
+  users: User[]
 }

@@ -1,18 +1,20 @@
-import { Controller, Get, Query } from '@nestjs/common'
+import { Controller, Get, Query, UseGuards } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
+import { ProfessionService } from '../profession/profession.service'
+import { SkillService } from '../skill/skill.service'
 import { SUGGESTS } from './constants/uri'
 import { SuggestsService } from './suggests.service'
-import { SkillService } from '../skill/skill.service'
-import { ProfessionService } from '../profession/profession.service'
 
 @Controller('suggests')
 export class SuggestsController {
   constructor (
     private suggestsService: SuggestsService,
     private skillService: SkillService,
-    private professionService: ProfessionService
+    private professionService: ProfessionService,
   ) {}
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async getSuggests (
     @Query('profession') profession: string,
     @Query('skill') skill: string,
@@ -30,7 +32,7 @@ export class SuggestsController {
     }
 
     return {
-      items: []
+      items: [],
     }
   }
 }

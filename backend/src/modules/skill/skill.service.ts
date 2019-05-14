@@ -10,6 +10,21 @@ export class SkillService {
     private skillRepository: Repository<Skill>,
   ) {}
 
+  async findById (id: number | string) {
+    return await this.skillRepository.findOne({
+      relations: [
+        'professions'
+      ],
+      where: {
+        id: Number(id)
+      },
+    })
+  }
+
+  async findByIds (skills: number[]) {
+    return await this.skillRepository.findByIds(skills)
+  }
+
   setSkills (data: any) {
     data.subscribe(async resp => {
       const skills = resp.items.

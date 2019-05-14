@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { unique } from '../../utils/unique'
+import { Skill } from '../skill/skill.entity'
 import { Profession } from './profession.entity'
 
 @Injectable()
@@ -9,6 +11,21 @@ export class ProfessionService {
     @InjectRepository(Profession)
     private professionRepository: Repository<Profession>,
   ) {}
+
+  async findById (id: number | string) {
+    return await this.professionRepository.findOne({
+      relations: [
+        'skills'
+      ],
+      where: {
+        id: Number(id)
+      },
+    })
+  }
+
+  async findByIds (skills: number[]) {
+    return await this.professionRepository.findByIds(skills)
+  }
 
   setProfessions (data: any) {
     data.subscribe(async resp => {
@@ -28,5 +45,12 @@ export class ProfessionService {
         this.professionRepository.insert(uniqueProfessions)
       }
     })
+  }
+
+  async setSkills (userId: number | string, skills: Skill[]) {
+    const user = await this.findById(userId)
+
+    user.skills = unique([...user.skills, ...skills])
+    return await this.professionRepository.save(user)
   }
 }

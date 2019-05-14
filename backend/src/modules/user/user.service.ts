@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { unique } from '../../utils/unique'
 import { Repository } from 'typeorm'
-
+import { Profession } from '../profession/profession.entity'
+import { Skill } from '../skill/skill.entity'
 import { User } from './user.entity'
 import { UserDto } from './user.dto'
 
@@ -12,16 +14,16 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async showAll () {
-    return await this.userRepository.find()
-  }
-
-  async findById (id: number) {
-    return await this.userRepository.findOne({ id })
-  }
-
-  async findByEmail (userDto: UserDto) {
-    return await this.userRepository.findOne(userDto)
+  async findById (id: number | string) {
+    return await this.userRepository.findOne({
+      relations: [
+        'skills',
+        'professions',
+      ],
+      where: {
+        id: Number(id)
+      },
+    })
   }
 
   async create (data: UserDto) {
@@ -30,15 +32,11 @@ export class UserService {
     return user
   }
 
-  async read (id: string) {
-    const user = await this.userRepository.findOne({ where: { id } })
-    return user
-  }
-
   async update (id: number, data: Partial<UserDto>) {
     await this.userRepository.update({ id }, data)
     return await this.userRepository.findOne({ id })
   }
+
   async delete (id: number) {
     await this.userRepository.delete({ id })
     return { deleted: true }
@@ -46,7 +44,7 @@ export class UserService {
 
   async findByAuthData (userData: UserDto) {
     const user = await this.userRepository.findOne({
-      email: userData.email
+      email: userData.email,
     })
 
     if (!user) {
@@ -69,5 +67,19 @@ export class UserService {
   async findByPayload (payload: any) {
     const { email } = payload
     return await this.userRepository.findOne({ email })
+  }
+
+  async setSkills (userId: number | string, skills: Skill[]) {
+    const user = await this.findById(Number(userId))
+
+    user.skills = unique([...user.skills, ...skills])
+    return await this.userRepository.save(user)
+  }
+
+  async setProfessions (userId: number | string, professions: Profession[]) {
+    const user = await this.findById(userId)
+
+    user.professions = unique([...user.professions, ...professions])
+    return await this.userRepository.save(user)
   }
 }

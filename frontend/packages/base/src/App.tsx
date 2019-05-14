@@ -1,6 +1,6 @@
 import React from 'react'
-import { ReduxStore } from './redux'
 import { routes } from './config/routes'
+import { ReduxStore } from './redux'
 
 const nav = require('@react-navigation/core')
 const webNav = require('@react-navigation/web')

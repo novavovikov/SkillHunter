@@ -18,7 +18,7 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googlecallback (@Req() req, @Res() res, @Next() next): Promise<any> {
+  async googleCallback (@Req() req, @Res() res, @Next() next): Promise<any> {
     res.cookie('authToken', req.user.token)
     res.redirect(BACK_URL)
   }
@@ -29,7 +29,7 @@ export class AuthController {
 
   @Get('facebook/callback')
   @UseGuards(AuthGuard('facebook'))
-  async facebookcallback (@Req() req, @Res() res, @Next() next): Promise<any> {
+  async facebookCallback (@Req() req, @Res() res, @Next() next): Promise<any> {
     res.cookie('authToken', req.user.token)
     res.redirect(BACK_URL)
   }
