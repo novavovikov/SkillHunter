@@ -2,7 +2,7 @@ import { ApiModelProperty } from '@nestjs/swagger'
 
 export class UserDto {
   @ApiModelProperty()
-  readonly email: string
+  readonly email?: string
 
   @ApiModelProperty()
   readonly name?: string
@@ -18,7 +18,4 @@ export class UserDto {
 
   @ApiModelProperty()
   readonly facebookId?: string
-
-  @ApiModelProperty()
-  readonly token?: string
 }

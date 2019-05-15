@@ -1,27 +1,31 @@
-import 'dotenv/config'
-import { NestFactory } from '@nestjs/core'
-import * as cookieParser from 'cookie-parser'
-
 import { Logger } from '@nestjs/common'
+import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import * as cookieParser from 'cookie-parser'
+import 'dotenv/config'
 import { AppModule } from './modules/app/app.module'
 
+const API_BASE_PATH = 'api'
 const env = process.env.NODE_ENV || 'dev'
 const port = process.env.PORT
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule)
-  app.setGlobalPrefix('api')
+  app.setGlobalPrefix(API_BASE_PATH)
   app.use(cookieParser({
     secure: true,
-    httpOnly: true
+    httpOnly: true,
   }))
 
   if (env === 'dev') {
-    const options = new DocumentBuilder().setTitle('Skillhunter').
-      setDescription('Skill hunter API').
-      setVersion('1.0')
-      .build()
+    const options = new DocumentBuilder().setTitle('SkillHunter Application').
+      setDescription('APIs for the SkillHunter application.').
+      setVersion('1.0.0').
+      setBasePath(API_BASE_PATH).
+      setExternalDoc('For more information', 'http://swagger.io').
+      addBearerAuth('Authorization', 'header', 'apiKey').
+      build()
+
     const document = SwaggerModule.createDocument(app, options)
     SwaggerModule.setup('docs', app, document)
   }

@@ -32,7 +32,7 @@ export class UserService {
     return user
   }
 
-  async update (id: number, data: Partial<UserDto>) {
+  async update (id: number, data: UserDto) {
     await this.userRepository.update({ id }, data)
     return await this.userRepository.findOne({ id })
   }

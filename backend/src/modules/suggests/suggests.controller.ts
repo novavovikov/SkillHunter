@@ -1,11 +1,14 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
+import { ApiUseTags } from '@nestjs/swagger'
 import { ProfessionService } from '../profession/profession.service'
 import { SkillService } from '../skill/skill.service'
 import { SUGGESTS } from './constants/uri'
 import { SuggestsService } from './suggests.service'
 
 @Controller('suggests')
+@ApiUseTags('suggests')
+@UseGuards(AuthGuard('jwt'))
 export class SuggestsController {
   constructor (
     private suggestsService: SuggestsService,
@@ -14,7 +17,6 @@ export class SuggestsController {
   ) {}
 
   @Get()
-  @UseGuards(AuthGuard('jwt'))
   async getSuggests (
     @Query('profession') profession: string,
     @Query('skill') skill: string,

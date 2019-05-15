@@ -3,7 +3,9 @@ import { ApiModelProperty } from '@nestjs/swagger'
 
 export class SubscribeDto {
   @IsEmail()
-  @ApiModelProperty()
+  @ApiModelProperty({
+    required: true
+  })
   email: string
 
   @ApiModelProperty()
