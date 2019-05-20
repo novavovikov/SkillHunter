@@ -7,7 +7,7 @@ class HeadLayout extends React.Component {
   render () {
     const {
       title,
-      t
+      t,
     } = this.props
 
     return (

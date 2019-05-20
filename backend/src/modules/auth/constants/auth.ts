@@ -2,7 +2,7 @@ export const BACK_URL = '/login'
 
 export const JWT_STRATEGY = {
   secretOrKey: 'db9ab144efb9b4b2db5b1daeb4900999',
-  expiresIn: '12h',
+  expiresIn: '60h',
 }
 
 export const GOOGLE_STRATEGY = {

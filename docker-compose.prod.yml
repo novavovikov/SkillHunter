@@ -4,7 +4,7 @@ services:
   proxy:
     build:
       context: ./proxy
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     volumes:
       - landing:/var/www/landing
       - web_app:/var/www/web_app
@@ -20,23 +20,23 @@ services:
   landing:
     build:
       context: ./landing
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     volumes:
       - landing:/app/out
     working_dir: /app
 
   web_app:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile.prod
+      context: ./web
+      dockerfile: Dockerfile
     volumes:
-      - web_app:/app/packages/web/dist
+      - web_app:/app/dist
     working_dir: /app
 
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     volumes:
       - landing:/app/out
     environment:

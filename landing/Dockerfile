@@ -2,8 +2,14 @@ FROM node:8-alpine
 
 WORKDIR /app
 
-COPY . /app
-RUN npm ci
-RUN npm rebuild node-sass
+COPY *.json /app/
+COPY *.js /app/
+COPY pages/ /app/pages/
+COPY static/ /app/static/
+COPY styles/ /app/styles/
+COPY components/ /app/components/
+COPY constants/ /app/constants/
 
-CMD [ "npm", "run", "dev" ]
+RUN chmod -R 755 /app/*
+
+RUN npm ci
