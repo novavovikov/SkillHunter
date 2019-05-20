@@ -1,0 +1,19 @@
+.Tip {
+  position: relative;
+  color: #777777;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0 0 0 24px;
+
+  &__icon {
+    position: absolute;
+    left: 0;
+    width: 16px;
+    height: 16px;
+
+    svg {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}

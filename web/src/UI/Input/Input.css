@@ -1,0 +1,53 @@
+@import "../../styles/variables.css";
+
+.Input {
+  position: relative;
+  display: inline-flex;
+  background: #fff;
+  border-radius: var(--radius);
+  width: 432px;
+  z-index: 0;
+
+  &__placeholder {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    color: #999999;
+    max-width: 100%;
+    padding: 0 20px;
+    transition: var(--transition-fast);
+    z-index: -1;
+
+    &_filled {
+      font-size: 12px;
+      top: 3px;
+      margin-top: 0;
+    }
+  }
+
+  &__field {
+    width: 100%;
+    font-size: 18px;
+    font-family: inherit;
+    height: 52px;
+    border: 1px solid #999999;
+    background: none;
+    outline-color: transparent;
+    padding: 12px 20px 0;
+    border-radius: var(--radius);
+    transition: var(--transition-fast);
+
+    &:focus {
+      border-color: var(--color-blue);
+    }
+  }
+
+  &__field:focus + &__placeholder {
+    font-size: 12px;
+    top: 3px;
+    margin-top: 0;
+  }
+}

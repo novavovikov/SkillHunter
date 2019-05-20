@@ -1,0 +1,38 @@
+.AutoComplete {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
+
+  &__list {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    background: #fff;
+    mix-blend-mode: normal;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.05), 0px 7px 36px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+    overflow: auto;
+    overflow-x: hidden;
+    margin-top: 5px;
+    z-index: -1;
+  }
+
+  &__item {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: none;
+    border: none;
+    text-align: left;
+    height: 52px;
+    font-size: 18px;
+    color: #555555;
+    padding: 0 20px;
+    overflow: hidden;
+
+    &:hover {
+      background: #F5F5F5;
+    }
+  }
+}

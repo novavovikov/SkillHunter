@@ -1,0 +1,90 @@
+@import "../../styles/variables.css";
+
+.Steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &__controls {
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+  }
+
+  &__control {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    color: #BDBDBD;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 0 0 20px;
+    outline-color: transparent;
+    border: solid rgba(242, 189, 66, 0.2);
+    border-width: 0 0 3px 0;
+    background: none;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: #F2BD42;
+      width: 100%;
+      transition: 600ms;
+      transform: scale(0, 1);
+      transform-origin: left;
+    }
+
+    &_active {
+      font-weight: 600;
+      color: #444444;
+
+      &:before {
+        transform: scale(1);
+      }
+
+      & ~ * {
+        font-weight: 600;
+        color: #444444;
+
+        &:before {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  &__contents {
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  &__content {
+    display: inline-block;
+    white-space: normal;
+    width: 100%;
+  }
+
+  &__enter {
+    transform: translate(100%, 0);
+
+    &_active {
+      transform: translate(0%);
+      transition: var(--transition-fast);
+    }
+  }
+
+  &__exit {
+    transform: translate(-100%, 0);
+
+    &_active {
+      transform: translate(-200%, 0);
+      transition: var(--transition-fast);
+    }
+  }
+}

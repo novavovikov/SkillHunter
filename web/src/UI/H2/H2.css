@@ -1,0 +1,10 @@
+@import "../../styles/variables.css";
+
+.H2 {
+  @apply --title;
+  font-size: 36px;
+  line-height: calc(40/36);
+  letter-spacing: .4px;
+  text-align: center;
+  margin: 0 0 2em;
+}

@@ -1,0 +1,50 @@
+@import "../../styles/variables.css";
+
+.Checkbox {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+
+  &__input {
+    display: none;
+  }
+
+  &__input:checked + &__indicator {
+    border-color: transparent;
+    background: var(--color-blue);
+
+    &:before {
+      top: -1px;
+    }
+  }
+
+  &__indicator {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex-basis: 18px;
+    border-radius: 3px;
+    background: #fff;
+    border: 2px solid #767676;
+    transition: var(--transition-fast);
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 2px;
+      left: 4px;
+      width: 7px;
+      height: 12px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      transition: var(--transition-fast);
+    }
+  }
+
+  &__content {
+    flex: 1 1 100%;
+    padding: 0 0 0 10px;
+  }
+}
