@@ -1,0 +1,23 @@
+:root {
+  --transition-fast: .3s;
+  --transition: .5s;
+  --transition-slow: .8s;
+
+  --radius: 7px;
+
+  --bg-gray: #E5E5E5;
+
+  --color-gray: #424242;
+  --color-blue: #5086EC;
+
+  --ff-roboto: 'Roboto', sans-serif;
+
+  --z-filter: 10;
+  --z-filter-switcher: 9;
+
+  --title: {
+    font-family: var(--ff-roboto);
+    font-weight: 400;
+    color: #555555;
+  }
+}

@@ -1,0 +1,49 @@
+@import "variables.css";
+
+:global {
+  * {
+    box-sizing: border-box;
+    border-radius: 0;
+
+    &:before, &:after {
+      box-sizing: border-box;
+    }
+  }
+
+  body {
+    font-family: "Open Sans", sans-serif;
+    color: var(--color-gray);
+    font-size: 12px;
+    line-height: 1.5;
+    min-width: 320px;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  img {
+    border: none;
+    width: auto;
+    height: auto;
+  }
+
+  button {
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+  }
+
+  .fatal-error {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    overflow-x: hidden;
+  }
+}

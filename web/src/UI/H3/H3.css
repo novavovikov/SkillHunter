@@ -1,0 +1,8 @@
+@import "../../styles/variables.css";
+
+.H3 {
+  @apply --title;
+  font-size: 22px;
+  line-height: 26px;
+  margin: 0 0 25px;
+}

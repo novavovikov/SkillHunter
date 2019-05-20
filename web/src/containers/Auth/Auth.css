@@ -1,0 +1,63 @@
+@import "../../styles/variables.css";
+
+.Auth {
+  text-align: center;
+  letter-spacing: -0.41px;
+
+  &__label {
+    font-size: 14px;
+    line-height: 22px;
+    color: #999999;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 157px;
+    height: 43px;
+    color: var(--color-blue);
+    background: #F8F7FC;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    margin: 6px auto;
+    transition: var(--transition-fast);
+
+    &:hover {
+      color: #fff;
+      background: var(--color-blue);
+    }
+  }
+
+  &__terms {
+    white-space: pre-line;
+    color: #555555;
+    margin: 50px 0;
+  }
+
+  &__security {
+    color: #BDBDBD;
+    margin: 0 0 100px;
+  }
+
+  &__description {
+    color: #555555;
+  }
+
+  &__faq {
+    background: #F3F3F3;
+  }
+
+  &__faqRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__faqCol {
+    width: 503px;
+  }
+}

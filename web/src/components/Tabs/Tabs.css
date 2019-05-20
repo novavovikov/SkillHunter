@@ -1,0 +1,32 @@
+.Tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &__controls {
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  &__control {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    color: #BDBDBD;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 0 0 20px;
+    outline-color: transparent;
+    border: solid rgba(242, 189, 66, 0.2);
+    border-width: 0 0 3px 0;
+    background: none;
+    cursor: pointer;
+
+    &_active {
+      font-weight: 600;
+      color: #444444;
+      border-color: #F2BD42;
+    }
+  }
+}

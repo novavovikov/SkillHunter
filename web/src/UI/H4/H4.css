@@ -1,0 +1,9 @@
+@import "../../styles/variables.css";
+
+.H4 {
+  @apply --title;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  margin: 0 0 10px;
+}
