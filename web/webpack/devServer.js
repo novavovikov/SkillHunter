@@ -2,9 +2,9 @@ module.exports = {
   stats: 'errors-only',
   hot: true,
   historyApiFallback: true,
-  host: 'localhost',
+  host: '0.0.0.0',
   port: 3000,
   proxy: {
-    '/api': 'http://localhost:4000',
+    '/api': 'http://backend:4000',
   },
 }

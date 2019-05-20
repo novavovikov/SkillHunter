@@ -25,6 +25,7 @@ services:
     restart: always
     depends_on:
       - postgres
+      - web_app
 
   postgres:
     image: postgres:11
@@ -38,3 +39,13 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_INITDB_ARGS=-N
     user: $USER_ID:$GROUP_ID
+
+  web_app:
+    image: node:10.15.3-alpine
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./web:/app
+    command: sh -c "npm run start"
+    restart: always
