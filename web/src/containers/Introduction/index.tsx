@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Container, Steps, Profession, SkillSet } from '../../components'
+import { Container, Profession, SkillSet, Steps } from '../../components'
 import { Logo } from '../../UI'
 
 const Introduction: React.FC = () => {
@@ -17,10 +17,6 @@ const Introduction: React.FC = () => {
             label: '2. Скиллсет',
             id: 'Skills',
           },
-          {
-            label: '3. Материалы',
-            id: 'Source',
-          },
         ]}
       >
         <Steps.Content id={'Profession'}>
@@ -28,9 +24,6 @@ const Introduction: React.FC = () => {
         </Steps.Content>
         <Steps.Content id={'Skills'}>
           <SkillSet/>
-        </Steps.Content>
-        <Steps.Content id={'Source'}>
-          <Profession/>
         </Steps.Content>
       </Steps.Wrap>
     </Container>

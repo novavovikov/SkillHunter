@@ -10,11 +10,17 @@
   border: none;
   background: var(--color-blue);
   color: #fff;
-  outline-color: transparent;
   border-radius: var(--radius);
+  transition: var(--transition-fast);
+
+  &:hover {
+    background: var(--color-blue-dark);
+    box-shadow: 0 0 7px 1px rgba(0, 0, 0, .25);
+  }
 
   &:disabled {
     cursor: default;
     background: #BDBDBD;
+    box-shadow: none;
   }
 }

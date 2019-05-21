@@ -4,6 +4,7 @@ import * as s from './Checkbox.css'
 interface Props {
   value?: string | number
   checked?: boolean
+  defaultChecked?: boolean
   onChange?: (e: any) => void
 }
 

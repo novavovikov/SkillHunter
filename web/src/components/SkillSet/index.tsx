@@ -12,6 +12,7 @@ interface Suggesion {
 interface State {
   inputValue: string
   suggestions: Suggesion[]
+  selectedSuggestions: Suggesion[]
 }
 
 interface Props {
@@ -21,20 +22,28 @@ interface Props {
 class SkillSet extends React.Component<Props, State> {
   state = {
     inputValue: '',
-    suggestions: [{ 'id': 351, 'text': 'CSS' }, { 'id': 3512, 'text': 'CSS3' }],
+    suggestions: [],
+    selectedSuggestions: [],
   }
 
-  setSuggestions (suggestions: Suggesion[]) {
+  setSuggestions = (suggestions: Suggesion[]) => {
     this.setState({
       suggestions,
+    })
+  }
+
+  setSelectedSuggestions = (selectedSuggestions: Suggesion[]) => {
+    this.setState({
+      selectedSuggestions,
     })
   }
 
   getSuggesions = (text: string) => {
     ajax.
       get(`/suggests?skill=${text}`).then(({ data }: any) => {
-      Array.isArray(data.items) &&
-      this.setSuggestions(data.items)
+      if (Array.isArray(data.items)) {
+        this.setSuggestions(data.items)
+      }
     })
   }
 
@@ -55,11 +64,17 @@ class SkillSet extends React.Component<Props, State> {
       setStep,
     } = this.props
 
-    setStep && setStep('Source')
+    if (typeof setStep === 'function') {
+      setStep('Profession')
+    }
   }
 
   render () {
-    const { inputValue, suggestions } = this.state
+    const {
+      inputValue,
+      suggestions,
+      selectedSuggestions,
+    } = this.state
 
     return (
       <form
@@ -80,11 +95,16 @@ class SkillSet extends React.Component<Props, State> {
         />
 
         <Skills
+          setSkills={this.setSuggestions}
+          setSelectedSkills={this.setSelectedSuggestions}
           skills={suggestions}
-          selectedSkills={[]}
+          selectedSkills={selectedSuggestions}
         />
 
-        <Button className={s.SkillSet__button}>
+        <Button
+          className={s.SkillSet__button}
+          disabled={!selectedSuggestions.length}
+        >
           Далее
         </Button>
       </form>

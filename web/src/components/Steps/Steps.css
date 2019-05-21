@@ -21,7 +21,6 @@
     font-size: 16px;
     line-height: 20px;
     padding: 0 0 20px;
-    outline-color: transparent;
     border: solid rgba(242, 189, 66, 0.2);
     border-width: 0 0 3px 0;
     background: none;
@@ -30,7 +29,7 @@
       content: '';
       display: block;
       position: absolute;
-      bottom: 0;
+      bottom: -3px;
       left: 0;
       height: 3px;
       background: #F2BD42;

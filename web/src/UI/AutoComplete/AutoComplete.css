@@ -1,3 +1,5 @@
+@import "../../styles/variables.css";
+
 .AutoComplete {
   position: relative;
   display: inline-flex;
@@ -32,7 +34,7 @@
     overflow: hidden;
 
     &:hover {
-      background: #F5F5F5;
+      background: var(--bg-gray-light);
     }
   }
 }

@@ -35,7 +35,6 @@
     height: 52px;
     border: 1px solid #999999;
     background: none;
-    outline-color: transparent;
     padding: 12px 20px 0;
     border-radius: var(--radius);
     transition: var(--transition-fast);
