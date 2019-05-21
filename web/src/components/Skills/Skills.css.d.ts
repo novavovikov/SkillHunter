@@ -4,8 +4,6 @@ export const Skills__header: string;
 export const skillsHeader: string;
 export const Skills__btn: string;
 export const skillsBtn: string;
-export const Skills__message: string;
-export const skillsMessage: string;
 export const Skills__body: string;
 export const skillsBody: string;
 export const Skills__item: string;
