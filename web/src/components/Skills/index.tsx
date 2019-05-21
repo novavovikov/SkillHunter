@@ -41,16 +41,22 @@ const Skills: React.FC<Props> = (
     <div className={s.Skills}>
       <div className={s.Skills__header}>
         <div>
-          Предложения
+          {
+            skills.length
+            ? 'Предложения'
+            : 'Не выбрано ни одного скила'
+          }
         </div>
 
-        <button
-          type={'button'}
-          className={s.Skills__btn}
-          onClick={() => setSkills([])}
-        >
-          Показать отмеченные
-        </button>
+        {selectedSkills.length && (
+          <button
+            type={'button'}
+            className={s.Skills__btn}
+            onClick={() => setSkills([])}
+          >
+            Показать отмеченные
+          </button>
+        )}
       </div>
 
       <Scrollbar
@@ -59,12 +65,6 @@ const Skills: React.FC<Props> = (
         autoHeightMax={300}
         className={s.Skills__body}
       >
-        {!skillList.length && (
-          <div className={s.Skills__message}>
-            Не выбрано ни одного скила
-          </div>
-        )}
-
         {skillList.map(skill => {
           const isChecked: boolean = selectedSkills.some(({ id }) => id === skill.id)
 
