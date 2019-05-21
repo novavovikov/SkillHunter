@@ -7,7 +7,7 @@ const Introduction: React.FC = () => {
     <Container>
       <Logo/>
       <Steps.Wrap
-        initStep={'Skills'}
+        initStep={'Profession'}
         steps={[
           {
             label: '1. Специальность',
