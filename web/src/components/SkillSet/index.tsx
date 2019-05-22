@@ -1,12 +1,14 @@
 import * as React from 'react'
+import debounce from 'debounce'
+import { DEBOUNCE_TIMEOUT } from '../../constants/timeout'
 import { Button, H2, Input, Tip } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import Skills from '../Skills'
 import * as s from './SkillSet.css'
 
 interface Suggesion {
-  id: number,
-  text: string
+  id?: number,
+  name: string
 }
 
 interface State {
@@ -38,14 +40,14 @@ class SkillSet extends React.Component<Props, State> {
     })
   }
 
-  getSuggesions = (text: string) => {
+  getSuggestions = debounce((text: string) => {
     ajax.
       get(`/suggests?skill=${text}`).then(({ data }: any) => {
-      if (Array.isArray(data.items)) {
-        this.setSuggestions(data.items)
+      if (Array.isArray(data)) {
+        this.setSuggestions(data)
       }
     })
-  }
+  }, DEBOUNCE_TIMEOUT)
 
   setInputValue = (inputValue: string) => {
     this.setState({ inputValue })
@@ -54,18 +56,28 @@ class SkillSet extends React.Component<Props, State> {
   handleInput = (e: any) => {
     const { value } = e.target
 
-    this.getSuggesions(value)
+    this.getSuggestions(value)
     this.setInputValue(value)
   }
 
-  onSubmit = (e: any) => {
+  handleOnKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      return this.setSelectedSuggestions([
+        ...this.state.selectedSuggestions,
+        { name: e.target.value }
+      ])
+    }
+  }
+
+  onSubmit = async (e: any) => {
     e.preventDefault()
     const {
       setStep,
     } = this.props
 
     if (typeof setStep === 'function') {
-      setStep('Profession')
+      await ajax.post('user/1/skills', this.state.selectedSuggestions.map(({ name }) => name))
+      await setStep('Profession')
     }
   }
 
@@ -91,6 +103,7 @@ class SkillSet extends React.Component<Props, State> {
           placeholder={'Добавить скилл'}
           value={inputValue}
           onChange={this.handleInput}
+          onKeyDown={this.handleOnKeyDown}
           autoFocus
         />
 

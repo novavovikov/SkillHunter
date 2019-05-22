@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import { debounce } from 'debounce'
 import * as React from 'react'
 import withClickOutside from 'react-click-outside'
 import Scrollbar from 'react-custom-scrollbars'
@@ -14,6 +15,7 @@ interface Suggestion {
 interface Props {
   className?: string
   input: InputProps
+  debounce?: number
 }
 
 interface State {
@@ -21,6 +23,10 @@ interface State {
 }
 
 class AutoComplete extends React.Component<Props, State> {
+  static defaultProps = {
+    debounce: 200,
+  }
+
   state = {
     suggestions: [],
   }
@@ -33,13 +39,17 @@ class AutoComplete extends React.Component<Props, State> {
     this.setState({ suggestions })
   }
 
-  getSuggestions = (text?: string) => {
+  getSuggestions = debounce((text?: string) => {
     ajax.
-      get(`/suggests?profession=${text}`).then(({ data }: any) => {
-      Array.isArray(data.items) &&
-      this.setSuggestions(data.items)
-    })
-  }
+      get(`/suggests?profession=${text}`).
+      then(({ data }: any) => {
+        Array.isArray(data) &&
+        this.setSuggestions(data)
+      }).
+      catch(e => {
+        this.setSuggestions([])
+      })
+  }, this.props.debounce)
 
   handleSuggestion = (e: any) => {
     this.props.input.onChange(e)
@@ -57,7 +67,10 @@ class AutoComplete extends React.Component<Props, State> {
     const { input } = this.props
 
     this.getSuggestions(input.value)
-    input.onFocus && input.onFocus(e)
+
+    if (typeof input.onFocus === 'function') {
+      input.onFocus(e)
+    }
   }
 
   render () {
@@ -78,15 +91,15 @@ class AutoComplete extends React.Component<Props, State> {
               autoHeight
               autoHeightMax={300}
             >
-              {suggestions.map(({ id, text }) => (
+              {suggestions.map(({ id, name }) => (
                 <button
                   key={id}
                   type={'button'}
                   className={s.AutoComplete__item}
                   onClick={this.handleSuggestion}
-                  value={text}
+                  value={name}
                 >
-                  {text}
+                  {name}
                 </button>
               ))}
             </Scrollbar>

@@ -13,10 +13,12 @@ export class Profession {
   @Column({
     unique: true
   })
-  externalId: string
-
-  @Column()
   name: string
+
+  @Column({
+    default: false
+  })
+  accepted: boolean
 
   @ManyToMany(() => Skill, (skill: Skill) => skill.professions)
   @JoinTable({

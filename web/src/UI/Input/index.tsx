@@ -5,8 +5,9 @@ import * as s from './Input.css'
 export interface InputProps {
   value: any
   placeholder?: string
-  onChange: (e: any) => void
-  onFocus?: (e: any) => void
+  onChange: (e?: any) => void
+  onKeyDown?: (e?: any) => void
+  onFocus?: (e?: any) => void
   className?: string | number | symbol | any
   autoFocus?: boolean
 }

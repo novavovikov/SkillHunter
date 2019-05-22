@@ -4,8 +4,11 @@ import { Logo } from '../../UI'
 
 const Introduction: React.FC = () => {
   return (
-    <Container>
-      <Logo/>
+    <>
+      <Container>
+        <Logo/>
+      </Container>
+
       <Steps.Wrap
         initStep={'Profession'}
         steps={[
@@ -26,7 +29,7 @@ const Introduction: React.FC = () => {
           <SkillSet/>
         </Steps.Content>
       </Steps.Wrap>
-    </Container>
+    </>
   )
 }
 

@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
+import { In } from 'typeorm'
 import { Profession } from '../profession/profession.entity'
 import { ProfessionService } from '../profession/profession.service'
 import { Skill } from '../skill/skill.entity'
@@ -38,8 +39,10 @@ export class UserController {
     name: 'skill ids',
     type: [Number],
   })
-  async setSkills ( @Body() skills, @Param('id') id: string) {
-    const skillList: Skill[] = await this.skillService.findByIds(skills)
+  async setSkills ( @Body() skills: string[], @Param('id') id: string) {
+    const skillList: Skill[] = await this.skillService.find({
+      name: In(skills)
+    })
     return this.userService.setSkills(id, skillList)
   }
 
@@ -48,8 +51,11 @@ export class UserController {
     name: 'profession ids',
     type: [Number],
   })
-  async setProfessions (@Body() professions, @Param('id') id: string) {
-    const professionList: Profession[] = await this.professionService.findByIds(professions)
+  async setProfessions (@Body() professions: string[], @Param('id') id: string) {
+    const professionList: Profession[] = await this.professionService.find({
+      name: In(professions)
+    })
+
     return this.userService.setProfessions(id, professionList)
   }
 }

@@ -8,7 +8,9 @@ import { SuggestsService } from './suggests.service'
 
 @Module({
   imports: [
-    HttpModule,
+    HttpModule.register({
+      timeout: 500,
+    }),
     SkillModule,
     ProfessionModule
   ],

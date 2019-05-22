@@ -36,6 +36,7 @@
     font-size: 15px;
     line-height: 20px;
     padding: 10px 20px;
+    cursor: pointer;
 
     &:hover {
       background: var(--bg-gray-light);

@@ -1,4 +1,4 @@
-import { HttpService, Injectable } from '@nestjs/common'
+import { HttpService, Injectable, Logger } from '@nestjs/common'
 import { map } from 'rxjs/operators'
 import { HH_URI, SUGGESTS } from './constants/uri'
 
@@ -7,8 +7,18 @@ export class SuggestsService {
   constructor (private readonly http: HttpService) {}
 
   async getDataFromHH (type: SUGGESTS, query: string) {
-    return await this.http
-    .get(encodeURI(`${HH_URI[type]}${query}`))
-    .pipe(map(({ data }) => data))
+    try {
+      return await this.http.get(encodeURI(`${HH_URI[type]}${query}`)).
+        pipe(map(({ data }) => data)).
+        toPromise().
+        then(({ items }) => items.map(({ text }) => ({ name: text }))).
+        catch(err => {
+          return []
+        })
+    } catch (err) {
+      Logger.log(JSON.stringify(err))
+
+      return []
+    }
   }
 }

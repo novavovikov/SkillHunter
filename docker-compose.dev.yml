@@ -8,6 +8,8 @@ services:
       - ./backend:/app
     ports:
       - 4000:4000
+    dns:
+      - 8.8.8.8
     command: sh -c "npm run prestart && npm run start:dev"
     environment:
       - PORT=4000
@@ -44,6 +46,8 @@ services:
     image: node:10.15.3-alpine
     ports:
       - 3000:3000
+    dns:
+      - 8.8.8.8
     working_dir: /app
     volumes:
       - ./web:/app

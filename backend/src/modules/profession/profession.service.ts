@@ -12,13 +12,31 @@ export class ProfessionService {
     private professionRepository: Repository<Profession>,
   ) {}
 
+  async like (field: string, value: string) {
+    return await this.professionRepository.
+      createQueryBuilder().
+      where(`LOWER(${field}) LIKE :${field}`,
+        {
+          [field]: `${value.toLowerCase()}%`,
+        },
+      ).
+      limit(10).
+      getMany()
+  }
+
+  async find (criteria) {
+    return await this.professionRepository.find({
+      where: criteria,
+    })
+  }
+
   async findById (id: number | string) {
     return await this.professionRepository.findOne({
       relations: [
-        'skills'
+        'skills',
       ],
       where: {
-        id: Number(id)
+        id: Number(id),
       },
     })
   }
@@ -27,24 +45,16 @@ export class ProfessionService {
     return await this.professionRepository.findByIds(skills)
   }
 
-  setProfessions (data: any) {
-    data.subscribe(async resp => {
-      const professions = resp.items.
-        map(({ id, text }) => ({
-          externalId: id,
-          name: text,
-        }))
+  async setProfessions (professions: any) {
+    // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
+    const foundProfessions = await this.professionRepository.find(professions)
+    const uniqueProfessions = professions.filter(
+      profession => !foundProfessions.find(({ name }) => profession.name === name),
+    )
 
-      // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
-      const foundProfessions = await this.professionRepository.find(professions)
-      const uniqueProfessions = professions.filter(
-        profession => !foundProfessions.find(({ externalId }) => profession.externalId === externalId),
-      )
-
-      if (uniqueProfessions.length) {
-        this.professionRepository.insert(uniqueProfessions)
-      }
-    })
+    if (uniqueProfessions.length) {
+      this.professionRepository.insert(uniqueProfessions)
+    }
   }
 
   async setSkills (userId: number | string, skills: Skill[]) {

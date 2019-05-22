@@ -70,16 +70,16 @@ export class UserService {
   }
 
   async setSkills (userId: number | string, skills: Skill[]) {
-    const user = await this.findById(Number(userId))
+    const user = await this.findById(userId)
 
-    user.skills = unique([...user.skills, ...skills])
+    user.skills = skills
     return await this.userRepository.save(user)
   }
 
   async setProfessions (userId: number | string, professions: Profession[]) {
     const user = await this.findById(userId)
 
-    user.professions = unique([...user.professions, ...professions])
+    user.professions = professions
     return await this.userRepository.save(user)
   }
 }

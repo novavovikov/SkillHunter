@@ -21,20 +21,24 @@ export class SuggestsController {
     @Query('profession') profession: string,
     @Query('skill') skill: string,
   ) {
-    if (profession && profession.length > 1) {
+    if (profession) {
       const data = await this.suggestsService.getDataFromHH(SUGGESTS.profession, profession)
-      this.professionService.setProfessions(data)
-      return data
+      await this.professionService.setProfessions(data.map(item => ({
+        ...item,
+        accepted: true,
+      })))
+      return await this.professionService.like('name', profession)
     }
 
     if (skill) {
       const data = await this.suggestsService.getDataFromHH(SUGGESTS.skill, skill)
-      this.skillService.setSkills(data)
-      return data
+      await this.skillService.setSkills(data.map(item => ({
+        ...item,
+        accepted: true,
+      })))
+      return await this.skillService.like('name', skill)
     }
 
-    return {
-      items: [],
-    }
+    return []
   }
 }

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Button, H2, Input, AutoComplete } from '../../UI'
+import { ajax } from '../../utils/ajax'
 import * as s from './Profession.css'
 
 interface State {
@@ -21,12 +22,13 @@ class Profession extends React.Component<Props, State> {
     })
   }
 
-  onSubmit = (e: any) => {
+  onSubmit = async (e: any) => {
     e.preventDefault()
     const { setStep } = this.props
 
     if (setStep) {
-      setStep('Skills')
+      await ajax.post('user/1/professions', [this.state.inputValue])
+      await setStep('Skills')
     }
   }
 

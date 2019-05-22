@@ -5,7 +5,7 @@ import * as s from './Skills.css'
 
 interface Skill {
   id: number,
-  text: string
+  name: string
 }
 
 interface Props {
@@ -26,11 +26,11 @@ const Skills: React.FC<Props> = (
   const handleCheckbox = (checked: boolean, skill: Skill) => {
     checked
       ? setSelectedSkills([...selectedSkills, skill])
-      : setSelectedSkills(selectedSkills.filter(({ id }) => id !== skill.id))
+      : setSelectedSkills(selectedSkills.filter(({ name }) => name !== skill.name))
   }
 
   const skillList = [...skills, ...selectedSkills].reduce((acc, skill: Skill) => {
-    if (acc.some(({ id }) => id === skill.id)) {
+    if (acc.some(({ name }) => name === skill.name)) {
       return acc
     }
 
@@ -48,7 +48,7 @@ const Skills: React.FC<Props> = (
           }
         </div>
 
-        {selectedSkills.length && (
+        {selectedSkills.length > 0 && (
           <button
             type={'button'}
             className={s.Skills__btn}
@@ -61,12 +61,12 @@ const Skills: React.FC<Props> = (
 
       <Scrollbar
         autoHeight
-        autoHeightMin={300}
-        autoHeightMax={300}
+        autoHeightMin={250}
+        autoHeightMax={250}
         className={s.Skills__body}
       >
         {skillList.map(skill => {
-          const isChecked: boolean = selectedSkills.some(({ id }) => id === skill.id)
+          const isChecked: boolean = selectedSkills.some(({ name }) => name === skill.name)
 
           return (
             <div
@@ -74,7 +74,7 @@ const Skills: React.FC<Props> = (
               className={s.Skills__item}
               onClick={() =>  handleCheckbox(!isChecked, skill)}
             >
-              {skill.text}
+              {skill.name}
               <Checkbox
                 onChange={() => handleCheckbox(isChecked, skill)}
                 checked={isChecked}

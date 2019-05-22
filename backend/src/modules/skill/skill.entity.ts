@@ -13,10 +13,12 @@ export class Skill {
   @Column({
     unique: true,
   })
-  externalId: number
-
-  @Column()
   name: string
+
+  @Column({
+    default: false
+  })
+  accepted: boolean
 
   @ManyToMany(() => User, (user: User) => user.skills)
   users: User[]
