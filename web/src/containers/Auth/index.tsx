@@ -1,10 +1,11 @@
+import cookies from 'js-cookie'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { Container, Faq } from '../../components'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
-import { getUser } from '../../redux/actions/user'
+import { getUserData } from '../../redux/actions/user'
 import { UserState } from '../../redux/reducers/user'
 import { H2, H4, Logo } from '../../UI'
 import * as s from './Auth.css'
@@ -18,7 +19,10 @@ class Auth extends React.Component<Props> {
   componentDidMount (): void {
     const { getUser, user } = this.props
 
-    if (!user.isAuthenticated) {
+    if (
+      cookies.get('authToken') &&
+      !user.data
+    ) {
       getUser()
     }
   }
@@ -26,11 +30,7 @@ class Auth extends React.Component<Props> {
   render () {
     const { user } = this.props
 
-    if (user.isLoading) {
-      return null
-    }
-
-    if (user.isAuthenticated) {
+    if (user.data) {
       return <Redirect to={ROUTES.INTRODUCTION}/>
     }
 
@@ -181,6 +181,6 @@ export default connect(
     user: state.user,
   }),
   {
-    getUser,
+    getUser: getUserData,
   },
 )(Auth)

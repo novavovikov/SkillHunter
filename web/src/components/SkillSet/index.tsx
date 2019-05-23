@@ -76,7 +76,7 @@ class SkillSet extends React.Component<Props, State> {
     const data = this.state.selectedSuggestions.map(({ name }) => name)
 
     await ajax.
-      post('user/1/skills', data).
+      post('user/skills', data).
       then(resp => {
         this.props.history.push(ROUTES.HOME)
       })

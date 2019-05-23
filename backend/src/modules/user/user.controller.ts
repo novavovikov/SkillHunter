@@ -25,43 +25,38 @@ export class UserController {
     return this.userService.findById(req.user.id)
   }
 
-  @Get(':id')
-  getUser (@Param('id') id: number) {
-    return this.userService.findById(id)
+  @Put()
+  updateUser (@Body() data: UserDto, @Req() req) {
+    return this.userService.update(req.user.id, data)
   }
 
-  @Put(':id')
-  updateUser (@Body() data: UserDto, @Param('id') id: number) {
-    return this.userService.update(id, data)
+  @Delete()
+  deleteUser (@Req() req) {
+    return this.userService.delete(req.user.id)
   }
 
-  @Delete(':id')
-  deleteUser (@Param('id') id: number) {
-    return this.userService.delete(id)
-  }
-
-  @Post(':id/skills')
+  @Post('skills')
   @ApiImplicitBody({
     name: 'skill ids',
     type: [Number],
   })
-  async setSkills ( @Body() skills: string[], @Param('id') id: string) {
+  async setSkills (@Body() skills: string[], @Req() req) {
     const skillList: Skill[] = await this.skillService.find({
-      name: In(skills)
+      name: In(skills),
     })
-    return this.userService.setSkills(id, skillList)
+    return this.userService.setSkills(req.user.id, skillList)
   }
 
-  @Post(':id/professions')
+  @Post('professions')
   @ApiImplicitBody({
     name: 'profession ids',
     type: [Number],
   })
-  async setProfessions (@Body() professions: string[], @Param('id') id: string) {
+  async setProfessions (@Body() professions: string[], @Req() req) {
     const professionList: Profession[] = await this.professionService.find({
-      name: In(professions)
+      name: In(professions),
     })
 
-    return this.userService.setProfessions(id, professionList)
+    return this.userService.setProfessions(req.user.id, professionList)
   }
 }

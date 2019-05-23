@@ -7,6 +7,7 @@ import NotFound from '../containers/NotFound'
 import Home from '../containers/Home'
 import Introduction from '../containers/Introduction'
 import Auth from '../containers/Auth'
+import Logout from '../containers/Logout'
 
 const Routes: React.FC = () => {
   return (
@@ -14,6 +15,12 @@ const Routes: React.FC = () => {
       <Route
         path={ROUTES.LOGIN}
         component={Auth}
+        exact
+      />
+
+      <Route
+        path={ROUTES.LOGOUT}
+        component={Logout}
         exact
       />
 

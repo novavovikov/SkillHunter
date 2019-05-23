@@ -4,23 +4,20 @@ import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { UserActionTypes } from '../actionTypes/user'
 
-export function * getUser () {
+export function * getUserData () {
+  yield put(ac.setUserLoadingStatus(true))
+
   try {
     const { data } = yield call(ajax, API.ME)
-    yield put(ac.setUser({
-      isLoading: false,
-      isAuthenticated: true,
-      data
-    }))
+
+    yield put(ac.setUserData(data))
   } catch (error) {
-    yield put(ac.setUser({
-      isLoading: false,
-      isAuthenticated: false,
-      data: {}
-    }))
+    yield put(ac.setUserData(null))
   }
+
+  yield put(ac.setUserLoadingStatus(false))
 }
 
-export function * watchGetUser () {
-  yield takeEvery(UserActionTypes.SAGA_GET_USER, getUser)
+export function * watchGetUserData () {
+  yield takeEvery(UserActionTypes.SAGA_GET_USER, getUserData)
 }

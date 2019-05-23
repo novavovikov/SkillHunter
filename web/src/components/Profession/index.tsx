@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, H2, Input, AutoComplete } from '../../UI'
+import { AutoComplete, Button, H2 } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import * as s from './Profession.css'
 
@@ -13,12 +13,12 @@ interface Props {
 
 class Profession extends React.Component<Props, State> {
   state = {
-    inputValue: ''
+    inputValue: '',
   }
 
   setInputValue = (e: any) => {
     this.setState({
-      inputValue: e.target.value
+      inputValue: e.target.value,
     })
   }
 
@@ -27,7 +27,7 @@ class Profession extends React.Component<Props, State> {
     const { setStep } = this.props
 
     if (setStep) {
-      await ajax.post('user/1/professions', [this.state.inputValue])
+      await ajax.post('user/professions', [this.state.inputValue])
       await setStep('Skills')
     }
   }
@@ -48,7 +48,7 @@ class Profession extends React.Component<Props, State> {
             value: inputValue,
             onChange: this.setInputValue,
             placeholder: 'Специальность, профессия или должность',
-            autoFocus: true
+            autoFocus: true,
           }}
         />
 
