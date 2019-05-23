@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Redirect, Route, RouteProps } from 'react-router'
 import { ROUTES } from '../constants/routing'
-import withUser from '../hoc/userHOC'
+import withUser from '../HOC/userHOC'
 import { UserState } from '../redux/reducers/user'
 
 interface Props extends RouteProps {
