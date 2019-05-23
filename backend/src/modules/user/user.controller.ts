@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
@@ -18,6 +18,12 @@ export class UserController {
     private skillService: SkillService,
     private professionService: ProfessionService,
   ) {}
+
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  getCurrentUser (@Req() req) {
+    return this.userService.findById(req.user.id)
+  }
 
   @Get(':id')
   getUser (@Param('id') id: number) {

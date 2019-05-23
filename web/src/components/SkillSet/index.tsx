@@ -1,5 +1,7 @@
 import * as React from 'react'
 import debounce from 'debounce'
+import { RouteComponentProps, withRouter } from 'react-router'
+import { ROUTES } from '../../constants/routing'
 import { DEBOUNCE_TIMEOUT } from '../../constants/timeout'
 import { Button, H2, Input, Tip } from '../../UI'
 import { ajax } from '../../utils/ajax'
@@ -17,7 +19,7 @@ interface State {
   selectedSuggestions: Suggesion[]
 }
 
-interface Props {
+interface Props extends RouteComponentProps {
   setStep?: (id: string) => void
 }
 
@@ -71,14 +73,16 @@ class SkillSet extends React.Component<Props, State> {
 
   onSubmit = async (e: any) => {
     e.preventDefault()
-    const {
-      setStep,
-    } = this.props
+    const data = this.state.selectedSuggestions.map(({ name }) => name)
 
-    if (typeof setStep === 'function') {
-      await ajax.post('user/1/skills', this.state.selectedSuggestions.map(({ name }) => name))
-      await setStep('Profession')
-    }
+    await ajax.
+      post('user/1/skills', data).
+      then(resp => {
+        this.props.history.push(ROUTES.HOME)
+      })
+      .catch(err => {
+        console.warn('Skills', err)
+      })
   }
 
   render () {
@@ -125,4 +129,4 @@ class SkillSet extends React.Component<Props, State> {
   }
 }
 
-export default SkillSet
+export default withRouter(SkillSet)

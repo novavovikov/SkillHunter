@@ -1,7 +1,5 @@
-import * as currency from './currency'
-import * as tickets from './tickets'
+import * as user from './user'
 
 export default {
-  ...tickets,
-  ...currency
+  ...user
 }

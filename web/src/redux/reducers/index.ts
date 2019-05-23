@@ -1,15 +1,12 @@
 import { combineReducers } from 'redux'
-import { tickets, TicketsState } from './tickets'
-import { currency, CurrencyState } from './currency'
+import { user, UserState } from './user'
 
 interface RootState {
-  tickets: TicketsState
-  currency: CurrencyState
+  user: UserState
 }
 
 export default () => {
   return combineReducers<RootState>({
-    tickets,
-    currency
+    user,
   })
 }

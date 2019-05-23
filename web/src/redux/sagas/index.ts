@@ -1,10 +1,8 @@
 import { all } from 'redux-saga/effects'
-import { watchGetTickets } from './tickets'
-import { watchGetCurrency } from './currency'
+import { watchGetUser } from './user'
 
 export default function * rootSaga () {
   yield all([
-    watchGetCurrency(),
-    watchGetTickets()
+    watchGetUser(),
   ])
 }

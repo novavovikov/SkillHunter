@@ -1,15 +1,13 @@
 import * as React from 'react'
-import { renderRoutes } from 'react-router-config'
 import { BrowserRouter as Router } from 'react-router-dom'
 import ReduxStore from './redux/store'
-import { routes } from './routing'
-import './styles/global.css'
+import { Routes } from './routing'
 
 const App: React.FC = () => {
   return (
     <ReduxStore>
       <Router>
-        {renderRoutes(routes)}
+        <Routes/>
       </Router>
     </ReduxStore>
   )

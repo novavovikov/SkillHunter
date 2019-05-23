@@ -66,7 +66,9 @@ class AutoComplete extends React.Component<Props, State> {
   onFocusInput = (e: any) => {
     const { input } = this.props
 
-    this.getSuggestions(input.value)
+    if (input.value) {
+      this.getSuggestions(input.value)
+    }
 
     if (typeof input.onFocus === 'function') {
       input.onFocus(e)

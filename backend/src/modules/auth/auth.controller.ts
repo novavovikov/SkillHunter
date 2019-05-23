@@ -6,14 +6,6 @@ import { BACK_URL } from './constants/auth'
 @Controller('auth')
 @ApiUseTags('auth')
 export class AuthController {
-  @Get()
-  @UseGuards(AuthGuard('jwt'))
-  validateToken () {
-    return {
-      valid: true,
-    }
-  }
-
   @Get('google')
   @UseGuards(AuthGuard('google'))
   googleAuth () {}
