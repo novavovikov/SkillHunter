@@ -3,43 +3,45 @@ import { Route, Switch } from 'react-router'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
 
-import NotFound from '../containers/NotFound'
-import Home from '../containers/Home'
-import Introduction from '../containers/Introduction'
-import Auth from '../containers/Auth'
-import Logout from '../containers/Logout'
+const Auth = React.lazy(() => import('../containers/Auth'))
+const Logout = React.lazy(() => import('../containers/Logout'))
+const Home = React.lazy(() => import('../containers/Home'))
+const Introduction = React.lazy(() => import('../containers/Introduction'))
+const NotFound = React.lazy(() => import('../containers/NotFound'))
 
 const Routes: React.FC = () => {
   return (
-    <Switch>
-      <Route
-        path={ROUTES.LOGIN}
-        component={Auth}
-        exact
-      />
+    <React.Suspense fallback={<div>Загрузка</div>}>
+      <Switch>
+        <Route
+          path={ROUTES.LOGIN}
+          component={Auth}
+          exact
+        />
 
-      <Route
-        path={ROUTES.LOGOUT}
-        component={Logout}
-        exact
-      />
+        <Route
+          path={ROUTES.LOGOUT}
+          component={Logout}
+          exact
+        />
 
-      <PrivateRoute
-        path={ROUTES.INTRODUCTION}
-        component={Introduction}
-        exact
-      />
+        <PrivateRoute
+          path={ROUTES.INTRODUCTION}
+          component={Introduction}
+          exact
+        />
 
-      <PrivateRoute
-        path={ROUTES.HOME}
-        component={Home}
-      />
+        <PrivateRoute
+          path={ROUTES.HOME}
+          component={Home}
+        />
 
-      <PrivateRoute
-        path={'*'}
-        component={NotFound}
-      />
-    </Switch>
+        <PrivateRoute
+          path={'*'}
+          component={NotFound}
+        />
+      </Switch>
+    </React.Suspense>
   )
 }
 

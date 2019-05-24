@@ -8,6 +8,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
+  optimization: require('./webpack/optimization'),
   module: require('./webpack/module'),
   plugins: require('./webpack/plugins'),
   devServer: require('./webpack/devServer'),
