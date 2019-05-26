@@ -41,10 +41,6 @@ export class ProfessionService {
     })
   }
 
-  async findByIds (skills: number[]) {
-    return await this.professionRepository.findByIds(skills)
-  }
-
   async setProfessions (professions: any) {
     // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
     const foundProfessions = await this.professionRepository.find(professions)
@@ -53,8 +49,10 @@ export class ProfessionService {
     )
 
     if (uniqueProfessions.length) {
-      this.professionRepository.insert(uniqueProfessions)
+      return await this.professionRepository.save(uniqueProfessions)
     }
+
+    return []
   }
 
   async setSkills (userId: number | string, skills: Skill[]) {

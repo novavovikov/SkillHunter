@@ -13,6 +13,7 @@ export class SuggestsService {
         toPromise().
         then(({ items }) => items.map(({ text }) => ({ name: text }))).
         catch(err => {
+          Logger.log(JSON.stringify(err))
           return []
         })
     } catch (err) {

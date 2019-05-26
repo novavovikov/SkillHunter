@@ -59,7 +59,7 @@ const Registration = ({ t }) => {
     .then(resp => resp.json())
     .then(() => Router.push(FINAL_ROUTE))
     .catch(err => {
-      console.log(err.message)
+      console.warn(err.message)
       setEmail({
         ...email,
         error: t('field.unknown'),

@@ -8,3 +8,5 @@ export const SkillSet__input: string;
 export const skillSetInput: string;
 export const SkillSet__button: string;
 export const skillSetButton: string;
+export const SkillSet__back: string;
+export const skillSetBack: string;

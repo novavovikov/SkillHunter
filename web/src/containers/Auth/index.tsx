@@ -7,8 +7,10 @@ import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { getUserData } from '../../redux/actions/user'
 import { UserState } from '../../redux/reducers/user'
-import { H2, H4, Logo } from '../../UI'
+import { H2, H4, Logo, Tip } from '../../UI'
 import * as s from './Auth.css'
+import facebookIcon from './icons/facebook-icon.svg'
+import googleIcon from './icons/google-icon.svg'
 
 interface Props {
   user: UserState,
@@ -37,46 +39,63 @@ class Auth extends React.Component<Props> {
     return (
       <div className={s.Auth}>
         <Container>
-          <Logo/>
+          <div className={s.Auth__container}>
+            <Logo/>
 
-          <H2>Регистрация или вход</H2>
+            <H2>Регистрация или вход</H2>
 
-          <div className={s.Auth__label}>
-            С помощью
-          </div>
+            <div className={s.Auth__label}>
+              С помощью
+            </div>
 
-          <a
-            className={s.Auth__btn}
-            href={`${API.BASE_URL}${API.AUTH_GOOGLE}`}
-          >
-            GOOGLE
-          </a>
+            <a
+              className={s.Auth__btn}
+              href={`${API.BASE_URL}${API.AUTH_GOOGLE}`}
+            >
+              <i
+                className={s.Auth__btnIcon}
+                dangerouslySetInnerHTML={{ __html: googleIcon }}
+              />
+              <span>GOOGLE</span>
+            </a>
 
-          <div className={s.Auth__label}>
-            или
-          </div>
+            <div className={s.Auth__label}>
+              или
+            </div>
 
-          <a
-            className={s.Auth__btn}
-            href={`${API.BASE_URL}${API.AUTH_FACEBOOK}`}
-          >
-            FACEBOOK
-          </a>
+            <a
+              className={s.Auth__btn}
+              href={`${API.BASE_URL}${API.AUTH_FACEBOOK}`}
+            >
+              <i
+                className={s.Auth__btnIcon}
+                dangerouslySetInnerHTML={{ __html: facebookIcon }}
+              />
+              <span>FACEBOOK</span>
+            </a>
 
-          <div className={s.Auth__terms}>
-            Регистрируясь, вы соглашаетесь с нашими<br/>
-            <a href={'#'}>Terms of Service</a> и <a href={'#'}>Privacy Policy.</a>
-          </div>
+            <div className={s.Auth__terms}>
+              Регистрируясь, вы соглашаетесь с нашими<br/>
+              <a href={'https://skillhunter.io/tos/'} target={'_blank'} className={s.Auth__link}>Terms of
+                Service</a> и <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'} target={'_blank'}
+                                 className={s.Auth__link}>Privacy
+              Policy.</a>
+            </div>
 
-          <div className={s.Auth__security}>
-            Не передаем информацию третьим лицам. Закрыть доступ к аккаунту можно всегда.
-          </div>
+            <Tip
+              icon={'lock'}
+              className={s.Auth__security}
+            >
+              Не передаем информацию третьим лицам. Закрыть доступ к аккаунту можно всегда.
+            </Tip>
 
-          <div className={s.Auth__description}>
-            <H4>Нет аккаунта Google или Facebook?</H4>
-            <div>
-              Нет проблем! Вы можете создать аккаунт Google или Facebook с помощью вашего email. Gmail аккаунты не
-              поддерживаются.
+            <div className={s.Auth__description}>
+              <H4>Нет аккаунта Google или Facebook?</H4>
+              <div>
+                Нет проблем! Вы можете создать аккаунт Google или Facebook с помощью вашего email. <br/>Gmail аккаунты
+                не
+                поддерживаются.
+              </div>
             </div>
           </div>
         </Container>

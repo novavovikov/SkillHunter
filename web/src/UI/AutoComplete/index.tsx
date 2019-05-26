@@ -9,7 +9,7 @@ import * as s from './AutoComplete.css'
 
 interface Suggestion {
   id: string,
-  text: string
+  name: string
 }
 
 interface Props {
@@ -75,9 +75,26 @@ class AutoComplete extends React.Component<Props, State> {
     }
   }
 
+  getSuggestionsList = () => {
+    const { input } = this.props
+    const { suggestions } = this.state
+
+    const startArr = input.value && suggestions.length
+      ? [{ id: '-1', name: input.value }]
+      : []
+
+    return suggestions.reduce((acc, suggestion: Suggestion) => {
+      if (acc.some(({ name }) => name.toLowerCase() === suggestion.name.toLowerCase())) {
+        return acc
+      }
+
+      return [...acc, suggestion]
+    }, startArr)
+  }
+
   render () {
     const { input, className } = this.props
-    const { suggestions } = this.state
+    const suggestions = this.getSuggestionsList()
 
     return (
       <div className={cn(s.AutoComplete, className)}>

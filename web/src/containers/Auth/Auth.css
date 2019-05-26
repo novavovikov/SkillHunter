@@ -4,6 +4,10 @@
   text-align: center;
   letter-spacing: -0.41px;
 
+  &__container {
+    text-align: center;
+  }
+
   &__label {
     font-size: 14px;
     line-height: 22px;
@@ -11,7 +15,7 @@
   }
 
   &__btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 157px;
@@ -20,7 +24,7 @@
     background: #F8F7FC;
     font-weight: 600;
     font-size: 17px;
-    line-height: 22px;
+    line-height: 16px;
     border-radius: 8px;
     text-transform: uppercase;
     margin: 6px auto;
@@ -32,6 +36,17 @@
     }
   }
 
+  &__btnIcon {
+    width: 16px;
+    height: 16px;
+    margin: 0 6px 0 0;
+
+    svg {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
   &__terms {
     white-space: pre-line;
     color: #555555;
@@ -39,7 +54,6 @@
   }
 
   &__security {
-    color: #BDBDBD;
     margin: 0 0 100px;
   }
 
@@ -59,5 +73,13 @@
 
   &__faqCol {
     width: 503px;
+  }
+
+  &__link {
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }

@@ -41,10 +41,30 @@ export class UserController {
     type: [Number],
   })
   async setSkills (@Body() skills: string[], @Req() req) {
-    const skillList: Skill[] = await this.skillService.find({
+    let skillList: Skill[] = await this.skillService.find({
       name: In(skills),
     })
+
+    if (skillList.length !== skills.length) {
+      const notExistentSkills = skills.
+        filter(item => !skillList.find(({ name }) => name === item)).
+        map(name => ({ name }))
+      const createdSkills: Skill[] = await this.skillService.setSkills(notExistentSkills)
+
+      skillList = [...skillList, ...createdSkills]
+    }
+
     return this.userService.setSkills(req.user.id, skillList)
+  }
+
+  @Delete('skills')
+  async deleteSkills (@Req() req) {
+    return this.userService.setSkills(req.user.id, [])
+  }
+
+  @Delete('professions')
+  async deleteProfessions (@Req() req) {
+    return this.userService.setProfessions(req.user.id, [])
   }
 
   @Post('professions')
@@ -53,9 +73,18 @@ export class UserController {
     type: [Number],
   })
   async setProfessions (@Body() professions: string[], @Req() req) {
-    const professionList: Profession[] = await this.professionService.find({
+    let professionList: Profession[] = await this.professionService.find({
       name: In(professions),
     })
+
+    if (professionList.length !== professions.length) {
+      const notExistentProfessions = professions.
+        filter(item => !professionList.find(({ name }) => name === item)).
+        map(name => ({ name }))
+      const createdProfessions: Profession[] = await this.professionService.setProfessions(notExistentProfessions)
+
+      professionList = [...professionList, ...createdProfessions]
+    }
 
     return this.userService.setProfessions(req.user.id, professionList)
   }

@@ -1,25 +1,41 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
+import { Container } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { Button } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
-const Home: React.FC = () => {
+const Home: React.FC<RouteComponentProps> = ({ history }) => {
   const clearUserData = () => {
-    ajax.post('user/skills', ['Дичь'])
-    ajax.post('user/professions', ['Дичь'])
+    ajax.delete('user/skills')
+    ajax.delete('user/professions')
   }
 
   return (
-    <div>
-      <div>
-        Home Page
-      </div>
-
+    <Container>
       <div>
         <Button onClick={clearUserData}>
           Очистить скилы и профессии
         </Button>
+      </div>
+
+      <div>
+        <Link
+          to={ROUTES.INTRODUCTION}
+          style={{
+            display: 'inline-flex',
+            border: '2px solid #666',
+            padding: '10px 20px',
+            marginTop: '15px',
+          }}
+        >
+          {ROUTES.INTRODUCTION}
+        </Link>
+
+        <div>
+          *Чтобы попасть на страницу {ROUTES.INTRODUCTION} надо очистить скиллы и профессии, а затем перезагрузить
+          страницу.
+        </div>
       </div>
 
       <div>
@@ -32,11 +48,11 @@ const Home: React.FC = () => {
             marginTop: '15px',
           }}
         >
-          Logout
+          {ROUTES.LOGOUT}
         </Link>
       </div>
-    </div>
+    </Container>
   )
 }
 
-export default Home
+export default withRouter(Home)

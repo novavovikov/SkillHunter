@@ -1,6 +1,8 @@
 .Tip {
+  display: inline-flex;
+  align-items: center;
   position: relative;
-  color: #777777;
+  color: #999;
   font-size: 12px;
   line-height: 16px;
   padding: 0 0 0 24px;

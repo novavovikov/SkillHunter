@@ -62,6 +62,14 @@ class SkillSet extends React.Component<Props, State> {
     this.setInputValue(value)
   }
 
+  handleBackBtn = () => {
+    const { setStep } = this.props
+
+    if (typeof setStep === 'function') {
+      setStep('Profession')
+    }
+  }
+
   handleOnKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       return this.setSelectedSuggestions([
@@ -99,7 +107,7 @@ class SkillSet extends React.Component<Props, State> {
       >
         <div className={s.SkillSet__caption}>
           <H2 className={s.SkillSet__title}>Создайте скиллсет</H2>
-          <Tip>Скиллсет - это набор компетенций и навыков, которыми обладает специалист.</Tip>
+          <Tip icon={'info'}>Скиллсет - это набор компетенций и навыков, которыми обладает специалист.</Tip>
         </div>
 
         <Input
@@ -112,6 +120,7 @@ class SkillSet extends React.Component<Props, State> {
         />
 
         <Skills
+          value={inputValue}
           setSkills={this.setSuggestions}
           setSelectedSkills={this.setSelectedSuggestions}
           skills={suggestions}
@@ -124,6 +133,14 @@ class SkillSet extends React.Component<Props, State> {
         >
           Далее
         </Button>
+
+        <button
+          type={'button'}
+          className={s.SkillSet__back}
+          onClick={this.handleBackBtn}
+        >
+          Назад
+        </button>
       </form>
     )
   }

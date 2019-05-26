@@ -1,3 +1,5 @@
+@import "../../styles/variables.css";
+
 .SkillSet {
   display: flex;
   flex-direction: column;
@@ -18,5 +20,20 @@
 
   &__button {
     margin-top: 30px;
+  }
+
+  &__back {
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    padding: 20px;
+    background: none;
+    border: none;
+    color: #BDBDBD;
+
+    &:hover {
+      color: var(--color-blue);
+    }
   }
 }

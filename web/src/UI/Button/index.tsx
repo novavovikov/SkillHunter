@@ -17,7 +17,10 @@ const Button: React.FC<Props> = (
 ) => {
   return (
     <button
-      className={cn(s.Button, className)}
+      className={cn(
+        s.Button,
+        className
+      )}
       {...rest}
     >
       {children}
