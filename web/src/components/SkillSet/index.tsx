@@ -1,26 +1,29 @@
-import * as React from 'react'
 import debounce from 'debounce'
+import * as React from 'react'
+import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { ROUTES } from '../../constants/routing'
 import { DEBOUNCE_TIMEOUT } from '../../constants/timeout'
+import { setUserData } from '../../redux/actions/user'
 import { Button, H2, Input, Tip } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import Skills from '../Skills'
 import * as s from './SkillSet.css'
 
-interface Suggesion {
+interface Suggestion {
   id?: number,
   name: string
 }
 
 interface State {
   inputValue: string
-  suggestions: Suggesion[]
-  selectedSuggestions: Suggesion[]
+  suggestions: Suggestion[]
+  selectedSuggestions: Suggestion[]
 }
 
 interface Props extends RouteComponentProps {
-  setStep?: (id: string) => void
+  setStep?: (id: string) => void,
+  setUserData: (data: any) => void
 }
 
 class SkillSet extends React.Component<Props, State> {
@@ -30,13 +33,13 @@ class SkillSet extends React.Component<Props, State> {
     selectedSuggestions: [],
   }
 
-  setSuggestions = (suggestions: Suggesion[]) => {
+  setSuggestions = (suggestions: Suggestion[]) => {
     this.setState({
       suggestions,
     })
   }
 
-  setSelectedSuggestions = (selectedSuggestions: Suggesion[]) => {
+  setSelectedSuggestions = (selectedSuggestions: Suggestion[]) => {
     this.setState({
       selectedSuggestions,
     })
@@ -74,7 +77,7 @@ class SkillSet extends React.Component<Props, State> {
     if (e.key === 'Enter') {
       return this.setSelectedSuggestions([
         ...this.state.selectedSuggestions,
-        { name: e.target.value }
+        { name: e.target.value },
       ])
     }
   }
@@ -86,9 +89,8 @@ class SkillSet extends React.Component<Props, State> {
     await ajax.
       post('user/skills', data).
       then(resp => {
-        this.props.history.push(ROUTES.HOME)
-      })
-      .catch(err => {
+        this.props.setUserData(resp.data)
+      }).catch(err => {
         console.warn('Skills', err)
       })
   }
@@ -146,4 +148,11 @@ class SkillSet extends React.Component<Props, State> {
   }
 }
 
-export default withRouter(SkillSet)
+export default withRouter(
+  connect(
+    null,
+    {
+      setUserData,
+    },
+  )(SkillSet),
+)
