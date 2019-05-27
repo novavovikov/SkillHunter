@@ -13,13 +13,11 @@ export class SubscribeEntity {
   })
   email: string
 
-  @Column({
-    nullable: true,
-  })
+
+  @Column({ nullable: true })
   profession: string
 
-  @Column({
-    nullable: true,
-  })
+
+  @Column({ nullable: true })
   expectations: string
 }

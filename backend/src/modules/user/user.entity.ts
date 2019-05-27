@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { RoleType } from '../../constants/role-type'
 import { Profession } from '../profession/profession.entity'
 import { Skill } from '../skill/skill.entity'
 
@@ -10,45 +11,32 @@ export class User {
   @CreateDateColumn()
   created: Date
 
-  @Column({
-    unique: true,
-  })
+  @Column({ type: 'enum', enum: RoleType, default: RoleType.User })
+  role: RoleType
+
+  @Column({ unique: true })
   email: string
 
-  @Column({
-    nullable: true,
-  })
+  @Column({ nullable: true })
   picture: string
 
-  @Column({
-    nullable: true,
-  })
+  @Column({ nullable: true })
   name: string
 
-  @Column({
-    nullable: true,
-  })
+  @Column({ nullable: true })
   locale: string
 
-  @Column({
-    nullable: true,
-  })
+  @Column({ nullable: true })
   googleId: string
 
-  @Column({
-    nullable: true,
-  })
+  @Column({ nullable: true })
   facebookId: string
 
   @ManyToMany(() => Skill, (skill: Skill) => skill.users, { cascade: true })
-  @JoinTable({
-    name: 'user_skills',
-  })
+  @JoinTable({ name: 'user_skills' })
   skills: Skill[]
 
   @ManyToMany(() => Profession, (profession: Profession) => profession.users, { cascade: true })
-  @JoinTable({
-    name: 'user_professions',
-  })
+  @JoinTable({ name: 'user_professions' })
   professions: Profession[]
 }

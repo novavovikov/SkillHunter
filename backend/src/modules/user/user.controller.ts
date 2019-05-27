@@ -1,7 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Post, Put, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
+import { Roles } from '../../common/decorators/roles.decorator'
+import { RolesGuard } from '../../common/guards/roles.guard'
+import { RoleType } from '../../constants/role-type'
 import { Profession } from '../profession/profession.entity'
 import { ProfessionService } from '../profession/profession.service'
 import { Skill } from '../skill/skill.entity'
@@ -11,6 +14,7 @@ import { UserService } from './user.service'
 
 @Controller('user')
 @ApiUseTags('user')
+@UseGuards(RolesGuard)
 @UseGuards(AuthGuard('jwt'))
 export class UserController {
   constructor (
@@ -58,11 +62,13 @@ export class UserController {
   }
 
   @Delete('skills')
+  @Roles([RoleType.User])
   async deleteSkills (@Req() req) {
     return this.userService.setSkills(req.user.id, [])
   }
 
   @Delete('professions')
+  @Roles([RoleType.User])
   async deleteProfessions (@Req() req) {
     return this.userService.setProfessions(req.user.id, [])
   }

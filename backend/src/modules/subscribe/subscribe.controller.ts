@@ -2,7 +2,7 @@ import { Body, Controller, Post, UsePipes } from '@nestjs/common'
 import { ApiUseTags } from '@nestjs/swagger'
 import { SubscribeService } from './subscribe.service'
 import { SubscribeDto } from './subscribe.dto'
-import { ValidationPipe } from '../../shared/validation.pipe'
+import { ValidationPipe } from '../../common/pipes/validation.pipe'
 
 @Controller('subscribe')
 @ApiUseTags('subscribe')

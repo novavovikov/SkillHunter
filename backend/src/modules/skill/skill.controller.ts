@@ -12,7 +12,7 @@ export class SkillController {
   ) {}
 
   @Get(':id')
-  getUser (@Param('id') id: number) {
+  getSkill (@Param('id') id: number) {
     return this.skillService.findById(id)
   }
 }
