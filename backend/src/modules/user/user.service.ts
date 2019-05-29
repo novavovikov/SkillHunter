@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { RoleType } from '../../constants/role-type'
 import { Profession } from '../profession/profession.entity'
 import { Skill } from '../skill/skill.entity'
 import { UserDto } from './user.dto'
@@ -13,6 +12,15 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
+
+  findAll () {
+    return this.userRepository.find({
+      order: {
+        name: 'ASC',
+        id: 'DESC',
+      },
+    })
+  }
 
   async findById (id: number | string) {
     return await this.userRepository.findOne({

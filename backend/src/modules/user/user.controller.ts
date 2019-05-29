@@ -35,8 +35,12 @@ export class UserController {
     private professionService: ProfessionService,
   ) {}
 
+  @Get()
+  getUsers () {
+    return this.userService.findAll()
+  }
+
   @Get('me')
-  @UseGuards(AuthGuard('jwt'))
   getCurrentUser (@Req() req) {
     return this.userService.findById(req.user.id)
   }
