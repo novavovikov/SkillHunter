@@ -1,21 +1,25 @@
 import { ApiModelProperty } from '@nestjs/swagger'
+import { RoleType } from '../../constants/role-type'
 
 export class UserDto {
   @ApiModelProperty()
-  readonly email?: string
+  email?: string
 
   @ApiModelProperty()
-  readonly name?: string
+  name?: string
 
   @ApiModelProperty()
-  readonly locale?: string
+  locale?: string
 
   @ApiModelProperty()
-  readonly picture?: string
+  picture?: string
 
   @ApiModelProperty()
   readonly googleId?: string
 
   @ApiModelProperty()
   readonly facebookId?: string
+
+  @ApiModelProperty()
+  role?: RoleType
 }

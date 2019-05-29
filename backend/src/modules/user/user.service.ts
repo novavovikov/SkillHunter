@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { unique } from '../../utils/unique'
 import { Repository } from 'typeorm'
+import { RoleType } from '../../constants/role-type'
 import { Profession } from '../profession/profession.entity'
 import { Skill } from '../skill/skill.entity'
-import { User } from './user.entity'
 import { UserDto } from './user.dto'
+import { User } from './user.entity'
 
 @Injectable()
 export class UserService {
@@ -21,7 +21,7 @@ export class UserService {
         'professions',
       ],
       where: {
-        id: Number(id)
+        id: Number(id),
       },
     })
   }

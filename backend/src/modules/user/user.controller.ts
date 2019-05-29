@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, Post, Put, Req, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
@@ -31,7 +43,30 @@ export class UserController {
 
   @Put()
   updateUser (@Body() data: UserDto, @Req() req) {
-    return this.userService.update(req.user.id, data)
+    const updatedData: UserDto = {}
+
+    if (data.picture) {
+      updatedData.picture = data.picture
+    }
+
+    if (data.name) {
+      updatedData.name = data.name
+    }
+
+    if (data.email) {
+      updatedData.email = data.email
+    }
+
+    if (data.locale) {
+      updatedData.locale = data.locale
+    }
+
+    return this.userService.update(req.user.id, updatedData)
+  }
+
+  @Put(':id')
+  updateUserById (@Body() data: UserDto, @Param('id') id: number) {
+    return this.userService.update(id, data)
   }
 
   @Delete()
