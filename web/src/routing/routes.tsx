@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router'
+import { FeatureController } from '../components'
+import { RoleType } from '../constants/role-type'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
 
@@ -13,11 +15,13 @@ const Routes: React.FC = () => {
   return (
     <React.Suspense fallback={<div>Загрузка</div>}>
       <Switch>
-        <Route
-          path={ROUTES.LOGIN}
-          component={Auth}
-          exact
-        />
+        <FeatureController roles={[RoleType.User]}>
+          <Route
+            path={ROUTES.LOGIN}
+            component={Auth}
+            exact
+          />
+        </FeatureController>
 
         <Route
           path={ROUTES.LOGOUT}
