@@ -1,16 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Req,
-  UseGuards,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
