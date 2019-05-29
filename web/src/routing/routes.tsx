@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Route, Switch } from 'react-router'
+import { Route, Switch, Redirect } from 'react-router'
 import { RoleType } from '../constants/role-type'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
@@ -34,8 +34,9 @@ const Routes: React.FC = () => {
         />
 
         <FeatureController
-          roles={[RoleType.Admin]}
+          roles={[RoleType.User]}
           path={ROUTES.HOME}
+          ReplacementComponent={NotFound}
         >
           <Home/>
         </FeatureController>
