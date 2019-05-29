@@ -34,7 +34,7 @@ const Routes: React.FC = () => {
         />
 
         <FeatureController
-          roles={[RoleType.User]}
+          roles={[RoleType.Admin]}
           path={ROUTES.HOME}
           ReplacementComponent={NotFound}
         >
