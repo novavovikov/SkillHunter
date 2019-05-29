@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router'
-import { FeatureController } from '../components'
 import { RoleType } from '../constants/role-type'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
+import { FeatureController } from '../components'
 
 const Auth = React.lazy(() => import('../containers/Auth'))
 const Logout = React.lazy(() => import('../containers/Logout'))
@@ -15,13 +15,11 @@ const Routes: React.FC = () => {
   return (
     <React.Suspense fallback={<div>Загрузка</div>}>
       <Switch>
-        <FeatureController roles={[RoleType.User]}>
-          <Route
-            path={ROUTES.LOGIN}
-            component={Auth}
-            exact
-          />
-        </FeatureController>
+        <Route
+          path={ROUTES.LOGIN}
+          component={Auth}
+          exact
+        />
 
         <Route
           path={ROUTES.LOGOUT}
@@ -35,10 +33,12 @@ const Routes: React.FC = () => {
           exact
         />
 
-        <PrivateRoute
+        <FeatureController
+          roles={[RoleType.Admin]}
           path={ROUTES.HOME}
-          component={Home}
-        />
+        >
+          <Home/>
+        </FeatureController>
 
         <PrivateRoute
           path={'*'}
