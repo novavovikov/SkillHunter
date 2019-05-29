@@ -24,6 +24,7 @@ export class UserController {
   ) {}
 
   @Get()
+  @Roles([RoleType.Admin])
   getUsers () {
     return this.userService.findAll()
   }
@@ -31,6 +32,12 @@ export class UserController {
   @Get('me')
   getCurrentUser (@Req() req) {
     return this.userService.findById(req.user.id)
+  }
+
+  @Put(':id')
+  @Roles([RoleType.Admin])
+  updateUserById (@Body() data: UserDto, @Param('id') id: number) {
+    return this.userService.update(id, data)
   }
 
   @Put()
@@ -54,11 +61,6 @@ export class UserController {
     }
 
     return this.userService.update(req.user.id, updatedData)
-  }
-
-  @Put(':id')
-  updateUserById (@Body() data: UserDto, @Param('id') id: number) {
-    return this.userService.update(id, data)
   }
 
   @Delete()
@@ -89,13 +91,11 @@ export class UserController {
   }
 
   @Delete('skills')
-  @Roles([RoleType.User])
   async deleteSkills (@Req() req) {
     return this.userService.setSkills(req.user.id, [])
   }
 
   @Delete('professions')
-  @Roles([RoleType.User])
   async deleteProfessions (@Req() req) {
     return this.userService.setProfessions(req.user.id, [])
   }
