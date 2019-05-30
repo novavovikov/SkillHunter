@@ -1,0 +1,12 @@
+@import "../../styles/variables.css";
+
+.AdminUsers {
+  text-align: left;
+  width: 100%;
+  margin: 0 0 30px;
+
+  &__td {
+    border-bottom: 1px solid var(--bg-gray);
+    padding: 15px 10px;
+  }
+}

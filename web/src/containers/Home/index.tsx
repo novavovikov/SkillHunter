@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import { Container } from '../../components'
+import { Container, AdminUsers } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { Button } from '../../UI'
 import { ajax } from '../../utils/ajax'
@@ -13,6 +13,8 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <Container>
+      <AdminUsers/>
+
       <div>
         <Button onClick={clearUserData}>
           Очистить скилы и профессии
