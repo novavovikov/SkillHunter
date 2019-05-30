@@ -12,6 +12,14 @@ export class SubscribeService {
     private subscribeRepository: Repository<SubscribeEntity>,
   ) {}
 
+  findAll () {
+    return this.subscribeRepository.find({
+      order: {
+        id: 'ASC',
+      },
+    })
+  }
+
   async create (data: SubscribeDto) {
     const subscriber = this.subscribeRepository.create(data)
     await this.subscribeRepository.save(subscriber)

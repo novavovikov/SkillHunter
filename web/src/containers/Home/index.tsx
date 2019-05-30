@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import { Container, AdminUsers } from '../../components'
+import { Container, AdminUsers, AdminSubscribers } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { Button } from '../../UI'
 import { ajax } from '../../utils/ajax'
@@ -13,7 +13,6 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <Container>
-      <AdminUsers/>
 
       <div>
         <Button onClick={clearUserData}>
@@ -53,6 +52,12 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
           {ROUTES.LOGOUT}
         </Link>
       </div>
+
+      <h2>Пользователи app.skillhunter.io</h2>
+      <AdminUsers/>
+
+      <h2>Подписчики skillhunter.io</h2>
+      <AdminSubscribers/>
     </Container>
   )
 }

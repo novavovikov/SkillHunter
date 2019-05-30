@@ -1,5 +1,6 @@
 import FeatureController from './FeatureController'
 import AdminUsers from './AdminUsers'
+import AdminSubscribers from './AdminSubscribers'
 import Container from './Container'
 import Faq from './Faq'
 import Profession from './Profession'
@@ -11,6 +12,7 @@ import * as Steps from './Steps'
 export {
   FeatureController,
   AdminUsers,
+  AdminSubscribers,
   Container,
   Faq,
   Profession,
