@@ -1,15 +1,16 @@
 import * as React from 'react'
-import { Route, Switch, Redirect } from 'react-router'
+import { Route, Switch } from 'react-router'
+import { FeatureController } from '../components'
 import { RoleType } from '../constants/role-type'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
-import { FeatureController } from '../components'
 
 const Auth = React.lazy(() => import('../containers/Auth'))
 const Logout = React.lazy(() => import('../containers/Logout'))
 const Home = React.lazy(() => import('../containers/Home'))
 const Introduction = React.lazy(() => import('../containers/Introduction'))
 const NotFound = React.lazy(() => import('../containers/NotFound'))
+const Admin = React.lazy(() => import('../admin'))
 
 const Routes: React.FC = () => {
   return (
@@ -33,12 +34,19 @@ const Routes: React.FC = () => {
           exact
         />
 
+        <PrivateRoute
+          path={ROUTES.HOME}
+          component={Home}
+          exact
+        />
+
         <FeatureController
           roles={[RoleType.Admin]}
-          path={ROUTES.HOME}
+          path={ROUTES.ADMIN}
           ReplacementComponent={NotFound}
+          exact
         >
-          <Home/>
+          <Admin/>
         </FeatureController>
 
         <PrivateRoute
