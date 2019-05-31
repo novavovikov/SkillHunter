@@ -1,7 +1,6 @@
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import * as cookieParser from 'cookie-parser'
 import 'dotenv/config'
 import { AppModule } from './modules/app/app.module'
 
@@ -12,10 +11,6 @@ const port = process.env.PORT
 async function bootstrap () {
   const app = await NestFactory.create(AppModule)
   app.setGlobalPrefix(API_BASE_PATH)
-  app.use(cookieParser({
-    secure: true,
-    httpOnly: true,
-  }))
 
   if (env === 'dev') {
     const options = new DocumentBuilder().setTitle('SkillHunter Application').

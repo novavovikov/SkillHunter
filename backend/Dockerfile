@@ -7,6 +7,6 @@ COPY *.js /app/
 COPY src/ /app/src/
 COPY test/ /app/test/
 
-RUN npm ci
+RUN npm i
 
 CMD [ "npm", "run", "start" ]

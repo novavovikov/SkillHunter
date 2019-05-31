@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
 import { Container, Profession, SkillSet, Steps } from '../../components'
-import { ROUTES } from '../../constants/routing'
 import { UserState } from '../../redux/reducers/user'
 import { Logo } from '../../UI'
 
@@ -11,13 +9,24 @@ interface Props {
 }
 
 class Introduction extends React.Component<Props> {
+  state = {
+    profession: '',
+    skills: []
+  }
+
+  setProfession = (profession: string) => {
+    this.setState({ profession })
+  }
+
+  setSkills = (skills: string[]) => {
+    this.setState({ skills }, this.onSubmit)
+  }
+
+  onSubmit = () => {
+    console.log(this.state)
+  }
+
   render () {
-    const { user } = this.props
-
-    if (user.data.professions.length && user.data.skills.length) {
-      return <Redirect to={ROUTES.HOME}/>
-    }
-
     return (
       <>
         <Container>
@@ -25,11 +34,7 @@ class Introduction extends React.Component<Props> {
         </Container>
 
         <Steps.Wrap
-          initStep={
-            user.data.professions.length
-              ? 'Skills'
-              : 'Profession'
-          }
+          initStep="Profession"
           steps={[
             {
               label: '1. Специальность',
@@ -42,10 +47,10 @@ class Introduction extends React.Component<Props> {
           ]}
         >
           <Steps.Content id={'Profession'}>
-            <Profession/>
+            <Profession onSubmit={this.setProfession}/>
           </Steps.Content>
           <Steps.Content id={'Skills'}>
-            <SkillSet/>
+            <SkillSet onSubmit={this.setSkills}/>
           </Steps.Content>
         </Steps.Wrap>
       </>

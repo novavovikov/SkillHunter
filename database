@@ -1,8 +1,0 @@
-username = doadmin
-password = i2gsggrxctsgwqmt hide
-host = skillhunter-db-do-user-5092368-0.db.ondigitalocean.com
-port = 25060
-database = defaultdb
-sslmode = require
-
-postgresql://doadmin:i2gsggrxctsgwqmt@skillhunter-db-do-user-5092368-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require

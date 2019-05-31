@@ -12,4 +12,4 @@ COPY constants/ /app/constants/
 
 RUN chmod -R 755 /app/*
 
-RUN npm ci
+RUN npm i

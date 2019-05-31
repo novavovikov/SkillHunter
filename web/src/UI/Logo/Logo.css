@@ -4,7 +4,7 @@
   display: inline-block;
   width: 133px;
   height: 42px;
-  margin: 0 auto;
+  margin: 0 auto 60px;
 
   svg {
     max-width: 100%;

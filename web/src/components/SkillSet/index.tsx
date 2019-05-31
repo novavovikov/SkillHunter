@@ -1,10 +1,7 @@
 import debounce from 'debounce'
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
-import { ROUTES } from '../../constants/routing'
 import { DEBOUNCE_TIMEOUT } from '../../constants/timeout'
-import { setUserData } from '../../redux/actions/user'
 import { Button, H2, Input, Tip } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import Skills from '../Skills'
@@ -23,7 +20,7 @@ interface State {
 
 interface Props extends RouteComponentProps {
   setStep?: (id: string) => void,
-  setUserData: (data: any) => void
+  onSubmit: (skills: string[]) => void,
 }
 
 class SkillSet extends React.Component<Props, State> {
@@ -86,13 +83,7 @@ class SkillSet extends React.Component<Props, State> {
     e.preventDefault()
     const data = this.state.selectedSuggestions.map(({ name }) => name)
 
-    await ajax.
-      post('user/skills', data).
-      then(resp => {
-        this.props.setUserData(resp.data)
-      }).catch(err => {
-        console.warn('Skills', err)
-      })
+    this.props.onSubmit(data)
   }
 
   render () {
@@ -148,11 +139,5 @@ class SkillSet extends React.Component<Props, State> {
   }
 }
 
-export default withRouter(
-  connect(
-    null,
-    {
-      setUserData,
-    },
-  )(SkillSet),
-)
+export default withRouter(SkillSet)
+

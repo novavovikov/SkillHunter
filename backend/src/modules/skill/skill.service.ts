@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { FindOneOptions, Repository } from 'typeorm'
+import { Profession } from '../profession/profession.entity'
 import { Skill } from './skill.entity'
 
 @Injectable()
@@ -9,6 +10,14 @@ export class SkillService {
     @InjectRepository(Skill)
     private skillRepository: Repository<Skill>,
   ) {}
+
+  findAll () {
+    return this.skillRepository.find({
+      order: {
+        id: 'ASC',
+      },
+    })
+  }
 
   async like (field: string, value: string) {
     return await this.skillRepository.
@@ -22,13 +31,11 @@ export class SkillService {
       getMany()
   }
 
-  async find (criteria) {
+  async find (criteria: any, options?: FindOneOptions<Skill>) {
     return await this.skillRepository.
       find({
-        relations: [
-          'professions',
-        ],
         where: criteria,
+        ...options
       })
   }
 
@@ -51,6 +58,7 @@ export class SkillService {
   async setSkills (skills: any) {
     // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
     const foundSkills = await this.skillRepository.find(skills)
+
     const uniqueSkills = skills.filter(
       skill => !foundSkills.find(({ name }) => skill.name === name),
     )

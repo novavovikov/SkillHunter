@@ -1,12 +1,15 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
+import { Roles } from '../../common/decorators/roles.decorator'
+import { RolesGuard } from '../../common/guards/roles.guard'
+import { RoleType } from '../../constants/role-type'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
 import { ProfessionService } from './profession.service'
 
 @Controller('profession')
-@ApiUseTags('profession')
+@UseGuards(RolesGuard)
 @UseGuards(AuthGuard('jwt'))
 export class ProfessionController {
   constructor (
@@ -14,18 +17,27 @@ export class ProfessionController {
     private skillService: SkillService,
   ) {}
 
-  @Get(':id')
-  getUser (@Param('id') id: number) {
-    return this.professionService.findById(id)
+  @Get()
+  @Roles([RoleType.Admin])
+  @ApiUseTags('admin')
+  getProfessions () {
+    return this.professionService.findAll()
   }
 
-  @Post(':id/skills')
+  @Get(':professionId')
+  @ApiUseTags('profession')
+  getUser (@Param('professionId') professionId: number) {
+    return this.professionService.findById(professionId)
+  }
+
+  @Post(':professionId/skills')
   @ApiImplicitBody({
     name: 'skill ids',
     type: [Number],
   })
-  async setSkills (@Body() skills, @Param('id') id: string) {
+  @ApiUseTags('profession')
+  async setSkills (@Body() skills, @Param('professionId') professionId: string) {
     const skillList: Skill[] = await this.skillService.findByIds(skills)
-    return this.professionService.setSkills(id, skillList)
+    return this.professionService.setSkills(professionId, skillList)
   }
 }

@@ -21,9 +21,7 @@ export class Profession {
   accepted: boolean
 
   @ManyToMany(() => Skill, (skill: Skill) => skill.professions)
-  @JoinTable({
-    name: 'profession_skills',
-  })
+  @JoinTable({ name: 'profession_skills' })
   skills: Skill[]
 
   @ManyToMany(() => User, (user: User) => user.professions)

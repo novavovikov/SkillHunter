@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { SubscribeDto } from './subscribe.dto'
 
-import { SubscribeEntity } from './subscribe.entity'
+import { Subscribe } from './subscribe.entity'
 
 @Injectable()
 export class SubscribeService {
   constructor (
-    @InjectRepository(SubscribeEntity)
-    private subscribeRepository: Repository<SubscribeEntity>,
+    @InjectRepository(Subscribe)
+    private subscribeRepository: Repository<Subscribe>,
   ) {}
 
   findAll () {

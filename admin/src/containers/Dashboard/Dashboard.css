@@ -1,0 +1,15 @@
+.Dashboard {
+  display: flex;
+
+  &__sidebar {
+    width: 240px;
+    height: 100vh;
+    overflow: auto;
+  }
+
+  &__content {
+    width: calc(100% - 240px);
+    height: 100vh;
+    overflow: auto;
+  }
+}

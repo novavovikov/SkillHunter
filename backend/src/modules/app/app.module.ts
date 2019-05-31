@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import config from '../../../ormconfig'
+import { AuthModule } from '../auth/auth.module'
+import { ResourceModule } from '../resource/resource.module'
 import { SkillModule } from '../skill/skill.module'
+import { SubscribeModule } from '../subscribe/subscribe.module'
 import { SuggestsModule } from '../suggests/suggests.module'
+import { UserModule } from '../user/user.module'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { UserModule } from '../user/user.module'
-import { AuthModule } from '../auth/auth.module'
-import { SubscribeModule } from '../subscribe/subscribe.module'
-import config from '../../../ormconfig'
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import config from '../../../ormconfig'
     AuthModule,
     SubscribeModule,
     SuggestsModule,
-    SkillModule
+    SkillModule,
+    ResourceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

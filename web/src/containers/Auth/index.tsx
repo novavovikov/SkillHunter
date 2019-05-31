@@ -20,9 +20,10 @@ interface Props {
 class Auth extends React.Component<Props> {
   componentDidMount (): void {
     const { getUser, user } = this.props
+    const token = cookies.get('authToken')
 
     if (
-      cookies.get('authToken') &&
+      token &&
       !user.data
     ) {
       getUser()

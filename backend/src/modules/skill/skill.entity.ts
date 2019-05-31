@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Profession } from '../profession/profession.entity'
+import { Resource } from '../resource/resource.entity'
 import { User } from '../user/user.entity'
 
 @Entity()
@@ -24,5 +25,8 @@ export class Skill {
   users: User[]
 
   @ManyToMany(() => Profession, (profession: Profession) => profession.skills)
-  professions: User[]
+  professions: Profession[]
+
+  @ManyToMany(() => Resource, (resource: Resource) => resource.skills)
+  resources: Resource[]
 }

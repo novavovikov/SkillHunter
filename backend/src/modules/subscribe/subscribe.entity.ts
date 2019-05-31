@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
-export class SubscribeEntity {
+export class Subscribe {
   @PrimaryGeneratedColumn()
   id: number
 

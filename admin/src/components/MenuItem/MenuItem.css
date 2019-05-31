@@ -1,0 +1,9 @@
+.MenuItem {
+  display: block;
+  padding: 10px 15px;
+
+  &_active {
+    background: #2a3245;
+    color: #fff;
+  }
+}

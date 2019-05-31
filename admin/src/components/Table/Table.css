@@ -1,0 +1,23 @@
+@import "../../styles/variables.css";
+
+.Table {
+  overflow: auto;
+  width: 100%;
+
+  &__table {
+    text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__tr {
+    &:nth-child(even) {
+      background: var(--bg-gray-light);
+    }
+  }
+
+  &__cell {
+    border-bottom: 1px solid var(--bg-gray);
+    padding: 15px 10px;
+  }
+}

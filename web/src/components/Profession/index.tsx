@@ -1,8 +1,5 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { setUserData } from '../../redux/actions/user'
 import { AutoComplete, Button, H2 } from '../../UI'
-import { ajax } from '../../utils/ajax'
 import * as s from './Profession.css'
 
 interface State {
@@ -11,7 +8,7 @@ interface State {
 
 interface Props {
   setStep?: (id: string) => void,
-  setUserData: (data: any) => void
+  onSubmit: (profession: string) => void
 }
 
 class Profession extends React.Component<Props, State> {
@@ -25,15 +22,13 @@ class Profession extends React.Component<Props, State> {
     })
   }
 
-  onSubmit = async (e: any) => {
+  onSubmit = (e: any) => {
     e.preventDefault()
-    const { setStep } = this.props
+    const { setStep, onSubmit } = this.props
 
     if (setStep) {
-      await ajax.
-        post('user/professions', [this.state.inputValue]).
-        then(({ data }) => this.props.setUserData(data))
-      await setStep('Skills')
+      onSubmit(this.state.inputValue)
+      setStep('Skills')
     }
   }
 
@@ -67,9 +62,4 @@ class Profession extends React.Component<Props, State> {
   }
 }
 
-export default connect(
-  null,
-  {
-    setUserData,
-  },
-)(Profession)
+export default Profession

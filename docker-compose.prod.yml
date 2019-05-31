@@ -2,12 +2,12 @@ version: '3.4'
 
 services:
   proxy:
-    build:
-      context: ./proxy
-      dockerfile: Dockerfile
+    build: ./proxy
     volumes:
       - landing:/var/www/landing
       - web_app:/var/www/web_app
+      - admin_panel:/var/www/admin_panel
+      - static:/var/www/static
     ports:
       - 80:80
       - 443:443
@@ -18,28 +18,30 @@ services:
     restart: always
 
   landing:
-    build:
-      context: ./landing
-      dockerfile: Dockerfile
+    build: ./landing
     volumes:
       - landing:/app/out
     working_dir: /app
 
   web_app:
-    build:
-      context: ./web
-      dockerfile: Dockerfile
+    build: ./web
     volumes:
       - web_app:/app/dist
     working_dir: /app
 
+  admin_panel:
+    build: ./admin
+    volumes:
+      - admin_panel:/app/dist
+    working_dir: /app
+
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    build: ./backend
     volumes:
       - landing:/app/out
+      - static:/app/src/static
     environment:
+      - DOMAIN=skillhunter.io
       - PORT=4000
       - GOOGLE_CLIENT_ID=71152846727-1i6m8nnkch3morlj2o5fq0jfug55piu9.apps.googleusercontent.com
       - GOOGLE_CLIENT_SECRET=Fuph7bjuvg_8bVnc4QQu5QG3
@@ -80,3 +82,5 @@ volumes:
   pgdata:
   landing:
   web_app:
+  admin_panel:
+  static:
