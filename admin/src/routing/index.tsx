@@ -5,7 +5,6 @@ import { RoleType } from '../constants/role-type'
 import { ROUTES } from '../constants/routing'
 
 const NotFound = React.lazy(() => import('../containers/NotFound'))
-const Login = React.lazy(() => import('../containers/Login'))
 const Dashboard = React.lazy(() => import('../containers/Dashboard'))
 const Users = React.lazy(() => import('../containers/Users'))
 const Subscribers = React.lazy(() => import('../containers/Subscribers'))
@@ -15,22 +14,16 @@ const Resources = React.lazy(() => import('../containers/Resources'))
 
 const Routes: React.FC = () => {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <FeatureController
-        roles={[RoleType.Admin]}
-        ReplacementComponent={NotFound}
-      >
-        <Layout>
+    <FeatureController
+      roles={[RoleType.Admin]}
+      ReplacementComponent={NotFound}
+    >
+      <Layout>
+        <React.Suspense fallback={<div>Loading...</div>}>
           <Switch>
             <Route
               path={ROUTES.HOME}
               component={Dashboard}
-              exact
-            />
-
-            <Route
-              path={ROUTES.LOGIN}
-              component={Login}
               exact
             />
 
@@ -69,9 +62,9 @@ const Routes: React.FC = () => {
               component={NotFound}
             />
           </Switch>
-        </Layout>
-      </FeatureController>
-    </React.Suspense>
+        </React.Suspense>
+      </Layout>
+    </FeatureController>
   )
 }
 

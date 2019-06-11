@@ -5,7 +5,6 @@ export const ROUTES = {
   PROFESSIONS: '/professions',
   SKILLS: '/skills',
   RESOURCES: '/resources',
-  LOGIN: '/login',
 }
 
 export const MENU = [

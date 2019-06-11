@@ -1,10 +1,9 @@
 import cookies from 'js-cookie'
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
-import { ROUTES } from '../constants/routing'
 import { getUserData } from '../redux/actions/user'
 import { UserState } from '../redux/reducers/user'
+import { redirectToLogin } from '../utils/login'
 
 const withUser = (WrappedComponent: React.ComponentType) => {
   class UserHOC extends React.Component<any> {
@@ -23,7 +22,8 @@ const withUser = (WrappedComponent: React.ComponentType) => {
 
     render () {
       if (!cookies.get('authToken')) {
-        return <Redirect to={ROUTES.LOGIN}/>
+        redirectToLogin()
+        return null
       }
 
       const { user } = this.props

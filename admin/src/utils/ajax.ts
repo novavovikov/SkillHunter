@@ -1,7 +1,7 @@
 import axios from 'axios'
 import cookies from 'js-cookie'
 import { API } from '../constants/api'
-import { ROUTES } from '../constants/routing'
+import { redirectToLogin } from './login'
 
 export const ajax = axios.create({
   baseURL: API.BASE_URL,
@@ -25,10 +25,9 @@ ajax.interceptors.response.use(
   err => {
     if (
       err.response &&
-      err.response.status === 401 &&
-      window.location.pathname !== ROUTES.LOGIN
+      err.response.status === 401
     ) {
-      window.location.href = ROUTES.LOGIN
+      redirectToLogin()
     }
 
     return Promise.reject(err)
