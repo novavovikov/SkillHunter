@@ -15,12 +15,12 @@ const Resources = React.lazy(() => import('../containers/Resources'))
 
 const Routes: React.FC = () => {
   return (
-    <FeatureController
-      roles={[RoleType.Admin]}
-      ReplacementComponent={NotFound}
-    >
-      <Layout>
-        <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <FeatureController
+        roles={[RoleType.Admin]}
+        ReplacementComponent={NotFound}
+      >
+        <Layout>
           <Switch>
             <Route
               path={ROUTES.HOME}
@@ -69,9 +69,9 @@ const Routes: React.FC = () => {
               component={NotFound}
             />
           </Switch>
-        </React.Suspense>
-      </Layout>
-    </FeatureController>
+        </Layout>
+      </FeatureController>
+    </React.Suspense>
   )
 }
 
