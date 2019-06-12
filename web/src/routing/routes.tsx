@@ -5,10 +5,9 @@ import PrivateRoute from './privateRoute'
 
 const Auth = React.lazy(() => import('../containers/Auth'))
 const Logout = React.lazy(() => import('../containers/Logout'))
-const Home = React.lazy(() => import('../containers/Home'))
 const Introduction = React.lazy(() => import('../containers/Introduction'))
 const NotFound = React.lazy(() => import('../containers/NotFound'))
-const My = React.lazy(() => import('../containers/My'))
+const Library = React.lazy(() => import('../containers/Library'))
 
 const Routes: React.FC = () => {
   return (
@@ -16,7 +15,7 @@ const Routes: React.FC = () => {
       <Switch>
         <Redirect
           from={ROUTES.HOME}
-          to={ROUTES.MY}
+          to={ROUTES.LIBRARY}
           exact
         />
 
@@ -39,8 +38,20 @@ const Routes: React.FC = () => {
         />
 
         <PrivateRoute
-          path={ROUTES.MY}
-          component={My}
+          path={ROUTES.LIBRARY}
+          component={Library}
+          exact
+        />
+
+        <PrivateRoute
+          path={ROUTES.EVALUATION}
+          component={Library}
+          exact
+        />
+
+        <PrivateRoute
+          path={ROUTES.PLAN}
+          component={Library}
           exact
         />
 

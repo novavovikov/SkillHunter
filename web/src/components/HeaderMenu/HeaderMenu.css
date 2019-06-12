@@ -3,6 +3,8 @@
 .HeaderMenu {
   position: relative;
   padding: 0 10px;
+  font-size: 14px;
+  line-height: 16px;
   transition: var(--transition);
 
   &:hover {

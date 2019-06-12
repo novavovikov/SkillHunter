@@ -1,0 +1,17 @@
+@import "../../styles/variables.css";
+
+.Nav {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 5px 10px;
+
+    &_active {
+      color: var(--color-blue);
+    }
+  }
+}
