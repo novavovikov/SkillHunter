@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Route, Switch } from 'react-router'
+import { Redirect, Route, Switch } from 'react-router'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
 
@@ -8,11 +8,18 @@ const Logout = React.lazy(() => import('../containers/Logout'))
 const Home = React.lazy(() => import('../containers/Home'))
 const Introduction = React.lazy(() => import('../containers/Introduction'))
 const NotFound = React.lazy(() => import('../containers/NotFound'))
+const My = React.lazy(() => import('../containers/My'))
 
 const Routes: React.FC = () => {
   return (
     <React.Suspense fallback={<div>Загрузка</div>}>
       <Switch>
+        <Redirect
+          from={ROUTES.HOME}
+          to={ROUTES.MY}
+          exact
+        />
+
         <Route
           path={ROUTES.LOGIN}
           component={Auth}
@@ -32,8 +39,8 @@ const Routes: React.FC = () => {
         />
 
         <PrivateRoute
-          path={ROUTES.HOME}
-          component={Home}
+          path={ROUTES.MY}
+          component={My}
           exact
         />
 

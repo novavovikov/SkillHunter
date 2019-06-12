@@ -5,4 +5,5 @@ export const ROUTES = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   INTRODUCTION: '/introduction',
+  MY: '/my',
 }

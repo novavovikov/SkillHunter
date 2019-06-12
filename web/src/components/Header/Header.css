@@ -1,0 +1,17 @@
+@import "../../styles/variables.css";
+
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid var(--bg-gray-light);
+  background: #fff;
+  z-index: 30;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

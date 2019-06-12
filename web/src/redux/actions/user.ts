@@ -7,9 +7,7 @@ export const getUserData = (): GetUserData => ({
 })
 
 export const logoutUser = (): SetUserData => {
-  cookies.remove('authToken', {
-    domain: 'skillhunter.io'
-  })
+  cookies.remove('authToken')
 
   return {
     type: UserActionTypes.SET_USER_DATA,

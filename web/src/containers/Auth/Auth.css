@@ -4,6 +4,10 @@
   text-align: center;
   letter-spacing: -0.41px;
 
+  &__login {
+    background: #fff;
+  }
+
   &__container {
     text-align: center;
   }
@@ -12,6 +16,10 @@
     font-size: 14px;
     line-height: 22px;
     color: #999999;
+  }
+
+  &__logo {
+    margin: 0 auto 80px;
   }
 
   &__btn {

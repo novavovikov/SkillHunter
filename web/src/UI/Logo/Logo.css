@@ -2,9 +2,8 @@
 
 .Logo {
   display: inline-block;
-  width: 133px;
-  height: 42px;
-  margin: 0 auto 60px;
+  width: 128px;
+  height: 25px;
 
   svg {
     max-width: 100%;

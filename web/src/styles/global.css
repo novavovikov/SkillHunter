@@ -14,6 +14,7 @@
   body {
     font-family: "Open Sans", sans-serif;
     color: var(--color-gray);
+    background: var(--bg-gray);
     font-size: 12px;
     line-height: 1.5;
     min-width: 320px;

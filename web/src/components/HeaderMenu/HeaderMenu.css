@@ -1,0 +1,78 @@
+@import "../../styles/variables.css";
+
+.HeaderMenu {
+  position: relative;
+  padding: 0 10px;
+  transition: var(--transition);
+
+  &:hover {
+    background: var(--bg-gray-light);
+  }
+
+  &__info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    color: var(--color-blue);
+    font-weight: 600;
+    padding: 0 16px 0 0;
+    background: none;
+    border: none;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid var(--color-blue);
+      border-bottom: 2px solid var(--color-blue);
+      transform: rotate(45deg);
+      margin-top: -5px;
+    }
+  }
+
+  &__avatar {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: var(--bg-gray-light);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__name {
+    margin: 0 0 0 10px;
+  }
+
+  &__list {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    background: #fff;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .05);
+    z-index: 10;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 5px 10px;
+    transition: var(--transition);
+
+    &:hover {
+      background: var(--bg-gray-light);
+    }
+  }
+}

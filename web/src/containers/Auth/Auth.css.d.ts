@@ -11,6 +11,8 @@ interface CssExports {
   'Auth__faqRow': string;
   'Auth__label': string;
   'Auth__link': string;
+  'Auth__login': string;
+  'Auth__logo': string;
   'Auth__security': string;
   'Auth__terms': string;
 }

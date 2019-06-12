@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Container } from '../../components'
+import { Layout } from '../../UI'
 
 const Home: React.FC = () => {
   return (
-    <Container>
+    <Layout.Container>
       Home page
-    </Container>
+    </Layout.Container>
   )
 }
 

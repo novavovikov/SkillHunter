@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Container, Profession, SkillSet, Steps } from '../../components'
+import {  Profession, SkillSet, Steps } from '../../components'
 import { UserState } from '../../redux/reducers/user'
-import { Logo } from '../../UI'
+import { Logo, Layout } from '../../UI'
 
 interface Props {
   user: UserState
@@ -29,9 +29,9 @@ class Introduction extends React.Component<Props> {
   render () {
     return (
       <>
-        <Container>
+        <Layout.Container>
           <Logo/>
-        </Container>
+        </Layout.Container>
 
         <Steps.Wrap
           initStep="Profession"

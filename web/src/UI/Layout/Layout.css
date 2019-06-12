@@ -1,0 +1,32 @@
+.Layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px 10px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+
+  &__aside {
+    position: sticky;
+    top: 40px;
+    width: 150px;
+  }
+
+  &__content {
+    width: calc(100% - 200px);
+    height: 5000px;
+  }
+
+  &__container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0  10px;
+  }
+
+  &__section {
+    padding: 60px 0;
+  }
+}

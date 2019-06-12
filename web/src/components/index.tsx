@@ -1,5 +1,5 @@
 import FeatureController from './FeatureController'
-import Container from './Container'
+import Header from './Header'
 import Faq from './Faq'
 import Profession from './Profession'
 import SkillSet from './SkillSet'
@@ -9,7 +9,7 @@ import * as Steps from './Steps'
 
 export {
   FeatureController,
-  Container,
+  Header,
   Faq,
   Profession,
   SkillSet,
