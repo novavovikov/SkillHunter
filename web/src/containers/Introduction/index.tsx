@@ -1,17 +1,20 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import {  Profession, SkillSet, Steps } from '../../components'
+import { RouteComponentProps, withRouter } from 'react-router'
+import { Profession, SkillSet, Steps } from '../../components'
+import { ROUTES } from '../../constants/routing'
 import { UserState } from '../../redux/reducers/user'
-import { Logo, Layout } from '../../UI'
+import { Layout, Logo } from '../../UI'
+import { ajax } from '../../utils/ajax'
 
-interface Props {
+interface Props extends RouteComponentProps {
   user: UserState
 }
 
 class Introduction extends React.Component<Props> {
   state = {
     profession: '',
-    skills: []
+    skills: [],
   }
 
   setProfession = (profession: string) => {
@@ -23,7 +26,14 @@ class Introduction extends React.Component<Props> {
   }
 
   onSubmit = () => {
-    console.log(this.state)
+    ajax.
+      post('user/profession', this.state).
+      then(({ data }) => {
+        this.props.history.push(`${ROUTES.LIBRARY}/${data.professions[0].name}`)
+      }).
+      catch(e => {
+        alert('Что-то пошло не так. Попробуй ещё раз')
+      })
   }
 
   render () {
@@ -58,8 +68,8 @@ class Introduction extends React.Component<Props> {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   (state: any) => ({
     user: state.user,
   }),
-)(Introduction)
+)(Introduction))

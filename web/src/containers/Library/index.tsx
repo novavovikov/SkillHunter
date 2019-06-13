@@ -1,24 +1,22 @@
 import * as React from 'react'
-import { Header, Nav } from '../../components'
-import { Layout } from '../../UI'
+import { Page, Filters, Skill } from '../../components'
+import { H2 } from '../../UI'
+import * as s from './Library.css'
 
-interface Props {
-  logoutUser: () => void
-}
-
-const Library: React.FC<Props> = () => {
+const Library: React.FC = () => {
   return (
-    <>
-      <Header/>
-      <Layout.Page>
-        <Layout.Aside>
-          <Nav/>
-        </Layout.Aside>
-        <Layout.Content>
-          Content
-        </Layout.Content>
-      </Layout.Page>
-    </>
+    <Page>
+      <div className={s.Library__header}>
+        <H2 className={s.Library__title}>Library</H2>
+        <Filters/>
+      </div>
+
+      {[1, 2, 3].map(item => (
+        <Skill
+          key={item}
+        />
+      ))}
+    </Page>
   )
 }
 

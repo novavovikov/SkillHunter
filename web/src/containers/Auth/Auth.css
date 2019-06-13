@@ -28,9 +28,8 @@
     justify-content: center;
     width: 157px;
     height: 43px;
-    color: var(--color-blue);
+    color: var(--color-indigo);
     background: #F8F7FC;
-    font-weight: 600;
     font-size: 17px;
     line-height: 16px;
     border-radius: 8px;
@@ -38,20 +37,30 @@
     margin: 6px auto;
     transition: var(--transition-fast);
 
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin: 0 6px 0 0;
+      background: no-repeat center/contain;
+    }
+
+    &_fb {
+      &:before {
+        background-image: url("./icons/facebook-icon.svg");
+      }
+    }
+
+    &_google {
+      &:before {
+        background-image: url("./icons/google-icon.svg");
+      }
+    }
+
     &:hover {
       color: #fff;
-      background: var(--color-blue);
-    }
-  }
-
-  &__btnIcon {
-    width: 16px;
-    height: 16px;
-    margin: 0 6px 0 0;
-
-    svg {
-      max-width: 100%;
-      max-height: 100%;
+      background: var(--color-indigo);
     }
   }
 

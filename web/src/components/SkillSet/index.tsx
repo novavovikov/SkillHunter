@@ -123,6 +123,7 @@ class SkillSet extends React.Component<Props, State> {
         <Button
           className={s.SkillSet__button}
           disabled={!selectedSuggestions.length}
+          theme="large"
         >
           Далее
         </Button>

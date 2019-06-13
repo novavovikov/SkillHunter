@@ -11,7 +11,7 @@
 
   &__input:checked + &__indicator {
     border-color: transparent;
-    background: var(--color-blue);
+    background: var(--color-indigo);
 
     &:before {
       top: -1px;
@@ -23,7 +23,7 @@
     width: 18px;
     height: 18px;
     flex-basis: 18px;
-    border-radius: 3px;
+    border-radius: var(--radius);
     background: #fff;
     border: 2px solid #767676;
     transition: var(--transition-fast);

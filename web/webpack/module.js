@@ -40,11 +40,7 @@ module.exports = {
       ],
     },
     {
-      test: /\.svg$/,
-      loader: 'svg-inline-loader'
-    },
-    {
-      test: /\.(gif|png|jpe?g|ico)$/i,
+      test: /\.(gif|png|jpe?g|ico|svg)$/i,
       loader: [
         {
           loader: 'file-loader',

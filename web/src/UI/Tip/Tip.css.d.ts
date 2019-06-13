@@ -3,6 +3,8 @@
 interface CssExports {
   'Tip': string;
   'Tip__icon': string;
+  'Tip__icon_info': string;
+  'Tip__icon_lock': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

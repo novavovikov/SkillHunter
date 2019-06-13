@@ -18,7 +18,6 @@ import { Roles } from '../../common/decorators/roles.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
 import { unique } from '../../utils/unique'
-import { Profession } from '../profession/profession.entity'
 import { ProfessionService } from '../profession/profession.service'
 import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
@@ -117,7 +116,7 @@ export class UserController {
   })
   async setSkills (@Body() skills: string[], @Req() req) {
     let skillList: Skill[] = await this.skillService.find({
-      name: In(skills)
+      name: In(skills),
     })
 
     if (skillList.length !== skills.length) {
@@ -154,7 +153,7 @@ export class UserController {
   async addInfo (
     @Body('profession') profession: string,
     @Body('skills') skills: string[],
-    @Req() req
+    @Req() req,
   ) {
     const foundProfession = await this.professionService.findByName(profession, {
       relations: ['skills'],

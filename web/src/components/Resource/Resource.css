@@ -1,0 +1,125 @@
+@import "../../styles/variables.css";
+
+.Resource {
+  position: relative;
+  padding: 0 0 0 34px;
+  margin: 0 0 5px;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    background: no-repeat left center/contain;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &_article {
+    &:before {
+      background-image: url("./icons/article.svg");
+    }
+  }
+
+  &__content {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 20px 40px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin: 0 0 13px;
+  }
+
+  &__title {
+    @apply --font-l;
+    font-weight: normal;
+    width: 520px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 20px 0 0;
+  }
+
+  &__site {
+    display: flex;
+    align-items: center;
+    @apply --font-s;
+    color: var(--color-silver-chalice);
+    transition: var(--transition);
+
+    &:hover {
+      color: var(--color-indigo);
+    }
+  }
+
+  &__favicon {
+    width: 16px;
+    margin: 0 10px 0 0;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &__status {
+    position: relative;
+    @apply --font-s;
+    color: var(--color-gray);
+    border: none;
+    background: none;
+    padding: 0 16px 0 20px;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      margin-top: -6px;
+      border-radius: 50%;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      border: solid var(--color-gray);
+      border-width: 0 2px 2px 0;
+      margin-top: -4px;
+      transform: rotate(45deg);
+    }
+
+    &_backlog {
+      &:before {
+        background: var(--color-alto);
+      }
+    }
+
+    &_plan {
+      &:before {
+        background: var(--color-saffron);
+      }
+    }
+
+    &_done {
+      &:before {
+        background: var(--color-salem);
+      }
+    }
+  }
+}

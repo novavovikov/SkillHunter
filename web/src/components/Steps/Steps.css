@@ -40,7 +40,6 @@
     }
 
     &_active {
-      font-weight: 600;
       color: #444444;
 
       &:before {
@@ -48,7 +47,6 @@
       }
 
       & ~ * {
-        font-weight: 600;
         color: #444444;
 
         &:before {

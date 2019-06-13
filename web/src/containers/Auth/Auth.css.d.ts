@@ -3,7 +3,8 @@
 interface CssExports {
   'Auth': string;
   'Auth__btn': string;
-  'Auth__btnIcon': string;
+  'Auth__btn_fb': string;
+  'Auth__btn_google': string;
   'Auth__container': string;
   'Auth__description': string;
   'Auth__faq': string;

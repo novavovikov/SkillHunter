@@ -1,20 +1,39 @@
 @import "../../styles/variables.css";
 
 .Button {
-  min-height: 52px;
-  width: 270px;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 20px;
-  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @apply --font-m;
+  height: 30px;
+  padding: 5px 8px;
   border: none;
-  background: var(--color-blue);
   color: #fff;
+  background: var(--color-indigo);
   border-radius: var(--radius);
   transition: var(--transition-fast);
 
+  &_large {
+    min-height: 52px;
+    width: 270px;
+    font-size: 15px;
+    line-height: 20px;
+    border-radius: var(--radius-large);
+  }
+
+  &_plus {
+    &:before {
+      content: '';
+      display: block;
+      margin: 0 8px 0 0;
+      width: 12px;
+      height: 12px;
+      background: url("./icons/add-circle.svg") no-repeat center/contain;
+    }
+  }
+
   &:hover {
-    background: var(--color-blue-dark);
+    background: var(--color-royal-blue);
     box-shadow: 0 0 7px 1px rgba(0, 0, 0, .25);
   }
 

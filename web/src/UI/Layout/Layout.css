@@ -3,20 +3,19 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 40px 10px;
+  padding: 70px 10px 40px;
   margin: 0 auto;
   width: 100%;
   max-width: 1280px;
 
   &__aside {
     position: sticky;
-    top: 40px;
+    top: 70px;
     width: 150px;
   }
 
   &__content {
     width: calc(100% - 200px);
-    height: 5000px;
   }
 
   &__container {

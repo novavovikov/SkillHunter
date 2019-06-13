@@ -38,9 +38,8 @@ const Routes: React.FC = () => {
         />
 
         <PrivateRoute
-          path={ROUTES.LIBRARY}
+          path={`${ROUTES.LIBRARY}/:profession`}
           component={Library}
-          exact
         />
 
         <PrivateRoute

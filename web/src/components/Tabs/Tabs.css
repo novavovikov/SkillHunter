@@ -1,3 +1,5 @@
+@import "../../styles/variables.css";
+
 .Tabs {
   display: flex;
   flex-wrap: wrap;
@@ -18,12 +20,11 @@
     line-height: 20px;
     padding: 0 0 20px;
     border: solid rgba(242, 189, 66, 0.2);
-    border-width: 0 0 3px 0;
+    border-width: 0 0 var(--radius) 0;
     background: none;
     cursor: pointer;
 
     &_active {
-      font-weight: 600;
       color: #444444;
       border-color: #F2BD42;
     }

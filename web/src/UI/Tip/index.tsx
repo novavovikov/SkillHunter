@@ -1,7 +1,5 @@
-import * as React from 'react'
 import cn from 'classnames'
-import info from './icons/info.svg'
-import lock from './icons/lock.svg'
+import * as React from 'react'
 import * as s from './Tip.css'
 
 interface Props {
@@ -9,30 +7,21 @@ interface Props {
   icon: string
 }
 
-const getIcon = (icon: string) => {
-  switch (icon) {
-    case 'info':
-      return info
-    case 'lock':
-      return lock
-    default:
-      return info
-  }
-}
-
 const Tip: React.FC<Props> = (
   {
     children,
     icon,
-    className
+    className,
   },
 ) => {
   return (
     <div className={cn(s.Tip, className)}>
       {icon && (
         <i
-          className={s.Tip__icon}
-          dangerouslySetInnerHTML={{ __html: getIcon(icon) }}
+          className={cn(s.Tip__icon, {
+            [s.Tip__icon_info]: icon === 'info',
+            [s.Tip__icon_lock]: icon === 'lock',
+          })}
         />
       )}
       {children}

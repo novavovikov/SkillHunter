@@ -9,9 +9,15 @@
     align-items: center;
     min-height: 40px;
     padding: 5px 10px;
+    @apply --font-l;
+    transition: var(--transition);
+
+    &:hover {
+      background-color: var(--color-link-water);
+    }
 
     &_active {
-      color: var(--color-blue);
+      color: var(--color-indigo);
     }
   }
 }

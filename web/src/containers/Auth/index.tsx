@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import cookies from 'js-cookie'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -9,8 +10,6 @@ import { getUserData } from '../../redux/actions/user'
 import { UserState } from '../../redux/reducers/user'
 import { H2, H4, Layout, Logo, Tip } from '../../UI'
 import * as s from './Auth.css'
-import facebookIcon from './icons/facebook-icon.svg'
-import googleIcon from './icons/google-icon.svg'
 
 interface Props {
   user: UserState,
@@ -52,14 +51,10 @@ class Auth extends React.Component<Props> {
                 </div>
 
                 <a
-                  className={s.Auth__btn}
+                  className={cn(s.Auth__btn, s.Auth__btn_google)}
                   href={`${API.BASE_URL}${API.AUTH_GOOGLE}`}
                 >
-                  <i
-                    className={s.Auth__btnIcon}
-                    dangerouslySetInnerHTML={{ __html: googleIcon }}
-                  />
-                  <span>GOOGLE</span>
+                  GOOGLE
                 </a>
 
                 <div className={s.Auth__label}>
@@ -67,14 +62,10 @@ class Auth extends React.Component<Props> {
                 </div>
 
                 <a
-                  className={s.Auth__btn}
+                  className={cn(s.Auth__btn, s.Auth__btn_fb)}
                   href={`${API.BASE_URL}${API.AUTH_FACEBOOK}`}
                 >
-                  <i
-                    className={s.Auth__btnIcon}
-                    dangerouslySetInnerHTML={{ __html: facebookIcon }}
-                  />
-                  <span>FACEBOOK</span>
+                  FACEBOOK
                 </a>
 
                 <div className={s.Auth__terms}>

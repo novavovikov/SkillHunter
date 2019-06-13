@@ -8,7 +8,7 @@
   transition: var(--transition);
 
   &:hover {
-    background: var(--bg-gray-light);
+    background: var(--color-link-water);
   }
 
   &__info {
@@ -16,8 +16,7 @@
     display: flex;
     align-items: center;
     height: 40px;
-    color: var(--color-blue);
-    font-weight: 600;
+    color: var(--color-indigo);
     padding: 0 16px 0 0;
     background: none;
     border: none;
@@ -30,8 +29,8 @@
       top: 50%;
       width: 8px;
       height: 8px;
-      border-right: 2px solid var(--color-blue);
-      border-bottom: 2px solid var(--color-blue);
+      border-right: 2px solid var(--color-indigo);
+      border-bottom: 2px solid var(--color-indigo);
       transform: rotate(45deg);
       margin-top: -5px;
     }
@@ -42,7 +41,7 @@
     height: 30px;
     overflow: hidden;
     border-radius: 50%;
-    background: var(--bg-gray-light);
+    background: var(--color-link-water);
 
     img {
       width: 100%;
@@ -61,7 +60,7 @@
     top: 100%;
     width: 100%;
     background: #fff;
-    border-radius: 0 0 3px 3px;
+    border-radius: 0 0 var(--radius) var(--radius);
     box-shadow: 0 2px 5px rgba(0, 0, 0, .05);
     z-index: 10;
   }
@@ -74,7 +73,7 @@
     transition: var(--transition);
 
     &:hover {
-      background: var(--bg-gray-light);
+      background: var(--color-link-water);
     }
   }
 }

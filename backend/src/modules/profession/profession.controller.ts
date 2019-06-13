@@ -6,6 +6,7 @@ import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
+import { ProfessionDto } from './profession.dto'
 import { ProfessionService } from './profession.service'
 
 @Controller('profession')
@@ -22,6 +23,12 @@ export class ProfessionController {
   @ApiUseTags('admin')
   getProfessions () {
     return this.professionService.findAll()
+  }
+
+  @Post()
+  @ApiUseTags('profession')
+  setProfessions (@Body('professions') professions: ProfessionDto[]) {
+    return this.professionService.setProfessions(professions)
   }
 
   @Get(':professionId')

@@ -1,17 +1,17 @@
 import cn from 'classnames'
+import { ButtonHTMLAttributes } from 'react'
 import * as React from 'react'
 import * as s from './Button.css'
 
-interface Props {
-  className?: string,
-  onClick?: () => void
-  disabled?: boolean
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  theme?: string
 }
 
 const Button: React.FC<Props> = (
   {
     children,
     className,
+    theme,
     ...rest
   },
 ) => {
@@ -19,7 +19,11 @@ const Button: React.FC<Props> = (
     <button
       className={cn(
         s.Button,
-        className
+        className,
+        {
+          [s.Button_plus]: theme === 'plus',
+          [s.Button_large]: theme === 'large'
+        }
       )}
       {...rest}
     >

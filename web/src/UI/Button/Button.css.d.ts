@@ -2,6 +2,8 @@
 // Please do not change this file!
 interface CssExports {
   'Button': string;
+  'Button_large': string;
+  'Button_plus': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

@@ -12,11 +12,10 @@
   }
 
   body {
-    font-family: "Open Sans", sans-serif;
-    color: var(--color-gray);
-    background: var(--bg-gray);
-    font-size: 16px;
-    line-height: calc(19/16);
+    @apply --font-m;
+    font-family: var(--ff-roboto);
+    color: var(--color-tundora);
+    background: var(--color-concrete);
     min-width: 320px;
     margin: 0;
     overflow-x: hidden;

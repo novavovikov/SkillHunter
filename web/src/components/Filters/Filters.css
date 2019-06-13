@@ -1,0 +1,46 @@
+@import "../../styles/variables.css";
+
+.Filters {
+  position: relative;
+  display: flex;
+  padding: 0 0 0 36px;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 16px;
+    height: 11px;
+    margin-top: -6px;
+    background: url("./icons/filter.svg") no-repeat center/contain;
+  }
+
+  &__item {
+    position: relative;
+    background: none;
+    border: none;
+    color: var(--color-indigo);
+    margin: 0 30px 0 0;
+    padding: 0 16px 0 0;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      margin-top: -6px;
+      border: solid var(--color-indigo);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

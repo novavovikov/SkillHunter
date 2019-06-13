@@ -3,23 +3,48 @@
   --transition: .5s;
   --transition-slow: .8s;
 
-  --radius: 7px;
+  --radius: 3px;
+  --radius-large: 7px;
 
-  --bg-gray: #E5E5E5;
-  --bg-gray-light: #F5F5F5;
-
-  --color-gray: #424242;
-  --color-blue: #436EBE;
-  --color-blue-dark: #347aff;
+  --color-royal-blue: #2F71ED;
+  --color-indigo: #436EBE;
+  --color-cold-purple: #A1B6DF;
+  --color-link-water: #D9E2F2;
+  --color-saffron: #F2BD42;
+  --color-salem: #0AA13D;
+  --color-tundora: #424242;
+  --color-gray: #878787;
+  --color-silver-chalice: #ABABAB;
+  --color-concrete: #F2F2F2;
+  --color-alto: #DADADA;
 
   --ff-roboto: 'Roboto', sans-serif;
 
   --z-filter: 10;
   --z-filter-switcher: 9;
 
+  --font-s: {
+    font-size: 12px;
+    line-height: 14px;
+  };
+
+  --font-m: {
+    font-size: 14px;
+    line-height: 16px;
+  };
+
+  --font-l: {
+    font-size: 16px;
+    line-height: 19px;
+  };
+
+  --font-xl: {
+    font-size: 18px;
+    line-height: 21px;
+  };
+
   --title: {
-    font-family: var(--ff-roboto);
-    font-weight: 500;
-    color: #555555;
-  }
+    font-weight: bold;
+    color: #424242;
+  };
 }

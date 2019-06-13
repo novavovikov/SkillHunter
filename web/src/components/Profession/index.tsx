@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { AutoComplete, Button, H2 } from '../../UI'
+import { ajax } from '../../utils/ajax'
 import * as s from './Profession.css'
 
 interface State {
@@ -27,6 +28,11 @@ class Profession extends React.Component<Props, State> {
     const { setStep, onSubmit } = this.props
 
     if (setStep) {
+      ajax.post('profession', {
+        professions: [{
+          name: this.state.inputValue
+        }]
+      })
       onSubmit(this.state.inputValue)
       setStep('Skills')
     }
@@ -54,6 +60,7 @@ class Profession extends React.Component<Props, State> {
 
         <Button
           disabled={!inputValue}
+          theme="large"
         >
           Далее
         </Button>

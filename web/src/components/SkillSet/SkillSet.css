@@ -33,7 +33,7 @@
     color: #BDBDBD;
 
     &:hover {
-      color: var(--color-blue);
+      color: var(--color-indigo);
     }
   }
 }

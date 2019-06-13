@@ -4,7 +4,7 @@
   position: relative;
   display: inline-flex;
   background: #fff;
-  border-radius: var(--radius);
+  border-radius: var(--radius-large);
   width: 432px;
   z-index: 0;
 
@@ -36,11 +36,11 @@
     border: 1px solid #999999;
     background: none;
     padding: 12px 20px 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-large);
     transition: var(--transition-fast);
 
     &:focus {
-      border-color: var(--color-blue);
+      border-color: var(--color-indigo);
     }
   }
 

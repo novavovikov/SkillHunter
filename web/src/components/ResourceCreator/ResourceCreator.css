@@ -1,0 +1,19 @@
+@import "../../styles/variables.css";
+
+.ResourceCreator {
+  display: flex;
+  align-items: center;
+
+  &__input {
+    border-radius: var(--radius);
+    border: 1px solid var(--color-cold-purple);
+    height: 30px;
+    margin: 0 10px 0 0;
+    padding: 0 10px;
+    transition: var(--transition);
+
+    &:focus {
+      border-color: var(--color-royal-blue);
+    }
+  }
+}
