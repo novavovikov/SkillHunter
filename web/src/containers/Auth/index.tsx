@@ -33,7 +33,7 @@ class Auth extends React.Component<Props> {
     const { user } = this.props
 
     if (user.data) {
-      return <Redirect to={ROUTES.INTRODUCTION}/>
+      return <Redirect to={ROUTES.HOME}/>
     }
 
     return (
