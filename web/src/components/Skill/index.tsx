@@ -1,18 +1,31 @@
 import cn from 'classnames'
 import * as React from 'react'
-import { Button } from '../../UI'
+import { ResourceType, SkillType } from '../../types'
+import { ajax } from '../../utils/ajax'
 import { Resource, ResourceCreator } from '../index'
 import * as s from './Skill.css'
 
-interface Props {}
+interface Props {
+  data: SkillType
+}
 
 interface State {
   isOpen: boolean
+  resources: ResourceType[]
 }
 
 class Skill extends React.Component<Props, State> {
   state = {
     isOpen: false,
+    resources: []
+  }
+
+  componentDidMount () {
+    ajax.get('user/resources').then(({ data }) => {
+      this.setState({
+        resources: data
+      })
+    })
   }
 
   toggleOpen = () => {
@@ -22,13 +35,14 @@ class Skill extends React.Component<Props, State> {
   }
 
   render () {
-    const { isOpen } = this.state
+    const { isOpen, resources } = this.state
+    const { data } = this.props
 
     return (
       <div className={s.Skill}>
         <div className={s.Skill__header}>
           <h4 className={s.Skill__title}>
-            Team Build
+            {data.name}
           </h4>
 
           {!isOpen && (
@@ -42,16 +56,18 @@ class Skill extends React.Component<Props, State> {
 
           <ResourceCreator
             className={s.Skill__button}
+            skillId={data.id}
           />
         </div>
 
         {isOpen && (
           <div className={s.Skill__body}>
-            <Resource/>
-            <Resource/>
-            <Resource/>
-            <Resource/>
-            <Resource/>
+            {resources.map((resource: ResourceType) => (
+              <Resource
+                key={resource.id}
+                data={resource}
+              />
+            ))}
           </div>
         )}
 

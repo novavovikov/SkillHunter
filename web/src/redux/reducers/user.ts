@@ -1,10 +1,11 @@
 import { Reducer } from 'redux'
+import { User } from '../../types'
 import { UserActionTypes } from '../actionTypes/user'
 import { UserAction } from '../interfaces/user'
 
 export interface UserState {
   isLoading: boolean
-  data: any
+  data: User | null
 }
 
 const initState = {

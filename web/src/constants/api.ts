@@ -4,5 +4,5 @@ export const API = {
   ME: 'user/me',
 
   AUTH_GOOGLE: 'auth/google',
-  AUTH_FACEBOOK: 'auth/google'
+  AUTH_FACEBOOK: 'auth/facebook'
 }

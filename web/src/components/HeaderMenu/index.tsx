@@ -35,6 +35,10 @@ class HeaderMenu extends React.Component<Props, State> {
     const { isOpen } = this.state
     const { user } = this.props
 
+    if (!user.data) {
+      return null
+    }
+
     return (
       <div className={s.HeaderMenu}>
         <button

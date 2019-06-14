@@ -43,6 +43,12 @@ const Routes: React.FC = () => {
         />
 
         <PrivateRoute
+          path={ROUTES.LIBRARY}
+          component={Library}
+          exact
+        />
+
+        <PrivateRoute
           path={ROUTES.EVALUATION}
           component={Library}
           exact

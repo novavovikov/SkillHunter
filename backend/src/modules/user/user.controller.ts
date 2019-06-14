@@ -57,6 +57,10 @@ export class UserController {
         'name',
         'locale',
       ],
+      relations: [
+        'professions',
+        'professions.skills'
+      ]
     })
   }
 
@@ -199,7 +203,7 @@ export class UserController {
     })
   }
 
-  @Post('resources')
+  @Post('resource')
   @ApiUseTags('user')
   async addResource (@Body('resourceId') resourceId: number | string, @Req() req) {
     const resource: Resource = await this.resourceService.findById(resourceId)

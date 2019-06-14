@@ -1,20 +1,26 @@
 import cn from 'classnames'
 import * as React from 'react'
+import { ResourceType } from '../../types'
 import favicon from './icons/faviicon-freecodecamp.png'
 import * as s from './Resource.css'
 
-const Resource: React.FC = () => {
+interface Props {
+  data: ResourceType
+}
+
+const Resource: React.FC<Props> = ({ data }) => {
+  const url = new URL(data.link)
+
   return (
     <div
       className={cn(s.Resource, {
-        [s.Resource_article]: true,
+        [s.Resource_article]: data.type === 'article',
       })}
     >
       <div className={s.Resource__content}>
         <div className={s.Resource__header}>
           <h4 className={s.Resource__title}>
-            How To Overcome Digital Addiction and Have More Willpower long title How To Overcome Digital Addiction and
-            Have More Willpower long title
+            {data.title}
           </h4>
 
           <button
@@ -28,17 +34,17 @@ const Resource: React.FC = () => {
         </div>
 
         <a
-          href="#"
+          href={data.link}
           className={s.Resource__site}
           target="_blank"
         >
           <span className={s.Resource__favicon}>
             <img
-              src={favicon}
+              src={data.icon}
               alt=""
             />
           </span>
-          freecodecamp.org
+          {url.hostname}
         </a>
       </div>
     </div>

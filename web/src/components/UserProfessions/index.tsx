@@ -1,44 +1,25 @@
 import * as React from 'react'
 import { NavLink } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import { ajax } from '../../utils/ajax'
+import withUser from '../../HOC/userHOC'
+import { UserState } from '../../redux/reducers/user'
 import * as s from './UserProfessions.css'
 
-interface Profession {
-  id: number
-  name: string
-  created: string
-  accepted: boolean
-}
-
 interface Props {
-
+  user: UserState
 }
 
-interface State {
-  professions: Profession[]
-}
-
-class UserProfessions extends React.Component<Props, State> {
-  state = {
-    professions: []
-  }
-
-  componentDidMount (): void {
-    ajax.get('user/professions').
-      then(resp => {
-        this.setState({
-          professions: resp.data
-        })
-      })
-  }
-
+class UserProfessions extends React.Component<Props> {
   render () {
-    const { professions } = this.state
+    const { user } = this.props
+
+    if (!user.data) {
+      return null
+    }
 
     return (
       <div className={s.UserProfessions}>
-        {professions.map(({ id, name }) => (
+        {user.data.professions.map(({ id, name }) => (
           <NavLink
             key={id}
             className={s.UserProfessions__item}
@@ -53,4 +34,4 @@ class UserProfessions extends React.Component<Props, State> {
   }
 }
 
-export default UserProfessions
+export default withUser(UserProfessions)

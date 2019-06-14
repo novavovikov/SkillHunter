@@ -1,14 +1,17 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
+import { compose } from 'redux'
 import { Profession, SkillSet, Steps } from '../../components'
 import { ROUTES } from '../../constants/routing'
+import { setUserData } from '../../redux/actions/user'
 import { UserState } from '../../redux/reducers/user'
 import { Layout, Logo } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
   user: UserState
+  setUserData: (data: any) => void
 }
 
 class Introduction extends React.Component<Props> {
@@ -26,10 +29,13 @@ class Introduction extends React.Component<Props> {
   }
 
   onSubmit = () => {
+    const { history, setUserData } = this.props
+
     ajax.
       post('user/profession', this.state).
       then(({ data }) => {
-        this.props.history.push(`${ROUTES.LIBRARY}/${data.professions[0].name}`)
+        setUserData(data)
+        history.push(ROUTES.LIBRARY)
       }).
       catch(e => {
         alert('Что-то пошло не так. Попробуй ещё раз')
@@ -68,8 +74,14 @@ class Introduction extends React.Component<Props> {
   }
 }
 
-export default withRouter(connect(
-  (state: any) => ({
-    user: state.user,
-  }),
-)(Introduction))
+export default compose(
+  withRouter,
+  connect(
+    (state: any) => ({
+      user: state.user,
+    }),
+    {
+      setUserData
+    }
+  ),
+)(Introduction)
