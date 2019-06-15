@@ -1,7 +1,6 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { ResourceType } from '../../types'
-import favicon from './icons/faviicon-freecodecamp.png'
 import * as s from './Resource.css'
 
 interface Props {

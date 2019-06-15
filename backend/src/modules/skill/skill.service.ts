@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindOneOptions, Repository } from 'typeorm'
-import { Profession } from '../profession/profession.entity'
+import { unique } from '../../utils/unique'
+import { Resource } from '../resource/resource.entity'
 import { Skill } from './skill.entity'
 
 @Injectable()
@@ -35,20 +36,17 @@ export class SkillService {
     return await this.skillRepository.
       find({
         where: criteria,
-        ...options
+        ...options,
       })
   }
 
-  async findById (id: number | string) {
-    return await this.skillRepository.
-      findOne({
-        relations: [
-          'professions',
-        ],
-        where: {
-          id: Number(id),
-        },
-      })
+  async findById (id: number | string, options?: FindOneOptions<Skill>) {
+    return await this.skillRepository.findOne({
+      where: {
+        id: Number(id),
+      },
+      ...options,
+    })
   }
 
   async findByIds (skills: number[]) {
@@ -68,5 +66,19 @@ export class SkillService {
     }
 
     return []
+  }
+
+  async addResourceToSkill (skillId: number | string, resource: Resource) {
+    const skill: Skill = await this.findById(skillId, {
+      relations: ['resources'],
+    })
+
+    if (!skill) {
+      return null
+    }
+
+    skill.resources = unique([...skill.resources, resource])
+
+    return this.skillRepository.save(skill)
   }
 }

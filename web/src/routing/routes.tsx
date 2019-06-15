@@ -4,6 +4,7 @@ import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
 
 const Auth = React.lazy(() => import('../containers/Auth'))
+const Settings = React.lazy(() => import('../containers/Settings'))
 const Logout = React.lazy(() => import('../containers/Logout'))
 const Introduction = React.lazy(() => import('../containers/Introduction'))
 const NotFound = React.lazy(() => import('../containers/NotFound'))
@@ -20,8 +21,14 @@ const Routes: React.FC = () => {
         />
 
         <Route
-          path={ROUTES.LOGIN}
+          path={ROUTES.AUTH}
           component={Auth}
+          exact
+        />
+
+        <Route
+          path={ROUTES.SETTINGS}
+          component={Settings}
           exact
         />
 

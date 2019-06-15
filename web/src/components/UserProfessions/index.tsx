@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { NavLink } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import withUser from '../../HOC/userHOC'
+import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
 import * as s from './UserProfessions.css'
 

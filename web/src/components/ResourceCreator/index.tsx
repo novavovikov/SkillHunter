@@ -36,18 +36,22 @@ class ResourceCreator extends React.Component<Props, State> {
 
   submitForm = async (e: any) => {
     e.preventDefault()
+    const { skillId } = this.props
     const { inputValue } = this.state
 
     if (inputValue) {
       const resource = await ajax.post('resource', {
         link: inputValue,
-      }).then(({ data  }) => data as ResourceType)
+      }).then(({ data }) => data as ResourceType)
 
       const userResources = await ajax.post('user/resource', {
         resourceId: resource.id,
+        skillId,
       })
 
-      console.log(123, userResources)
+      this.setState({
+        inputValue: ''
+      })
     }
   }
 
@@ -73,7 +77,7 @@ class ResourceCreator extends React.Component<Props, State> {
           onClick={this.toggleForm}
           theme="plus"
         >
-          Add new
+          Add source
         </Button>
       </div>
     )

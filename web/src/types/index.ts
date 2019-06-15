@@ -1,3 +1,8 @@
+export interface NotificationType {
+  type: string,
+  message: string | number
+}
+
 export interface ResourceType {
   id: number
   created: string

@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { match, Redirect, RouteComponentProps, withRouter } from 'react-router'
+import { Redirect, RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { Filters, Page, Skill } from '../../components'
 import { ROUTES } from '../../constants/routing'
-import withUser from '../../HOC/userHOC'
+import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
 import { SkillType } from '../../types'
 import { H2 } from '../../UI'
@@ -13,9 +13,8 @@ interface Params {
   profession: string
 }
 
-interface Props extends RouteComponentProps {
+interface Props extends RouteComponentProps<Params> {
   user: UserState,
-  match: match<Params>
 }
 
 class Library extends React.Component<Props> {

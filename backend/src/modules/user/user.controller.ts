@@ -205,11 +205,21 @@ export class UserController {
 
   @Post('resource')
   @ApiUseTags('user')
-  async addResource (@Body('resourceId') resourceId: number | string, @Req() req) {
+  async addResource (
+    @Body('resourceId') resourceId: number | string,
+    @Body('skillId') skillId: number | string,
+    @Req() req
+  ) {
     const resource: Resource = await this.resourceService.findById(resourceId)
 
     if (!resource) {
       return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+    }
+
+    const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
+
+    if (!resourceSkillRelation) {
+      return new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
     }
 
     return this.userService.addResource(req.user.id, resource)
