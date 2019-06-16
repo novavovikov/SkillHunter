@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { NotificationTypes } from '../../constants/notification'
 import { NotificationType } from '../../types'
 import { Hash } from '../../utils/hash'
 import { NotificationContext } from './context'
@@ -43,12 +44,16 @@ export class NotificationProvider extends React.Component<{}, State> {
     this.timers[id] = setTimeout(timerFunc, NotificationProvider.MESSAGE_TIMEOUT)
   }
 
-  showNotification = async (notification: NotificationType) => {
-    const id = await Hash.generate(notification.message)
+  showNotification = (message: string, type: NotificationTypes) => {
+    const id = Math.random().toString(36).substring(7)
 
     this.setState({
       notifications: [
-        { id, ...notification },
+        {
+          id,
+          message,
+          type: type || null,
+        },
         ...this.state.notifications,
       ].slice(0, NotificationProvider.MESSAGE_LIMIT),
     })

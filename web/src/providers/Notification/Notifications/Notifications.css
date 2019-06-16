@@ -17,6 +17,20 @@
     margin: 5px 0;
     animation: showNotificaion var(--transition-fast) forwards;
     cursor: pointer;
+
+    &_error {
+      background: var(--color-red-orange);
+      color: #fff;
+    }
+
+    &_warning {
+      background: var(--color-saffron);
+    }
+
+    &_success {
+      background: var(--color-salem);
+      color: #fff;
+    }
   }
 }
 

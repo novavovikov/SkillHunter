@@ -3,13 +3,9 @@ import withClickOutside from 'react-click-outside'
 import { Link } from 'react-router-dom'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
-import { withNotification } from '../../providers/Notification'
-import { NotificationContextInterface } from '../../providers/Notification/context'
 import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
 import * as s from './HeaderMenu.css'
-
-let count = 0
 
 const MENU = [
   {
@@ -24,7 +20,6 @@ const MENU = [
 
 interface Props {
   user: UserState,
-  notificationApi: NotificationContextInterface
 }
 
 interface State {
@@ -52,13 +47,7 @@ class HeaderMenu extends React.Component<Props, State> {
     })
   }
 
-  handleMenuLink = (e: any) => {
-    count++
-    this.props.notificationApi.showNotification({
-      type: 'error',
-      message: `Сообщение #${count}\n Вы перешли на страницу ${e.target.innerText}`,
-    })
-
+  handleMenuLink = () => {
     this.closeMenu()
   }
 
@@ -109,5 +98,4 @@ class HeaderMenu extends React.Component<Props, State> {
 
 export default compose(
   withUser,
-  withNotification,
 )(withClickOutside(HeaderMenu))

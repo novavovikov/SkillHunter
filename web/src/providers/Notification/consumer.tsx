@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { NotificationContextInterface, NotificationContext } from './context'
+import { NotificationProps, NotificationContext } from './context'
 
 export const withNotification = (WrappedComponent: React.ComponentClass<any>) => {
-  class Component extends React.Component<NotificationContextInterface> {
+  class Component extends React.Component<NotificationProps> {
     static displayName = WrappedComponent.name || 'WrappedNotificationComponent'
 
     render () {

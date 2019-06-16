@@ -1,11 +1,19 @@
 import * as React from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
+import { compose } from 'redux'
 import { Header } from '../../components'
+import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
+import { withNotification } from '../../providers/Notification'
+import { NotificationProps } from '../../providers/Notification/context'
 import { Button, Layout } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
-const Settings: React.FC<RouteComponentProps> = ({ history }) => {
+interface Props extends RouteComponentProps {
+  notificationApi: NotificationProps
+}
+
+const Settings: React.FC<Props> = ({ history, notificationApi }) => {
   const handleRemove = async () => {
     await ajax.delete('user')
     history.push(ROUTES.LOGOUT)
@@ -16,15 +24,56 @@ const Settings: React.FC<RouteComponentProps> = ({ history }) => {
       <Header/>
       <Layout.Page>
         <div>
-          <p>Remove account?</p>
+          <p>
+            <Button onClick={() => notificationApi.showNotification('Пример простого сообщения')}>
+              Простое сообщение
+            </Button>
+          </p>
+          <p>
+            <Button onClick={() =>
+              notificationApi.showNotification(
+                'Пример сообщения об ошибке',
+                NotificationTypes.error,
+              )
+            }>
+              Сообщение об ошибке
+            </Button>
+          </p>
+          <p>
+            <Button onClick={() =>
+              notificationApi.showNotification(
+                'Пример простого сообщения-уведомления пользователя',
+                NotificationTypes.warning,
+              )
+            }>
+              Сообщение-предупреждение
+            </Button>
+          </p>
+          <p>
+            <Button onClick={() =>
+              notificationApi.showNotification(
+                'Пример сообщения об успешности операции',
+                NotificationTypes.success,
+              )
+            }>
+              Сообщение об успешности
+            </Button>
+          </p>
 
-          <Button onClick={handleRemove}>
-            Remove
-          </Button>
+          <br/>
+          <br/>
+          <p>
+            <Button onClick={handleRemove}>
+              Remove account?
+            </Button>
+          </p>
         </div>
       </Layout.Page>
     </>
   )
 }
 
-export default withRouter(Settings)
+export default compose(
+  withRouter,
+  withNotification,
+)(Settings)

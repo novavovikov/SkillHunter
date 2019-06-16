@@ -3,6 +3,9 @@
 interface CssExports {
   'Notifications': string;
   'Notifications__item': string;
+  'Notifications__item_error': string;
+  'Notifications__item_success': string;
+  'Notifications__item_warning': string;
   'showNotificaion': string;
 }
 declare var cssExports: CssExports;

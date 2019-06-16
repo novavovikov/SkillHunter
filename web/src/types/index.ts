@@ -1,5 +1,7 @@
+import { NotificationTypes } from '../constants/notification'
+
 export interface NotificationType {
-  type: string,
+  type: NotificationTypes,
   message: string | number
 }
 
