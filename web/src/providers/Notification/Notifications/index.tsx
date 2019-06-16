@@ -1,18 +1,20 @@
 import * as React from 'react'
-import { NotificationType } from '../../../types'
+import { NotificationProviderType } from '../provider'
 import * as s from './Notifications.css'
 
 interface Props {
-  notifications: NotificationType[]
+  notifications: NotificationProviderType[]
+  hideNotification: (id: string | number) => void
 }
 
-const Notifications: React.FC<Props> = ({ notifications }) => {
+const Notifications: React.FC<Props> = ({ notifications, hideNotification }) => {
   return (
     <div className={s.Notifications}>
-      {notifications.map(({ type, message }, index) => (
+      {notifications.map(({ id, type, message }) => (
         <div
-          key={index}
+          key={id}
           className={s.Notifications__item}
+          onClick={() => hideNotification(id)}
         >
           {message}
         </div>
