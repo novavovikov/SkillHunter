@@ -2,8 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'UserProfessions': string;
+  'UserProfessions__button': string;
   'UserProfessions__item': string;
-  'UserProfessions__item_active': string;
+  'UserProfessions__link': string;
+  'UserProfessions__link_active': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

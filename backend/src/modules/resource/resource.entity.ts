@@ -1,7 +1,17 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, RelationId } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  RelationId,
+} from 'typeorm'
 import { ResourceType } from '../../constants/resource-type'
 import { Skill } from '../skill/skill.entity'
 import { User } from '../user/user.entity'
+import { UserResource } from '../user/userResource.entity'
 
 @Entity()
 export class Resource {
@@ -23,9 +33,6 @@ export class Resource {
   @Column()
   icon: string
 
-  @ManyToMany(() => User, (user: User) => user.resources)
-  users: User[]
-
   @ManyToMany(() => Skill, (skill: Skill) => skill.resources, { cascade: true })
   @JoinTable({ name: 'skill_resources' })
   skills: Skill[]
@@ -36,4 +43,7 @@ export class Resource {
 
   @RelationId((resource: Resource) => resource.usersLikes)
   userIdsLikes: number[]
+
+  @OneToMany(() => UserResource, (userResource: UserResource) => userResource.resource)
+  userResources: UserResource[]
 }

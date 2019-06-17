@@ -33,17 +33,9 @@ export class User {
   @Column({ nullable: true })
   facebookId: string
 
-  @ManyToMany(() => Skill, (skill: Skill) => skill.users, { cascade: true })
-  @JoinTable({ name: 'user_skills' })
-  skills: Skill[]
-
   @ManyToMany(() => Profession, (profession: Profession) => profession.users, { cascade: true })
   @JoinTable({ name: 'user_professions' })
   professions: Profession[]
-
-  @ManyToMany(() => Resource, (resource: Resource) => resource.users, { cascade: true })
-  @JoinTable({ name: 'user_resources' })
-  resources: Resource[]
 
   @ManyToMany(() => Resource, (resource: Resource) => resource.usersLikes)
   likedResources: Resource[]
