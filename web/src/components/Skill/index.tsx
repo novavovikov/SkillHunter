@@ -6,6 +6,7 @@ import { Resource, ResourceCreator } from '../index'
 import * as s from './Skill.css'
 
 interface Props {
+  professionId: number
   data: SkillType
 }
 
@@ -16,16 +17,20 @@ interface State {
 
 class Skill extends React.Component<Props, State> {
   state = {
-    isOpen: false,
-    resources: []
+    isOpen: true,
+    resources: [],
   }
 
   componentDidMount () {
-    ajax.get('user/resources').then(({ data }) => {
-      this.setState({
-        resources: data
+    const { professionId, data: skillData } = this.props
+
+    ajax.
+      get(`user/resources/${professionId}/${skillData.id}`).
+      then(({ data }) => {
+        this.setState({
+          resources: data.map(({ resource }: any) => resource),
+        })
       })
-    })
   }
 
   toggleOpen = () => {
@@ -36,7 +41,7 @@ class Skill extends React.Component<Props, State> {
 
   render () {
     const { isOpen, resources } = this.state
-    const { data } = this.props
+    const { data, professionId } = this.props
 
     return (
       <div className={s.Skill}>
@@ -56,6 +61,7 @@ class Skill extends React.Component<Props, State> {
 
           <ResourceCreator
             className={s.Skill__button}
+            professionId={professionId}
             skillId={data.id}
           />
         </div>

@@ -9,20 +9,26 @@ import { SkillService } from '../skill/skill.service'
 import { UserController } from './user.controller'
 import { User } from './user.entity'
 import { UserService } from './user.service'
+import { UserResource } from './userResource.entity'
+import { UserSkill } from './userSkill.entity'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([
+      User,
+      UserSkill,
+      UserResource,
+    ]),
     ProfessionModule,
     SkillModule,
-    ResourceModule
+    ResourceModule,
   ],
   controllers: [UserController],
   providers: [
     UserService,
     ProfessionService,
     SkillService,
-    ResourceService
+    ResourceService,
   ],
 })
 export class UserModule {}

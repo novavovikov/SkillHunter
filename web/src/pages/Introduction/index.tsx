@@ -3,7 +3,10 @@ import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { Profession, SkillSet, Steps } from '../../components'
+import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
+import { withNotification } from '../../providers/Notification'
+import { NotificationProps } from '../../providers/Notification/context'
 import { setUserData } from '../../redux/actions/user'
 import { UserState } from '../../redux/reducers/user'
 import { Layout, Logo } from '../../UI'
@@ -11,7 +14,8 @@ import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
   user: UserState
-  setUserData: (data: any) => void
+  setUserData: (data: any) => void,
+  notificationApi: NotificationProps
 }
 
 class Introduction extends React.Component<Props> {
@@ -29,7 +33,7 @@ class Introduction extends React.Component<Props> {
   }
 
   onSubmit = () => {
-    const { history, setUserData } = this.props
+    const { history, setUserData, notificationApi } = this.props
 
     ajax.
       post('user/profession', this.state).
@@ -38,7 +42,7 @@ class Introduction extends React.Component<Props> {
         history.push(ROUTES.LIBRARY)
       }).
       catch(e => {
-        alert('Что-то пошло не так. Попробуй ещё раз')
+        notificationApi.showNotification('Что-то пошло не так. Попробуй ещё раз', NotificationTypes.error)
       })
   }
 
@@ -76,12 +80,13 @@ class Introduction extends React.Component<Props> {
 
 export default compose(
   withRouter,
+  withNotification,
   connect(
     (state: any) => ({
       user: state.user,
     }),
     {
-      setUserData
-    }
+      setUserData,
+    },
   ),
 )(Introduction)

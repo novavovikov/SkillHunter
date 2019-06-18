@@ -7,6 +7,7 @@ import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
 import { SkillType } from '../../types'
 import { H2 } from '../../UI'
+import { ajax } from '../../utils/ajax'
 import * as s from './Library.css'
 
 interface Params {
@@ -17,18 +18,49 @@ interface Props extends RouteComponentProps<Params> {
   user: UserState,
 }
 
-class Library extends React.Component<Props> {
-  getSkills = () => {
+interface State {
+  skills: SkillType[]
+}
+
+class Library extends React.Component<Props, State> {
+  state = {
+    skills: [],
+  }
+
+  componentDidMount (): void {
+    this.getSkills()
+  }
+
+  componentDidUpdate ({ match }: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
+    if (this.props.match.params.profession !== match.params.profession) {
+      this.getSkills()
+    }
+  }
+
+  getProfessionId = () => {
     const { user, match } = this.props
 
     if (!user.data) {
-      return []
+      return
     }
 
-    const emptyProfession = { skills: [] }
-    const profession = user.data.professions.find(({ name }) => name === match.params.profession) || emptyProfession
+    const profession: any = user.data.professions.find(({ name }) => name === match.params.profession) || {}
 
-    return profession.skills
+    return profession.id
+  }
+
+  getSkills = () => {
+    const professionId = this.getProfessionId()
+
+    if (professionId) {
+      ajax.
+        get(`user/skills/${professionId}`).
+        then(({ data }) => {
+          this.setState({
+            skills: data.map(({ skill }: any) => skill),
+          })
+        })
+    }
   }
 
   getRedirectUrl = (): string => {
@@ -50,7 +82,7 @@ class Library extends React.Component<Props> {
       return <Redirect to={this.getRedirectUrl()}/>
     }
 
-    const skills = this.getSkills()
+    const { skills } = this.state
 
     return (
       <Page>
@@ -63,6 +95,7 @@ class Library extends React.Component<Props> {
           <Skill
             key={skill.id}
             data={skill}
+            professionId={this.getProfessionId()}
           />
         ))}
       </Page>

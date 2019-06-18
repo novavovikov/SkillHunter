@@ -1,7 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Profession } from '../profession/profession.entity'
 import { Resource } from '../resource/resource.entity'
-import { User } from '../user/user.entity'
+import { UserSkill } from '../user/userSkill.entity'
 
 @Entity()
 export class Skill {
@@ -11,22 +11,18 @@ export class Skill {
   @CreateDateColumn()
   created: Date
 
-  @Column({
-    unique: true,
-  })
+  @Column({ unique: true })
   name: string
 
-  @Column({
-    default: false
-  })
+  @Column({ default: false })
   accepted: boolean
-
-  @ManyToMany(() => User, (user: User) => user.skills)
-  users: User[]
 
   @ManyToMany(() => Profession, (profession: Profession) => profession.skills)
   professions: Profession[]
 
   @ManyToMany(() => Resource, (resource: Resource) => resource.skills)
   resources: Resource[]
+
+  @OneToMany(() => UserSkill, (userSkill: UserSkill) => userSkill.skill)
+  userSkills: UserSkill[]
 }

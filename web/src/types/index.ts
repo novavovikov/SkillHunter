@@ -27,7 +27,6 @@ export interface Profession {
   name: string
   created: string
   accepted: boolean
-  skills: SkillType[]
 }
 
 export interface User {
