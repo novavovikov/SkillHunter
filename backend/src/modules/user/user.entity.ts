@@ -1,8 +1,9 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { RoleType } from '../../constants/role-type'
 import { Profession } from '../profession/profession.entity'
 import { Resource } from '../resource/resource.entity'
-import { Skill } from '../skill/skill.entity'
+import { UserResource } from './userResource.entity'
+import { UserSkill } from './userSkill.entity'
 
 @Entity()
 export class User {
@@ -33,10 +34,16 @@ export class User {
   @Column({ nullable: true })
   facebookId: string
 
+  @ManyToMany(() => Resource, (resource: Resource) => resource.usersLikes)
+  likedResources: Resource[]
+
   @ManyToMany(() => Profession, (profession: Profession) => profession.users, { cascade: true })
   @JoinTable({ name: 'user_professions' })
   professions: Profession[]
 
-  @ManyToMany(() => Resource, (resource: Resource) => resource.usersLikes)
-  likedResources: Resource[]
+  @OneToMany(() => UserSkill, (userSkill: UserSkill) => userSkill.user)
+  skills: UserSkill[]
+
+  @OneToMany(() => UserResource, (userResource: UserResource) => userResource.user)
+  resources: UserResource[]
 }

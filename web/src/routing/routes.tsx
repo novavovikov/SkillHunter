@@ -3,12 +3,12 @@ import { Redirect, Route, Switch } from 'react-router'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
 
-const Auth = React.lazy(() => import('../containers/Auth'))
-const Settings = React.lazy(() => import('../containers/Settings'))
-const Logout = React.lazy(() => import('../containers/Logout'))
-const Introduction = React.lazy(() => import('../containers/Introduction'))
-const NotFound = React.lazy(() => import('../containers/NotFound'))
-const Library = React.lazy(() => import('../containers/Library'))
+const Auth = React.lazy(() => import('../pages/Auth'))
+const Settings = React.lazy(() => import('../pages/Settings'))
+const Logout = React.lazy(() => import('../pages/Logout'))
+const Introduction = React.lazy(() => import('../pages/Introduction'))
+const NotFound = React.lazy(() => import('../pages/NotFound'))
+const Library = React.lazy(() => import('../pages/Library'))
 
 const Routes: React.FC = () => {
   return (

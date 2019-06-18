@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Skill } from '../skill/skill.entity'
 import { User } from '../user/user.entity'
 
@@ -10,14 +10,10 @@ export class Profession {
   @CreateDateColumn()
   created: Date
 
-  @Column({
-    unique: true
-  })
+  @Column({ unique: true })
   name: string
 
-  @Column({
-    default: false
-  })
+  @Column({ default: false })
   accepted: boolean
 
   @ManyToMany(() => Skill, (skill: Skill) => skill.professions)

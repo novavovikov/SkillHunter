@@ -8,6 +8,7 @@ import * as s from './ResourceCreator.css'
 
 interface Props {
   className?: string
+  professionId?: number
   skillId?: number
 }
 
@@ -36,7 +37,7 @@ class ResourceCreator extends React.Component<Props, State> {
 
   submitForm = async (e: any) => {
     e.preventDefault()
-    const { skillId } = this.props
+    const { skillId, professionId } = this.props
     const { inputValue } = this.state
 
     if (inputValue) {
@@ -44,13 +45,16 @@ class ResourceCreator extends React.Component<Props, State> {
         link: inputValue,
       }).then(({ data }) => data as ResourceType)
 
-      const userResources = await ajax.post('user/resource', {
-        resourceId: resource.id,
-        skillId,
-      })
+      const userResources = await ajax.
+        post('user/resource', {
+          professionId,
+          skillId,
+          resourceId: resource.id,
+        }).
+        catch()
 
       this.setState({
-        inputValue: ''
+        inputValue: '',
       })
     }
   }
