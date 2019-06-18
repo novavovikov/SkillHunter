@@ -1,0 +1,72 @@
+@import "../../styles/variables.css";
+
+.Menu {
+  position: relative;
+  display: inline-flex;
+
+  &__button {
+    position: relative;
+    width: 16px;
+    height: 19px;
+    border: none;
+    background: none;
+  }
+
+  &__dots {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -2px;
+    margin-left: -2px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-indigo);
+
+    &:before, &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--color-indigo);
+    }
+
+    &:before {
+      left: -6px;
+    }
+
+    &:after {
+      right: -6px;
+    }
+  }
+
+  &__enter {
+    margin-top: 10px;
+    opacity: 0;
+
+    &_active {
+      margin-top: 0;
+      opacity: 1;
+      transition: var(--transition-fast);
+    }
+  }
+
+  &__exit {
+    opacity: 1;
+
+    &_active {
+      margin-top: 10px;
+      opacity: 0;
+      transition: var(--transition-fast);
+    }
+  }
+
+  &__list {
+    position: absolute;
+    top: 100%;
+    right: 0;
+  }
+}

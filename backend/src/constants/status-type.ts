@@ -1,5 +1,5 @@
 export enum UserResourceStatusType {
-  Backlog = 'backlog',
-  Plan = 'plan',
-  Done = 'done',
+  Backlog = 'Backlog',
+  Plan = 'Plan',
+  Done = 'Done',
 }

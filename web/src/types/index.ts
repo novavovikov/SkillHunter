@@ -1,5 +1,11 @@
 import { NotificationTypes } from '../constants/notification'
 
+export enum ResourceStatusTypes {
+  Backlog = 'Backlog',
+  Plan = 'Plan',
+  Done = 'Done'
+}
+
 export interface NotificationType {
   type: NotificationTypes,
   message: string | number
@@ -7,12 +13,17 @@ export interface NotificationType {
 
 export interface ResourceType {
   id: number
+  professionId: number
+  skillId: number
   created: string
   icon: string
   link: string
   title: string
   type: string
+  status: ResourceStatusTypes
   userIdsLikes: number[]
+  likes: number
+  isLiked: boolean
 }
 
 export interface SkillType {

@@ -1,6 +1,6 @@
 @import "../../styles/variables.css";
 
-.Resource {
+.UserResource {
   position: relative;
   padding: 0 0 0 34px;
   margin: 0 0 5px;
@@ -28,6 +28,8 @@
   }
 
   &__content {
+    display: flex;
+    justify-content: space-between;
     background: #fff;
     border-radius: var(--radius);
     padding: 20px 40px;
@@ -37,6 +39,10 @@
     display: flex;
     align-items: center;
     margin: 0 0 13px;
+  }
+
+  &__info {
+    width: 625px;
   }
 
   &__title {
@@ -50,8 +56,7 @@
   }
 
   &__site {
-    display: flex;
-    align-items: center;
+    display: inline-block;
     @apply --font-s;
     color: var(--color-silver-chalice);
     transition: var(--transition);
@@ -62,6 +67,8 @@
   }
 
   &__favicon {
+    display: inline-block;
+    vertical-align: middle;
     width: 16px;
     margin: 0 10px 0 0;
 
@@ -121,5 +128,53 @@
         background: var(--color-salem);
       }
     }
+  }
+
+  &__sidebar {
+    text-align: right;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 0;
+  }
+
+  &__control {
+    display: inline-flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 20px 0 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &_more {
+      position: relative;
+      color: var(--color-indigo);
+      padding-right: 14px;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -3px;
+        width: 7px;
+        height: 7px;
+        border: solid var(--color-indigo);
+        border-width: 2px 2px 0 0;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  &__likes {
+    @apply --font-s;
+    margin: 0 8px 0 0;
   }
 }

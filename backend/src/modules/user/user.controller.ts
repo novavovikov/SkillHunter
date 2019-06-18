@@ -173,7 +173,7 @@ export class UserController {
 
   @Get('resources/:professionId/:skillId')
   @ApiUseTags('user')
-  async getResource (
+  async getResources (
     @Req() req,
     @Param('professionId') professionId: string,
     @Param('skillId') skillId: string,
@@ -182,6 +182,24 @@ export class UserController {
       req.user.id,
       Number(professionId),
       Number(skillId)
+    )
+  }
+
+  @Delete('resource/:professionId/:skillId/:resourceId')
+  @ApiUseTags('user')
+  async removeResource (
+    @Req() req,
+    @Param('professionId') professionId: string,
+    @Param('skillId') skillId: string,
+    @Param('resourceId') resourceId: string,
+  ) {
+    const resource: Resource = await this.resourceService.findById(resourceId)
+
+    return this.userService.removeResourceBySkillId(
+      req.user,
+      Number(professionId),
+      Number(skillId),
+      resource
     )
   }
 

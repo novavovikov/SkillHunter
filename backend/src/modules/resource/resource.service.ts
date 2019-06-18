@@ -91,7 +91,9 @@ export class ResourceService {
   }
 
   async setResourceLike (resourceId: string, user: User) {
-    const resource: Resource = await this.findById(resourceId)
+    const resource: Resource = await this.findById(resourceId, {
+      relations: ['usersLikes'],
+    })
 
     if (!resource) {
       return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
@@ -102,11 +104,19 @@ export class ResourceService {
     }
 
     resource.usersLikes = [...resource.usersLikes, user]
-    return this.resourceRepository.save(resource)
+
+    this.resourceRepository.save(resource)
+
+    return {
+      isLiked: true,
+      likes: resource.usersLikes.length,
+    }
   }
 
   async removeResourceLike (resourceId: string, user: User) {
-    const resource: Resource = await this.findById(resourceId)
+    const resource: Resource = await this.findById(resourceId, {
+      relations: ['usersLikes'],
+    })
 
     if (!resource) {
       return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
@@ -114,6 +124,11 @@ export class ResourceService {
 
     resource.usersLikes = resource.usersLikes.filter(({ id }) => id !== user.id)
 
-    return
+    this.resourceRepository.save(resource)
+
+    return {
+      isLiked: false,
+      likes: resource.usersLikes.length,
+    }
   }
 }

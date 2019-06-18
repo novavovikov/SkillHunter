@@ -143,13 +143,14 @@ export class UserService {
     return this.userResourceRepository.save(userResource)
   }
 
-  getResourcesBySkillId (
+  async getResourcesBySkillId (
     userId: number,
     professionId: number,
     skillId: number,
   ) {
-    return this.userResourceRepository.find({
-      select: ['professionId', 'skillId'],
+
+    const resources = await this.userResourceRepository.find({
+      select: ['status'],
       relations: ['resource'],
       where: {
         userId,
@@ -157,6 +158,31 @@ export class UserService {
         skillId,
       },
     })
+
+    return resources.map(({ status, resource }) => ({
+      ...resource,
+      professionId,
+      skillId,
+      status,
+      likes: resource.userIdsLikes.length,
+      isLiked: resource.userIdsLikes.includes(userId),
+    }))
+  }
+
+  async removeResourceBySkillId (
+    user: User,
+    professionId: number,
+    skillId: number,
+    resource: Resource,
+  ) {
+    const userResources = await this.userResourceRepository.find({
+      user,
+      professionId,
+      skillId,
+      resource
+    })
+
+    this.userResourceRepository.remove(userResources)
   }
 
   async removeAllResources (

@@ -88,6 +88,7 @@ class UserProfessions extends React.Component<Props, State> {
               onChange={this.handleInput}
               style={{
                 marginBottom: 5,
+                width: '100%'
               }}
             />
 

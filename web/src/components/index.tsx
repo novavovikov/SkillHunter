@@ -6,8 +6,8 @@ import Faq from './Faq'
 import Profession from './Profession'
 import SkillSet from './SkillSet'
 import Skills from './Skills'
-import Skill from './Skill'
-import Resource from './Resource'
+import UserSkill from './UserSkill'
+import UserResource from './UserResource'
 import ResourceCreator from './ResourceCreator'
 import UserProfessions from './UserProfessions'
 import Tabs from './Tabs'
@@ -23,8 +23,8 @@ export {
   Profession,
   SkillSet,
   Skills,
-  Skill,
-  Resource,
+  UserSkill,
+  UserResource,
   ResourceCreator,
   UserProfessions,
   Tabs,

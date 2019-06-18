@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Redirect, RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { Filters, Page, Skill } from '../../components'
+import { Filters, Page, UserSkill } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
@@ -92,7 +92,7 @@ class Library extends React.Component<Props, State> {
         </div>
 
         {skills.map((skill: SkillType) => (
-          <Skill
+          <UserSkill
             key={skill.id}
             data={skill}
             professionId={this.getProfessionId()}

@@ -1,0 +1,20 @@
+@import "../../styles/variables.css";
+
+.Icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: no-repeat center/contain;
+
+  &__share {
+    background-image: url("./icons/share-ico.svg");
+  }
+
+  &__heart {
+    background-image: url("./icons/heart-ico.svg");
+  }
+
+  &__heartFilled {
+    background: url("./icons/heart-filled-ico.svg");
+  }
+}
