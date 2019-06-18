@@ -132,6 +132,12 @@
 
   &__sidebar {
     text-align: right;
+    opacity: 0;
+    transition: var(--transition-fast);
+  }
+
+  &:hover &__sidebar {
+    opacity: 1;
   }
 
   &__controls {

@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import * as React from 'react'
-import { Menu, Icon } from '../../UI'
 import { ResourceType } from '../../types'
+import { Icon, Menu } from '../../UI'
 import * as s from './UserResource.css'
 
 interface Props {
@@ -21,7 +21,7 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove }) => {
     const {
       id,
       skillId,
-      professionId
+      professionId,
     } = data
 
     handleRemove(professionId, skillId, id)
@@ -73,11 +73,13 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove }) => {
           </Menu>
 
           <div className={s.UserResource__controls}>
-            <button
+            <a
+              href={data.link}
               className={cn(s.UserResource__control, s.UserResource__control_more)}
+              target="_blank"
             >
               More
-            </button>
+            </a>
             <button
               className={s.UserResource__control}
             >
