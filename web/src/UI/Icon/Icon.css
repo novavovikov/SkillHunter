@@ -5,6 +5,7 @@
   width: 16px;
   height: 16px;
   background: no-repeat center/contain;
+  transition: var(--transition-fast);
 
   &__share {
     background-image: url("./icons/share-ico.svg");

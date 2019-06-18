@@ -9,6 +9,7 @@
   padding: 5px 8px;
   border: none;
   color: #fff;
+  white-space: nowrap;
   background: var(--color-indigo);
   border-radius: var(--radius);
   transition: var(--transition-fast);

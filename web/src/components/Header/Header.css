@@ -19,8 +19,4 @@
     display: flex;
     align-items: center;
   }
-
-  &__creator {
-    margin: 0 60px 0 0;
-  }
 }

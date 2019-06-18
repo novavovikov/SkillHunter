@@ -61,23 +61,33 @@ class Creator extends React.Component<Props, State> {
 
   render () {
     const { inputValue } = this.state
+    const url = getUrl(inputValue)
 
     return (
       <form
         className={s.ResourceCreator__form}
         onSubmit={this.submitForm}
       >
-        <input
-          type="text"
-          className={s.ResourceCreator__input}
-          onChange={this.onChangeInput}
-          value={inputValue}
-          autoFocus
-        />
+        <div>
+          <input
+            type="text"
+            className={s.ResourceCreator__input}
+            onChange={this.onChangeInput}
+            value={inputValue}
+            autoFocus
+          />
+
+          <div className={s.ResourceCreator__desc}>
+            {url
+              ? 'Press "Enter"'
+              : 'Insert link and press "Enter"'
+            }
+          </div>
+        </div>
 
         <Button
           theme="plus"
-          disabled={!getUrl(inputValue)}
+          disabled={!url}
         >
           Add source
         </Button>

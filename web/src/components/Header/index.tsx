@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { ResourceCreator } from '../index'
 import { Layout, Logo } from '../../UI'
 import HeaderMenu from '../HeaderMenu'
 import * as s from './Header.css'
@@ -12,7 +11,6 @@ const Header = () => {
           <Logo/>
 
           <div className={s.Header__section}>
-            <ResourceCreator className={s.Header__creator}/>
             <HeaderMenu/>
           </div>
         </div>

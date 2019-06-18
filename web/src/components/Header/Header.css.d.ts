@@ -3,7 +3,6 @@
 interface CssExports {
   'Header': string;
   'Header__content': string;
-  'Header__creator': string;
   'Header__section': string;
 }
 declare var cssExports: CssExports;

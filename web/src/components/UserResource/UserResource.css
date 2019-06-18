@@ -147,9 +147,14 @@
     border: none;
     padding: 0;
     margin: 0 20px 0 0;
+    transition: var(--transition-fast);
 
     &:last-child {
       margin-right: 0;
+    }
+
+    &:hover {
+      color: var(--color-royal-blue);
     }
 
     &_more {
@@ -169,6 +174,13 @@
         border: solid var(--color-indigo);
         border-width: 2px 2px 0 0;
         transform: rotate(45deg);
+        transition: var(--transition-fast);
+      }
+
+      &:hover {
+        &:after {
+          border-color: var(--color-royal-blue);
+        }
       }
     }
   }

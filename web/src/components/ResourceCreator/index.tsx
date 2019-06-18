@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import * as React from 'react'
+import withClickOutside from 'react-click-outside'
 import { Button } from '../../UI'
 import Creator from './Creator'
 import * as s from './ResourceCreator.css'
@@ -17,6 +18,10 @@ interface State {
 class ResourceCreator extends React.Component<Props, State> {
   state = {
     isOpen: false,
+  }
+
+  handleClickOutside = () => {
+    this.closeCreator()
   }
 
   openCreator = () => {
@@ -45,17 +50,15 @@ class ResourceCreator extends React.Component<Props, State> {
           />
         )}
 
-        {!isOpen && (
-          <Button
-            onClick={this.openCreator}
-            theme="plus"
-          >
-            Add source
-          </Button>
-        )}
+        <Button
+          onClick={this.openCreator}
+          theme="plus"
+        >
+          Add source
+        </Button>
       </div>
     )
   }
 }
 
-export default ResourceCreator
+export default withClickOutside(ResourceCreator)
