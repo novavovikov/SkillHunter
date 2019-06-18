@@ -1,9 +1,7 @@
 import cn from 'classnames'
 import * as React from 'react'
-import { ChangeEvent } from 'react'
-import { ResourceType } from '../../types'
 import { Button } from '../../UI'
-import { ajax } from '../../utils/ajax'
+import Creator from './Creator'
 import * as s from './ResourceCreator.css'
 
 interface Props {
@@ -14,75 +12,47 @@ interface Props {
 
 interface State {
   isOpen: boolean
-  inputValue: string
 }
 
 class ResourceCreator extends React.Component<Props, State> {
   state = {
     isOpen: false,
-    inputValue: '',
   }
 
-  onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  openCreator = () => {
     this.setState({
-      inputValue: e.target.value,
+      isOpen: true,
     })
   }
 
-  toggleForm = () => {
+  closeCreator = () => {
     this.setState({
-      isOpen: !this.state.isOpen,
+      isOpen: false,
     })
-  }
-
-  submitForm = async (e: any) => {
-    e.preventDefault()
-    const { skillId, professionId } = this.props
-    const { inputValue } = this.state
-
-    if (inputValue) {
-      const resource = await ajax.post('resource', {
-        link: inputValue,
-      }).then(({ data }) => data as ResourceType)
-
-      const userResources = await ajax.
-        post('user/resource', {
-          professionId,
-          skillId,
-          resourceId: resource.id,
-        }).
-        catch()
-
-      this.setState({
-        inputValue: '',
-      })
-    }
   }
 
   render () {
-    const { className } = this.props
-    const { isOpen, inputValue } = this.state
+    const { className, skillId, professionId } = this.props
+    const { isOpen } = this.state
 
     return (
       <div className={cn(s.ResourceCreator, className)}>
         {isOpen && (
-          <form onSubmit={this.submitForm}>
-            <input
-              type="text"
-              className={s.ResourceCreator__input}
-              onChange={this.onChangeInput}
-              value={inputValue}
-              autoFocus
-            />
-          </form>
+          <Creator
+            skillId={skillId}
+            professionId={professionId}
+            onClose={this.closeCreator}
+          />
         )}
 
-        <Button
-          onClick={this.toggleForm}
-          theme="plus"
-        >
-          Add source
-        </Button>
+        {!isOpen && (
+          <Button
+            onClick={this.openCreator}
+            theme="plus"
+          >
+            Add source
+          </Button>
+        )}
       </div>
     )
   }
