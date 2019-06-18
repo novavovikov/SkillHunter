@@ -4,6 +4,11 @@
   display: flex;
   align-items: center;
 
+  &__form {
+    display: flex;
+    align-items: center;
+  }
+
   &__input {
     border-radius: var(--radius);
     border: 1px solid var(--color-cold-purple);
