@@ -11,7 +11,7 @@ interface State {
   isOpen: boolean
 }
 
-class MenuButton extends React.Component<Props, State> {
+class Menu extends React.Component<Props, State> {
   state = {
     isOpen: false,
   }
@@ -61,4 +61,4 @@ class MenuButton extends React.Component<Props, State> {
   }
 }
 
-export default MenuButton
+export default Menu

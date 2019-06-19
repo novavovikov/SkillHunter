@@ -1,8 +1,8 @@
 import cn from 'classnames'
 import * as React from 'react'
-import { ResourceType, SkillType } from '../../types'
+import { ResourceStatusTypes, ResourceType, SkillType } from '../../types'
 import { ajax } from '../../utils/ajax'
-import { UserResource, ResourceCreator } from '../index'
+import { ResourceCreator, UserResource } from '../index'
 import * as s from './UserSkill.css'
 
 interface Props {
@@ -36,19 +36,19 @@ class UserSkill extends React.Component<Props, State> {
   likeResource = (resourceId: number, isLiked: boolean) => {
     ajax({
       url: `resource/${resourceId}/like`,
-      method: isLiked ? 'POST' : 'DELETE'
+      method: isLiked ? 'POST' : 'DELETE',
     }).then(({ data }: any) => {
       this.setState({
         resources: this.state.resources.map((resource: ResourceType) => {
           if (resource.id === resourceId) {
             return {
               ...resource,
-              ...data
+              ...data,
             }
           }
 
           return resource
-        })
+        }),
       })
     })
   }
@@ -58,7 +58,31 @@ class UserSkill extends React.Component<Props, State> {
       delete(`user/resource/${professionId}/${skillId}/${resourceId}`).
       then(() => {
         this.setState({
-          resources: this.state.resources.filter(({ id }) => id !== resourceId)
+          resources: this.state.resources.filter(({ id }) => id !== resourceId),
+        })
+      })
+  }
+
+  changeStatus = (
+    professionId: number,
+    skillId: number,
+    resourceId: number,
+    status: ResourceStatusTypes,
+  ) => {
+    ajax.
+      put(`user/resource/${professionId}/${skillId}/${resourceId}`, { status }).
+      then(({ data }) => {
+        this.setState({
+          resources: this.state.resources.map((resource: ResourceType) => {
+            if (resource.id === resourceId) {
+              return {
+                ...resource,
+                ...data,
+              }
+            }
+
+            return resource
+          }),
         })
       })
   }
@@ -104,6 +128,7 @@ class UserSkill extends React.Component<Props, State> {
                 data={resource}
                 handleLike={this.likeResource}
                 handleRemove={this.removeResource}
+                handleStatus={this.changeStatus}
               />
             ))}
           </div>

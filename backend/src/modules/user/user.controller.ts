@@ -17,6 +17,7 @@ import { In } from 'typeorm'
 import { Roles } from '../../common/decorators/roles.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
+import { UserResourceStatusType } from '../../constants/status-type'
 import { unique } from '../../utils/unique'
 import { Profession } from '../profession/profession.entity'
 import { ProfessionService } from '../profession/profession.service'
@@ -107,7 +108,7 @@ export class UserController {
   @ApiUseTags('user')
   getSkills (
     @Req() req,
-    @Param('professionId') professionId: number
+    @Param('professionId') professionId: number,
   ) {
     return this.userService.getSkillsByProfessionId(req.user.id, professionId)
   }
@@ -181,7 +182,45 @@ export class UserController {
     return this.userService.getResourcesBySkillId(
       req.user.id,
       Number(professionId),
-      Number(skillId)
+      Number(skillId),
+    )
+  }
+
+  @Put('resource/:professionId/:skillId/:resourceId')
+  @ApiUseTags('user')
+  async updateResource (
+    @Req() req,
+    @Param('professionId') professionId: string,
+    @Param('skillId') skillId: string,
+    @Param('resourceId') resourceId: string,
+    @Body('status') status: UserResourceStatusType,
+  ) {
+    const resource: Resource = await this.resourceService.findById(resourceId)
+
+    if (!resource) {
+      return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+    }
+
+    const profession: Profession = await this.professionService.findById(professionId)
+
+    if (!profession) {
+      return new HttpException('professionId  not found', HttpStatus.BAD_REQUEST)
+    }
+
+    const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
+
+    if (!resourceSkillRelation) {
+      return new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
+    }
+
+    return this.userService.updateResource(
+      req.user,
+      Number(professionId),
+      Number(skillId),
+      resource,
+      {
+        status,
+      },
     )
   }
 
@@ -199,7 +238,7 @@ export class UserController {
       req.user,
       Number(professionId),
       Number(skillId),
-      resource
+      resource,
     )
   }
 
@@ -233,7 +272,7 @@ export class UserController {
       req.user,
       professionId,
       skillId,
-      resource
+      resource,
     )
   }
 

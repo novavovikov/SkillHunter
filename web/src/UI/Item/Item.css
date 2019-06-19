@@ -1,0 +1,14 @@
+@import "../../styles/variables.css";
+
+.Item {
+  width: 100%;
+  background: #fff;
+  border: none;
+  text-align: left;
+  min-height: 40px;
+  padding: 5px 20px;
+
+  &:hover {
+    background: #EDF3FD;
+  }
+}

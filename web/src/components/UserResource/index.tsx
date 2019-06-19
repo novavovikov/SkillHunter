@@ -1,17 +1,34 @@
 import cn from 'classnames'
 import * as React from 'react'
-import { ResourceType } from '../../types'
-import { Icon, Menu } from '../../UI'
+import { ChangeEvent } from 'react'
+import { ResourceStatusTypes, ResourceType } from '../../types'
+import { Icon, Item, Menu } from '../../UI'
 import * as s from './UserResource.css'
 
 interface Props {
   data: ResourceType,
   handleLike: (resourceId: number, isLiked: boolean) => void
   handleRemove: (professionId: number, skillId: number, resourceId: number) => void
+  handleStatus: (professionId: number, skillId: number, resourceId: number, status: string) => void
 }
 
-const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove }) => {
+const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove, handleStatus }) => {
   const url = new URL(data.link)
+
+  const changeStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+    const {
+      id,
+      skillId,
+      professionId,
+    } = data
+
+    handleStatus(
+      professionId,
+      skillId,
+      id,
+      e.target.value,
+    )
+  }
 
   const onLike = () => {
     handleLike(data.id, !data.isLiked)
@@ -40,14 +57,32 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove }) => {
               {data.title}
             </h4>
 
-            <button
+            <div
               className={cn(
                 s.UserResource__status,
-                s.UserResource__status_backlog,
+                {
+                  [s.UserResource__status_backlog]: data.status === ResourceStatusTypes.Backlog,
+                  [s.UserResource__status_plan]: data.status === ResourceStatusTypes.Plan,
+                  [s.UserResource__status_done]: data.status === ResourceStatusTypes.Done,
+                },
               )}
             >
-              {data.status}
-            </button>
+              <select
+                className={s.UserResource__select}
+                value={data.status}
+                onChange={changeStatus}
+              >
+                <option>
+                  {ResourceStatusTypes.Backlog}
+                </option>
+                <option>
+                  {ResourceStatusTypes.Plan}
+                </option>
+                <option>
+                  {ResourceStatusTypes.Done}
+                </option>
+              </select>
+            </div>
           </div>
 
           <a
@@ -67,9 +102,12 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove }) => {
 
         <div className={s.UserResource__sidebar}>
           <Menu>
-            <button onClick={onRemove}>
-              Remove
-            </button>
+            <Item>
+              Edit
+            </Item>
+            <Item onClick={onRemove}>
+              Delete
+            </Item>
           </Menu>
 
           <div className={s.UserResource__controls}>

@@ -10,6 +10,7 @@ interface CssExports {
   'UserResource__header': string;
   'UserResource__info': string;
   'UserResource__likes': string;
+  'UserResource__select': string;
   'UserResource__sidebar': string;
   'UserResource__site': string;
   'UserResource__status': string;

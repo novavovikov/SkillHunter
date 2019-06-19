@@ -143,6 +143,23 @@ export class UserService {
     return this.userResourceRepository.save(userResource)
   }
 
+  async updateResource (
+    user: User,
+    professionId: number,
+    skillId: number,
+    resource: Resource,
+    data: any
+  ) {
+    await this.userResourceRepository.update({
+      user,
+      professionId,
+      skillId,
+      resource
+    }, data)
+
+    return data
+  }
+
   async getResourcesBySkillId (
     userId: number,
     professionId: number,

@@ -3,13 +3,20 @@
 .Menu {
   position: relative;
   display: inline-flex;
+  z-index: 10;
+
+  &:hover &__button {
+    background: #DCE7FB;
+  }
 
   &__button {
     position: relative;
-    width: 16px;
-    height: 19px;
+    width: 26px;
+    height: 14px;
     border: none;
     background: none;
+    border-radius: var(--radius);
+    transition: var(--transition-fast);
   }
 
   &__dots {
@@ -68,5 +75,8 @@
     position: absolute;
     top: 100%;
     right: 0;
+    box-shadow: var(--shadow);
+    border: var(--radius);
+    overflow: hidden;
   }
 }

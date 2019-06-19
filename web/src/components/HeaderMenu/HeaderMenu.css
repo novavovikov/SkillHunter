@@ -56,12 +56,12 @@
 
   &__list {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 100%;
-    width: 100%;
+    min-width: 100%;
     background: #fff;
     border-radius: 0 0 var(--radius) var(--radius);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .05);
+    box-shadow: var(--shadow);
     z-index: 10;
   }
 
@@ -71,6 +71,7 @@
     min-height: 40px;
     padding: 5px 10px;
     transition: var(--transition);
+    white-space: nowrap;
 
     &:hover {
       background: var(--color-link-water);
