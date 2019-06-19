@@ -112,7 +112,7 @@ class UserSkill extends React.Component<Props, State> {
         {isOpen && (
           <div className={s.UserSkill__footer}>
             <button
-              className={s.UserSkill__switcher}
+              className={cn(s.UserSkill__switcher, s.UserSkill__switcher_hide)}
               onClick={this.toggleOpen}
             >
               Hide

@@ -18,7 +18,7 @@
 
   &:hover {
     &:before {
-      background: var(--color-link-water);
+      background: var(--color-alabaster);
     }
   }
 
@@ -59,9 +59,10 @@
     @apply --font-m;
     border-radius: var(--radius);
     color: var(--color-indigo);
-    background: var(--color-link-water);
     padding: 2px 20px 2px 10px;
     border: none;
+    background: none;
+    transition: var(--transition-fast);
 
     &:after {
       content: '';
@@ -75,6 +76,17 @@
       border: solid var(--color-indigo);
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
+    }
+
+    &_hide {
+      &:after {
+        transform: rotate(-135deg);
+        margin-top: -1px;
+      }
+    }
+
+    &:hover {
+      background: var(--color-link-water);
     }
   }
 

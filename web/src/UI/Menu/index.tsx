@@ -1,6 +1,5 @@
 import cn from 'classnames'
 import * as React from 'react'
-import withClickOutside from 'react-click-outside'
 import { CSSTransition } from 'react-transition-group'
 import * as s from './Menu.css'
 
@@ -17,15 +16,15 @@ class MenuButton extends React.Component<Props, State> {
     isOpen: false,
   }
 
-  handleClickOutside () {
+  showMenu = () => {
     this.setState({
-      isOpen: false
+      isOpen: true,
     })
   }
 
-  toggleMenu = () => {
+  hideMenu = () => {
     this.setState({
-      isOpen: !this.state.isOpen,
+      isOpen: false,
     })
   }
 
@@ -34,14 +33,12 @@ class MenuButton extends React.Component<Props, State> {
     const { isOpen } = this.state
 
     return (
-      <div className={cn(
-        s.Menu,
-        className,
-      )}>
-        <button
-          className={s.Menu__button}
-          onClick={this.toggleMenu}
-        >
+      <div
+        className={cn(s.Menu, className)}
+        onMouseEnter={this.showMenu}
+        onMouseLeave={this.hideMenu}
+      >
+        <button className={s.Menu__button}>
           <i className={s.Menu__dots}/>
         </button>
         <CSSTransition
@@ -64,4 +61,4 @@ class MenuButton extends React.Component<Props, State> {
   }
 }
 
-export default withClickOutside(MenuButton)
+export default MenuButton

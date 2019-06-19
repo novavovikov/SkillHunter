@@ -15,7 +15,6 @@
     @apply --font-m;
     font-family: var(--ff-roboto);
     color: var(--color-tundora);
-    background: var(--color-concrete);
     min-width: 320px;
     margin: 0;
     overflow-x: hidden;
