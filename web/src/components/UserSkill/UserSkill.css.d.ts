@@ -4,6 +4,8 @@ interface CssExports {
   'UserSkill': string;
   'UserSkill__body': string;
   'UserSkill__button': string;
+  'UserSkill__empty': string;
+  'UserSkill__emptyText': string;
   'UserSkill__footer': string;
   'UserSkill__header': string;
   'UserSkill__switcher': string;

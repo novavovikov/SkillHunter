@@ -2,6 +2,7 @@ import cn from 'classnames'
 import * as React from 'react'
 import { ResourceStatusTypes, ResourceType, SkillType } from '../../types'
 import { ajax } from '../../utils/ajax'
+import { Button } from '../../UI'
 import { ResourceCreator, UserResource } from '../index'
 import * as s from './UserSkill.css'
 
@@ -122,6 +123,17 @@ class UserSkill extends React.Component<Props, State> {
 
         {isOpen && (
           <div className={s.UserSkill__body}>
+            {!resources.length && (
+              <div className={s.UserSkill__empty}>
+                <div className={s.UserSkill__emptyText}>
+                  Your source list is empty!
+                </div>
+                <Button>
+                  Add your first source
+                </Button>
+              </div>
+            )}
+
             {resources.map((resource: ResourceType) => (
               <UserResource
                 key={resource.id}
