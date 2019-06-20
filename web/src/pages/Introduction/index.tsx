@@ -9,12 +9,13 @@ import { withNotification } from '../../providers/Notification'
 import { NotificationProps } from '../../providers/Notification/context'
 import { updateUserData } from '../../redux/actions/user'
 import { UserState } from '../../redux/reducers/user'
+import { ProfessionType } from '../../types'
 import { Layout, Logo } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
   user: UserState
-  setProfessions: (data: Profession[]) => void,
+  setProfessions: (data: ProfessionType[]) => void,
   notificationApi: NotificationProps
 }
 
@@ -38,7 +39,7 @@ class Introduction extends React.Component<Props> {
     ajax.
       post('user/profession', this.state).
       then(({ data }) => {
-        setProfessions(data as Profession[])
+        setProfessions(data as ProfessionType[])
         history.push(ROUTES.HOME)
       }).
       catch(e => {
@@ -86,7 +87,7 @@ export default compose(
       user: state.user,
     }),
     {
-      setProfessions: (professions: Profession[]) => updateUserData({ professions }),
+      setProfessions: (professions: ProfessionType[]) => updateUserData({ professions }),
     },
   ),
 )(Introduction)

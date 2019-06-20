@@ -81,11 +81,11 @@ export class UserService {
     return await this.userRepository.findOne({ email })
   }
 
-  getSkillsByProfessionId (
+  async getSkillsByProfessionId (
     userId: number,
     professionId: number,
   ) {
-    return this.userSkillRepository.find({
+    const foundProfessions = await this.userSkillRepository.find({
       select: ['professionId'],
       relations: ['skill'],
       where: {
@@ -93,6 +93,11 @@ export class UserService {
         professionId,
       },
     })
+
+    return foundProfessions.map(({ skill }) => ({
+      ...skill,
+      professionId
+    }))
   }
 
   async addSkills (
@@ -108,7 +113,12 @@ export class UserService {
       })
     })
 
-    return await this.userSkillRepository.save(userSkills)
+    const createdSkills = await this.userSkillRepository.save(userSkills)
+
+    return createdSkills.map(({ skill }) => ({
+      ...skill,
+      professionId
+    }))
   }
 
   async removeAllSkills (

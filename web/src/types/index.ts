@@ -31,16 +31,17 @@ export interface SkillType {
   name: string
   created: string
   accepted: boolean
+  professionId: number
 }
 
-export interface Profession {
+export interface ProfessionType {
   id: number
   name: string
   created: string
   accepted: boolean
 }
 
-export interface User {
+export interface UserType {
   id: number
   created: string
   email: string
@@ -48,5 +49,5 @@ export interface User {
   name: string
   picture: string
   role: string
-  professions: Profession[]
+  professions: ProfessionType[]
 }

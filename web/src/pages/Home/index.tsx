@@ -12,7 +12,11 @@ class Home extends React.Component<Props> {
   render () {
     const { user: { data } } = this.props
 
-    if (!data || !data.professions.length) {
+    if (!data) {
+      return <Redirect to={ROUTES.AUTH}/>
+    }
+
+    if (!data.professions.length) {
       return <Redirect to={ROUTES.INTRODUCTION}/>
     }
 

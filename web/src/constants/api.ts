@@ -1,8 +1,9 @@
 export const API = {
   BASE_URL: '/api/',
 
-  ME: 'user/me',
-
   AUTH_GOOGLE: 'auth/google',
-  AUTH_FACEBOOK: 'auth/facebook'
+  AUTH_FACEBOOK: 'auth/facebook',
+
+  ME: 'user/me',
+  SKILLS: 'user/skills',
 }

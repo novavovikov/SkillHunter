@@ -1,13 +1,16 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { Redirect, RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { Filters, Page, UserSkill } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
+import { getSkillsData } from '../../redux/actions/skills'
+import { RootState } from '../../redux/reducers'
+import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
 import { SkillType } from '../../types'
 import { H2 } from '../../UI'
-import { ajax } from '../../utils/ajax'
 import * as s from './Library.css'
 
 interface Params {
@@ -16,22 +19,16 @@ interface Params {
 
 interface Props extends RouteComponentProps<Params> {
   user: UserState,
+  skills: SkillsState
+  getSkills: (professionId: number) => void
 }
 
-interface State {
-  skills: SkillType[]
-}
-
-class Library extends React.Component<Props, State> {
-  state = {
-    skills: [],
-  }
-
+class Library extends React.Component<Props> {
   componentDidMount (): void {
     this.getSkills()
   }
 
-  componentDidUpdate ({ match }: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
+  componentDidUpdate ({ match }: Readonly<Props>): void {
     if (this.props.match.params.profession !== match.params.profession) {
       this.getSkills()
     }
@@ -53,24 +50,16 @@ class Library extends React.Component<Props, State> {
     const professionId = this.getProfessionId()
 
     if (professionId) {
-      ajax.
-        get(`user/skills/${professionId}`).
-        then(({ data }) => {
-          this.setState({
-            skills: data.map(({ skill }: any) => skill),
-          })
-        })
+      this.props.getSkills(professionId)
     }
   }
 
   render () {
-    const { match } = this.props
+    const { match, skills } = this.props
 
     if (!match.params.profession) {
       return <Redirect to={ROUTES.HOME}/>
     }
-
-    const { skills } = this.state
 
     return (
       <Page>
@@ -79,7 +68,7 @@ class Library extends React.Component<Props, State> {
           <Filters/>
         </div>
 
-        {skills.map((skill: SkillType) => (
+        {skills.data.map((skill: SkillType) => (
           <UserSkill
             key={skill.id}
             data={skill}
@@ -94,4 +83,12 @@ class Library extends React.Component<Props, State> {
 export default compose(
   withUser,
   withRouter,
+  connect(
+    ({ skills }: RootState) => ({
+      skills,
+    }),
+    {
+      getSkills: getSkillsData,
+    },
+  ),
 )(Library)

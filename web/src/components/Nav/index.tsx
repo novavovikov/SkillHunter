@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
+import { UserState } from '../../redux/reducers/user'
 import * as s from './Nav.css'
 
 const CONTROLS = [
@@ -18,13 +19,22 @@ const CONTROLS = [
   },
 ]
 
-const Nav: React.FC = () => {
+interface Params {
+  profession: string
+}
+
+interface Props extends RouteComponentProps<Params> {
+}
+
+const Nav: React.FC<Props> = ({ match }) => {
+  const postfix = match.params.profession ? `/${match.params.profession}` : ''
+
   return (
     <nav className={s.Nav}>
       {CONTROLS.map(({ label, to }) => (
         <NavLink
           key={to}
-          to={to}
+          to={`${to}${postfix}`}
           className={s.Nav__item}
           activeClassName={s.Nav__item_active}
         >
@@ -35,4 +45,4 @@ const Nav: React.FC = () => {
   )
 }
 
-export default Nav
+export default withRouter(Nav)

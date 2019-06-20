@@ -108,23 +108,23 @@ export class UserController {
   @ApiUseTags('user')
   getSkills (
     @Req() req,
-    @Param('professionId') professionId: number,
+    @Param('professionId') professionId: string,
   ) {
-    return this.userService.getSkillsByProfessionId(req.user.id, professionId)
+    return this.userService.getSkillsByProfessionId(req.user.id, Number(professionId))
   }
 
-  @Post('skills')
+  @Post('skills/:professionId')
   @ApiUseTags('user')
   async adSkills (
     @Req() req,
-    @Body('professionId') professionId: number,
+    @Param('professionId') professionId: string,
     @Body('skills') skills: string[],
   ) {
     const skillList: Skill[] = await this.getSkillList(skills)
 
     return await this.userService.addSkills(
       req.user,
-      professionId,
+      Number(professionId),
       skillList,
     )
   }
@@ -141,7 +141,7 @@ export class UserController {
 
   @Get('professions')
   @ApiUseTags('user')
-  async getProfession (@Req() req) {
+  async getProfession (@Req() req): Promise<Profession[]> {
     const { professions } = await this.userService.findById(req.user.id, {
       select: ['id'],
       relations: ['professions'],

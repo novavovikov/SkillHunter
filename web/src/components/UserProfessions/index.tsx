@@ -1,15 +1,22 @@
 import * as React from 'react'
 import { ChangeEvent, FormEvent } from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
+import { addSkillsByProfessionId } from '../../redux/actions/skills'
+import { AddSkillsRequestType } from '../../redux/interfaces/skills'
+import { RootState } from '../../redux/reducers'
+import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
 import { Button } from '../../UI'
-import { ajax } from '../../utils/ajax'
 import * as s from './UserProfessions.css'
 
 interface Props {
   user: UserState
+  skills: SkillsState
+  addSkills: (data: AddSkillsRequestType) => void
 }
 
 interface State {
@@ -38,22 +45,32 @@ class UserProfessions extends React.Component<Props, State> {
 
   addSkill = (e: FormEvent) => {
     e.preventDefault()
+    const { addSkills } = this.props
     const { professionId, skillValue } = this.state
 
-    ajax.post('user/skills', {
-      professionId,
-      skills: [skillValue],
-    })
+    if (professionId) {
+      addSkills({
+        professionId,
+        skills: [skillValue],
+      })
+
+      this.setState({
+        professionId: null,
+        skillValue: ''
+      })
+    }
   }
 
   render () {
-    const { user } = this.props
+    const { user, skills } = this.props
 
     if (!user.data) {
       return null
     }
 
     const { professionId, skillValue } = this.state
+
+    const isDisabled = !skillValue || skills.data.some(({ name }) => name.toLowerCase() === skillValue.toLowerCase())
 
     return (
       <div className={s.UserProfessions}>
@@ -88,11 +105,14 @@ class UserProfessions extends React.Component<Props, State> {
               onChange={this.handleInput}
               style={{
                 marginBottom: 5,
-                width: '100%'
+                width: '100%',
               }}
+              autoFocus
             />
 
-            <Button disabled={!skillValue}>
+            <Button
+              disabled={isDisabled}
+            >
               Submit
             </Button>
           </form>
@@ -102,4 +122,11 @@ class UserProfessions extends React.Component<Props, State> {
   }
 }
 
-export default withUser(UserProfessions)
+export default compose(
+  withUser,
+  connect(({ skills }: RootState) => ({
+    skills,
+  }), {
+    addSkills: addSkillsByProfessionId,
+  }),
+)(UserProfessions)

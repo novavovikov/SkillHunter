@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Redirect, Route, Switch } from 'react-router'
+import { Route, Switch } from 'react-router'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
 
@@ -8,8 +8,8 @@ const Home = React.lazy(() => import('../pages/Home'))
 const Settings = React.lazy(() => import('../pages/Settings'))
 const Logout = React.lazy(() => import('../pages/Logout'))
 const Introduction = React.lazy(() => import('../pages/Introduction'))
-const NotFound = React.lazy(() => import('../pages/NotFound'))
 const Library = React.lazy(() => import('../pages/Library'))
+const NotFound = React.lazy(() => import('../pages/NotFound'))
 
 const Routes: React.FC = () => {
   return (
