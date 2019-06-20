@@ -9,4 +9,12 @@
   &__title {
     margin: 0 38px 0 0;
   }
+
+  &__loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 30px 0;
+  }
 }

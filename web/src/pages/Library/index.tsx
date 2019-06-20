@@ -10,7 +10,7 @@ import { RootState } from '../../redux/reducers'
 import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
 import { SkillType } from '../../types'
-import { H2 } from '../../UI'
+import { H2, Loader } from '../../UI'
 import * as s from './Library.css'
 
 interface Params {
@@ -55,7 +55,13 @@ class Library extends React.Component<Props> {
   }
 
   render () {
-    const { match, skills } = this.props
+    const {
+      match,
+      skills: {
+        isLoading,
+        data,
+      },
+    } = this.props
 
     if (!match.params.profession) {
       return <Redirect to={ROUTES.HOME}/>
@@ -68,7 +74,13 @@ class Library extends React.Component<Props> {
           <Filters/>
         </div>
 
-        {skills.data.map((skill: SkillType) => (
+        {isLoading && (
+          <div className={s.Library__loader}>
+            <Loader/>
+          </div>
+        )}
+
+        {!isLoading && data.map((skill: SkillType) => (
           <UserSkill
             key={skill.id}
             data={skill}

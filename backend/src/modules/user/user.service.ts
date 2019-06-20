@@ -86,17 +86,18 @@ export class UserService {
     professionId: number,
   ) {
     const foundProfessions = await this.userSkillRepository.find({
-      select: ['professionId'],
-      relations: ['skill'],
       where: {
         userId,
         professionId,
       },
+      order: {
+        id: 'DESC',
+      }
     })
 
     return foundProfessions.map(({ skill }) => ({
       ...skill,
-      professionId
+      professionId,
     }))
   }
 
@@ -117,7 +118,7 @@ export class UserService {
 
     return createdSkills.map(({ skill }) => ({
       ...skill,
-      professionId
+      professionId,
     }))
   }
 
@@ -158,13 +159,13 @@ export class UserService {
     professionId: number,
     skillId: number,
     resource: Resource,
-    data: any
+    data: any,
   ) {
     await this.userResourceRepository.update({
       user,
       professionId,
       skillId,
-      resource
+      resource,
     }, data)
 
     return data
@@ -206,7 +207,7 @@ export class UserService {
       user,
       professionId,
       skillId,
-      resource
+      resource,
     })
 
     this.userResourceRepository.remove(userResources)

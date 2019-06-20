@@ -115,6 +115,14 @@ class UserProfessions extends React.Component<Props, State> {
             >
               Submit
             </Button>
+
+            <Button
+              style={{
+                marginLeft: 10
+              }}
+            >
+              Cancel
+            </Button>
           </form>
         )}
       </div>
