@@ -35,11 +35,15 @@
 
   &__title {
     position: relative;
+    margin: 0;
+    padding: 0 0 0 20px;
+    white-space: nowrap;
+    max-width: 40%;
     @apply --font-xl;
     font-weight: normal;
     color: var(--color-indigo);
-    margin: 0;
-    padding: 0 0 0 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &:before {
       content: '';
@@ -55,7 +59,9 @@
   }
 
   &__switcher {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     @apply --font-m;
     border-radius: var(--radius);
     color: var(--color-indigo);
@@ -63,6 +69,7 @@
     border: none;
     background: none;
     transition: var(--transition-fast);
+    transform: translate(-50%, -50%);
 
     &:after {
       content: '';
@@ -99,7 +106,9 @@
   }
 
   &__footer {
+    position: relative;
     text-align: center;
+    min-height: 50px;
     padding: 15px 0;
   }
 }

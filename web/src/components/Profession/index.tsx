@@ -46,14 +46,14 @@ class Profession extends React.Component<Props, State> {
         className={s.Profession}
         onSubmit={this.onSubmit}
       >
-        <H2>Кто вы сейчас или кем хотите стать?</H2>
+        <H2>Who are you now or who do you want to become?</H2>
 
         <AutoComplete
           className={s.Profession__input}
           input={{
             value: inputValue,
             onChange: this.setInputValue,
-            placeholder: 'Специальность, профессия или должность',
+            placeholder: 'Specialty, profession or position',
             autoFocus: true,
           }}
         />
@@ -62,7 +62,7 @@ class Profession extends React.Component<Props, State> {
           disabled={!inputValue}
           theme="large"
         >
-          Далее
+          Next
         </Button>
       </form>
     )

@@ -63,23 +63,11 @@ class Library extends React.Component<Props, State> {
     }
   }
 
-  getRedirectUrl = (): string => {
-    const {
-      user: { data: userData },
-    } = this.props
-
-    if (!userData || !userData.professions.length) {
-      return ROUTES.INTRODUCTION
-    }
-
-    return `${ROUTES.LIBRARY}/${userData.professions[0].name}`
-  }
-
   render () {
     const { match } = this.props
 
     if (!match.params.profession) {
-      return <Redirect to={this.getRedirectUrl()}/>
+      return <Redirect to={ROUTES.HOME}/>
     }
 
     const { skills } = this.state

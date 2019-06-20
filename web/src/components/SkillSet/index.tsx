@@ -83,7 +83,7 @@ class SkillSet extends React.Component<Props, State> {
     e.preventDefault()
     const data = this.state.selectedSuggestions.map(({ name }) => name)
 
-    this.props.onSubmit(data)
+    this.props.onSubmit([...new Set(data)])
   }
 
   render () {

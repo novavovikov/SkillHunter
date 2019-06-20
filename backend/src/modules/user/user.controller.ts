@@ -164,12 +164,14 @@ export class UserController {
     const skillList: Skill[] = await this.getSkillList(skills)
     foundProfession.skills = unique([...foundProfession.skills, ...skillList])
 
-    await this.userService.addProfession(req.user.id, foundProfession)
-    return await this.userService.addSkills(
+    const updatedUser = await this.userService.addProfession(req.user.id, foundProfession)
+    await this.userService.addSkills(
       req.user.id,
       foundProfession.id,
       skillList,
     )
+
+    return updatedUser.professions
   }
 
   @Get('resources/:professionId/:skillId')

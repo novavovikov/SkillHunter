@@ -7,14 +7,14 @@ import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { withNotification } from '../../providers/Notification'
 import { NotificationProps } from '../../providers/Notification/context'
-import { setUserData } from '../../redux/actions/user'
+import { updateUserData } from '../../redux/actions/user'
 import { UserState } from '../../redux/reducers/user'
 import { Layout, Logo } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
   user: UserState
-  setUserData: (data: any) => void,
+  setProfessions: (data: Profession[]) => void,
   notificationApi: NotificationProps
 }
 
@@ -33,16 +33,16 @@ class Introduction extends React.Component<Props> {
   }
 
   onSubmit = () => {
-    const { history, setUserData, notificationApi } = this.props
+    const { history, setProfessions, notificationApi } = this.props
 
     ajax.
       post('user/profession', this.state).
       then(({ data }) => {
-        setUserData(data)
-        history.push(ROUTES.LIBRARY)
+        setProfessions(data as Profession[])
+        history.push(ROUTES.HOME)
       }).
       catch(e => {
-        notificationApi.showNotification('Что-то пошло не так. Попробуй ещё раз', NotificationTypes.error)
+        notificationApi.showNotification('System error. Try again.', NotificationTypes.error)
       })
   }
 
@@ -57,11 +57,11 @@ class Introduction extends React.Component<Props> {
           initStep="Profession"
           steps={[
             {
-              label: '1. Специальность',
+              label: '1. Specialty',
               id: 'Profession',
             },
             {
-              label: '2. Скиллсет',
+              label: '2. SkillSet',
               id: 'Skills',
             },
           ]}
@@ -86,7 +86,7 @@ export default compose(
       user: state.user,
     }),
     {
-      setUserData,
+      setProfessions: (professions: Profession[]) => updateUserData({ professions }),
     },
   ),
 )(Introduction)

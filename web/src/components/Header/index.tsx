@@ -8,7 +8,7 @@ const Header = () => {
     <header className={s.Header}>
       <Layout.Container>
         <div className={s.Header__content}>
-          <Logo/>
+          <Logo className={s.Header__logo}/>
 
           <div className={s.Header__section}>
             <HeaderMenu/>

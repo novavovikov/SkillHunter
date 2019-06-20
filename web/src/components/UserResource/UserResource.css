@@ -147,10 +147,14 @@
     opacity: 1;
   }
 
+  &__menu {
+    margin-right: -5px;
+  }
+
   &__controls {
     display: flex;
     align-items: center;
-    margin: 10px 0 0;
+    margin: 13px 0 0;
   }
 
   &__control {

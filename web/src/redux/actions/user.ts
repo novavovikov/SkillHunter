@@ -1,6 +1,6 @@
 import cookies from 'js-cookie'
 import { UserActionTypes } from '../actionTypes/user'
-import { GetUserData, SetUserData, SetUserLoadingStatus } from '../interfaces/user'
+import { GetUserData, SetUserData, SetUserLoadingStatus, UpdateUserData } from '../interfaces/user'
 
 export const getUserData = (): GetUserData => ({
   type: UserActionTypes.SAGA_GET_USER,
@@ -8,7 +8,7 @@ export const getUserData = (): GetUserData => ({
 
 export const logoutUser = (): SetUserData => {
   cookies.remove('authToken', {
-    domain: window.location.hostname === 'localhost' ? 'localhost' : 'skillhunter.io'
+    domain: window.location.hostname === 'localhost' ? 'localhost' : 'skillhunter.io',
   })
 
   return {
@@ -19,6 +19,11 @@ export const logoutUser = (): SetUserData => {
 
 export const setUserData = (data: any): SetUserData => ({
   type: UserActionTypes.SET_USER_DATA,
+  payload: data,
+})
+
+export const updateUserData = (data: any): UpdateUserData => ({
+  type: UserActionTypes.UPDATE_USER_DATA,
   payload: data,
 })
 

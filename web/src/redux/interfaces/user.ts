@@ -9,7 +9,6 @@ export interface SetUserData {
   payload: any
 }
 
-
 export interface SetUserLoadingStatus {
   type: UserActionTypes.SET_USER_LOADING_STATUS,
   payload: boolean

@@ -46,7 +46,7 @@ class Skills extends React.Component<Props, State> {
       : []
 
     return [...skills, ...selectedSkills].reduce((acc, skill: Skill) => {
-      if (acc.some(({ name }) => name.toLowerCase() === skill.name.toLowerCase())) {
+      if (acc.find(({ name }: Skill) => name.toLowerCase() === skill.name.toLowerCase())) {
         return acc
       }
 
@@ -77,7 +77,7 @@ class Skills extends React.Component<Props, State> {
           {hasItems && (
             <>
               <div>
-                Предложения
+                Suggestions
               </div>
 
               <button
@@ -86,8 +86,8 @@ class Skills extends React.Component<Props, State> {
                 onClick={this.toggleSelected}
               >
                 {onlySelected
-                  ? 'Все'
-                  : 'Показать отмеченные'
+                  ? 'All'
+                  : 'Only selected'
                 }
               </button>
             </>

@@ -4,6 +4,7 @@ import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
 
 const Auth = React.lazy(() => import('../pages/Auth'))
+const Home = React.lazy(() => import('../pages/Home'))
 const Settings = React.lazy(() => import('../pages/Settings'))
 const Logout = React.lazy(() => import('../pages/Logout'))
 const Introduction = React.lazy(() => import('../pages/Introduction'))
@@ -14,25 +15,25 @@ const Routes: React.FC = () => {
   return (
     <React.Suspense fallback={<div>Загрузка</div>}>
       <Switch>
-        <Redirect
-          from={ROUTES.HOME}
-          to={ROUTES.LIBRARY}
-          exact
-        />
-
         <Route
           path={ROUTES.AUTH}
           component={Auth}
           exact
         />
 
-        <Route
+        <PrivateRoute
+          path={ROUTES.HOME}
+          component={Home}
+          exact
+        />
+
+        <PrivateRoute
           path={ROUTES.SETTINGS}
           component={Settings}
           exact
         />
 
-        <Route
+        <PrivateRoute
           path={ROUTES.LOGOUT}
           component={Logout}
           exact
@@ -52,19 +53,6 @@ const Routes: React.FC = () => {
         <PrivateRoute
           path={ROUTES.LIBRARY}
           component={Library}
-          exact
-        />
-
-        <PrivateRoute
-          path={ROUTES.EVALUATION}
-          component={Library}
-          exact
-        />
-
-        <PrivateRoute
-          path={ROUTES.PLAN}
-          component={Library}
-          exact
         />
 
         <PrivateRoute

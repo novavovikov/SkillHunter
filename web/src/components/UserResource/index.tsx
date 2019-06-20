@@ -101,7 +101,7 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove, handleS
         </div>
 
         <div className={s.UserResource__sidebar}>
-          <Menu>
+          <Menu className={s.UserResource__menu}>
             <Item>
               Edit
             </Item>
