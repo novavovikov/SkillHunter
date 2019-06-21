@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils'
 import { Reducer } from 'redux'
 import { ResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
