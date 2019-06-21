@@ -1,29 +1,29 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { ChangeEvent } from 'react'
-import { ResourceSagaPayload } from '../../redux/interfaces/resources'
+import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, ResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
 import * as s from './UserResource.css'
 
 interface Props {
   data: ResourceType,
-  handleLike: (resourceId: number, isLiked: boolean) => void
-  handleRemove: (data: ResourceSagaPayload) => void
-  handleStatus: (professionId: number, skillId: number, resourceId: number, status: string) => void
+  likeHandler: (data: ResourceLikeStatusSagaPayload) => void
+  statusHandler: (professionId: number, skillId: number, resourceId: number, status: string) => void
+  removeHandler: (data: ResourceSagaPayload) => void
 }
 
-const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove, handleStatus }) => {
+const UserResource: React.FC<Props> = ({ data, likeHandler, removeHandler, statusHandler }) => {
   const url = new URL(data.link)
 
-  const changeStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleStatus = (e: ChangeEvent<HTMLSelectElement>) => {
     const {
       id,
       skillId,
       professionId,
     } = data
 
-    handleStatus(
+    statusHandler(
       professionId,
       skillId,
       id,
@@ -31,21 +31,24 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove, handleS
     )
   }
 
-  const onLike = () => {
-    handleLike(data.id, !data.isLiked)
+  const handleLike = () => {
+    likeHandler({
+      resourceId: data.id,
+      isLiked: !data.isLiked,
+    })
   }
 
-  const onRemove = () => {
+  const handleRemove = () => {
     const {
       professionId,
       skillId,
       id: resourceId,
     } = data
 
-    handleRemove({
+    removeHandler({
       professionId,
       skillId,
-      resourceId
+      resourceId,
     })
   }
 
@@ -75,7 +78,7 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove, handleS
               <select
                 className={s.UserResource__select}
                 value={data.status}
-                onChange={changeStatus}
+                onChange={handleStatus}
               >
                 <option>
                   {ResourceStatusTypes.Backlog}
@@ -110,7 +113,7 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove, handleS
             <Item>
               Edit
             </Item>
-            <Item onClick={onRemove}>
+            <Item onClick={handleRemove}>
               Delete
             </Item>
           </Menu>
@@ -130,7 +133,7 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove, handleS
             </button>
             <button
               className={s.UserResource__control}
-              onClick={onLike}
+              onClick={handleLike}
             >
               <span className={s.UserResource__likes}>
                 {data.likes}

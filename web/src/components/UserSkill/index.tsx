@@ -1,8 +1,8 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { removeResourceSaga } from '../../redux/actions/resources'
-import { ResourceSagaPayload } from '../../redux/interfaces/resources'
+import { changeResourceLikeStatusSaga, removeResourceSaga } from '../../redux/actions/resources'
+import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { RootState } from '../../redux/reducers'
 import { ResourceStatusTypes, ResourceType, SkillType } from '../../types'
 import { Button } from '../../UI'
@@ -14,6 +14,7 @@ interface Props {
   professionId: number
   data: SkillType
   resources: ResourceType[]
+  changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
   removeResource: (data: ResourceSagaPayload) => void
 }
 
@@ -26,26 +27,6 @@ class UserSkill extends React.Component<Props, State> {
   state = {
     isOpen: true,
     resources: [],
-  }
-
-  likeResource = (resourceId: number, isLiked: boolean) => {
-    ajax({
-      url: `resource/${resourceId}/like`,
-      method: isLiked ? 'POST' : 'DELETE',
-    }).then(({ data }: any) => {
-      this.setState({
-        resources: this.state.resources.map((resource: ResourceType) => {
-          if (resource.id === resourceId) {
-            return {
-              ...resource,
-              ...data,
-            }
-          }
-
-          return resource
-        }),
-      })
-    })
   }
 
   changeStatus = (
@@ -80,7 +61,13 @@ class UserSkill extends React.Component<Props, State> {
 
   render () {
     const { isOpen } = this.state
-    const { data, professionId, resources, removeResource } = this.props
+    const {
+      data,
+      professionId,
+      resources,
+      changeResourceLikeStatus,
+      removeResource,
+    } = this.props
 
     return (
       <div className={s.UserSkill}>
@@ -122,9 +109,9 @@ class UserSkill extends React.Component<Props, State> {
               <UserResource
                 key={resource.id}
                 data={resource}
-                handleLike={this.likeResource}
-                handleRemove={removeResource}
-                handleStatus={this.changeStatus}
+                likeHandler={changeResourceLikeStatus}
+                statusHandler={this.changeStatus}
+                removeHandler={removeResource}
               />
             ))}
           </div>
@@ -151,5 +138,6 @@ export default connect(
   }),
   {
     removeResource: removeResourceSaga,
+    changeResourceLikeStatus: changeResourceLikeStatusSaga,
   },
 )(UserSkill)

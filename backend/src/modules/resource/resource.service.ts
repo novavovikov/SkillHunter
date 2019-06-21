@@ -90,7 +90,7 @@ export class ResourceService {
     return resource
   }
 
-  async setResourceLike (resourceId: string, user: User) {
+  async setResourceLike (resourceId: number, user: User) {
     const resource: Resource = await this.findById(resourceId, {
       relations: ['usersLikes'],
     })
@@ -100,7 +100,11 @@ export class ResourceService {
     }
 
     if (resource.usersLikes.find(({ id }) => id === user.id)) {
-      return new HttpException('This user already exists', HttpStatus.BAD_REQUEST)
+      return {
+        id: resourceId,
+        isLiked: true,
+        likes: resource.usersLikes.length,
+      }
     }
 
     resource.usersLikes = [...resource.usersLikes, user]
@@ -108,12 +112,13 @@ export class ResourceService {
     this.resourceRepository.save(resource)
 
     return {
+      id: resourceId,
       isLiked: true,
       likes: resource.usersLikes.length,
     }
   }
 
-  async removeResourceLike (resourceId: string, user: User) {
+  async removeResourceLike (resourceId: number, user: User) {
     const resource: Resource = await this.findById(resourceId, {
       relations: ['usersLikes'],
     })
@@ -127,6 +132,7 @@ export class ResourceService {
     this.resourceRepository.save(resource)
 
     return {
+      id: resourceId,
       isLiked: false,
       likes: resource.usersLikes.length,
     }

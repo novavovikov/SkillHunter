@@ -1,14 +1,16 @@
 import { ResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
+  AddResource,
+  AddResourceSaga,
+  ChangeResourceLikeStatus, ChangeResourceLikeStatusSaga,
   GetResourcesRequestPayload,
   GetResourcesSaga,
   RemoveResource,
-  ResourceSagaPayload,
-  AddResourceSaga,
-  RemoveResourceSaga,
+  RemoveResourceSaga, ResourceLikeStatusPayload, ResourceLikeStatusSagaPayload,
   ResourcePayload,
-  SetResources, AddResource,
+  ResourceSagaPayload,
+  SetResources, UpdateResource,
 } from '../interfaces/resources'
 
 export const getResourcesSaga = (data: GetResourcesRequestPayload): GetResourcesSaga => ({
@@ -18,6 +20,11 @@ export const getResourcesSaga = (data: GetResourcesRequestPayload): GetResources
 
 export const addResourceSaga = (data: ResourceSagaPayload): AddResourceSaga => ({
   type: ResourcesActionTypes.SAGA_ADD_RESOURCE,
+  payload: data,
+})
+
+export const changeResourceLikeStatusSaga = (data: ResourceLikeStatusSagaPayload): ChangeResourceLikeStatusSaga => ({
+  type: ResourcesActionTypes.SAGA_CHANGE_RESOURCE_LIKE_STATUS,
   payload: data,
 })
 
@@ -33,6 +40,16 @@ export const setResources = (data: any): SetResources => ({
 
 export const addResource = (data: ResourceType): AddResource => ({
   type: ResourcesActionTypes.ADD_RESOURCE,
+  payload: data,
+})
+
+export const updateResource = (data: ResourceType): UpdateResource => ({
+  type: ResourcesActionTypes.UPDATE_RESOURCE,
+  payload: data,
+})
+
+export const changeResourceLikeStatus = (data: ResourceLikeStatusPayload): ChangeResourceLikeStatus => ({
+  type: ResourcesActionTypes.CHANGE_RESOURCE_LIKE_STATUS,
   payload: data,
 })
 

@@ -8,4 +8,6 @@ export const API = {
   SKILLS: 'user/skills',
   USER_RESOURCES: 'user/resources',
   USER_RESOURCE: 'user/resource',
+
+  RESOURCE: 'resource',
 }

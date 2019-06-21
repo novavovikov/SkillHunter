@@ -29,6 +29,7 @@ export class ResourceController {
 
     if (!resource) {
       resource = await this.resourceService.getFromLink(data.link)
+
       return this.resourceService.create(resource)
     }
 
@@ -38,12 +39,12 @@ export class ResourceController {
   @Post(':resourceId/like')
   @ApiUseTags('resource')
   async setResourceLike (@Param('resourceId') resourceId: string, @Req() req) {
-    return await this.resourceService.setResourceLike(resourceId, req.user)
+    return await this.resourceService.setResourceLike(Number(resourceId), req.user)
   }
 
   @Delete(':resourceId/like')
   @ApiUseTags('resource')
   async removeResourceLike (@Param('resourceId') resourceId: string, @Req() req) {
-    return await this.resourceService.removeResourceLike(resourceId, req.user)
+    return await this.resourceService.removeResourceLike(Number(resourceId), req.user)
   }
 }
