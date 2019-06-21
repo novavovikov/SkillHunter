@@ -1,5 +1,8 @@
 import * as React from 'react'
 import { ChangeEvent } from 'react'
+import { connect } from 'react-redux'
+import { addResourceSaga } from '../../redux/actions/resources'
+import { ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceType } from '../../types'
 import { Button } from '../../UI'
 import { ajax } from '../../utils/ajax'
@@ -7,8 +10,9 @@ import { getUrl, getUrlFromClipboard } from '../../utils/url'
 import * as s from './ResourceCreator.css'
 
 interface Props {
-  professionId?: number
-  skillId?: number
+  professionId: number
+  skillId: number
+  addResource: (data: ResourceSagaPayload) => void
   onClose: () => void
 }
 
@@ -39,7 +43,7 @@ class Creator extends React.Component<Props, State> {
 
   submitForm = async (e: any) => {
     e.preventDefault()
-    const { skillId, professionId, onClose } = this.props
+    const { skillId, professionId, addResource, onClose } = this.props
     const { inputValue } = this.state
     const url = getUrl(inputValue)
 
@@ -48,12 +52,11 @@ class Creator extends React.Component<Props, State> {
         link: url.href,
       }).then(({ data }) => data as ResourceType)
 
-      await ajax.
-        post('user/resource', {
-          professionId,
-          skillId,
-          resourceId: resource.id,
-        })
+      addResource({
+        professionId,
+        skillId,
+        resourceId: resource.id,
+      })
 
       onClose()
     }
@@ -96,4 +99,9 @@ class Creator extends React.Component<Props, State> {
   }
 }
 
-export default Creator
+export default connect(
+  null,
+  {
+    addResource: addResourceSaga,
+  },
+)(Creator)

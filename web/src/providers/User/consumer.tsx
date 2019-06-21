@@ -3,7 +3,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { ROUTES } from '../../constants/routing'
-import { getUserData } from '../../redux/actions/user'
+import { getUserDataSaga } from '../../redux/actions/user'
+import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 
 export const withUser = (WrappedComponent: React.ComponentType) => {
@@ -37,13 +38,7 @@ export const withUser = (WrappedComponent: React.ComponentType) => {
   }
 
   return connect(
-    (state: {
-      user: UserState
-    }) => ({
-      user: state.user,
-    }),
-    {
-      getUser: getUserData,
-    },
+    ({ user }: RootState) => ({ user }),
+    { getUser: getUserDataSaga },
   )(Component)
 }

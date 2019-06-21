@@ -5,8 +5,9 @@ import { compose } from 'redux'
 import { Filters, Page, UserSkill } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
-import { getSkillsData } from '../../redux/actions/skills'
+import { getSkillsDataSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
+import { ResourcesState } from '../../redux/reducers/resources'
 import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
 import { SkillType } from '../../types'
@@ -20,6 +21,7 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
   user: UserState,
   skills: SkillsState
+  resources: ResourcesState
   getSkills: (professionId: number) => void
 }
 
@@ -83,8 +85,8 @@ class Library extends React.Component<Props> {
         {!isLoading && data.map((skill: SkillType) => (
           <UserSkill
             key={skill.id}
-            data={skill}
             professionId={this.getProfessionId()}
+            data={skill}
           />
         ))}
       </Page>
@@ -100,7 +102,7 @@ export default compose(
       skills,
     }),
     {
-      getSkills: getSkillsData,
+      getSkills: getSkillsDataSaga,
     },
   ),
 )(Library)

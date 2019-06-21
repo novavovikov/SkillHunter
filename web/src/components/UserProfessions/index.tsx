@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
-import { addSkillsByProfessionId } from '../../redux/actions/skills'
-import { AddSkillsRequestType } from '../../redux/interfaces/skills'
+import { addSkillsByProfessionIdSaga } from '../../redux/actions/skills'
+import { AddSkillsRequestPayload } from '../../redux/interfaces/skills'
 import { RootState } from '../../redux/reducers'
 import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
@@ -16,7 +16,7 @@ import * as s from './UserProfessions.css'
 interface Props {
   user: UserState
   skills: SkillsState
-  addSkills: (data: AddSkillsRequestType) => void
+  addSkills: (data: AddSkillsRequestPayload) => void
 }
 
 interface State {
@@ -56,7 +56,7 @@ class UserProfessions extends React.Component<Props, State> {
 
       this.setState({
         professionId: null,
-        skillValue: ''
+        skillValue: '',
       })
     }
   }
@@ -118,7 +118,7 @@ class UserProfessions extends React.Component<Props, State> {
 
             <Button
               style={{
-                marginLeft: 10
+                marginLeft: 10,
               }}
             >
               Cancel
@@ -132,9 +132,10 @@ class UserProfessions extends React.Component<Props, State> {
 
 export default compose(
   withUser,
-  connect(({ skills }: RootState) => ({
-    skills,
-  }), {
-    addSkills: addSkillsByProfessionId,
-  }),
+  connect(
+    ({ skills }: RootState) => ({ skills }),
+    {
+      addSkills: addSkillsByProfessionIdSaga,
+    },
+  ),
 )(UserProfessions)

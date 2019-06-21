@@ -1,10 +1,12 @@
 import { all } from 'redux-saga/effects'
-import { watchGetUserData } from './user'
+import { watchUserData } from './user'
 import { watchGetSkillsData } from './skills'
+import { watchResources } from './resources'
 
 export default function * rootSaga () {
   yield all([
-    watchGetUserData(),
+    watchUserData(),
     watchGetSkillsData(),
+    watchResources(),
   ])
 }

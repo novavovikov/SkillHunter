@@ -6,4 +6,6 @@ export const API = {
 
   ME: 'user/me',
   SKILLS: 'user/skills',
+  USER_RESOURCES: 'user/resources',
+  USER_RESOURCE: 'user/resource',
 }

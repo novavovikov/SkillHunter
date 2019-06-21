@@ -8,6 +8,7 @@ import { ROUTES } from '../../constants/routing'
 import { withNotification } from '../../providers/Notification'
 import { NotificationProps } from '../../providers/Notification/context'
 import { updateUserData } from '../../redux/actions/user'
+import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { ProfessionType } from '../../types'
 import { Layout, Logo } from '../../UI'
@@ -83,9 +84,7 @@ export default compose(
   withRouter,
   withNotification,
   connect(
-    (state: any) => ({
-      user: state.user,
-    }),
+    ({ user }: RootState) => ({ user }),
     {
       setProfessions: (professions: ProfessionType[]) => updateUserData({ professions }),
     },

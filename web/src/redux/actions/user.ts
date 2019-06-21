@@ -2,7 +2,7 @@ import cookies from 'js-cookie'
 import { UserActionTypes } from '../actionTypes/user'
 import { GetUserData, SetUserData, SetUserLoadingStatus, UpdateUserData } from '../interfaces/user'
 
-export const getUserData = (): GetUserData => ({
+export const getUserDataSaga = (): GetUserData => ({
   type: UserActionTypes.SAGA_GET_USER,
 })
 

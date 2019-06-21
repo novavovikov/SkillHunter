@@ -1,14 +1,20 @@
 import cn from 'classnames'
 import * as React from 'react'
+import { connect } from 'react-redux'
+import { removeResourceSaga } from '../../redux/actions/resources'
+import { ResourceSagaPayload } from '../../redux/interfaces/resources'
+import { RootState } from '../../redux/reducers'
 import { ResourceStatusTypes, ResourceType, SkillType } from '../../types'
-import { ajax } from '../../utils/ajax'
 import { Button } from '../../UI'
+import { ajax } from '../../utils/ajax'
 import { ResourceCreator, UserResource } from '../index'
 import * as s from './UserSkill.css'
 
 interface Props {
   professionId: number
   data: SkillType
+  resources: ResourceType[]
+  removeResource: (data: ResourceSagaPayload) => void
 }
 
 interface State {
@@ -20,18 +26,6 @@ class UserSkill extends React.Component<Props, State> {
   state = {
     isOpen: true,
     resources: [],
-  }
-
-  componentDidMount () {
-    const { professionId, data: skillData } = this.props
-
-    ajax.
-      get(`user/resources/${professionId}/${skillData.id}`).
-      then(({ data }) => {
-        this.setState({
-          resources: data,
-        })
-      })
   }
 
   likeResource = (resourceId: number, isLiked: boolean) => {
@@ -52,16 +46,6 @@ class UserSkill extends React.Component<Props, State> {
         }),
       })
     })
-  }
-
-  removeResource = (professionId: number, skillId: number, resourceId: number) => {
-    ajax.
-      delete(`user/resource/${professionId}/${skillId}/${resourceId}`).
-      then(() => {
-        this.setState({
-          resources: this.state.resources.filter(({ id }) => id !== resourceId),
-        })
-      })
   }
 
   changeStatus = (
@@ -95,8 +79,8 @@ class UserSkill extends React.Component<Props, State> {
   }
 
   render () {
-    const { isOpen, resources } = this.state
-    const { data, professionId } = this.props
+    const { isOpen } = this.state
+    const { data, professionId, resources, removeResource } = this.props
 
     return (
       <div className={s.UserSkill}>
@@ -139,7 +123,7 @@ class UserSkill extends React.Component<Props, State> {
                 key={resource.id}
                 data={resource}
                 handleLike={this.likeResource}
-                handleRemove={this.removeResource}
+                handleRemove={removeResource}
                 handleStatus={this.changeStatus}
               />
             ))}
@@ -161,4 +145,11 @@ class UserSkill extends React.Component<Props, State> {
   }
 }
 
-export default UserSkill
+export default connect(
+  ({ resources }: RootState, { data }: any) => ({
+    resources: resources[data.id] || [],
+  }),
+  {
+    removeResource: removeResourceSaga,
+  },
+)(UserSkill)

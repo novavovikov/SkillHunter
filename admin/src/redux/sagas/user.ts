@@ -18,6 +18,6 @@ export function * getUserData () {
   yield put(ac.setUserLoadingStatus(false))
 }
 
-export function * watchGetUserData () {
+export function * watchUserData () {
   yield takeEvery(UserActionTypes.SAGA_GET_USER, getUserData)
 }

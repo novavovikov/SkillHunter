@@ -188,6 +188,20 @@ export class UserController {
     )
   }
 
+  @Post('resources/:professionId')
+  @ApiUseTags('user')
+  async getResourcesBulk (
+    @Req() req,
+    @Param('professionId') professionId: string,
+    @Body() skillsIds: number[],
+  ) {
+    return this.userService.getResourcesBulk(
+      req.user,
+      Number(professionId),
+      skillsIds,
+    )
+  }
+
   @Put('resource/:professionId/:skillId/:resourceId')
   @ApiUseTags('user')
   async updateResource (

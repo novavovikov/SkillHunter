@@ -4,7 +4,7 @@ import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { UserActionTypes } from '../actionTypes/user'
 
-export function * getUserData () {
+export function * getUserDataSaga () {
   yield put(ac.setUserLoadingStatus(true))
 
   try {
@@ -18,6 +18,6 @@ export function * getUserData () {
   yield put(ac.setUserLoadingStatus(false))
 }
 
-export function * watchGetUserData () {
-  yield takeEvery(UserActionTypes.SAGA_GET_USER, getUserData)
+export function * watchUserData () {
+  yield takeEvery(UserActionTypes.SAGA_GET_USER, getUserDataSaga)
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindOneOptions, Repository } from 'typeorm'
+import { FindOneOptions, In, Repository } from 'typeorm'
+import { UserResourceStatusType } from '../../constants/status-type'
 import { unique } from '../../utils/unique'
 import { Profession } from '../profession/profession.entity'
 import { Resource } from '../resource/resource.entity'
@@ -92,7 +93,7 @@ export class UserService {
       },
       order: {
         id: 'DESC',
-      }
+      },
     })
 
     return foundProfessions.map(({ skill }) => ({
@@ -151,7 +152,15 @@ export class UserService {
       skillId,
       resource,
     })
-    return this.userResourceRepository.save(userResource)
+
+    const { status } = await this.userResourceRepository.save(userResource)
+    return this.getResourceModel(
+      resource,
+      status,
+      user.id,
+      professionId,
+      skillId
+    )
   }
 
   async updateResource (
@@ -187,14 +196,56 @@ export class UserService {
       },
     })
 
-    return resources.map(({ status, resource }) => ({
-      ...resource,
+    return resources.map(({ status, resource }) => {
+      return this.getResourceModel(
+        resource,
+        status,
+        userId,
+        professionId,
+        skillId
+      )
+    })
+  }
+
+  async getResourcesBulk (
+    user: User,
+    professionId: number,
+    skillsIds: number[],
+  ) {
+    const userResources = await this.userResourceRepository.find({
+      where: {
+        user,
+        professionId,
+        skillId: In(skillsIds),
+      },
+    })
+
+    return userResources.reduce((acc, {
       professionId,
       skillId,
-      status,
-      likes: resource.userIdsLikes.length,
-      isLiked: resource.userIdsLikes.includes(userId),
-    }))
+      resource,
+      status
+    }) => {
+      const resourceData = this.getResourceModel(
+        resource,
+        status,
+        user.id,
+        professionId,
+        skillId
+      )
+
+      if (acc[skillId]) {
+        return {
+          ...acc,
+          [skillId]: [...acc[skillId], resourceData]
+        }
+      }
+
+      return {
+        ...acc,
+        [skillId]: [resourceData]
+      }
+    }, {})
   }
 
   async removeResourceBySkillId (
@@ -220,4 +271,19 @@ export class UserService {
 
     return await this.userResourceRepository.remove(userResources)
   }
+
+  getResourceModel = (
+    resource: Resource,
+    status: string | UserResourceStatusType,
+    userId: number,
+    professionId: number,
+    skillId: number
+  ) => ({
+    ...resource,
+    professionId,
+    skillId,
+    status,
+    likes: resource.userIdsLikes.length,
+    isLiked: resource.userIdsLikes.includes(userId),
+  })
 }

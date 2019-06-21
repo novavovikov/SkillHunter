@@ -7,8 +7,8 @@ import * as s from './ResourceCreator.css'
 
 interface Props {
   className?: string
-  professionId?: number
-  skillId?: number
+  professionId: number
+  skillId: number
 }
 
 interface State {

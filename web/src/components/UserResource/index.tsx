@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { ChangeEvent } from 'react'
+import { ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, ResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
 import * as s from './UserResource.css'
@@ -8,7 +9,7 @@ import * as s from './UserResource.css'
 interface Props {
   data: ResourceType,
   handleLike: (resourceId: number, isLiked: boolean) => void
-  handleRemove: (professionId: number, skillId: number, resourceId: number) => void
+  handleRemove: (data: ResourceSagaPayload) => void
   handleStatus: (professionId: number, skillId: number, resourceId: number, status: string) => void
 }
 
@@ -36,12 +37,16 @@ const UserResource: React.FC<Props> = ({ data, handleLike, handleRemove, handleS
 
   const onRemove = () => {
     const {
-      id,
-      skillId,
       professionId,
+      skillId,
+      id: resourceId,
     } = data
 
-    handleRemove(professionId, skillId, id)
+    handleRemove({
+      professionId,
+      skillId,
+      resourceId
+    })
   }
 
   return (

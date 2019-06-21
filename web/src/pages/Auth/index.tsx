@@ -6,7 +6,8 @@ import { Redirect } from 'react-router'
 import { Faq } from '../../components'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
-import { getUserData } from '../../redux/actions/user'
+import { getUserDataSaga } from '../../redux/actions/user'
+import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { H2, H4, Layout, Logo, Tip } from '../../UI'
 import * as s from './Auth.css'
@@ -202,10 +203,8 @@ class Auth extends React.Component<Props> {
 }
 
 export default connect(
-  (state: any) => ({
-    user: state.user,
-  }),
+  ({ user }: RootState) => ({ user }),
   {
-    getUser: getUserData,
+    getUser: getUserDataSaga,
   },
 )(Auth)
