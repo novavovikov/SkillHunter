@@ -131,7 +131,7 @@ const UserResource: React.FC<Props> = ({ data, updateHandler, likeHandler, remov
               More
             </a>
             <Link
-              to={`${ROUTES.SHARE}?resources=[${data.id}]`}
+              to={`${ROUTES.SHARE}?ids=[${data.id}]`}
               className={s.UserResource__control}
             >
               <Icon type="share"/>
