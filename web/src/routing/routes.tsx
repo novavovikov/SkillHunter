@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
 
+const Share = React.lazy(() => import('../pages/Share'))
 const Auth = React.lazy(() => import('../pages/Auth'))
 const Home = React.lazy(() => import('../pages/Home'))
 const Settings = React.lazy(() => import('../pages/Settings'))
@@ -18,6 +19,12 @@ const Routes: React.FC = () => {
         <Route
           path={ROUTES.AUTH}
           component={Auth}
+          exact
+        />
+
+        <Route
+          path={ROUTES.SHARE}
+          component={Share}
           exact
         />
 

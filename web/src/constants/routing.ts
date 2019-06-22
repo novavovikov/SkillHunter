@@ -1,8 +1,7 @@
 export const ROUTES = {
   HOME: '/',
-  ADMIN: '/admin',
-  ADMIN_USERS: '/users',
   AUTH: '/login',
+  SHARE: '/share',
   SETTINGS: '/settings',
   LOGOUT: '/logout',
   INTRODUCTION: '/introduction',

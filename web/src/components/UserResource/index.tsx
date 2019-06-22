@@ -1,6 +1,8 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { ChangeEvent } from 'react'
+import { Link } from 'react-router-dom'
+import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, ResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
@@ -65,32 +67,34 @@ const UserResource: React.FC<Props> = ({ data, updateHandler, likeHandler, remov
               {data.title}
             </h4>
 
-            <div
-              className={cn(
-                s.UserResource__status,
-                {
-                  [s.UserResource__status_backlog]: data.status === ResourceStatusTypes.Backlog,
-                  [s.UserResource__status_plan]: data.status === ResourceStatusTypes.Plan,
-                  [s.UserResource__status_done]: data.status === ResourceStatusTypes.Done,
-                },
-              )}
-            >
-              <select
-                className={s.UserResource__select}
-                value={data.status}
-                onChange={handleStatus}
+            {data.status && (
+              <div
+                className={cn(
+                  s.UserResource__status,
+                  {
+                    [s.UserResource__status_backlog]: data.status === ResourceStatusTypes.Backlog,
+                    [s.UserResource__status_plan]: data.status === ResourceStatusTypes.Plan,
+                    [s.UserResource__status_done]: data.status === ResourceStatusTypes.Done,
+                  },
+                )}
               >
-                <option>
-                  {ResourceStatusTypes.Backlog}
-                </option>
-                <option>
-                  {ResourceStatusTypes.Plan}
-                </option>
-                <option>
-                  {ResourceStatusTypes.Done}
-                </option>
-              </select>
-            </div>
+                <select
+                  className={s.UserResource__select}
+                  value={data.status}
+                  onChange={handleStatus}
+                >
+                  <option>
+                    {ResourceStatusTypes.Backlog}
+                  </option>
+                  <option>
+                    {ResourceStatusTypes.Plan}
+                  </option>
+                  <option>
+                    {ResourceStatusTypes.Done}
+                  </option>
+                </select>
+              </div>
+            )}
           </div>
 
           <a
@@ -126,11 +130,12 @@ const UserResource: React.FC<Props> = ({ data, updateHandler, likeHandler, remov
             >
               More
             </a>
-            <button
+            <Link
+              to={`${ROUTES.SHARE}?resources=[${data.id}]`}
               className={s.UserResource__control}
             >
               <Icon type="share"/>
-            </button>
+            </Link>
             <button
               className={s.UserResource__control}
               onClick={handleLike}

@@ -157,6 +157,8 @@
   &__controls {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    width: 100%;
     margin: 13px 0 0;
   }
 

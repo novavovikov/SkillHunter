@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
-import { Roles } from '../../common/decorators/roles.decorator'
+import { FindOneOptions, In } from 'typeorm'
 import { RolesGuard } from '../../common/guards/roles.guard'
-import { RoleType } from '../../constants/role-type'
 import { ResourceDto } from './resource.dto'
+import { Resource } from './resource.entity'
 import { ResourceService } from './resource.service'
 
 @Controller('resource')
@@ -16,10 +16,20 @@ export class ResourceController {
   ) {}
 
   @Get()
-  @Roles([RoleType.Admin])
-  @ApiUseTags('admin')
-  getResources () {
-    return this.resourceService.findAll()
+  @ApiUseTags('resource')
+  getResources (
+    @Query('ids') ids: string,
+  ) {
+    const query: FindOneOptions<Resource> = {}
+    const resourceIds = ids && JSON.parse(ids)
+
+    if (resourceIds) {
+      query.where = {
+        id: In(resourceIds),
+      }
+    }
+
+    return this.resourceService.findAll(query)
   }
 
   @Post()
