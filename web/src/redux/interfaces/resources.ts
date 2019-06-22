@@ -38,6 +38,11 @@ export interface AddResourceSaga {
   payload: ResourceSagaPayload
 }
 
+export interface UpdateResourceSaga {
+  type: ResourcesActionTypes.SAGA_UPDATE_RESOURCE,
+  payload: Partial<ResourceType>
+}
+
 export interface ChangeResourceLikeStatusSaga {
   type: ResourcesActionTypes.SAGA_CHANGE_RESOURCE_LIKE_STATUS,
   payload: ResourceLikeStatusSagaPayload
@@ -47,7 +52,6 @@ export interface RemoveResourceSaga {
   type: ResourcesActionTypes.SAGA_REMOVE_RESOURCE,
   payload: ResourceSagaPayload
 }
-
 
 export interface SetResources {
   type: ResourcesActionTypes.SET_RESOURCES,
@@ -77,6 +81,7 @@ export interface RemoveResource {
 export type ResourcesAction =
   GetResourcesSaga |
   AddResourceSaga |
+  UpdateResourceSaga |
   RemoveResourceSaga |
   SetResources |
   AddResource |

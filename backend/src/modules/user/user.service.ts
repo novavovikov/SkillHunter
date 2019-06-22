@@ -177,7 +177,12 @@ export class UserService {
       resource,
     }, data)
 
-    return data
+    return {
+      id: resource.id,
+      skillId,
+      professionId,
+      ...data
+    }
   }
 
   async getResourcesBySkillId (

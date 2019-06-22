@@ -9,11 +9,11 @@ import * as s from './UserResource.css'
 interface Props {
   data: ResourceType,
   likeHandler: (data: ResourceLikeStatusSagaPayload) => void
-  statusHandler: (professionId: number, skillId: number, resourceId: number, status: string) => void
+  updateHandler: (data: Partial<ResourceType>) => void
   removeHandler: (data: ResourceSagaPayload) => void
 }
 
-const UserResource: React.FC<Props> = ({ data, likeHandler, removeHandler, statusHandler }) => {
+const UserResource: React.FC<Props> = ({ data, updateHandler, likeHandler, removeHandler }) => {
   const url = new URL(data.link)
 
   const handleStatus = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -23,12 +23,12 @@ const UserResource: React.FC<Props> = ({ data, likeHandler, removeHandler, statu
       professionId,
     } = data
 
-    statusHandler(
-      professionId,
-      skillId,
+    updateHandler({
       id,
-      e.target.value,
-    )
+      skillId,
+      professionId,
+      status: e.target.value,
+    })
   }
 
   const handleLike = () => {

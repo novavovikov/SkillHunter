@@ -20,6 +20,20 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
         ...state,
         [action.payload.skillId]: [action.payload, ...resourceList],
       }
+    case ResourcesActionTypes.UPDATE_RESOURCE:
+      return {
+        ...state,
+        [action.payload.skillId]: state[action.payload.skillId].map((resource: ResourceType) => {
+          if (resource.id === action.payload.id) {
+            return {
+              ...resource,
+              ...action.payload
+            }
+          }
+
+          return resource
+        })
+      }
     case ResourcesActionTypes.CHANGE_RESOURCE_LIKE_STATUS:
       return Object.keys(state).
         reduce((acc, key) => {

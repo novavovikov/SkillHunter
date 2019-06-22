@@ -3,14 +3,19 @@ import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
   AddResource,
   AddResourceSaga,
-  ChangeResourceLikeStatus, ChangeResourceLikeStatusSaga,
+  ChangeResourceLikeStatus,
+  ChangeResourceLikeStatusSaga,
   GetResourcesRequestPayload,
   GetResourcesSaga,
   RemoveResource,
-  RemoveResourceSaga, ResourceLikeStatusPayload, ResourceLikeStatusSagaPayload,
+  RemoveResourceSaga,
+  ResourceLikeStatusPayload,
+  ResourceLikeStatusSagaPayload,
   ResourcePayload,
   ResourceSagaPayload,
-  SetResources, UpdateResource,
+  SetResources,
+  UpdateResource,
+  UpdateResourceSaga,
 } from '../interfaces/resources'
 
 export const getResourcesSaga = (data: GetResourcesRequestPayload): GetResourcesSaga => ({
@@ -20,6 +25,10 @@ export const getResourcesSaga = (data: GetResourcesRequestPayload): GetResources
 
 export const addResourceSaga = (data: ResourceSagaPayload): AddResourceSaga => ({
   type: ResourcesActionTypes.SAGA_ADD_RESOURCE,
+  payload: data,
+})
+export const updateResourceSaga = (data: Partial<ResourceType>): UpdateResourceSaga => ({
+  type: ResourcesActionTypes.SAGA_UPDATE_RESOURCE,
   payload: data,
 })
 

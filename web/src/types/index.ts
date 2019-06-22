@@ -20,7 +20,7 @@ export interface ResourceType {
   link: string
   title: string
   type: string
-  status: ResourceStatusTypes
+  status: ResourceStatusTypes | string
   userIdsLikes: number[]
   likes: number
   isLiked: boolean

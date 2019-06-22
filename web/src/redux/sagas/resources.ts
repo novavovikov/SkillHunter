@@ -3,7 +3,12 @@ import { API } from '../../constants/api'
 import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { ResourcesActionTypes } from '../actionTypes/resources'
-import { ChangeResourceLikeStatusSaga, GetResourcesSaga, RemoveResourceSaga } from '../interfaces/resources'
+import {
+  ChangeResourceLikeStatusSaga,
+  GetResourcesSaga,
+  RemoveResourceSaga,
+  UpdateResourceSaga,
+} from '../interfaces/resources'
 
 export function * getResourcesSaga ({ payload }: GetResourcesSaga) {
   try {
@@ -21,6 +26,18 @@ export function * addResourceSaga ({ payload }: RemoveResourceSaga) {
     const { data } = yield call(ajax.post, API.USER_RESOURCE, payload)
 
     yield put(ac.addResource(data))
+  } catch (error) {
+    yield put(ac.setUserData([]))
+    console.warn('getResourcesSaga: ', error)
+  }
+}
+
+export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
+  try {
+    const { professionId, skillId, id, ...otherProps } = payload
+    const { data } = yield call(ajax.put, `${API.USER_RESOURCE}/${professionId}/${skillId}/${id}`, otherProps)
+
+    yield put(ac.updateResource(data))
   } catch (error) {
     yield put(ac.setUserData([]))
     console.warn('getResourcesSaga: ', error)
@@ -55,6 +72,7 @@ export function * removeResourcesSaga ({ payload: { professionId, skillId, resou
 export function * watchResources () {
   yield takeEvery(ResourcesActionTypes.SAGA_GET_RESOURCES, getResourcesSaga)
   yield takeEvery(ResourcesActionTypes.SAGA_ADD_RESOURCE, addResourceSaga)
+  yield takeEvery(ResourcesActionTypes.SAGA_UPDATE_RESOURCE, updateResourceSaga)
   yield takeEvery(ResourcesActionTypes.SAGA_CHANGE_RESOURCE_LIKE_STATUS, changeResourceLikeStatusSaga)
   yield takeEvery(ResourcesActionTypes.SAGA_REMOVE_RESOURCE, removeResourcesSaga)
 }
