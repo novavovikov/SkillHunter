@@ -138,7 +138,10 @@
   }
 
   &__sidebar {
-    text-align: right;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
     opacity: 0;
     transition: var(--transition-fast);
   }
