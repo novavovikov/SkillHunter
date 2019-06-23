@@ -1,15 +1,27 @@
 import * as React from 'react'
+import { withUser } from '../../providers/User'
+import { UserState } from '../../redux/reducers/user'
 import { Layout } from '../../UI'
 import { Header, Nav, UserProfessions } from '../index'
 
-const Page: React.FC = ({ children }) => {
+interface Props {
+  user: UserState
+}
+
+const Page: React.FC<Props> = ({ children, user }) => {
+  console.log(123, user.data)
+
   return (
     <>
       <Header/>
       <Layout.Page>
         <Layout.Aside>
-          <Nav/>
-          <UserProfessions/>
+          {user.data && (
+            <>
+              <Nav/>
+              <UserProfessions/>
+            </>
+          )}
         </Layout.Aside>
         <Layout.Content>
           {children}
@@ -19,4 +31,4 @@ const Page: React.FC = ({ children }) => {
   )
 }
 
-export default Page
+export default withUser(Page)

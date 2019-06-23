@@ -5,9 +5,9 @@ export const API = {
   AUTH_FACEBOOK: 'auth/facebook',
 
   ME: 'user/me',
+
   USER_SKILLS: 'user-skill',
-  USER_RESOURCES: 'user/resources',
-  USER_RESOURCE: 'user/resource',
+  USER_RESOURCE: 'user-resource',
 
   RESOURCE: 'resource',
 }

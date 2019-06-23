@@ -6,7 +6,7 @@ import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/
 import { RootState } from '../../redux/reducers'
 import { ResourceType, SkillType } from '../../types'
 import { Button } from '../../UI'
-import { ResourceCreator, UserResource } from '../index'
+import { ResourceCreator, Resource } from '../index'
 import * as s from './UserSkill.css'
 
 interface Props {
@@ -81,7 +81,7 @@ class UserSkill extends React.Component<Props, State> {
             )}
 
             {resources.map((resource: ResourceType) => (
-              <UserResource
+              <Resource
                 key={resource.id}
                 data={resource}
                 updateHandler={updateResource}

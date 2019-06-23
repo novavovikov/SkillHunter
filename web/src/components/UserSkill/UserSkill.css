@@ -45,10 +45,14 @@
   }
 
   &__header {
+    position: sticky;
+    top: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: #fff;
     padding: 10px 0;
+    z-index: 10;
   }
 
   &__title {

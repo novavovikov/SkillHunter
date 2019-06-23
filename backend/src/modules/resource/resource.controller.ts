@@ -9,7 +9,6 @@ import { ResourceService } from './resource.service'
 
 @Controller('resource')
 @UseGuards(RolesGuard)
-@UseGuards(AuthGuard('jwt'))
 export class ResourceController {
   constructor (
     private resourceService: ResourceService,
@@ -33,6 +32,7 @@ export class ResourceController {
   }
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
   async setResource (@Body() data: ResourceDto) {
     let resource = await this.resourceService.findByLink(data.link)
@@ -47,12 +47,14 @@ export class ResourceController {
   }
 
   @Post(':resourceId/like')
+  @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
   async setResourceLike (@Param('resourceId') resourceId: string, @Req() req) {
     return await this.resourceService.setResourceLike(Number(resourceId), req.user)
   }
 
   @Delete(':resourceId/like')
+  @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
   async removeResourceLike (@Param('resourceId') resourceId: string, @Req() req) {
     return await this.resourceService.removeResourceLike(Number(resourceId), req.user)

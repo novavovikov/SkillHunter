@@ -7,7 +7,7 @@ import Profession from './Profession'
 import SkillSet from './SkillSet'
 import Skills from './Skills'
 import UserSkill from './UserSkill'
-import UserResource from './UserResource'
+import Resource from './Resource'
 import ResourceCreator from './ResourceCreator'
 import UserProfessions from './UserProfessions'
 import Tabs from './Tabs'
@@ -24,7 +24,7 @@ export {
   SkillSet,
   Skills,
   UserSkill,
-  UserResource,
+  Resource,
   ResourceCreator,
   UserProfessions,
   Tabs,

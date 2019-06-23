@@ -1,6 +1,6 @@
 @import "../../styles/variables.css";
 
-.UserResource {
+.Resource {
   position: relative;
   padding: 0 0 0 34px;
   margin: 0 0 5px;
@@ -140,7 +140,7 @@
   &__sidebar {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
     justify-content: flex-end;
     opacity: 0;
     transition: var(--transition-fast);
