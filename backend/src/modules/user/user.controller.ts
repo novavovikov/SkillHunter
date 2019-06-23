@@ -1,30 +1,16 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Req,
-  UseGuards,
-} from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
-import { In } from 'typeorm'
 import { Roles } from '../../common/decorators/roles.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
-import { UserResourceStatusType } from '../../constants/status-type'
 import { unique } from '../../utils/unique'
 import { Profession } from '../profession/profession.entity'
 import { ProfessionService } from '../profession/profession.service'
-import { Resource } from '../resource/resource.entity'
-import { ResourceService } from '../resource/resource.service'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
+import { UserResourceService } from '../user-resource/user-resource.service'
+import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserDto } from './user.dto'
 import { UserService } from './user.service'
 
@@ -34,9 +20,10 @@ import { UserService } from './user.service'
 export class UserController {
   constructor (
     private userService: UserService,
+    private userSkillService: UserSkillService,
+    private userResourceService: UserResourceService,
     private skillService: SkillService,
     private professionService: ProfessionService,
-    private resourceService: ResourceService,
   ) {}
 
   @Get()
@@ -99,34 +86,9 @@ export class UserController {
   @Delete()
   @ApiUseTags('user')
   async deleteUser (@Req() req) {
-    await this.userService.removeAllSkills(req.user)
-    await this.userService.removeAllResources(req.user)
+    await this.userSkillService.removeAllSkills(req.user)
+    await this.userResourceService.removeAllResources(req.user)
     return this.userService.delete(req.user.id)
-  }
-
-  @Get('skills/:professionId')
-  @ApiUseTags('user')
-  getSkills (
-    @Req() req,
-    @Param('professionId') professionId: string,
-  ) {
-    return this.userService.getSkillsByProfessionId(req.user.id, Number(professionId))
-  }
-
-  @Post('skills/:professionId')
-  @ApiUseTags('user')
-  async adSkills (
-    @Req() req,
-    @Param('professionId') professionId: string,
-    @Body('skills') skills: string[],
-  ) {
-    const skillList: Skill[] = await this.getSkillList(skills)
-
-    return await this.userService.addSkills(
-      req.user,
-      Number(professionId),
-      skillList,
-    )
   }
 
   @Delete('skills')
@@ -161,151 +123,16 @@ export class UserController {
       relations: ['skills'],
     })
 
-    const skillList: Skill[] = await this.getSkillList(skills)
+    const skillList: Skill[] = await this.skillService.getSkillList(skills)
     foundProfession.skills = unique([...foundProfession.skills, ...skillList])
 
     const updatedUser = await this.userService.addProfession(req.user.id, foundProfession)
-    await this.userService.addSkills(
+    await this.userSkillService.addSkills(
       req.user.id,
       foundProfession.id,
       skillList,
     )
 
     return updatedUser.professions
-  }
-
-  @Get('resources/:professionId/:skillId')
-  @ApiUseTags('user')
-  async getResources (
-    @Req() req,
-    @Param('professionId') professionId: string,
-    @Param('skillId') skillId: string,
-  ) {
-    return this.userService.getResourcesBySkillId(
-      req.user.id,
-      Number(professionId),
-      Number(skillId),
-    )
-  }
-
-  @Post('resources/:professionId')
-  @ApiUseTags('user')
-  async getResourcesBulk (
-    @Req() req,
-    @Param('professionId') professionId: string,
-    @Body() skillsIds: number[],
-  ) {
-    return this.userService.getResourcesBulk(
-      req.user,
-      Number(professionId),
-      skillsIds,
-    )
-  }
-
-  @Put('resource/:professionId/:skillId/:resourceId')
-  @ApiUseTags('user')
-  async updateResource (
-    @Req() req,
-    @Param('professionId') professionId: string,
-    @Param('skillId') skillId: string,
-    @Param('resourceId') resourceId: string,
-    @Body('status') status: UserResourceStatusType,
-  ) {
-    const resource: Resource = await this.resourceService.findById(resourceId)
-
-    if (!resource) {
-      return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
-    }
-
-    const profession: Profession = await this.professionService.findById(professionId)
-
-    if (!profession) {
-      return new HttpException('professionId  not found', HttpStatus.BAD_REQUEST)
-    }
-
-    const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
-
-    if (!resourceSkillRelation) {
-      return new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
-    }
-
-    return this.userService.updateResource(
-      req.user,
-      Number(professionId),
-      Number(skillId),
-      resource,
-      {
-        status,
-      },
-    )
-  }
-
-  @Delete('resource/:professionId/:skillId/:resourceId')
-  @ApiUseTags('user')
-  async removeResource (
-    @Req() req,
-    @Param('professionId') professionId: string,
-    @Param('skillId') skillId: string,
-    @Param('resourceId') resourceId: string,
-  ) {
-    const resource: Resource = await this.resourceService.findById(resourceId)
-
-    return this.userService.removeResourceBySkillId(
-      req.user,
-      Number(professionId),
-      Number(skillId),
-      resource,
-    )
-  }
-
-  @Post('resource')
-  @ApiUseTags('user')
-  async addResource (
-    @Req() req,
-    @Body('professionId') professionId: number,
-    @Body('skillId') skillId: number,
-    @Body('resourceId') resourceId: number,
-  ) {
-    const resource: Resource = await this.resourceService.findById(resourceId)
-
-    if (!resource) {
-      return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
-    }
-
-    const profession: Profession = await this.professionService.findById(professionId)
-
-    if (!profession) {
-      return new HttpException('professionId  not found', HttpStatus.BAD_REQUEST)
-    }
-
-    const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
-
-    if (!resourceSkillRelation) {
-      return new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
-    }
-
-    return this.userService.addResource(
-      req.user,
-      professionId,
-      skillId,
-      resource,
-    )
-  }
-
-  async getSkillList (skills: string[]) {
-    let skillList: Skill[] = await this.skillService.find({
-      name: In(skills),
-    })
-
-    if (skillList.length !== skills.length) {
-      const notExistentSkills = skills.
-        filter(item => !skillList.find(({ name }) => name === item)).
-        map(name => ({ name }))
-      const createdSkills: Skill[] = await this.skillService.setSkills(notExistentSkills)
-
-      skillList = [...skillList, ...createdSkills]
-    }
-
-    return skillList
   }
 }

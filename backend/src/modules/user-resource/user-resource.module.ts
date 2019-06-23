@@ -2,33 +2,29 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ProfessionModule } from '../profession/profession.module'
 import { ProfessionService } from '../profession/profession.service'
+import { ResourceModule } from '../resource/resource.module'
+import { ResourceService } from '../resource/resource.service'
 import { SkillModule } from '../skill/skill.module'
 import { SkillService } from '../skill/skill.service'
-import { UserResource } from '../user-resource/user-resource.entity'
-import { UserResourceService } from '../user-resource/user-resource.service'
-import { UserSkill } from '../user-skill/user-skill.entity'
-import { UserSkillService } from '../user-skill/user-skill.service'
-import { UserController } from './user.controller'
-import { User } from './user.entity'
-import { UserService } from './user.service'
+import { UserResourceController } from './user-resource.controller'
+import { UserResource } from './user-resource.entity'
+import { UserResourceService } from './user-resource.service'
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      User,
-      UserSkill,
       UserResource,
     ]),
     ProfessionModule,
     SkillModule,
+    ResourceModule,
   ],
-  controllers: [UserController],
+  controllers: [UserResourceController],
   providers: [
-    UserService,
-    UserSkillService,
     UserResourceService,
     ProfessionService,
     SkillService,
+    ResourceService,
   ],
 })
-export class UserModule {}
+export class UserResourceModule {}

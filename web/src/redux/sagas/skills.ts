@@ -10,7 +10,7 @@ export function * getSkillsDataSaga ({ payload }: GetSkillsDataPayload) {
   yield put(ac.setSkillsLoadingStatus(true))
 
   try {
-    const { data } = yield call(ajax, `${API.SKILLS}/${payload}`)
+    const { data } = yield call(ajax, `${API.USER_SKILLS}/${payload}`)
 
     const skillIds = yield data.map(({ id }: SkillType) => id)
     yield put(ac.getResourcesSaga({ professionId: payload, skillIds }))
@@ -28,7 +28,7 @@ export function * addSkillsByProfessionIdSaga ({ payload }: AddSkillsByProfessio
   yield put(ac.setSkillsLoadingStatus(true))
 
   try {
-    const { data } = yield call(ajax.post, `${API.SKILLS}/${payload.professionId}`, {
+    const { data } = yield call(ajax.post, `${API.USER_SKILLS}/${payload.professionId}`, {
       skills: payload.skills,
     })
 

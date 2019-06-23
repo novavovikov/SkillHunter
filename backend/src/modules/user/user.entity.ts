@@ -2,8 +2,8 @@ import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, Pri
 import { RoleType } from '../../constants/role-type'
 import { Profession } from '../profession/profession.entity'
 import { Resource } from '../resource/resource.entity'
-import { UserResource } from './userResource.entity'
-import { UserSkill } from './userSkill.entity'
+import { UserResource } from '../user-resource/user-resource.entity'
+import { UserSkill } from '../user-skill/user-skill.entity'
 
 @Entity()
 export class User {

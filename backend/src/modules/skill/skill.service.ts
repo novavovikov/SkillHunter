@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindOneOptions, Repository } from 'typeorm'
+import { FindOneOptions, In, Repository } from 'typeorm'
 import { unique } from '../../utils/unique'
 import { Resource } from '../resource/resource.entity'
 import { Skill } from './skill.entity'
@@ -80,5 +80,22 @@ export class SkillService {
     skill.resources = unique([...skill.resources, resource])
 
     return this.skillRepository.save(skill)
+  }
+
+  async getSkillList (skills: string[]) {
+    let skillList: Skill[] = await this.find({
+      name: In(skills),
+    })
+
+    if (skillList.length !== skills.length) {
+      const notExistentSkills = skills.
+        filter(item => !skillList.find(({ name }) => name === item)).
+        map(name => ({ name }))
+      const createdSkills: Skill[] = await this.setSkills(notExistentSkills)
+
+      skillList = [...skillList, ...createdSkills]
+    }
+
+    return skillList
   }
 }

@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Profession } from '../profession/profession.entity'
 import { Resource } from '../resource/resource.entity'
-import { UserSkill } from '../user/userSkill.entity'
+import { UserSkill } from '../user-skill/user-skill.entity'
 
 @Entity()
 export class Skill {

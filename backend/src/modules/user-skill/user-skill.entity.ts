@@ -1,6 +1,6 @@
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Skill } from '../skill/skill.entity'
-import { User } from './user.entity'
+import { User } from '../user/user.entity'
 
 @Entity()
 @Index(['user', 'professionId', 'skill'], { unique: true })

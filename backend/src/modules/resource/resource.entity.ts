@@ -11,7 +11,7 @@ import {
 import { ResourceType } from '../../constants/resource-type'
 import { Skill } from '../skill/skill.entity'
 import { User } from '../user/user.entity'
-import { UserResource } from '../user/userResource.entity'
+import { UserResource } from '../user-resource/user-resource.entity'
 
 @Entity()
 export class Resource {
