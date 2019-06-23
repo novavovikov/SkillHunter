@@ -1,10 +1,10 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { ChangeEvent } from 'react'
-import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, ResourceType } from '../../types'
+import { ShareMenu } from '../index'
 import { Icon, Item, Menu } from '../../UI'
 import * as s from './Resource.css'
 
@@ -152,12 +152,7 @@ class Resource extends React.Component<Props> {
                 More
               </a>
               {!shared && (
-                <Link
-                  to={`${ROUTES.SHARE}?ids=[${data.id}]`}
-                  className={s.Resource__control}
-                >
-                  <Icon type="share"/>
-                </Link>
+                <ShareMenu link={`${ROUTES.SHARE}?ids=[${data.id}]`}/>
               )}
               <button
                 className={s.Resource__control}

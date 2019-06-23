@@ -3,6 +3,7 @@ import Filters from './Filters'
 import FeatureController from './FeatureController'
 import Header from './Header'
 import Faq from './Faq'
+import ShareMenu from './ShareMenu'
 import Profession from './Profession'
 import SkillSet from './SkillSet'
 import Skills from './Skills'
@@ -19,6 +20,7 @@ export {
   Filters,
   FeatureController,
   Header,
+  ShareMenu,
   Faq,
   Profession,
   SkillSet,

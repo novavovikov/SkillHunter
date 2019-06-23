@@ -1,10 +1,12 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { CSSTransition } from 'react-transition-group'
+import { Icon } from '../index'
 import * as s from './Menu.css'
 
 interface Props {
   className?: string
+  icon?: string
 }
 
 interface State {
@@ -29,7 +31,7 @@ class Menu extends React.Component<Props, State> {
   }
 
   render () {
-    const { className, children } = this.props
+    const { className, icon, children } = this.props
     const { isOpen } = this.state
 
     return (
@@ -39,7 +41,13 @@ class Menu extends React.Component<Props, State> {
         onMouseLeave={this.hideMenu}
       >
         <button className={s.Menu__button}>
-          <i className={s.Menu__dots}/>
+          {icon && (
+            <Icon type={icon}/>
+          )}
+
+          {!icon && (
+            <i className={s.Menu__dots}/>
+          )}
         </button>
         <CSSTransition
           in={isOpen}
