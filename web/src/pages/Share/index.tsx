@@ -1,14 +1,22 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
+import { compose } from 'redux'
 import { Page, Resource } from '../../components'
+import { changeResourceLikeStatusSaga } from '../../redux/actions/resources'
+import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceType } from '../../types'
 import { ajax } from '../../utils/ajax'
+
+interface Props extends RouteComponentProps {
+  changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
+}
 
 interface State {
   resources: ResourceType[]
 }
 
-class Share extends React.Component<RouteComponentProps, State> {
+class Share extends React.Component<Props, State> {
   state = {
     resources: [],
   }
@@ -22,6 +30,7 @@ class Share extends React.Component<RouteComponentProps, State> {
   }
 
   render () {
+    const { changeResourceLikeStatus } = this.props
     const { resources } = this.state
 
     return (
@@ -30,6 +39,7 @@ class Share extends React.Component<RouteComponentProps, State> {
           <Resource
             key={resource.id}
             data={resource}
+            likeHandler={changeResourceLikeStatus}
             shared
           />
         ))}
@@ -38,4 +48,12 @@ class Share extends React.Component<RouteComponentProps, State> {
   }
 }
 
-export default withRouter(Share)
+export default compose(
+  withRouter,
+  connect(
+    null,
+    {
+      changeResourceLikeStatus: changeResourceLikeStatusSaga,
+    },
+  ),
+)(Share)

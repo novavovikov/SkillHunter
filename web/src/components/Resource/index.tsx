@@ -18,7 +18,6 @@ interface Props {
 
 class Resource extends React.Component<Props> {
   static defaultProps = {
-    likeHandler: (data: ResourceLikeStatusSagaPayload) => {},
     updateHandler: (data: Partial<ResourceType>) => {},
     removeHandler: (data: ResourceSagaPayload) => {},
   }

@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { withUser } from '../../providers/User'
+import { connect } from 'react-redux'
+import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { Layout } from '../../UI'
 import { Header, Nav, UserProfessions } from '../index'
@@ -9,8 +10,6 @@ interface Props {
 }
 
 const Page: React.FC<Props> = ({ children, user }) => {
-  console.log(123, user.data)
-
   return (
     <>
       <Header/>
@@ -31,4 +30,6 @@ const Page: React.FC<Props> = ({ children, user }) => {
   )
 }
 
-export default withUser(Page)
+export default connect(
+  ({ user }: RootState) => ({ user }),
+)(Page)

@@ -1,9 +1,10 @@
 import * as React from 'react'
 import withClickOutside from 'react-click-outside'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
-import { withUser } from '../../providers/User'
+import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import * as s from './HeaderMenu.css'
 
@@ -97,5 +98,7 @@ class HeaderMenu extends React.Component<Props, State> {
 }
 
 export default compose(
-  withUser,
+  connect(
+    ({ user }: RootState) => ({ user }),
+  ),
 )(withClickOutside(HeaderMenu))
