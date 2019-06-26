@@ -1,15 +1,6 @@
 @import "../../styles/variables.css";
 
 .Library {
-  &__header {
-    display: flex;
-    margin: 0 0 24px;
-  }
-
-  &__title {
-    margin: 0 38px 0 0;
-  }
-
   &__loader {
     display: flex;
     align-items: center;

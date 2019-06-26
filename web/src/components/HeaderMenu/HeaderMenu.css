@@ -2,20 +2,14 @@
 
 .HeaderMenu {
   position: relative;
-  padding: 0 10px;
   font-size: 14px;
   line-height: 16px;
-  transition: var(--transition);
-
-  &:hover {
-    background: var(--color-link-water);
-  }
+  margin: 0 0 0 auto;
 
   &__info {
     position: relative;
     display: flex;
     align-items: center;
-    height: 40px;
     color: var(--color-indigo);
     padding: 0 16px 0 0;
     background: none;
@@ -37,8 +31,8 @@
   }
 
   &__avatar {
-    width: 30px;
-    height: 30px;
+    width: 38px;
+    height: 38px;
     overflow: hidden;
     border-radius: 50%;
     background: var(--color-link-water);

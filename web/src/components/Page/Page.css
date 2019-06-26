@@ -1,0 +1,9 @@
+.Page {
+  &__logo {
+    margin: 0 0 39px;
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+}

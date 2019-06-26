@@ -66,16 +66,14 @@ class HeaderMenu extends React.Component<Props, State> {
           className={s.HeaderMenu__info}
           onClick={this.handleButton}
         >
-        <span className={s.HeaderMenu__avatar}>
-          {user.data.picture && (
-            <img
-              src={user.data.picture}
-              alt=""
-            />
-          )}
-        </span>
-
-          {user.data.name && <span className={s.HeaderMenu__name}>{user.data.name}</span>}
+          <span className={s.HeaderMenu__avatar}>
+            {user.data.picture && (
+              <img
+                src={user.data.picture}
+                alt=""
+              />
+            )}
+          </span>
         </button>
 
         {isOpen && (

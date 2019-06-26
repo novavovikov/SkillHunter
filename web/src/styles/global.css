@@ -12,6 +12,7 @@
   }
 
   body {
+    background: var(--color-desert-storm);
     @apply --font-m;
     font-family: var(--ff-roboto);
     color: var(--color-tundora);

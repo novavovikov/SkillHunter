@@ -2,6 +2,7 @@
 
 .UserSkill {
   position: relative;
+  background: #fff;
   z-index: 0;
 
   &:before {
@@ -46,25 +47,13 @@
 
   &__header {
     position: sticky;
-    top: 40px;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 20px 0;
+    background: var(--color-desert-storm);
     z-index: 10;
-
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      left: -20px;
-      right: -20px;
-      top: 0;
-      height: 100%;
-      background: #fff;
-      border-bottom: 1px solid var(--color-alto);
-      z-index: -1;
-    }
   }
 
   &__title {

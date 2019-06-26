@@ -8,18 +8,29 @@
   --radius: 3px;
   --radius-large: 7px;
 
+  --color-desert-storm: #F8F8F7;
+  --color-tundora: #424242;
+  --color-blue-ribbon: #005FFF;
+  --color-dodger-blue: #2576FF;
+  --color-cornflower-blue: #5086EC;
+  --color-perano: #A7C3F5;
+  --color-saffron: #F2BD42;
+  --color-marzipan: #F8DEA0;
+  --color-vista-blue: #84D09E;
+  --color-dusty-gray: #999999;
+  --color-gallery: #EBEBEB;
+  --color-alto: #DADADA;
+  --color-silver: #CCCCCC;
+
   --color-red-orange: #FF3737;
   --color-royal-blue: #2F71ED;
   --color-indigo: #436EBE;
   --color-cold-purple: #A1B6DF;
   --color-link-water: #D9E2F2;
-  --color-saffron: #F2BD42;
   --color-salem: #0AA13D;
-  --color-tundora: #424242;
   --color-gray: #878787;
   --color-silver-chalice: #ABABAB;
   --color-alabaster: #F7F7F7;
-  --color-alto: #DADADA;
 
   --ff-roboto: 'Roboto', sans-serif;
 

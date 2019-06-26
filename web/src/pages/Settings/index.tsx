@@ -6,7 +6,7 @@ import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { withNotification } from '../../providers/Notification'
 import { NotificationProps } from '../../providers/Notification/context'
-import { Button, Layout } from '../../UI'
+import { Button } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
@@ -22,53 +22,51 @@ const Settings: React.FC<Props> = ({ history, notificationApi }) => {
   return (
     <>
       <Header/>
-      <Layout.Page>
-        <div>
-          <p>
-            <Button onClick={() => notificationApi.showNotification('Пример простого сообщения')}>
-              Простое сообщение
-            </Button>
-          </p>
-          <p>
-            <Button onClick={() =>
-              notificationApi.showNotification(
-                'Пример сообщения об ошибке',
-                NotificationTypes.error,
-              )
-            }>
-              Сообщение об ошибке
-            </Button>
-          </p>
-          <p>
-            <Button onClick={() =>
-              notificationApi.showNotification(
-                'Пример простого сообщения-уведомления пользователя',
-                NotificationTypes.warning,
-              )
-            }>
-              Сообщение-предупреждение
-            </Button>
-          </p>
-          <p>
-            <Button onClick={() =>
-              notificationApi.showNotification(
-                'Пример сообщения об успешности операции',
-                NotificationTypes.success,
-              )
-            }>
-              Сообщение об успешности
-            </Button>
-          </p>
+      <div>
+        <p>
+          <Button onClick={() => notificationApi.showNotification('Пример простого сообщения')}>
+            Простое сообщение
+          </Button>
+        </p>
+        <p>
+          <Button onClick={() =>
+            notificationApi.showNotification(
+              'Пример сообщения об ошибке',
+              NotificationTypes.error,
+            )
+          }>
+            Сообщение об ошибке
+          </Button>
+        </p>
+        <p>
+          <Button onClick={() =>
+            notificationApi.showNotification(
+              'Пример простого сообщения-уведомления пользователя',
+              NotificationTypes.warning,
+            )
+          }>
+            Сообщение-предупреждение
+          </Button>
+        </p>
+        <p>
+          <Button onClick={() =>
+            notificationApi.showNotification(
+              'Пример сообщения об успешности операции',
+              NotificationTypes.success,
+            )
+          }>
+            Сообщение об успешности
+          </Button>
+        </p>
 
-          <br/>
-          <br/>
-          <p>
-            <Button onClick={handleRemove}>
-              Remove account?
-            </Button>
-          </p>
-        </div>
-      </Layout.Page>
+        <br/>
+        <br/>
+        <p>
+          <Button onClick={handleRemove}>
+            Remove account?
+          </Button>
+        </p>
+      </div>
     </>
   )
 }

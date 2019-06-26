@@ -1,7 +1,7 @@
 import * as React from 'react'
 import s from './Layout.css'
 
-const Page: React.FC = ({ children }) => {
+const Wrap: React.FC = ({ children }) => {
   return (
     <div className={s.Layout}>
       {children}
@@ -25,6 +25,30 @@ const Content: React.FC = ({ children }) => {
   )
 }
 
+const Data: React.FC = ({ children }) => {
+  return (
+    <div className={s.Layout__data}>
+      {children}
+    </div>
+  )
+}
+
+const Header: React.FC = ({ children }) => {
+  return (
+    <header className={s.Layout__header}>
+      {children}
+    </header>
+  )
+}
+
+const Caption: React.FC = ({ children }) => {
+  return (
+    <div className={s.Layout__caption}>
+      {children}
+    </div>
+  )
+}
+
 const Container: React.FC = ({ children }) => {
   return (
     <div className={s.Layout__container}>
@@ -42,9 +66,12 @@ const Section: React.FC = ({ children }) => {
 }
 
 export {
-  Page,
+  Wrap,
   Aside,
   Content,
-  Section,
+  Data,
+  Header,
+  Caption,
   Container,
+  Section,
 }
