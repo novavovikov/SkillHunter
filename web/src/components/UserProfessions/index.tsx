@@ -93,7 +93,7 @@ class UserProfessions extends React.Component<Props, State> {
                 className={s.UserProfessions__item}
               >
                 <NavLink
-                  to={`${ROUTES.LIBRARY}/${name}`}
+                  to={`${ROUTES.SKILL_SET}/${name}`}
                   className={s.UserProfessions__link}
                   activeClassName={s.UserProfessions__link_active}
                   onClick={this.closeList}

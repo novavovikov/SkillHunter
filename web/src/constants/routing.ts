@@ -6,7 +6,7 @@ export const ROUTES = {
   LOGOUT: '/logout',
   INTRODUCTION: '/introduction',
   PROFESSION: '/profession',
-  LIBRARY: '/library',
+  SKILL_SET: '/skillset',
   EVALUATION: '/evaluation',
   PLAN: '/plan',
 }

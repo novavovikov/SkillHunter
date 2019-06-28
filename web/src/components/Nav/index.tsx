@@ -1,13 +1,12 @@
 import React, { FC } from 'react'
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import { UserState } from '../../redux/reducers/user'
 import * as s from './Nav.css'
 
 const CONTROLS = [
   {
-    label: 'Library',
-    to: ROUTES.LIBRARY,
+    label: 'Skillset',
+    to: ROUTES.SKILL_SET,
   },
   {
     label: 'Evaluation',

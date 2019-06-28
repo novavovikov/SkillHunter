@@ -58,19 +58,21 @@
   }
 
   &__title {
-    @apply --title;
     @apply --font-l;
-    width: 540px;
+    font-weight: normal;
+    color: var(--color-tundora);
+    max-width: 540px;
+    margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin: 0 0 5px;
   }
 
   &__site {
     display: inline-block;
     @apply --font-s;
     color: var(--color-dusty-gray);
+    margin: 5px 0 0;
     transition: var(--transition);
 
     &:hover {

@@ -2,7 +2,7 @@
 
 .UserProfessions {
   position: relative;
-  margin: 0 0 35px;
+  margin: 0 0 30px;
 
   &__selected {
     position: relative;
@@ -16,6 +16,7 @@
     border-radius: var(--radius);
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
     padding: 5px 40px 5px 34px;
   }
 
@@ -28,7 +29,7 @@
 
   &__selectedArrow {
     position: absolute;
-    right: 19px;
+    right: 21px;
     top: 50%;
     margin-top: -8px;
 
@@ -42,8 +43,9 @@
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
-    padding: 5px 20px 20px 34px;
+    min-width: 100%;
+    max-width: 250px;
+    padding: 5px 20px 20px 28px;
     @apply --font-m;
     background: #fff;
     overflow: hidden;
@@ -57,7 +59,8 @@
   }
 
   &__item:hover &__remove {
-    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
   }
 
   &__remove {
@@ -70,24 +73,24 @@
     right: 0;
     top: 50%;
     margin-top: -10px;
-    transform: scale(0);
+    opacity: 0;
+    visibility: hidden;
     transition: var(--transition);
 
     &:hover {
       path {
-        fill: var(--color-dodger-blue);
+        fill: var(--color-dusty-gray);
       }
     }
   }
 
   &__link {
-    display: flex;
-    align-items: center;
-    height: 40px;
+    display: block;
+    line-height: 40px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 5px 20px 5px 0;
+    padding: 0 20px 0 0;
 
     &:hover {
       color: var(--color-dodger-blue);

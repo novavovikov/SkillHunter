@@ -5,7 +5,7 @@
   display: block;
   min-height: 40px;
   color: #000;
-  padding: 10px 0 0 30px;
+  padding: 10px 0 0 44px;
 
   &:before {
     content: '+';
@@ -14,11 +14,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
+    font-size: 28px;
+    font-weight: 300;
+    width: 32px;
+    height: 32px;
     color: #fff;
     background: var(--color-dodger-blue);
     border-radius: var(--radius);
+  }
+
+  &:hover {
+    color: var(--color-dodger-blue);
   }
 
   &__desc {

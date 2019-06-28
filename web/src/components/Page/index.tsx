@@ -27,9 +27,9 @@ const Page: FC<Props> = ({ children, user }) => {
       <Layout.Content>
         <Header/>
         <Layout.Data>
-          <Layout.Caption>
-            <H2 className={s.Page__title}>Library</H2>
-          </Layout.Caption>
+          {/*<Layout.Caption>*/}
+          {/*  <H2 className={s.Page__title}>Skillset</H2>*/}
+          {/*</Layout.Caption>*/}
 
           {children}
         </Layout.Data>

@@ -22,7 +22,7 @@ class Home extends React.Component<Props> {
 
     const profession = data.professions[0].name
 
-    return <Redirect to={`${ROUTES.LIBRARY}/${profession}`}/>
+    return <Redirect to={`${ROUTES.SKILL_SET}/${profession}`}/>
   }
 }
 

@@ -13,11 +13,16 @@
     transition: var(--transition);
 
     &:hover {
-      background-color: var(--color-link-water);
+      color: var(--color-dodger-blue);
     }
 
     &_active {
-      color: var(--color-dodger-blue);
+      background-color: var(--color-link-water);
+      cursor: default;
+
+      &:hover {
+        color: inherit;
+      }
     }
   }
 }

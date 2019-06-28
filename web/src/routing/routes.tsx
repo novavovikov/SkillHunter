@@ -53,12 +53,12 @@ const Routes: FC = () => {
         />
 
         <PrivateRoute
-          path={`${ROUTES.LIBRARY}/:profession`}
+          path={`${ROUTES.SKILL_SET}/:profession`}
           component={Library}
         />
 
         <PrivateRoute
-          path={ROUTES.LIBRARY}
+          path={ROUTES.SKILL_SET}
           component={Library}
         />
 
