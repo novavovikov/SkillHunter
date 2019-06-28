@@ -15,7 +15,6 @@
     align-items: center;
     @apply --font-s;
     color: var(--color-dusty-gray);
-    transition: var(--transition-fast);
 
     &_info {
       width: calc(730 / 1105 * 100%);
@@ -23,23 +22,17 @@
 
     &_status {
       width: calc(170 / 1105 * 100%);
-      visibility: hidden;
-      opacity: 0;
     }
 
     &_actions {
       width: calc(205 / 1105 * 100%);
       visibility: hidden;
       opacity: 0;
+      transition: var(--transition-fast);
     }
   }
 
   &:hover &__col {
-    &_status {
-      visibility: visible;
-      opacity: 1;
-    }
-
     &_actions {
       visibility: visible;
       opacity: 1;
@@ -138,6 +131,11 @@
     }
   }
 
+  &:hover &__select {
+    visibility: visible;
+    opacity: 1;
+  }
+
   &__select {
     padding: 0 20px;
     width: 90px;
@@ -153,6 +151,9 @@
     appearance: none;
     text-overflow: '';
     text-indent: 0.01px; /* Removes default arrow from firefox*/
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition-fast);
 
     &::-ms-expand {
       display: none;
