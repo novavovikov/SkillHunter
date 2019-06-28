@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { RoleType } from '../../constants/role-type'
 import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'

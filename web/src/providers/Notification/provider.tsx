@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { NotificationTypes } from '../../constants/notification'
 import { NotificationType } from '../../types'
 import { Hash } from '../../utils/hash'

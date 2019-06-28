@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import Scrollbar from 'react-custom-scrollbars'
 import { Checkbox } from '../../UI'
 import * as s from './Skills.css'

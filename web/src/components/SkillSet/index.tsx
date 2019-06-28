@@ -1,5 +1,5 @@
 import debounce from 'debounce'
-import * as React from 'react'
+import React from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { DEBOUNCE_TIMEOUT } from '../../constants/timeout'
 import { Button, H2, Input, Tip } from '../../UI'

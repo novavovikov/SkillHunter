@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import * as React from 'react'
+import React from 'react'
 import { NotificationTypes } from '../../../constants/notification'
 import { NotificationProviderType } from '../provider'
 import * as s from './Notifications.css'

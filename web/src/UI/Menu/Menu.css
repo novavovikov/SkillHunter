@@ -4,10 +4,6 @@
   position: relative;
   display: inline-flex;
 
-  &:hover &__button {
-    background: #DCE7FB;
-  }
-
   &__button {
     display: flex;
     align-items: center;
@@ -20,37 +16,6 @@
     padding: 0;
     border-radius: var(--radius);
     transition: var(--transition-fast);
-  }
-
-  &__dots {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -2px;
-    margin-left: -2px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--color-indigo);
-
-    &:before, &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: var(--color-indigo);
-    }
-
-    &:before {
-      left: -6px;
-    }
-
-    &:after {
-      right: -6px;
-    }
   }
 
   &__enter {
@@ -78,9 +43,10 @@
     position: absolute;
     top: 100%;
     right: 0;
-    box-shadow: var(--shadow);
-    border: var(--radius);
+    @apply --font-m;
     overflow: hidden;
+    border: var(--radius);
+    box-shadow: var(--shadow);
     z-index: 10;
   }
 }

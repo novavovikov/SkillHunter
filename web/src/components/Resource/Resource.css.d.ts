@@ -2,24 +2,23 @@
 // Please do not change this file!
 interface CssExports {
   'Resource': string;
-  'Resource__content': string;
+  'Resource__col': string;
+  'Resource__col_actions': string;
+  'Resource__col_info': string;
+  'Resource__col_status': string;
   'Resource__control': string;
-  'Resource__control_more': string;
-  'Resource__controls': string;
   'Resource__favicon': string;
-  'Resource__header': string;
   'Resource__info': string;
   'Resource__likes': string;
   'Resource__menu': string;
   'Resource__select': string;
-  'Resource__sidebar': string;
   'Resource__site': string;
   'Resource__status': string;
   'Resource__status_backlog': string;
   'Resource__status_done': string;
   'Resource__status_plan': string;
   'Resource__title': string;
-  'Resource_article': string;
+  'Resource__type': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

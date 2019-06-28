@@ -4,20 +4,11 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 19px 0;
-
-  &__content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  padding: 19px 25px 19px 0;
 
   &__section {
     display: flex;
     align-items: center;
-  }
-
-  &__logo {
-    margin: 0 10px;
+    margin: 0 0 0 auto;
   }
 }

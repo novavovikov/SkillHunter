@@ -2,14 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   'UserSkill': string;
-  'UserSkill__body': string;
-  'UserSkill__button': string;
+  'UserSkill__caption': string;
   'UserSkill__empty': string;
-  'UserSkill__emptyText': string;
-  'UserSkill__footer': string;
-  'UserSkill__header': string;
   'UserSkill__switcher': string;
-  'UserSkill__switcher_hide': string;
   'UserSkill__title': string;
 }
 declare var cssExports: CssExports;

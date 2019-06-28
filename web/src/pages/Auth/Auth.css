@@ -28,7 +28,7 @@
     justify-content: center;
     width: 157px;
     height: 43px;
-    color: var(--color-indigo);
+    color: var(--color-dodger-blue);
     background: #F8F7FC;
     font-size: 17px;
     line-height: 16px;
@@ -60,7 +60,7 @@
 
     &:hover {
       color: #fff;
-      background: var(--color-indigo);
+      background: var(--color-dodger-blue);
     }
   }
 

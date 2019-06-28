@@ -1,14 +1,18 @@
-import * as React from 'react'
+import React from 'react'
 import { Item, Menu } from '../../UI'
 
 interface Props {
+  className?: string
   link: string
 }
 
 class ShareMenu extends React.Component<Props> {
   render () {
     return (
-      <Menu icon="share">
+      <Menu
+        icon="share"
+        className={this.props.className}
+      >
         <Item>
           Copy link
         </Item>

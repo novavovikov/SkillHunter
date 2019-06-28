@@ -2,15 +2,14 @@
 
 .HeaderMenu {
   position: relative;
-  font-size: 14px;
-  line-height: 16px;
-  margin: 0 0 0 auto;
+  @apply --font-m;
+  margin: 0 0 0 34px;
 
   &__info {
     position: relative;
     display: flex;
     align-items: center;
-    color: var(--color-indigo);
+    color: var(--color-dodger-blue);
     padding: 0 16px 0 0;
     background: none;
     border: none;
@@ -23,8 +22,8 @@
       top: 50%;
       width: 8px;
       height: 8px;
-      border-right: 2px solid var(--color-indigo);
-      border-bottom: 2px solid var(--color-indigo);
+      border-right: 2px solid var(--color-dodger-blue);
+      border-bottom: 2px solid var(--color-dodger-blue);
       transform: rotate(45deg);
       margin-top: -5px;
     }

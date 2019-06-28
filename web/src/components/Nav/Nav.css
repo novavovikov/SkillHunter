@@ -17,7 +17,7 @@
     }
 
     &_active {
-      color: var(--color-indigo);
+      color: var(--color-dodger-blue);
     }
   }
 }

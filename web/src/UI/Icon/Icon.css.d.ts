@@ -2,9 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'Icon': string;
-  'Icon__heart': string;
-  'Icon__heartFilled': string;
-  'Icon__share': string;
+  'Icon_active': string;
+  'Icon_free': string;
+  'Icon_lg': string;
+  'Icon_xl': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

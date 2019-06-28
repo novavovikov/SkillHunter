@@ -3,7 +3,6 @@
 interface CssExports {
   'Menu': string;
   'Menu__button': string;
-  'Menu__dots': string;
   'Menu__enter': string;
   'Menu__enter_active': string;
   'Menu__exit': string;

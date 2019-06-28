@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { ChangeEvent } from 'react'
 import { connect } from 'react-redux'
 import { addResourceSaga } from '../../redux/actions/resources'

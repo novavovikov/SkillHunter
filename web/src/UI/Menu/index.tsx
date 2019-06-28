@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import * as React from 'react'
+import React from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { Icon } from '../index'
 import * as s from './Menu.css'
@@ -11,6 +11,14 @@ interface Props {
 
 interface State {
   isOpen: boolean
+}
+
+const getIconSize = (icon: string) => {
+  if (icon === 'dots') {
+    return 'xl'
+  }
+
+  return null
 }
 
 class Menu extends React.Component<Props, State> {
@@ -34,6 +42,8 @@ class Menu extends React.Component<Props, State> {
     const { className, icon, children } = this.props
     const { isOpen } = this.state
 
+    const IconName: string = icon || 'dots'
+
     return (
       <div
         className={cn(s.Menu, className)}
@@ -41,13 +51,11 @@ class Menu extends React.Component<Props, State> {
         onMouseLeave={this.hideMenu}
       >
         <button className={s.Menu__button}>
-          {icon && (
-            <Icon type={icon}/>
-          )}
-
-          {!icon && (
-            <i className={s.Menu__dots}/>
-          )}
+          <Icon
+            type={IconName}
+            size={getIconSize(IconName)}
+            active={isOpen}
+          />
         </button>
         <CSSTransition
           in={isOpen}

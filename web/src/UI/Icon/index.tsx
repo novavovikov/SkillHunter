@@ -1,19 +1,59 @@
 import cn from 'classnames'
-import * as React from 'react'
+import React from 'react'
 import * as s from './Icon.css'
+import arrowDownIcon from './icons/arrow-down-ico.svg?inline'
+import arrowRightIcon from './icons/arrow-right-ico.svg?inline'
+import arrowUpIcon from './icons/arrow-up-ico.svg?inline'
+import dotsIcon from './icons/dots-ico.svg?inline'
+import heartFilledIcon from './icons/heart-filled-ico.svg?inline'
+import heartIcon from './icons/heart-ico.svg?inline'
+import shareIcon from './icons/share-ico.svg?inline'
 
 interface Props {
   type: string
+  className?: string
+  active?: boolean
+  size?: string | null
 }
 
-const Icon: React.FC<Props> = ({ type }) => {
+const getIcon = (type: string) => {
+  switch (type) {
+    case 'heart':
+      return heartIcon
+    case 'heart-filled':
+      return heartFilledIcon
+    case 'share':
+      return shareIcon
+    case 'dots':
+      return dotsIcon
+    case 'arrow-up':
+      return arrowUpIcon
+    case 'arrow-down':
+      return arrowDownIcon
+    case 'arrow-right':
+      return arrowRightIcon
+    default:
+      return null
+  }
+}
+
+const Icon: React.FC<Props> = (
+  {
+    type,
+    active,
+    size,
+    className,
+  },
+) => {
   return (
-    <i
+    <span
       className={cn(s.Icon, {
-        [s.Icon__share]: type === 'share',
-        [s.Icon__heart]: type === 'heart',
-        [s.Icon__heartFilled]: type === 'heart-filled',
-      })}
+        [s.Icon_active]: active,
+        [s.Icon_free]: size === 'free',
+        [s.Icon_lg]: size === 'lg',
+        [s.Icon_xl]: size === 'xl',
+      }, className)}
+      dangerouslySetInnerHTML={{ __html: getIcon(type) }}
     />
   )
 }

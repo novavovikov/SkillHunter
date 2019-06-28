@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { NotificationProvider } from './providers/Notification'
 import ReduxStore from './redux/store'

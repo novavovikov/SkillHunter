@@ -4,11 +4,13 @@ import FeatureController from './FeatureController'
 import Header from './Header'
 import Faq from './Faq'
 import HeaderMenu from './HeaderMenu'
+import Search from './Search'
 import ShareMenu from './ShareMenu'
 import Profession from './Profession'
 import SkillSet from './SkillSet'
 import Skills from './Skills'
 import UserSkill from './UserSkill'
+import Resources from './Resources'
 import Resource from './Resource'
 import ResourceCreator from './ResourceCreator'
 import UserProfessions from './UserProfessions'
@@ -22,12 +24,14 @@ export {
   FeatureController,
   Header,
   HeaderMenu,
+  Search,
   ShareMenu,
   Faq,
   Profession,
   SkillSet,
   Skills,
   UserSkill,
+  Resources,
   Resource,
   ResourceCreator,
   UserProfessions,

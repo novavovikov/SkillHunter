@@ -1,0 +1,39 @@
+@import "../../styles/variables.css";
+
+.IconButton {
+  display: inline-flex;
+  align-items: center;
+  @apply --font-l;
+  border: none;
+  color: var(--color-tundora);
+  font-weight: bold;
+  white-space: nowrap;
+  background: none;
+  padding: 0;
+  transition: var(--transition-fast);
+
+  &:before {
+    content: '+';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: var(--color-dodger-blue);
+    color: #fff;
+    margin: 0 20px 0 0;
+    font-weight: 300;
+    font-size: 2em;
+    border-radius: var(--radius);
+  }
+
+  &:hover {
+    color: var(--color-dodger-blue);
+  }
+
+  &:disabled {
+    cursor: default;
+    background: #BDBDBD;
+    box-shadow: none;
+  }
+}

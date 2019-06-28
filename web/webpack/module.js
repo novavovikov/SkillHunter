@@ -1,3 +1,11 @@
+const fileLoaderWithOptions = {
+  loader: 'file-loader',
+  options: {
+    outputPath: 'static/',
+    name: '[name].[ext]'
+  }
+}
+
 module.exports = {
   rules: [
     {
@@ -40,16 +48,20 @@ module.exports = {
       ],
     },
     {
-      test: /\.(gif|png|jpe?g|ico|svg)$/i,
-      loader: [
+      test: /\.svg$/,
+      oneOf: [
         {
-          loader: 'file-loader',
-          options: {
-            outputPath: 'static/',
-            name: '[name].[ext]'
-          }
-        }
-      ]
-    }
+          resourceQuery: /inline/,
+          use: 'svg-inline-loader'
+        },
+        {
+          use: fileLoaderWithOptions
+        },
+      ],
+    },
+    {
+      test: /\.(gif|png|jpe?g|ico)$/i,
+      use: fileLoaderWithOptions
+    },
   ],
 }

@@ -37,7 +37,7 @@
     transition: var(--transition);
 
     &:focus {
-      border-color: var(--color-royal-blue);
+      border-color: var(--color-blue-ribbon);
     }
   }
 

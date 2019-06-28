@@ -11,7 +11,7 @@
 
   &__input:checked + &__indicator {
     border-color: transparent;
-    background: var(--color-indigo);
+    background: var(--color-dodger-blue);
 
     &:before {
       top: -1px;

@@ -7,7 +7,6 @@ interface CssExports {
   'Layout__container': string;
   'Layout__content': string;
   'Layout__data': string;
-  'Layout__header': string;
   'Layout__section': string;
 }
 declare var cssExports: CssExports;

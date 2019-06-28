@@ -5,12 +5,12 @@
   align-items: center;
   justify-content: center;
   @apply --font-m;
-  height: 30px;
-  padding: 5px 8px;
+  height: 38px;
+  padding: 5px 20px;
   border: none;
   color: #fff;
   white-space: nowrap;
-  background: var(--color-indigo);
+  background: var(--color-dodger-blue);
   border-radius: var(--radius);
   transition: var(--transition-fast);
 
@@ -19,22 +19,21 @@
     width: 270px;
     font-size: 15px;
     line-height: 20px;
-    border-radius: var(--radius-large);
+    border-radius: var(--radius-xl);
   }
 
   &_plus {
     &:before {
-      content: '';
+      content: '+';
       display: block;
-      margin: 0 8px 0 0;
-      width: 12px;
-      height: 12px;
-      background: url("./icons/add-circle.svg") no-repeat center/contain;
+      margin: 0 4px 0 0;
+      font-weight: 300;
+      font-size: 28px;
     }
   }
 
   &:hover {
-    background: var(--color-royal-blue);
+    background: var(--color-blue-ribbon);
   }
 
   &:disabled {

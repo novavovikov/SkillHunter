@@ -4,8 +4,8 @@ import { ChangeEvent } from 'react'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, ResourceType } from '../../types'
-import { ShareMenu } from '../index'
 import { Icon, Item, Menu } from '../../UI'
+import { ShareMenu } from '../index'
 import * as s from './Resource.css'
 
 interface Props {
@@ -74,47 +74,16 @@ class Resource extends React.Component<Props> {
     const { data, shared } = this.props
 
     return (
-      <div
-        className={cn(s.Resource, {
-          [s.Resource_article]: data.type === 'article',
-        })}
-      >
-        <div className={s.Resource__content}>
-          <div className={s.Resource__info}>
-            <div className={s.Resource__header}>
-              <h4 className={s.Resource__title}>
-                {data.title}
-              </h4>
+      <div className={s.Resource}>
+        <div className={cn(s.Resource__col, s.Resource__col_info)}>
+          <div className={s.Resource__type}>
+            <img src={require(`./icons/${data.type}.svg`)} alt=""/>
+          </div>
 
-              {!shared && (
-                <div
-                  className={cn(
-                    s.Resource__status,
-                    {
-                      [s.Resource__status_backlog]: data.status === ResourceStatusTypes.Backlog,
-                      [s.Resource__status_plan]: data.status === ResourceStatusTypes.Plan,
-                      [s.Resource__status_done]: data.status === ResourceStatusTypes.Done,
-                    },
-                  )}
-                >
-                  <select
-                    className={s.Resource__select}
-                    value={data.status}
-                    onChange={this.handleStatus}
-                  >
-                    <option>
-                      {ResourceStatusTypes.Backlog}
-                    </option>
-                    <option>
-                      {ResourceStatusTypes.Plan}
-                    </option>
-                    <option>
-                      {ResourceStatusTypes.Done}
-                    </option>
-                  </select>
-                </div>
-              )}
-            </div>
+          <div className={s.Resource__info}>
+            <h4 className={s.Resource__title}>
+              {data.title}
+            </h4>
 
             <a
               href={data.link}
@@ -130,41 +99,81 @@ class Resource extends React.Component<Props> {
               {this.url.hostname}
             </a>
           </div>
+        </div>
 
-          <div className={s.Resource__sidebar}>
-            {!shared && (
-              <Menu className={s.Resource__menu}>
-                <Item>
-                  Edit
-                </Item>
-                <Item onClick={this.handleRemove}>
-                  Delete
-                </Item>
-              </Menu>
-            )}
-
-            <div className={s.Resource__controls}>
-              <a
-                href={data.link}
-                className={cn(s.Resource__control, s.Resource__control_more)}
-                target="_blank"
-              >
-                More
-              </a>
-              {!shared && (
-                <ShareMenu link={`${ROUTES.SHARE}?ids=[${data.id}]`}/>
+        <div className={cn(s.Resource__col, s.Resource__col_status)}>
+          {!shared && (
+            <div
+              className={cn(
+                s.Resource__status,
+                {
+                  [s.Resource__status_backlog]: data.status === ResourceStatusTypes.Backlog,
+                  [s.Resource__status_plan]: data.status === ResourceStatusTypes.Plan,
+                  [s.Resource__status_done]: data.status === ResourceStatusTypes.Done,
+                },
               )}
-              <button
-                className={s.Resource__control}
-                onClick={this.handleLike}
+            >
+              <select
+                className={s.Resource__select}
+                value={data.status}
+                onChange={this.handleStatus}
               >
+                <option>
+                  {ResourceStatusTypes.Backlog}
+                </option>
+                <option>
+                  {ResourceStatusTypes.Plan}
+                </option>
+                <option>
+                  {ResourceStatusTypes.Done}
+                </option>
+              </select>
+            </div>
+          )}
+        </div>
+
+        <div className={cn(s.Resource__col, s.Resource__col_actions)}>
+          <a
+            href={data.link}
+            className={s.Resource__control}
+            target="_blank"
+          >
+            More
+            <Icon
+              type="arrow-right"
+              size="lg"
+            />
+          </a>
+
+          {!shared && (
+            <ShareMenu
+              link={`${ROUTES.SHARE}?ids=[${data.id}]`}
+              className={s.Resource__control}
+            />
+          )}
+          <button
+            className={s.Resource__control}
+            onClick={this.handleLike}
+          >
               <span className={s.Resource__likes}>
                 {data.likes}
               </span>
-                <Icon type={data.isLiked ? 'heart-filled' : 'heart'}/>
-              </button>
-            </div>
-          </div>
+            <Icon
+              type={data.isLiked ? 'heart-filled' : 'heart'}
+              active={data.isLiked}
+            />
+          </button>
+
+          {!shared && (
+            <Menu className={s.Resource__menu}>
+              <Item>
+                Edit
+              </Item>
+              <Item onClick={this.handleRemove}>
+                Delete
+              </Item>
+            </Menu>
+          )}
         </div>
       </div>
     )

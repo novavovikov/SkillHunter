@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { AutoComplete, Button, H2 } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import * as s from './Profession.css'

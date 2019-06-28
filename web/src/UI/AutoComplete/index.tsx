@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { debounce } from 'debounce'
-import * as React from 'react'
+import React from 'react'
 import withClickOutside from 'react-click-outside'
 import Scrollbar from 'react-custom-scrollbars'
 import { ajax } from '../../utils/ajax'

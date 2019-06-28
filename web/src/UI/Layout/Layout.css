@@ -27,19 +27,11 @@
     height: 100%;
   }
 
-  &__header {
-    padding: 19px 25px 19px 0;
-    display: flex;
-    align-items: center;
-  }
-
   &__caption {
-    position: sticky;
-    top: 0;
-    flex: 0 0 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 80px;
   }
 
   &__container {

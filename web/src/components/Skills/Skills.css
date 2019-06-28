@@ -15,7 +15,7 @@
   }
 
   &__btn {
-    color: var(--color-indigo);
+    color: var(--color-dodger-blue);
     font-size: 12px;
     letter-spacing: -0.41px;
     padding: 0;
@@ -23,7 +23,7 @@
     background: none;
 
     &:hover {
-      color: var(--color-royal-blue);
+      color: var(--color-blue-ribbon);
     }
   }
 

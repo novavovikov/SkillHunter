@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import s from './Layout.css'
 
 const Wrap: React.FC = ({ children }) => {
@@ -33,14 +33,6 @@ const Data: React.FC = ({ children }) => {
   )
 }
 
-const Header: React.FC = ({ children }) => {
-  return (
-    <header className={s.Layout__header}>
-      {children}
-    </header>
-  )
-}
-
 const Caption: React.FC = ({ children }) => {
   return (
     <div className={s.Layout__caption}>
@@ -70,7 +62,6 @@ export {
   Aside,
   Content,
   Data,
-  Header,
   Caption,
   Container,
   Section,

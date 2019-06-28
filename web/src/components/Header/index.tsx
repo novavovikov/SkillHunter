@@ -1,18 +1,19 @@
-import * as React from 'react'
-import { Layout, Logo } from '../../UI'
-import HeaderMenu from '../HeaderMenu'
+import React from 'react'
+import { Button } from '../../UI'
+import { HeaderMenu, Search } from '../index'
 import * as s from './Header.css'
 
 const Header = () => {
   return (
     <header className={s.Header}>
-      <Layout.Container>
-        <div className={s.Header__content}>
-          <div className={s.Header__section}>
-            <HeaderMenu/>
-          </div>
-        </div>
-      </Layout.Container>
+      <Search/>
+
+      <div className={s.Header__section}>
+        <Button theme="plus">
+          Add source
+        </Button>
+        <HeaderMenu/>
+      </div>
     </header>
   )
 }

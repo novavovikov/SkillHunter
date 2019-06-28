@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import * as s from './H3.css'
 
 const H3: React.FC = ({ children }) => {

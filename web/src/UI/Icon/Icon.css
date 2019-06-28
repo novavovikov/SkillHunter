@@ -4,18 +4,26 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: no-repeat center/contain;
   transition: var(--transition-fast);
 
-  &__share {
-    background-image: url("./icons/share-ico.svg");
+  &_active {
+    path {
+      fill: var(--color-dodger-blue);
+    }
   }
 
-  &__heart {
-    background-image: url("./icons/heart-ico.svg");
+  &_free {
+    width: auto;
+    height: auto;
   }
 
-  &__heartFilled {
-    background: url("./icons/heart-filled-ico.svg");
+  &_lg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &_xl {
+    width: 24px;
+    height: 24px;
   }
 }

@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { H2, Layout, Logo } from '../../UI'
-import { Nav, UserProfessions, HeaderMenu } from '../index'
+import { Header, Nav, UserProfessions } from '../index'
 import * as s from './Page.css'
 
 interface Props {
@@ -25,14 +25,12 @@ const Page: React.FC<Props> = ({ children, user }) => {
       </Layout.Aside>
 
       <Layout.Content>
-        <Layout.Header>
-          <HeaderMenu/>
-        </Layout.Header>
-
-        <Layout.Caption>
-          <H2 className={s.Page__title}>Library</H2>
-        </Layout.Caption>
+        <Header/>
         <Layout.Data>
+          <Layout.Caption>
+            <H2 className={s.Page__title}>Library</H2>
+          </Layout.Caption>
+
           {children}
         </Layout.Data>
       </Layout.Content>

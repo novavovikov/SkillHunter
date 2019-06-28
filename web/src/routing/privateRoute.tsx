@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Redirect, Route, RouteProps } from 'react-router'
 import { ROUTES } from '../constants/routing'
 import { withUser } from '../providers/User'

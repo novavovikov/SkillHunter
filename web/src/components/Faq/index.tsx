@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { H3 } from '../../UI'
 import * as s from './Faq.css'
 

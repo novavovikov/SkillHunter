@@ -6,7 +6,8 @@
   --shadow: 0 2px 5px rgba(0, 0, 0, .1);
 
   --radius: 3px;
-  --radius-large: 7px;
+  --radius-lg: 5px;
+  --radius-xl: 7px;
 
   --color-desert-storm: #F8F8F7;
   --color-tundora: #424242;
@@ -23,8 +24,6 @@
   --color-silver: #CCCCCC;
 
   --color-red-orange: #FF3737;
-  --color-royal-blue: #2F71ED;
-  --color-indigo: #436EBE;
   --color-cold-purple: #A1B6DF;
   --color-link-water: #D9E2F2;
   --color-salem: #0AA13D;
@@ -59,6 +58,6 @@
 
   --title: {
     font-weight: bold;
-    color: #424242;
+    color: var(--color-tundora);
   };
 }

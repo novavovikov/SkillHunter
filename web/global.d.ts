@@ -3,6 +3,11 @@ declare module '*.png' {
   export = value
 }
 
+declare module '*.svg?inline' {
+  const value: any
+  export = value
+}
+
 declare module '*.svg' {
   const value: any
   export = value

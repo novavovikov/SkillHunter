@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { NotificationProps, NotificationContext } from './context'
 
 export const withNotification = (WrappedComponent: React.ComponentClass<any>) => {

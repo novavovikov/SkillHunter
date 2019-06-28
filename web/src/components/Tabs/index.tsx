@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import * as React from 'react'
+import React from 'react'
 import H2 from '../../UI/H2'
 import * as s from './Tabs.css'
 

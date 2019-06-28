@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import cookies from 'js-cookie'
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { Faq } from '../../components'

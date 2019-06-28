@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import * as React from 'react'
+import React from 'react'
 import withClickOutside from 'react-click-outside'
 import { Button } from '../../UI'
 import Creator from './Creator'
