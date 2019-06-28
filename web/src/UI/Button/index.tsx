@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes, FC } from 'react'
 import React from 'react'
 import * as s from './Button.css'
 
@@ -7,7 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   theme?: string
 }
 
-const Button: React.FC<Props> = (
+const Button: FC<Props> = (
   {
     children,
     className,

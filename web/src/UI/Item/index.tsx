@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes, FC } from 'react'
 import React from 'react'
 import * as s from './Item.css'
 
-const Item: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, ...rest }) => {
+const Item: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, ...rest }) => {
   return (
     <button
       className={s.Item}

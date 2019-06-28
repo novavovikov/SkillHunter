@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import * as s from './Checkbox.css'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   onChange?: (e: any) => void
 }
 
-const Checkbox: React.FC<Props> = ({ children, ...rest }) => {
+const Checkbox: FC<Props> = ({ children, ...rest }) => {
   return (
     <label className={s.Checkbox}>
       <input

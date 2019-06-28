@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { Header } from '../../components'
@@ -13,7 +13,7 @@ interface Props extends RouteComponentProps {
   notificationApi: NotificationProps
 }
 
-const Settings: React.FC<Props> = ({ history, notificationApi }) => {
+const Settings: FC<Props> = ({ history, notificationApi }) => {
   const handleRemove = async () => {
     await ajax.delete('user')
     history.push(ROUTES.LOGOUT)

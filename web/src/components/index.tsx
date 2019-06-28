@@ -8,6 +8,7 @@ import Search from './Search'
 import ShareMenu from './ShareMenu'
 import Profession from './Profession'
 import SkillSet from './SkillSet'
+import SkillSetCreator from './SkillSetCreator'
 import Skills from './Skills'
 import UserSkill from './UserSkill'
 import Resources from './Resources'
@@ -29,6 +30,7 @@ export {
   Faq,
   Profession,
   SkillSet,
+  SkillSetCreator,
   Skills,
   UserSkill,
   Resources,

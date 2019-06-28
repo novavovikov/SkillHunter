@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React from 'react'
+import React, { FC } from 'react'
 import { NotificationTypes } from '../../../constants/notification'
 import { NotificationProviderType } from '../provider'
 import * as s from './Notifications.css'
@@ -9,7 +9,7 @@ interface Props {
   hideNotification: (id: string | number) => void
 }
 
-const Notifications: React.FC<Props> = ({ notifications, hideNotification }) => {
+const Notifications: FC<Props> = ({ notifications, hideNotification }) => {
   return (
     <div className={s.Notifications}>
       {notifications.map(({ id, type, message }) => (

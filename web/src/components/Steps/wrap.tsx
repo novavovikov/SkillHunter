@@ -54,7 +54,7 @@ export class Wrap extends React.Component<Props, State> {
               map((child: any) => (
                 <CSSTransition
                   key={child.props.id}
-                  timeout={250}
+                  timeout={300}
                   classNames={{
                     enterActive: s.Steps__enter,
                     enterDone: s.Steps__enter_active,

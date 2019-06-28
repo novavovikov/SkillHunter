@@ -3,7 +3,7 @@
   --transition: .5s;
   --transition-slow: .8s;
 
-  --shadow: 0 2px 5px rgba(0, 0, 0, .1);
+  --shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 
   --radius: 3px;
   --radius-lg: 5px;
@@ -35,6 +35,11 @@
 
   --z-filter: 10;
   --z-filter-switcher: 9;
+
+  --font-xs: {
+    font-size: 10px;
+    line-height: 12px;
+  };
 
   --font-s: {
     font-size: 12px;

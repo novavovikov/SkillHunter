@@ -2,10 +2,18 @@
 // Please do not change this file!
 interface CssExports {
   'UserProfessions': string;
-  'UserProfessions__button': string;
+  'UserProfessions__enter': string;
+  'UserProfessions__enter_active': string;
+  'UserProfessions__exit': string;
+  'UserProfessions__exit_active': string;
   'UserProfessions__item': string;
   'UserProfessions__link': string;
   'UserProfessions__link_active': string;
+  'UserProfessions__list': string;
+  'UserProfessions__remove': string;
+  'UserProfessions__selected': string;
+  'UserProfessions__selectedArrow': string;
+  'UserProfessions__userIcon': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

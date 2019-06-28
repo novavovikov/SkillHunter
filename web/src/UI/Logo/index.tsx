@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import cn from 'classnames'
 import { Link } from 'react-router-dom'
 import logoPath from './icons/logo.svg'
@@ -8,7 +8,7 @@ interface Props {
   className?: string
 }
 
-const Logo: React.FC<Props> = ({ className }) => {
+const Logo: FC<Props> = ({ className }) => {
   return (
     <Link
       to={'/'}

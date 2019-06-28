@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { connect } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
@@ -10,7 +10,7 @@ interface Props {
   user: UserState
 }
 
-const Page: React.FC<Props> = ({ children, user }) => {
+const Page: FC<Props> = ({ children, user }) => {
   return (
     <Layout.Wrap>
       <Layout.Aside>
@@ -18,8 +18,8 @@ const Page: React.FC<Props> = ({ children, user }) => {
 
         {user.data && (
           <>
-            <Nav/>
             <UserProfessions/>
+            <Nav/>
           </>
         )}
       </Layout.Aside>

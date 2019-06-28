@@ -1,13 +1,15 @@
 import cn from 'classnames'
-import React from 'react'
+import React, { FC } from 'react'
 import * as s from './Icon.css'
 import arrowDownIcon from './icons/arrow-down-ico.svg?inline'
 import arrowRightIcon from './icons/arrow-right-ico.svg?inline'
 import arrowUpIcon from './icons/arrow-up-ico.svg?inline'
+import binIcon from './icons/bin-ico.svg?inline'
 import dotsIcon from './icons/dots-ico.svg?inline'
 import heartFilledIcon from './icons/heart-filled-ico.svg?inline'
 import heartIcon from './icons/heart-ico.svg?inline'
 import shareIcon from './icons/share-ico.svg?inline'
+import userIcon from './icons/user-ico.svg?inline'
 
 interface Props {
   type: string
@@ -18,6 +20,10 @@ interface Props {
 
 const getIcon = (type: string) => {
   switch (type) {
+    case 'user':
+      return userIcon
+    case 'bin':
+      return binIcon
     case 'heart':
       return heartIcon
     case 'heart-filled':
@@ -37,7 +43,7 @@ const getIcon = (type: string) => {
   }
 }
 
-const Icon: React.FC<Props> = (
+const Icon: FC<Props> = (
   {
     type,
     active,

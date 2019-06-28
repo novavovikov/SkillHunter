@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { logoutUser } from '../../redux/actions/user'
@@ -8,7 +8,7 @@ interface Props {
   logoutUser: () => void
 }
 
-const Logout:React.FC<Props> = ({ logoutUser }) => {
+const Logout:FC<Props> = ({ logoutUser }) => {
   React.useEffect(() => {
     logoutUser()
   })

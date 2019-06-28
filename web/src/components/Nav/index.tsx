@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
 import { UserState } from '../../redux/reducers/user'
@@ -26,7 +26,7 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
 }
 
-const Nav: React.FC<Props> = ({ match }) => {
+const Nav: FC<Props> = ({ match }) => {
   const postfix = match.params.profession ? `/${match.params.profession}` : ''
 
   return (

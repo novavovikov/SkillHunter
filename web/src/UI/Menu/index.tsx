@@ -59,7 +59,7 @@ class Menu extends React.Component<Props, State> {
         </button>
         <CSSTransition
           in={isOpen}
-          timeout={250}
+          timeout={300}
           unmountOnExit
           classNames={{
             enterActive: s.Menu__enter,

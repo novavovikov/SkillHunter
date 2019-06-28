@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { FC } from 'react'
 import cn from 'classnames'
 import * as s from './Loader.css'
 
-const Loader: React.FC = () => (
+const Loader: FC = () => (
   <div className={s.Loader}>
     <i className={cn(s.Loader__line, s.Loader__line_blue)}/>
     <i className={cn(s.Loader__line, s.Loader__line__orange)}/>

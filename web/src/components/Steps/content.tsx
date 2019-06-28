@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import * as s from './Steps.css'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   setStep?: (id: string) => void
 }
 
-export const Content: React.FC<Props> = (
+export const Content: FC<Props> = (
   {
     children,
     setStep,

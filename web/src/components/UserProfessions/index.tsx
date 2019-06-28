@@ -1,130 +1,115 @@
 import React from 'react'
-import { ChangeEvent, FormEvent } from 'react'
+import withClickOutside from 'react-click-outside'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
-import { addSkillsByProfessionIdSaga } from '../../redux/actions/skills'
 import { AddSkillsRequestPayload } from '../../redux/interfaces/skills'
 import { RootState } from '../../redux/reducers'
 import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
-import { Button } from '../../UI'
+import { Icon } from '../../UI'
+import { SkillSetCreator } from '../index'
 import * as s from './UserProfessions.css'
 
-interface Props {
+interface Params {
+  profession: string
+}
+
+interface Props extends RouteComponentProps<Params> {
   user: UserState
   skills: SkillsState
   addSkills: (data: AddSkillsRequestPayload) => void
 }
 
 interface State {
-  professionId: number | null
-  skillValue: string
+  isOpen: boolean
 }
 
 class UserProfessions extends React.Component<Props, State> {
   state = {
-    professionId: null,
-    skillValue: '',
+    isOpen: false,
   }
 
-  handleSkillCreator = (e: any) => {
+  handleClickOutside () {
+    this.closeList()
+  }
+
+  closeList = () => {
     this.setState({
-      professionId: parseInt(e.target.value),
-      skillValue: '',
+      isOpen: false,
     })
   }
 
-  handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+  toggleList = () => {
     this.setState({
-      skillValue: e.target.value,
+      isOpen: !this.state.isOpen,
     })
-  }
-
-  addSkill = (e: FormEvent) => {
-    e.preventDefault()
-    const { addSkills } = this.props
-    const { professionId, skillValue } = this.state
-
-    if (professionId) {
-      addSkills({
-        professionId,
-        skills: [skillValue],
-      })
-
-      this.setState({
-        professionId: null,
-        skillValue: '',
-      })
-    }
   }
 
   render () {
-    const { user, skills } = this.props
+    const { user, match } = this.props
 
     if (!user.data) {
       return null
     }
 
-    const { professionId, skillValue } = this.state
-
-    const isDisabled = !skillValue || skills.data.some(({ name }) => name.toLowerCase() === skillValue.toLowerCase())
+    const { isOpen } = this.state
 
     return (
       <div className={s.UserProfessions}>
-        {user.data.professions.map(({ id, name }) => (
-          <div
-            key={id}
-            className={s.UserProfessions__item}
-          >
-            <NavLink
-              className={s.UserProfessions__link}
-              activeClassName={s.UserProfessions__link_active}
-              to={`${ROUTES.LIBRARY}/${name}`}
-            >
-              {name}
-            </NavLink>
+        <button
+          className={s.UserProfessions__selected}
+          onClick={this.toggleList}
+        >
+          <Icon
+            type="user"
+            className={s.UserProfessions__userIcon}
+          />
+          {match.params.profession}
+          <Icon
+            type={isOpen ? 'arrow-up' : 'arrow-down'}
+            className={s.UserProfessions__selectedArrow}
+          />
+        </button>
 
-            <button
-              className={s.UserProfessions__button}
-              onClick={this.handleSkillCreator}
-              value={id}
-            >
-              Add skill
-            </button>
+        <CSSTransition
+          in={isOpen}
+          timeout={300}
+          unmountOnExit
+          classNames={{
+            enterActive: s.UserProfessions__enter,
+            enterDone: s.UserProfessions__enter_active,
+            exit: s.UserProfessions__exit,
+            exitActive: s.UserProfessions__exit_active,
+          }}
+        >
+          <div className={s.UserProfessions__list}>
+            {user.data.professions.map(({ id, name }) => (
+              <div
+                key={id}
+                className={s.UserProfessions__item}
+              >
+                <NavLink
+                  to={`${ROUTES.LIBRARY}/${name}`}
+                  className={s.UserProfessions__link}
+                  activeClassName={s.UserProfessions__link_active}
+                  onClick={this.closeList}
+                >
+                  {name}
+                </NavLink>
+
+                <button className={s.UserProfessions__remove}>
+                  <Icon type="bin"/>
+                </button>
+              </div>
+            ))}
+
+            <SkillSetCreator/>
           </div>
-        ))}
-
-        {professionId && (
-          <form onSubmit={this.addSkill}>
-            <input
-              type="text"
-              value={skillValue}
-              onChange={this.handleInput}
-              style={{
-                marginBottom: 5,
-                width: '100%',
-              }}
-              autoFocus
-            />
-
-            <Button
-              disabled={isDisabled}
-            >
-              Submit
-            </Button>
-
-            <Button
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              Cancel
-            </Button>
-          </form>
-        )}
+        </CSSTransition>
       </div>
     )
   }
@@ -132,10 +117,6 @@ class UserProfessions extends React.Component<Props, State> {
 
 export default compose(
   withUser,
-  connect(
-    ({ skills }: RootState) => ({ skills }),
-    {
-      addSkills: addSkillsByProfessionIdSaga,
-    },
-  ),
-)(UserProfessions)
+  withRouter,
+  connect(({ skills }: RootState) => ({ skills })),
+)(withClickOutside(UserProfessions))

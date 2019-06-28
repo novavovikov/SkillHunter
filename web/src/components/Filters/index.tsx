@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import * as s from './Filters.css'
 
-const Filters: React.FC = () => {
+const Filters: FC = () => {
   return (
     <div className={s.Filters}>
       <button className={s.Filters__item}>All skills</button>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { RoleType } from '../../constants/role-type'
 import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
@@ -9,7 +9,7 @@ interface Props {
   otherProps: any
 }
 
-const FeatureController: React.FC<any> = (
+const FeatureController: FC<any> = (
   {
     user,
     roles,

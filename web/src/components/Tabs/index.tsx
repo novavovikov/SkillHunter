@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React from 'react'
+import React, { FC } from 'react'
 import H2 from '../../UI/H2'
 import * as s from './Tabs.css'
 
@@ -12,7 +12,7 @@ interface Props {
   controls: Control[]
 }
 
-const Tabs: React.FC<Props> = (
+const Tabs: FC<Props> = (
   {
     controls,
   },

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import * as s from './Search.css'
 
-const Search: React.FC = () => {
+const Search: FC = () => {
   return (
     <form className={s.Search}>
       <input

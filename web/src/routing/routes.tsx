@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Route, Switch } from 'react-router'
 import { ROUTES } from '../constants/routing'
 import PrivateRoute from './privateRoute'
@@ -12,7 +12,7 @@ const Introduction = React.lazy(() => import('../pages/Introduction'))
 const Library = React.lazy(() => import('../pages/Library'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
-const Routes: React.FC = () => {
+const Routes: FC = () => {
   return (
     <React.Suspense fallback={<div>Загрузка</div>}>
       <Switch>

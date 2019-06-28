@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import cn from 'classnames'
 import * as s from './Input.css'
 
@@ -12,7 +12,7 @@ export interface InputProps {
   autoFocus?: boolean
 }
 
-const Input: React.FC<InputProps> = (
+const Input: FC<InputProps> = (
   {
     className,
     placeholder,

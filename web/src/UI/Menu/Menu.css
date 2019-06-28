@@ -45,7 +45,7 @@
     right: 0;
     @apply --font-m;
     overflow: hidden;
-    border: var(--radius);
+    border-radius: var(--radius);
     box-shadow: var(--shadow);
     z-index: 10;
   }

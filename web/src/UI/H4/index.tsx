@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import * as s from './H4.css'
 
-const H4: React.FC = ({ children }) => {
+const H4: FC = ({ children }) => {
   return (
     <h4 className={s.H4}>
       {children}

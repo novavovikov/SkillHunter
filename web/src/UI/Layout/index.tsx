@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import s from './Layout.css'
 
-const Wrap: React.FC = ({ children }) => {
+const Wrap: FC = ({ children }) => {
   return (
     <div className={s.Layout}>
       {children}
@@ -9,7 +9,7 @@ const Wrap: React.FC = ({ children }) => {
   )
 }
 
-const Aside: React.FC = ({ children }) => {
+const Aside: FC = ({ children }) => {
   return (
     <aside className={s.Layout__aside}>
       {children}
@@ -17,7 +17,7 @@ const Aside: React.FC = ({ children }) => {
   )
 }
 
-const Content: React.FC = ({ children }) => {
+const Content: FC = ({ children }) => {
   return (
     <main className={s.Layout__content}>
       {children}
@@ -25,7 +25,7 @@ const Content: React.FC = ({ children }) => {
   )
 }
 
-const Data: React.FC = ({ children }) => {
+const Data: FC = ({ children }) => {
   return (
     <div className={s.Layout__data}>
       {children}
@@ -33,7 +33,7 @@ const Data: React.FC = ({ children }) => {
   )
 }
 
-const Caption: React.FC = ({ children }) => {
+const Caption: FC = ({ children }) => {
   return (
     <div className={s.Layout__caption}>
       {children}
@@ -41,7 +41,7 @@ const Caption: React.FC = ({ children }) => {
   )
 }
 
-const Container: React.FC = ({ children }) => {
+const Container: FC = ({ children }) => {
   return (
     <div className={s.Layout__container}>
       {children}
@@ -49,7 +49,7 @@ const Container: React.FC = ({ children }) => {
   )
 }
 
-const Section: React.FC = ({ children }) => {
+const Section: FC = ({ children }) => {
   return (
     <section className={s.Layout__section}>
       {children}

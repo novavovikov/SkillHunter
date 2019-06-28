@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React from 'react'
+import React, { FC } from 'react'
 import * as s from './Tip.css'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   icon: string
 }
 
-const Tip: React.FC<Props> = (
+const Tip: FC<Props> = (
   {
     children,
     icon,
