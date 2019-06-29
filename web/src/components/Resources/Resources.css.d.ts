@@ -7,7 +7,6 @@ interface CssExports {
   'Resources__col_full': string;
   'Resources__col_info': string;
   'Resources__col_status': string;
-  'Resources__empty': string;
   'Resources__header': string;
 }
 declare var cssExports: CssExports;

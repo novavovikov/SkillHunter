@@ -4,12 +4,14 @@ import { connect } from 'react-redux'
 import { changeResourceLikeStatusSaga, removeResourceSaga, updateResourceSaga } from '../../redux/actions/resources'
 import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceType } from '../../types'
-import { Status, IconButton } from '../../UI'
-import { Resource } from '../index'
+import { Status } from '../../UI'
+import { Resource, ResourceCreator } from '../index'
 import * as s from './Resources.css'
 
 interface Props {
   data: ResourceType[]
+  professionId: number
+  skillId: number
   updateResource: (data: Partial<ResourceType>) => void
   changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
   removeResource: (data: ResourceSagaPayload) => void
@@ -18,6 +20,8 @@ interface Props {
 const Resources: FC<Props> = (props) => {
   const {
     data,
+    professionId,
+    skillId,
     updateResource,
     changeResourceLikeStatus,
     removeResource,
@@ -29,12 +33,13 @@ const Resources: FC<Props> = (props) => {
         <div className={cn(s.Resources__col, s.Resources__col_info, {
           [s.Resources__col_full]: !data.length,
         })}>
-          <IconButton>
-            Add source
-          </IconButton>
+          <ResourceCreator
+            professionId={professionId}
+            skillId={skillId}
+          />
 
           {!data.length && (
-            <Status className={s.Resources__empty}>
+            <Status>
               List is empty. Add source for skill. Collecting, reading later and sharing source.
             </Status>
           )}

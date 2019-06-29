@@ -31,9 +31,8 @@
     color: var(--color-dodger-blue);
   }
 
-  &:disabled {
+  &:disabled:before {
+    background: var(--color-perano);
     cursor: default;
-    background: #BDBDBD;
-    box-shadow: none;
   }
 }

@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import React from 'react'
 import withClickOutside from 'react-click-outside'
-import { Button } from '../../UI'
+import { Button, IconButton } from '../../UI'
 import Creator from './Creator'
 import * as s from './ResourceCreator.css'
 
@@ -50,12 +50,9 @@ class ResourceCreator extends React.Component<Props, State> {
           />
         )}
 
-        <Button
-          onClick={this.openCreator}
-          theme="plus"
-        >
+        <IconButton onClick={this.openCreator}>
           Add source
-        </Button>
+        </IconButton>
       </div>
     )
   }

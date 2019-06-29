@@ -63,7 +63,11 @@ class UserSkill extends React.Component<Props, State> {
         </div>
 
         {isOpen && (
-          <Resources data={resources}/>
+          <Resources
+            professionId={professionId}
+            skillId={data.id}
+            data={resources}
+          />
         )}
       </div>
     )

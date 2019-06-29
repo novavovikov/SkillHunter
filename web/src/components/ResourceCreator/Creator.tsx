@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { addResourceSaga } from '../../redux/actions/resources'
 import { ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceType } from '../../types'
-import { Button } from '../../UI'
+import { Button, IconButton } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { getUrl, getUrlFromClipboard } from '../../utils/url'
 import * as s from './ResourceCreator.css'
@@ -71,6 +71,8 @@ class Creator extends React.Component<Props, State> {
         className={s.ResourceCreator__form}
         onSubmit={this.submitForm}
       >
+        <IconButton disabled={!url}/>
+
         <div>
           <input
             type="text"
@@ -87,13 +89,6 @@ class Creator extends React.Component<Props, State> {
             }
           </div>
         </div>
-
-        <Button
-          theme="plus"
-          disabled={!url}
-        >
-          Add source
-        </Button>
       </form>
     )
   }
