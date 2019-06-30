@@ -6,7 +6,7 @@ import * as s from './Nav.css'
 const CONTROLS = [
   {
     label: 'Skillset',
-    to: ROUTES.SKILL_SET,
+    to: ROUTES.SKILLSET,
   },
   {
     label: 'Evaluation',
@@ -19,14 +19,14 @@ const CONTROLS = [
 ]
 
 interface Params {
-  profession: string
+  skillset: string
 }
 
 interface Props extends RouteComponentProps<Params> {
 }
 
 const Nav: FC<Props> = ({ match }) => {
-  const postfix = match.params.profession ? `/${match.params.profession}` : ''
+  const postfix = match.params.skillset ? `/${match.params.skillset}` : ''
 
   return (
     <nav className={s.Nav}>

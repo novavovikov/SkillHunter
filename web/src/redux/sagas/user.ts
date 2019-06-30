@@ -3,7 +3,7 @@ import { API } from '../../constants/api'
 import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { UserActionTypes } from '../actionTypes/user'
-import { RemoveUserSkillSetSaga } from '../interfaces/user'
+import { RemoveUserSkillsetSaga } from '../interfaces/user'
 
 export function * getUserDataSaga () {
   yield put(ac.setUserLoadingStatus(true))
@@ -19,16 +19,16 @@ export function * getUserDataSaga () {
   yield put(ac.setUserLoadingStatus(false))
 }
 
-export function * removeUserProfession ({ payload }: RemoveUserSkillSetSaga) {
+export function * removeUserSkillset ({ payload }: RemoveUserSkillsetSaga) {
   try {
-    yield call(ajax.delete, `${API.SKILL_SET}/${payload}`)
+    yield call(ajax.delete, `${API.SKILLSET}/${payload}`)
 
-    yield put(ac.removeUserProfession(payload))
+    yield put(ac.removeUserSkillset(payload))
   } catch (error) {
   }
 }
 
 export function * watchUserData () {
   yield takeEvery(UserActionTypes.SAGA_GET_USER, getUserDataSaga)
-  yield takeEvery(UserActionTypes.SAGA_REMOVE_USER_SKILL_SET, removeUserProfession)
+  yield takeEvery(UserActionTypes.SAGA_REMOVE_USER_SKILLSET, removeUserSkillset)
 }

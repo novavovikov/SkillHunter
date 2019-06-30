@@ -1,7 +1,7 @@
 import React from 'react'
 import { AutoComplete, Button, H2 } from '../../UI'
 import { ajax } from '../../utils/ajax'
-import * as s from './SkillSet.css'
+import * as s from './Skillset.css'
 
 interface State {
   inputValue: string
@@ -9,10 +9,10 @@ interface State {
 
 interface Props {
   setStep?: (id: string) => void,
-  onSubmit: (profession: string) => void
+  onSubmit: (skillset: string) => void
 }
 
-class SkillSet extends React.Component<Props, State> {
+class Skillset extends React.Component<Props, State> {
   state = {
     inputValue: '',
   }
@@ -28,8 +28,8 @@ class SkillSet extends React.Component<Props, State> {
     const { setStep, onSubmit } = this.props
 
     if (setStep) {
-      ajax.post('profession', {
-        professions: [{
+      ajax.post('skillset', {
+        skillsets: [{
           name: this.state.inputValue
         }]
       })
@@ -43,17 +43,17 @@ class SkillSet extends React.Component<Props, State> {
 
     return (
       <form
-        className={s.SkillSet}
+        className={s.Skillset}
         onSubmit={this.onSubmit}
       >
         <H2>Who are you now or who do you want to become?</H2>
 
         <AutoComplete
-          className={s.SkillSet__input}
+          className={s.Skillset__input}
           input={{
             value: inputValue,
             onChange: this.setInputValue,
-            placeholder: 'Specialty, profession or position',
+            placeholder: 'Specialty, skillset or position',
             autoFocus: true,
           }}
         />
@@ -69,4 +69,4 @@ class SkillSet extends React.Component<Props, State> {
   }
 }
 
-export default SkillSet
+export default Skillset

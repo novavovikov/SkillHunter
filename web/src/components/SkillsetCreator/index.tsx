@@ -1,21 +1,21 @@
 import React, { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import * as s from './SkillSetCreator.css'
+import * as s from './SkillsetCreator.css'
 
-const SkillSetCreator: FC = () => {
+const SkillsetCreator: FC = () => {
   return (
     <NavLink
-      className={s.SkillSetCreator}
+      className={s.SkillsetCreator}
       to={ROUTES.INTRODUCTION}
     >
       Add skillset
 
-      <div className={s.SkillSetCreator__desc}>
+      <div className={s.SkillsetCreator__desc}>
         Specialty, hobby or activity
       </div>
     </NavLink>
   )
 }
 
-export default SkillSetCreator
+export default SkillsetCreator

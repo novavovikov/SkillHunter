@@ -10,7 +10,7 @@ import { getUrl, getUrlFromClipboard } from '../../utils/url'
 import * as s from './ResourceCreator.css'
 
 interface Props {
-  professionId: number
+  skillsetId: number
   skillId: number
   addResource: (data: ResourceSagaPayload) => void
   onClose: () => void
@@ -43,7 +43,7 @@ class Creator extends React.Component<Props, State> {
 
   submitForm = async (e: any) => {
     e.preventDefault()
-    const { skillId, professionId, addResource, onClose } = this.props
+    const { skillId, skillsetId, addResource, onClose } = this.props
     const { inputValue } = this.state
     const url = getUrl(inputValue)
 
@@ -53,7 +53,7 @@ class Creator extends React.Component<Props, State> {
       }).then(({ data }) => data as ResourceType)
 
       addResource({
-        professionId,
+        skillsetId,
         skillId,
         resourceId: resource.id,
       })

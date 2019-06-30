@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindOneOptions, Repository } from 'typeorm'
 import { unique } from '../../utils/unique'
-import { Profession } from '../profession/profession.entity'
+import { Skillset } from '../skillset/skillset.entity'
 import { UserDto } from './user.dto'
 import { User } from './user.entity'
 
@@ -73,21 +73,21 @@ export class UserService {
     return await this.userRepository.findOne({ email })
   }
 
-  async addProfession (userId: number | string, profession: Profession) {
+  async addSkillset (userId: number | string, skillset: Skillset) {
     const user = await this.findById(userId, {
-      relations: ['professions'],
+      relations: ['skillsets'],
     })
 
-    user.professions = unique([...user.professions, profession])
+    user.skillsets = unique([...user.skillsets, skillset])
     return await this.userRepository.save(user)
   }
 
-  async removeProfession (userId: number, professionId: number) {
+  async removeSkillset (userId: number, skillsetId: number) {
     const user = await this.findById(userId, {
-      relations: ['professions'],
+      relations: ['skillsets'],
     })
 
-    user.professions = user.professions.filter(({ id }) => id !== professionId)
+    user.skillsets = user.skillsets.filter(({ id }) => id !== skillsetId)
     return await this.userRepository.save(user)
   }
 }

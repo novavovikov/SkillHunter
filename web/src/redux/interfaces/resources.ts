@@ -2,12 +2,12 @@ import { ResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 
 export interface GetResourcesRequestPayload {
-  professionId: number
+  skillsetId: number
   skillIds: number[]
 }
 
 export interface ResourceSagaPayload {
-  professionId: number
+  skillsetId: number
   skillId: number
   resourceId: number
 }

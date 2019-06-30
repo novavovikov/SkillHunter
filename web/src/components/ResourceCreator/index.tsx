@@ -7,7 +7,7 @@ import * as s from './ResourceCreator.css'
 
 interface Props {
   className?: string
-  professionId: number
+  skillsetId: number
   skillId: number
 }
 
@@ -37,7 +37,7 @@ class ResourceCreator extends React.Component<Props, State> {
   }
 
   render () {
-    const { className, skillId, professionId } = this.props
+    const { className, skillId, skillsetId } = this.props
     const { isOpen } = this.state
 
     return (
@@ -45,7 +45,7 @@ class ResourceCreator extends React.Component<Props, State> {
         {isOpen && (
           <Creator
             skillId={skillId}
-            professionId={professionId}
+            skillsetId={skillsetId}
             onClose={this.closeCreator}
           />
         )}

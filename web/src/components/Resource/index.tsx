@@ -32,14 +32,14 @@ class Resource extends React.Component<Props> {
       data: {
         id,
         skillId,
-        professionId,
+        skillsetId,
       },
     } = this.props
 
     updateHandler({
       id,
       skillId,
-      professionId,
+      skillsetId,
       status: e.target.value,
     })
   }
@@ -57,14 +57,14 @@ class Resource extends React.Component<Props> {
     const {
       removeHandler,
       data: {
-        professionId,
+        skillsetId,
         skillId,
         id: resourceId,
       },
     } = this.props
 
     removeHandler({
-      professionId,
+      skillsetId,
       skillId,
       resourceId,
     })

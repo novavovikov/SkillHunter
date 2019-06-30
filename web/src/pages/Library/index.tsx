@@ -15,14 +15,14 @@ import { Loader } from '../../UI'
 import * as s from './Library.css'
 
 interface Params {
-  profession: string
+  skillset: string
 }
 
 interface Props extends RouteComponentProps<Params> {
   user: UserState,
   skills: SkillsState
   resources: ResourcesState
-  getSkills: (professionId: number) => void
+  getSkills: (skillsetId: number) => void
 }
 
 class Library extends React.Component<Props> {
@@ -31,28 +31,28 @@ class Library extends React.Component<Props> {
   }
 
   componentDidUpdate ({ match }: Readonly<Props>): void {
-    if (this.props.match.params.profession !== match.params.profession) {
+    if (this.props.match.params.skillset !== match.params.skillset) {
       this.getSkills()
     }
   }
 
-  getProfessionId = () => {
+  getSkillsetId = () => {
     const { user, match } = this.props
 
     if (!user.data) {
       return
     }
 
-    const profession: any = user.data.professions.find(({ name }) => name === match.params.profession) || {}
+    const skillset: any = user.data.skillsets.find(({ name }) => name === match.params.skillset) || {}
 
-    return profession.id
+    return skillset.id
   }
 
   getSkills = () => {
-    const professionId = this.getProfessionId()
+    const skillsetId = this.getSkillsetId()
 
-    if (professionId) {
-      this.props.getSkills(professionId)
+    if (skillsetId) {
+      this.props.getSkills(skillsetId)
     }
   }
 
@@ -65,7 +65,7 @@ class Library extends React.Component<Props> {
       },
     } = this.props
 
-    if (!match.params.profession) {
+    if (!match.params.skillset) {
       return <Redirect to={ROUTES.HOME}/>
     }
 
@@ -80,7 +80,7 @@ class Library extends React.Component<Props> {
         {!isLoading && data.map((skill: SkillType) => (
           <UserSkill
             key={skill.id}
-            professionId={this.getProfessionId()}
+            skillsetId={this.getSkillsetId()}
             data={skill}
           />
         ))}

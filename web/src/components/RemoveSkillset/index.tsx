@@ -3,38 +3,38 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { compose } from 'redux'
 import { withUser } from '../../providers/User'
-import { removeUserProfessionSaga } from '../../redux/actions/user'
+import { removeUserSkillsetSaga } from '../../redux/actions/user'
 import { SimpleButton } from '../../UI'
-import * as s from './RemoveSkillSet.css'
+import * as s from './RemoveSkillset.css'
 
 interface Props {
   skillSetId: number
-  removeUserProfession: (skillSetId: number) => void
+  removeUserSkillset: (skillSetId: number) => void
   onClose: () => void
 }
 
-const RemoveSkillSet: FC<Props> = ({ skillSetId, removeUserProfession, onClose, children }) => {
-  const deleteSkillSet = () => {
-    removeUserProfession(skillSetId)
+const RemoveSkillset: FC<Props> = ({ skillSetId, removeUserSkillset, onClose, children }) => {
+  const deleteSkillset = () => {
+    removeUserSkillset(skillSetId)
     onClose()
   }
 
   return (
-    <div className={s.RemoveSkillSet}>
-      <div className={s.RemoveSkillSet__content}>
+    <div className={s.RemoveSkillset}>
+      <div className={s.RemoveSkillset__content}>
         {children}
       </div>
 
       <SimpleButton
-        className={s.RemoveSkillSet__button}
+        className={s.RemoveSkillset__button}
         onClick={onClose}
       >
         Cancel
       </SimpleButton>
 
       <SimpleButton
-        className={s.RemoveSkillSet__button}
-        onClick={deleteSkillSet}
+        className={s.RemoveSkillset__button}
+        onClick={deleteSkillset}
       >
         Delete
       </SimpleButton>
@@ -48,7 +48,7 @@ export default compose(
   connect(
     null,
     {
-      removeUserProfession: removeUserProfessionSaga,
+      removeUserSkillset: removeUserSkillsetSaga,
     },
   ),
-)(RemoveSkillSet)
+)(RemoveSkillset)

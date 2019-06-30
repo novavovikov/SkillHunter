@@ -9,8 +9,8 @@ import { RootState } from '../../redux/reducers'
 import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
 import { Animation, Icon, Popup } from '../../UI'
-import { RemoveSkillSet, SkillSetCreator } from '../index'
-import * as s from './UserSkillSet.css'
+import { RemoveSkillset, SkillsetCreator } from '../index'
+import * as s from './UserSkillset.css'
 
 const skillSetInitialState = {
   id: null,
@@ -18,10 +18,10 @@ const skillSetInitialState = {
 }
 
 interface Params {
-  profession: string
+  skillset: string
 }
 
-interface SkillSetType {
+interface SkillsetType {
   id: number | null
   name: string
 }
@@ -33,10 +33,10 @@ interface Props extends RouteComponentProps<Params> {
 
 interface State {
   isOpen: boolean
-  skillSet: SkillSetType
+  skillSet: SkillsetType
 }
 
-class UserSkillSet extends React.Component<Props, State> {
+class UserSkillset extends React.Component<Props, State> {
   state = {
     isOpen: false,
     skillSet: skillSetInitialState,
@@ -81,41 +81,41 @@ class UserSkillSet extends React.Component<Props, State> {
     const { isOpen, skillSet } = this.state
 
     return (
-      <div className={s.UserSkillSet}>
+      <div className={s.UserSkillset}>
         <button
-          className={s.UserSkillSet__selected}
+          className={s.UserSkillset__selected}
           onClick={this.toggleList}
         >
           <Icon
             type="user"
-            className={s.UserSkillSet__userIcon}
+            className={s.UserSkillset__userIcon}
           />
-          {match.params.profession}
+          {match.params.skillset}
           <Icon
             type={isOpen ? 'arrow-up' : 'arrow-down'}
-            className={s.UserSkillSet__selectedArrow}
+            className={s.UserSkillset__selectedArrow}
           />
         </button>
 
         <Animation.Dropdown in={isOpen}>
-          <div className={s.UserSkillSet__list}>
-            {user.data.professions.map(({ id, name }) => (
+          <div className={s.UserSkillset__list}>
+            {user.data.skillsets.map(({ id, name }) => (
               <div
                 key={id}
-                className={s.UserSkillSet__item}
+                className={s.UserSkillset__item}
               >
                 <NavLink
-                  to={`${ROUTES.SKILL_SET}/${name}`}
-                  className={s.UserSkillSet__link}
-                  activeClassName={s.UserSkillSet__link_active}
+                  to={`${ROUTES.SKILLSET}/${name}`}
+                  className={s.UserSkillset__link}
+                  activeClassName={s.UserSkillset__link_active}
                   onClick={this.closeList}
                 >
                   {name}
                 </NavLink>
 
-                {match.params.profession !== name && (
+                {match.params.skillset !== name && (
                   <button
-                    className={s.UserSkillSet__remove}
+                    className={s.UserSkillset__remove}
                     onClick={() => this.openRemovePopup(id, name)}
                   >
                     <Icon type="bin"/>
@@ -124,7 +124,7 @@ class UserSkillSet extends React.Component<Props, State> {
               </div>
             ))}
 
-            <SkillSetCreator/>
+            <SkillsetCreator/>
           </div>
         </Animation.Dropdown>
 
@@ -132,15 +132,15 @@ class UserSkillSet extends React.Component<Props, State> {
           isOpen={!!skillSet.id}
           onClose={this.closeRemovePopup}
         >
-          <RemoveSkillSet
+          <RemoveSkillset
             skillSetId={skillSet.id}
             onClose={this.closeRemovePopup}
           >
-            <h5 className={s.UserSkillSet__title}>
+            <h5 className={s.UserSkillset__title}>
               Delete skillset?
             </h5>
             {skillSet.name}
-          </RemoveSkillSet>
+          </RemoveSkillset>
         </Popup>
       </div>
     )
@@ -152,4 +152,4 @@ export default compose(
   withRouter,
   connect(({ skills }: RootState) => ({ skills }),
   ),
-)(withClickOutside(UserSkillSet))
+)(withClickOutside(UserSkillset))

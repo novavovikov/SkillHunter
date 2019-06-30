@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { Profession } from '../profession/profession.entity'
+import { Skillset } from '../skillset/skillset.entity'
 import { Resource } from '../resource/resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
 
@@ -17,8 +17,8 @@ export class Skill {
   @Column({ default: false })
   accepted: boolean
 
-  @ManyToMany(() => Profession, (profession: Profession) => profession.skills)
-  professions: Profession[]
+  @ManyToMany(() => Skillset, (skillset: Skillset) => skillset.skills)
+  skillsets: Skillset[]
 
   @ManyToMany(() => Resource, (resource: Resource) => resource.skills)
   resources: Resource[]

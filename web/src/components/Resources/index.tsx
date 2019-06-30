@@ -10,7 +10,7 @@ import * as s from './Resources.css'
 
 interface Props {
   data: ResourceType[]
-  professionId: number
+  skillsetId: number
   skillId: number
   updateResource: (data: Partial<ResourceType>) => void
   changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
@@ -20,7 +20,7 @@ interface Props {
 const Resources: FC<Props> = (props) => {
   const {
     data,
-    professionId,
+    skillsetId,
     skillId,
     updateResource,
     changeResourceLikeStatus,
@@ -34,7 +34,7 @@ const Resources: FC<Props> = (props) => {
           [s.Resources__col_full]: !data.length,
         })}>
           <ResourceCreator
-            professionId={professionId}
+            skillsetId={skillsetId}
             skillId={skillId}
           />
 

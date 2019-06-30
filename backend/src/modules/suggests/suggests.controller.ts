@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
-import { ProfessionService } from '../profession/profession.service'
+import { SkillsetService } from '../skillset/skillset.service'
 import { SkillService } from '../skill/skill.service'
 import { SUGGESTS } from './constants/uri'
 import { SuggestsService } from './suggests.service'
@@ -13,21 +13,21 @@ export class SuggestsController {
   constructor (
     private suggestsService: SuggestsService,
     private skillService: SkillService,
-    private professionService: ProfessionService,
+    private skillsetService: SkillsetService,
   ) {}
 
   @Get()
   async getSuggests (
-    @Query('profession') profession: string,
+    @Query('skillset') skillset: string,
     @Query('skill') skill: string,
   ) {
-    if (profession) {
-      const data = await this.suggestsService.getDataFromHH(SUGGESTS.profession, profession)
-      await this.professionService.setProfessions(data.map(item => ({
+    if (skillset) {
+      const data = await this.suggestsService.getDataFromHH(SUGGESTS.skillset, skillset)
+      await this.skillsetService.setSkillsets(data.map(item => ({
         ...item,
         accepted: true,
       })))
-      return await this.professionService.like('name', profession)
+      return await this.skillsetService.like('name', skillset)
     }
 
     if (skill) {

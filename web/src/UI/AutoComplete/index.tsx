@@ -41,7 +41,7 @@ class AutoComplete extends React.Component<Props, State> {
 
   getSuggestions = debounce((text?: string) => {
     ajax.
-      get(`/suggests?profession=${text}`).
+      get(`/suggests?skillset=${text}`).
       then(({ data }: any) => {
         Array.isArray(data) &&
         this.setSuggestions(data)

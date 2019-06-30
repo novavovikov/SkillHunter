@@ -16,13 +16,13 @@ class Home extends React.Component<Props> {
       return <Redirect to={ROUTES.AUTH}/>
     }
 
-    if (!data.professions.length) {
+    if (!data.skillsets.length) {
       return <Redirect to={ROUTES.INTRODUCTION}/>
     }
 
-    const profession = data.professions[0].name
+    const skillset = data.skillsets[0].name
 
-    return <Redirect to={`${ROUTES.SKILL_SET}/${profession}`}/>
+    return <Redirect to={`${ROUTES.SKILLSET}/${skillset}`}/>
   }
 }
 

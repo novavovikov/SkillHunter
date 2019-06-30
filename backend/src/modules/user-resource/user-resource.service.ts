@@ -15,13 +15,13 @@ export class UserResourceService {
 
   async addResource (
     user: User,
-    professionId: number,
+    skillsetId: number,
     skillId: number,
     resource: Resource,
   ) {
     const userResource = this.userResourceRepository.create({
       user,
-      professionId,
+      skillsetId,
       skillId,
       resource,
     })
@@ -31,21 +31,21 @@ export class UserResourceService {
       resource,
       status,
       user.id,
-      professionId,
+      skillsetId,
       skillId,
     )
   }
 
   async updateResource (
     user: User,
-    professionId: number,
+    skillsetId: number,
     skillId: number,
     resource: Resource,
     data: any,
   ) {
     await this.userResourceRepository.update({
       user,
-      professionId,
+      skillsetId,
       skillId,
       resource,
     }, data)
@@ -53,14 +53,14 @@ export class UserResourceService {
     return {
       id: resource.id,
       skillId,
-      professionId,
+      skillsetId,
       ...data,
     }
   }
 
   async getResourcesBySkillId (
     userId: number,
-    professionId: number,
+    skillsetId: number,
     skillId: number,
   ) {
 
@@ -69,7 +69,7 @@ export class UserResourceService {
       relations: ['resource'],
       where: {
         userId,
-        professionId,
+        skillsetId,
         skillId,
       },
     })
@@ -79,7 +79,7 @@ export class UserResourceService {
         resource,
         status,
         userId,
-        professionId,
+        skillsetId,
         skillId,
       )
     })
@@ -87,19 +87,19 @@ export class UserResourceService {
 
   async getResourcesBulk (
     user: User,
-    professionId: number,
+    skillsetId: number,
     skillsIds: number[],
   ) {
     const userResources = await this.userResourceRepository.find({
       where: {
         user,
-        professionId,
+        skillsetId,
         skillId: In(skillsIds),
       },
     })
 
     return userResources.reduce((acc, {
-      professionId,
+      skillsetId,
       skillId,
       resource,
       status,
@@ -108,7 +108,7 @@ export class UserResourceService {
         resource,
         status,
         user.id,
-        professionId,
+        skillsetId,
         skillId,
       )
 
@@ -128,13 +128,13 @@ export class UserResourceService {
 
   async removeResourceBySkillId (
     user: User,
-    professionId: number,
+    skillsetId: number,
     skillId: number,
     resource: Resource,
   ) {
     const userResources = await this.userResourceRepository.find({
       user,
-      professionId,
+      skillsetId,
       skillId,
       resource,
     })
@@ -142,11 +142,11 @@ export class UserResourceService {
     this.userResourceRepository.remove(userResources)
   }
 
-  async removeResourcesByProfessionId (
+  async removeResourcesBySkillsetId (
     user: User,
-    professionId: number
+    skillsetId: number
   ) {
-    const userResources = await this.userResourceRepository.find({ user, professionId })
+    const userResources = await this.userResourceRepository.find({ user, skillsetId })
 
     return await this.userResourceRepository.remove(userResources)
   }
@@ -163,11 +163,11 @@ export class UserResourceService {
     resource: Resource,
     status: string | UserResourceStatusType,
     userId: number,
-    professionId: number,
+    skillsetId: number,
     skillId: number,
   ) => ({
     ...resource,
-    professionId,
+    skillsetId,
     skillId,
     status,
     likes: resource.userIdsLikes.length,

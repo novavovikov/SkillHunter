@@ -4,7 +4,7 @@ import { Resource } from '../resource/resource.entity'
 import { User } from '../user/user.entity'
 
 @Entity()
-@Index(['user', 'professionId', 'skillId', 'resource'], { unique: true })
+@Index(['user', 'skillsetId', 'skillId', 'resource'], { unique: true })
 export class UserResource {
   @PrimaryGeneratedColumn()
   id: number
@@ -13,7 +13,7 @@ export class UserResource {
   user: User
 
   @Column()
-  professionId: number
+  skillsetId: number
 
   @Column()
   skillId: number

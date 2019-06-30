@@ -66,7 +66,7 @@ class SkillList extends React.Component<Props, State> {
     const { setStep } = this.props
 
     if (typeof setStep === 'function') {
-      setStep('SkillSet')
+      setStep('Skillset')
     }
   }
 

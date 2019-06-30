@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { SkillSet, SkillList, Steps } from '../../components'
+import { Skillset, SkillList, Steps } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { withNotification } from '../../providers/Notification'
@@ -10,29 +10,29 @@ import { NotificationProps } from '../../providers/Notification/context'
 import { updateUserData } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
-import { SkillSetType, SkillType } from '../../types'
+import { SkillsetType, SkillType } from '../../types'
 import { Layout, Logo } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
   user: UserState
-  setSkillSets: (data: SkillSetType[]) => void,
+  setSkillsets: (data: SkillsetType[]) => void,
   notificationApi: NotificationProps
 }
 
 interface State {
-  profession: string
+  skillset: string
   skills: string[]
 }
 
 class Introduction extends React.Component<Props, State> {
   state = {
-    profession: '',
+    skillset: '',
     skills: [],
   }
 
-  setProfession = (profession: string) => {
-    this.setState({ profession })
+  setSkillset = (skillset: string) => {
+    this.setState({ skillset })
   }
 
   setSkills = (skills: string[]) => {
@@ -40,13 +40,13 @@ class Introduction extends React.Component<Props, State> {
   }
 
   onSubmit = () => {
-    const { history, setSkillSets, notificationApi } = this.props
+    const { history, setSkillsets, notificationApi } = this.props
 
     ajax.
-      post('user/profession', this.state).
+      post('user/skillset', this.state).
       then(({ data }) => {
-        setSkillSets(data as SkillSetType[])
-        history.push(`${ROUTES.SKILL_SET}/${this.state.profession}`)
+        setSkillsets(data as SkillsetType[])
+        history.push(`${ROUTES.SKILLSET}/${this.state.skillset}`)
       }).
       catch(e => {
         notificationApi.showNotification('System error. Try again.', NotificationTypes.error)
@@ -61,11 +61,11 @@ class Introduction extends React.Component<Props, State> {
         </Layout.Container>
 
         <Steps.Wrap
-          initStep="Profession"
+          initStep="Skillset"
           steps={[
             {
               label: '1. Skillset',
-              id: 'Profession',
+              id: 'Skillset',
             },
             {
               label: '2. Skills',
@@ -73,8 +73,8 @@ class Introduction extends React.Component<Props, State> {
             },
           ]}
         >
-          <Steps.Content id={'Profession'}>
-            <SkillSet onSubmit={this.setProfession}/>
+          <Steps.Content id={'Skillset'}>
+            <Skillset onSubmit={this.setSkillset}/>
           </Steps.Content>
           <Steps.Content id={'Skills'}>
             <SkillList onSubmit={this.setSkills}/>
@@ -91,7 +91,7 @@ export default compose(
   connect(
     ({ user }: RootState) => ({ user }),
     {
-      setSkillSets: (professions: SkillSetType[]) => updateUserData({ professions }),
+      setSkillsets: (skillsets: SkillsetType[]) => updateUserData({ skillsets }),
     },
   ),
 )(Introduction)

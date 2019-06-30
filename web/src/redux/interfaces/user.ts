@@ -4,8 +4,8 @@ export interface GetUserDataSaga {
   type: UserActionTypes.SAGA_GET_USER
 }
 
-export interface RemoveUserSkillSetSaga {
-  type: UserActionTypes.SAGA_REMOVE_USER_SKILL_SET,
+export interface RemoveUserSkillsetSaga {
+  type: UserActionTypes.SAGA_REMOVE_USER_SKILLSET,
   payload: number
 }
 
@@ -25,15 +25,15 @@ export interface UpdateUserData {
   payload: any
 }
 
-export interface RemoveUserSkillSet {
-  type: UserActionTypes.REMOVE_USER_SKILL_SET,
+export interface RemoveUserSkillset {
+  type: UserActionTypes.REMOVE_USER_SKILLSET,
   payload: number
 }
 
 export type UserAction =
   GetUserDataSaga |
-  RemoveUserSkillSetSaga |
+  RemoveUserSkillsetSaga |
   SetUserData |
   SetUserLoadingStatus |
   UpdateUserData |
-  RemoveUserSkillSet
+  RemoveUserSkillset

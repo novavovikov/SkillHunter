@@ -5,8 +5,8 @@ import { Roles } from '../../common/decorators/roles.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
 import { unique } from '../../utils/unique'
-import { Profession } from '../profession/profession.entity'
-import { ProfessionService } from '../profession/profession.service'
+import { Skillset } from '../skillset/skillset.entity'
+import { SkillsetService } from '../skillset/skillset.service'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
@@ -23,7 +23,7 @@ export class UserController {
     private userSkillService: UserSkillService,
     private userResourceService: UserResourceService,
     private skillService: SkillService,
-    private professionService: ProfessionService,
+    private skillsetService: SkillsetService,
   ) {}
 
   @Get()
@@ -47,7 +47,7 @@ export class UserController {
         'locale',
       ],
       relations: [
-        'professions',
+        'skillsets',
       ],
     })
   }
@@ -91,48 +91,48 @@ export class UserController {
     return this.userService.delete(req.user.id)
   }
 
-  @Get('professions')
+  @Get('skillsets')
   @ApiUseTags('user')
-  async getProfession (@Req() req): Promise<Profession[]> {
-    const { professions } = await this.userService.findById(req.user.id, {
+  async getSkillset (@Req() req): Promise<Skillset[]> {
+    const { skillsets } = await this.userService.findById(req.user.id, {
       select: ['id'],
-      relations: ['professions'],
+      relations: ['skillsets'],
     })
 
-    return professions
+    return skillsets
   }
 
-  @Post('profession')
+  @Post('skillset')
   @ApiUseTags('user')
   async addInfo (
-    @Body('profession') profession: string,
+    @Body('skillset') skillset: string,
     @Body('skills') skills: string[],
     @Req() req,
   ) {
-    const foundProfession = await this.professionService.findByName(profession, {
+    const foundSkillset = await this.skillsetService.findByName(skillset, {
       relations: ['skills'],
     })
 
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
-    foundProfession.skills = unique([...foundProfession.skills, ...skillList])
+    foundSkillset.skills = unique([...foundSkillset.skills, ...skillList])
 
-    const updatedUser = await this.userService.addProfession(req.user.id, foundProfession)
+    const updatedUser = await this.userService.addSkillset(req.user.id, foundSkillset)
     await this.userSkillService.addSkills(
       req.user.id,
-      foundProfession.id,
+      foundSkillset.id,
       skillList,
     )
 
-    return updatedUser.professions
+    return updatedUser.skillsets
   }
 
-  @Delete('profession/:professionId')
-  async removeProfession (
-    @Param('professionId') professionId: string,
+  @Delete('skillset/:skillsetId')
+  async removeSkillset (
+    @Param('skillsetId') skillsetId: string,
     @Req() req
   ) {
-    await this.userResourceService.removeResourcesByProfessionId(req.user, Number(professionId))
-    await this.userSkillService.removeSkillsByProfessionId(req.user, Number(professionId))
-    await this.userService.removeProfession(req.user.id, Number(professionId))
+    await this.userResourceService.removeResourcesBySkillsetId(req.user, Number(skillsetId))
+    await this.userSkillService.removeSkillsBySkillsetId(req.user, Number(skillsetId))
+    await this.userService.removeSkillset(req.user.id, Number(skillsetId))
   }
 }

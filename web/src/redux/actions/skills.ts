@@ -2,19 +2,19 @@ import { SkillType } from '../../types'
 import { SkillsActionTypes } from '../actionTypes/skills'
 import {
   AddSkills,
-  AddSkillsByProfessionId,
+  AddSkillsBySkillsetId,
   AddSkillsRequestPayload,
   GetSkillsDataPayload,
   SetSkillsData,
   SetSkillsLoadingStatus,
 } from '../interfaces/skills'
 
-export const getSkillsDataSaga = (professionId: number): GetSkillsDataPayload => ({
+export const getSkillsDataSaga = (skillsetId: number): GetSkillsDataPayload => ({
   type: SkillsActionTypes.SAGA_GET_SKILLS,
-  payload: professionId,
+  payload: skillsetId,
 })
 
-export const addSkillsByProfessionIdSaga = (data: AddSkillsRequestPayload): AddSkillsByProfessionId => ({
+export const addSkillsBySkillsetIdSaga = (data: AddSkillsRequestPayload): AddSkillsBySkillsetId => ({
   type: SkillsActionTypes.SAGA_ADD_SKILLS,
   payload: data,
 })

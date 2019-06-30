@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ProfessionModule } from '../profession/profession.module'
-import { ProfessionService } from '../profession/profession.service'
+import { SkillsetModule } from '../skillset/skillset.module'
+import { SkillsetService } from '../skillset/skillset.service'
 import { ResourceModule } from '../resource/resource.module'
 import { ResourceService } from '../resource/resource.service'
 import { SkillModule } from '../skill/skill.module'
@@ -15,14 +15,14 @@ import { UserResourceService } from './user-resource.service'
     TypeOrmModule.forFeature([
       UserResource,
     ]),
-    ProfessionModule,
+    SkillsetModule,
     SkillModule,
     ResourceModule,
   ],
   controllers: [UserResourceController],
   providers: [
     UserResourceService,
-    ProfessionService,
+    SkillsetService,
     SkillService,
     ResourceService,
   ],
