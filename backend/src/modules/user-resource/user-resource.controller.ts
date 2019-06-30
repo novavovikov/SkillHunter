@@ -15,8 +15,8 @@ import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { UserResourceStatusType } from '../../constants/status-type'
-import { Profession } from '../profession/profession.entity'
-import { ProfessionService } from '../profession/profession.service'
+import { Skillset } from '../skillset/skillset.entity'
+import { SkillsetService } from '../skillset/skillset.service'
 import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
 import { SkillService } from '../skill/skill.service'
@@ -28,7 +28,7 @@ import { UserResourceService } from './user-resource.service'
 export class UserResourceController {
   constructor (
     private userResourceService: UserResourceService,
-    private professionService: ProfessionService,
+    private skillsetService: SkillsetService,
     private skillService: SkillService,
     private resourceService: ResourceService,
   ) {}
@@ -37,7 +37,7 @@ export class UserResourceController {
   @ApiUseTags('user-resource')
   async addResource (
     @Req() req,
-    @Body('professionId') professionId: number,
+    @Body('skillsetId') skillsetId: number,
     @Body('skillId') skillId: number,
     @Body('resourceId') resourceId: number,
   ) {
@@ -47,10 +47,10 @@ export class UserResourceController {
       return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
     }
 
-    const profession: Profession = await this.professionService.findById(professionId)
+    const skillset: Skillset = await this.skillsetService.findById(skillsetId)
 
-    if (!profession) {
-      return new HttpException('professionId  not found', HttpStatus.BAD_REQUEST)
+    if (!skillset) {
+      return new HttpException('skillsetId  not found', HttpStatus.BAD_REQUEST)
     }
 
     const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
@@ -61,45 +61,45 @@ export class UserResourceController {
 
     return this.userResourceService.addResource(
       req.user,
-      professionId,
+      skillsetId,
       skillId,
       resource,
     )
   }
 
-  @Post(':professionId')
+  @Post(':skillsetId')
   @ApiUseTags('user-resource')
   async getResourcesBulk (
     @Req() req,
-    @Param('professionId') professionId: string,
+    @Param('skillsetId') skillsetId: string,
     @Body() skillsIds: number[],
   ) {
     return this.userResourceService.getResourcesBulk(
       req.user,
-      Number(professionId),
+      Number(skillsetId),
       skillsIds,
     )
   }
 
-  @Get(':professionId/:skillId')
+  @Get(':skillsetId/:skillId')
   @ApiUseTags('user-resource')
   async getResources (
     @Req() req,
-    @Param('professionId') professionId: string,
+    @Param('skillsetId') skillsetId: string,
     @Param('skillId') skillId: string,
   ) {
     return this.userResourceService.getResourcesBySkillId(
       req.user.id,
-      Number(professionId),
+      Number(skillsetId),
       Number(skillId),
     )
   }
 
-  @Put(':professionId/:skillId/:resourceId')
+  @Put(':skillsetId/:skillId/:resourceId')
   @ApiUseTags('user-resource')
   async updateResource (
     @Req() req,
-    @Param('professionId') professionId: string,
+    @Param('skillsetId') skillsetId: string,
     @Param('skillId') skillId: string,
     @Param('resourceId') resourceId: string,
     @Body('status') status: UserResourceStatusType,
@@ -110,10 +110,10 @@ export class UserResourceController {
       return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
     }
 
-    const profession: Profession = await this.professionService.findById(professionId)
+    const skillset: Skillset = await this.skillsetService.findById(skillsetId)
 
-    if (!profession) {
-      return new HttpException('professionId  not found', HttpStatus.BAD_REQUEST)
+    if (!skillset) {
+      return new HttpException('skillsetId  not found', HttpStatus.BAD_REQUEST)
     }
 
     const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
@@ -124,7 +124,7 @@ export class UserResourceController {
 
     return this.userResourceService.updateResource(
       req.user,
-      Number(professionId),
+      Number(skillsetId),
       Number(skillId),
       resource,
       {
@@ -133,11 +133,11 @@ export class UserResourceController {
     )
   }
 
-  @Delete(':professionId/:skillId/:resourceId')
+  @Delete(':skillsetId/:skillId/:resourceId')
   @ApiUseTags('user-resource')
   async removeResource (
     @Req() req,
-    @Param('professionId') professionId: string,
+    @Param('skillsetId') skillsetId: string,
     @Param('skillId') skillId: string,
     @Param('resourceId') resourceId: string,
   ) {
@@ -145,7 +145,7 @@ export class UserResourceController {
 
     return this.userResourceService.removeResourceBySkillId(
       req.user,
-      Number(professionId),
+      Number(skillsetId),
       Number(skillId),
       resource,
     )

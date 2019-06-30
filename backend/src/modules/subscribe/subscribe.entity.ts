@@ -15,7 +15,7 @@ export class Subscribe {
 
 
   @Column({ nullable: true })
-  profession: string
+  skillset: string
 
 
   @Column({ nullable: true })

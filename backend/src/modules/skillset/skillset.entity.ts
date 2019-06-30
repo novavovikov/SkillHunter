@@ -3,7 +3,7 @@ import { Skill } from '../skill/skill.entity'
 import { User } from '../user/user.entity'
 
 @Entity()
-export class Profession {
+export class Skillset {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -16,10 +16,10 @@ export class Profession {
   @Column({ default: false })
   accepted: boolean
 
-  @ManyToMany(() => Skill, (skill: Skill) => skill.professions)
-  @JoinTable({ name: 'profession_skills' })
+  @ManyToMany(() => Skill, (skill: Skill) => skill.skillsets)
+  @JoinTable({ name: 'skillset_skills' })
   skills: Skill[]
 
-  @ManyToMany(() => User, (user: User) => user.professions)
+  @ManyToMany(() => User, (user: User) => user.skillsets)
   users: User[]
 }

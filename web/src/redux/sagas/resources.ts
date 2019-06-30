@@ -12,7 +12,7 @@ import {
 
 export function * getResourcesSaga ({ payload }: GetResourcesSaga) {
   try {
-    const { data } = yield call(ajax.post, `${API.USER_RESOURCE}/${payload.professionId}`, payload.skillIds)
+    const { data } = yield call(ajax.post, `${API.USER_RESOURCE}/${payload.skillsetId}`, payload.skillIds)
 
     yield put(ac.setResources(data))
   } catch (error) {
@@ -34,8 +34,8 @@ export function * addResourceSaga ({ payload }: RemoveResourceSaga) {
 
 export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
   try {
-    const { professionId, skillId, id, ...otherProps } = payload
-    const { data } = yield call(ajax.put, `${API.USER_RESOURCE}/${professionId}/${skillId}/${id}`, otherProps)
+    const { skillsetId, skillId, id, ...otherProps } = payload
+    const { data } = yield call(ajax.put, `${API.USER_RESOURCE}/${skillsetId}/${skillId}/${id}`, otherProps)
 
     yield put(ac.updateResource(data))
   } catch (error) {
@@ -58,9 +58,9 @@ export function * changeResourceLikeStatusSaga ({ payload }: ChangeResourceLikeS
   }
 }
 
-export function * removeResourcesSaga ({ payload: { professionId, skillId, resourceId } }: RemoveResourceSaga) {
+export function * removeResourcesSaga ({ payload: { skillsetId, skillId, resourceId } }: RemoveResourceSaga) {
   try {
-    yield call(ajax.delete, `${API.USER_RESOURCE}/${professionId}/${skillId}/${resourceId}`)
+    yield call(ajax.delete, `${API.USER_RESOURCE}/${skillsetId}/${skillId}/${resourceId}`)
 
     yield put(ac.removeResource({ skillId, resourceId }))
   } catch (error) {

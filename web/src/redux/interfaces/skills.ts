@@ -2,7 +2,7 @@ import { SkillType } from '../../types'
 import { SkillsActionTypes } from '../actionTypes/skills'
 
 export interface AddSkillsRequestPayload {
-  professionId: number
+  skillsetId: number
   skills: string[]
 }
 
@@ -11,7 +11,7 @@ export interface GetSkillsDataPayload {
   payload: number
 }
 
-export interface AddSkillsByProfessionId {
+export interface AddSkillsBySkillsetId {
   type: SkillsActionTypes.SAGA_ADD_SKILLS,
   payload: AddSkillsRequestPayload
 }
@@ -33,7 +33,7 @@ export interface SetSkillsLoadingStatus {
 
 export type SkillsAction =
   GetSkillsDataPayload |
-  AddSkillsByProfessionId |
+  AddSkillsBySkillsetId |
   AddSkills |
   SetSkillsData |
   SetSkillsLoadingStatus

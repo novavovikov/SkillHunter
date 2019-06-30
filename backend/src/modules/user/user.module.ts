@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ProfessionModule } from '../profession/profession.module'
-import { ProfessionService } from '../profession/profession.service'
+import { SkillsetModule } from '../skillset/skillset.module'
+import { SkillsetService } from '../skillset/skillset.service'
 import { SkillModule } from '../skill/skill.module'
 import { SkillService } from '../skill/skill.service'
 import { UserResource } from '../user-resource/user-resource.entity'
@@ -19,7 +19,7 @@ import { UserService } from './user.service'
       UserSkill,
       UserResource,
     ]),
-    ProfessionModule,
+    SkillsetModule,
     SkillModule,
   ],
   controllers: [UserController],
@@ -27,7 +27,7 @@ import { UserService } from './user.service'
     UserService,
     UserSkillService,
     UserResourceService,
-    ProfessionService,
+    SkillsetService,
     SkillService,
   ],
 })

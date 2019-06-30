@@ -15,27 +15,27 @@ export class UserSkillController {
     private skillService: SkillService,
   ) {}
 
-  @Get(':professionId')
+  @Get(':skillsetId')
   @ApiUseTags('user-skill')
   getSkills (
     @Req() req,
-    @Param('professionId') professionId: string,
+    @Param('skillsetId') skillsetId: string,
   ) {
-    return this.userSkillService.getSkillsByProfessionId(req.user.id, Number(professionId))
+    return this.userSkillService.getSkillsBySkillsetId(req.user.id, Number(skillsetId))
   }
 
-  @Post(':professionId')
+  @Post(':skillsetId')
   @ApiUseTags('user-skill')
   async adSkills (
     @Req() req,
-    @Param('professionId') professionId: string,
+    @Param('skillsetId') skillsetId: string,
     @Body('skills') skills: string[],
   ) {
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
 
     return await this.userSkillService.addSkills(
       req.user,
-      Number(professionId),
+      Number(skillsetId),
       skillList,
     )
   }

@@ -6,17 +6,17 @@ import Faq from './Faq'
 import HeaderMenu from './HeaderMenu'
 import Search from './Search'
 import ShareMenu from './ShareMenu'
-import SkillSet from './SkillSet'
+import Skillset from './Skillset'
 import SkillList from './SkillList'
-import SkillSetCreator from './SkillSetCreator'
+import SkillsetCreator from './SkillsetCreator'
 import SkillCreator from './SkillCreator'
 import Skills from './Skills'
 import UserSkill from './UserSkill'
 import Resources from './Resources'
 import Resource from './Resource'
 import ResourceCreator from './ResourceCreator'
-import UserSkillSet from './UserSkillSet'
-import RemoveSkillSet from './RemoveSkillSet'
+import UserSkillset from './UserSkillset'
+import RemoveSkillset from './RemoveSkillset'
 import Tabs from './Tabs'
 import Nav from './Nav'
 import * as Steps from './Steps'
@@ -30,17 +30,17 @@ export {
   Search,
   ShareMenu,
   Faq,
-  SkillSet,
+  Skillset,
   SkillList,
-  SkillSetCreator,
+  SkillsetCreator,
   SkillCreator,
   Skills,
   UserSkill,
   Resources,
   Resource,
   ResourceCreator,
-  UserSkillSet,
-  RemoveSkillSet,
+  UserSkillset,
+  RemoveSkillset,
   Tabs,
   Nav,
   Steps

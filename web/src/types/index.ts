@@ -13,7 +13,7 @@ export interface NotificationType {
 
 export interface ResourceType {
   id: number
-  professionId: number
+  skillsetId: number
   skillId: number
   created: string
   icon: string
@@ -31,10 +31,10 @@ export interface SkillType {
   name: string
   created: string
   accepted: boolean
-  professionId: number
+  skillsetId: number
 }
 
-export interface SkillSetType {
+export interface SkillsetType {
   id: number
   name: string
   created: string
@@ -49,5 +49,5 @@ export interface UserType {
   name: string
   picture: string
   role: string
-  professions: SkillSetType[]
+  skillsets: SkillsetType[]
 }

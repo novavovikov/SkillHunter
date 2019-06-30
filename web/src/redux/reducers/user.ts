@@ -33,7 +33,7 @@ export const user: Reducer<UserState, UserAction> = (state = initState, action) 
           ...action.payload,
         },
       }
-    case UserActionTypes.REMOVE_USER_SKILL_SET:
+    case UserActionTypes.REMOVE_USER_SKILLSET:
       if (!state.data) {
         return state
       }
@@ -42,7 +42,7 @@ export const user: Reducer<UserState, UserAction> = (state = initState, action) 
         ...state,
         data: {
           ...state.data,
-          professions: state.data.professions.filter(({ id }) => id !== action.payload),
+          skillsets: state.data.skillsets.filter(({ id }) => id !== action.payload),
         },
       }
     default:

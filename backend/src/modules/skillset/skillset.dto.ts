@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger'
 
-export class ProfessionDto {
+export class SkillsetDto {
   @ApiModelProperty()
   name: string
 

@@ -12,35 +12,35 @@ export class UserSkillService {
     private userSkillRepository: Repository<UserSkill>,
   ) {}
 
-  async getSkillsByProfessionId (
+  async getSkillsBySkillsetId (
     userId: number,
-    professionId: number,
+    skillsetId: number,
   ) {
-    const foundProfessions = await this.userSkillRepository.find({
+    const foundSkillsets = await this.userSkillRepository.find({
       where: {
         userId,
-        professionId,
+        skillsetId,
       },
       order: {
         id: 'DESC',
       },
     })
 
-    return foundProfessions.map(({ skill }) => ({
+    return foundSkillsets.map(({ skill }) => ({
       ...skill,
-      professionId,
+      skillsetId,
     }))
   }
 
   async addSkills (
     user: User,
-    professionId: number,
+    skillsetId: number,
     skills: Skill[],
   ) {
     const userSkills = skills.map(skill => {
       return this.userSkillRepository.create({
         user,
-        professionId,
+        skillsetId,
         skill,
       })
     })
@@ -49,15 +49,15 @@ export class UserSkillService {
 
     return createdSkills.map(({ skill }) => ({
       ...skill,
-      professionId,
+      skillsetId,
     }))
   }
 
-  async removeSkillsByProfessionId (
+  async removeSkillsBySkillsetId (
     user: User,
-    professionId: number
+    skillsetId: number
   ) {
-    const userResources = await this.userSkillRepository.find({ user, professionId })
+    const userResources = await this.userSkillRepository.find({ user, skillsetId })
 
     return await this.userSkillRepository.remove(userResources)
   }

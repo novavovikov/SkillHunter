@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { RoleType } from '../../constants/role-type'
-import { Profession } from '../profession/profession.entity'
+import { Skillset } from '../skillset/skillset.entity'
 import { Resource } from '../resource/resource.entity'
 import { UserResource } from '../user-resource/user-resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
@@ -37,9 +37,9 @@ export class User {
   @ManyToMany(() => Resource, (resource: Resource) => resource.usersLikes)
   likedResources: Resource[]
 
-  @ManyToMany(() => Profession, (profession: Profession) => profession.users, { cascade: true })
-  @JoinTable({ name: 'user_professions' })
-  professions: Profession[]
+  @ManyToMany(() => Skillset, (skillset: Skillset) => skillset.users, { cascade: true })
+  @JoinTable({ name: 'user_skillsets' })
+  skillsets: Skillset[]
 
   @OneToMany(() => UserSkill, (userSkill: UserSkill) => userSkill.user)
   skills: UserSkill[]

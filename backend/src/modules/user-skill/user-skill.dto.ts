@@ -6,7 +6,7 @@ export class UserSkillDto {
   userId: number
 
   @ApiModelProperty()
-  professionId: number
+  skillsetId: number
 
   @ApiModelProperty()
   skills: Skill[]

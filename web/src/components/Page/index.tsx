@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { Layout, Logo } from '../../UI'
-import { Header, Nav, SkillCreator, UserSkillSet } from '../index'
+import { Header, Nav, SkillCreator, UserSkillset } from '../index'
 import * as s from './Page.css'
 
 interface Props {
@@ -18,7 +18,7 @@ const Page: FC<Props> = ({ children, user }) => {
 
         {user.data && (
           <>
-            <UserSkillSet/>
+            <UserSkillset/>
             <Nav/>
             <SkillCreator/>
           </>

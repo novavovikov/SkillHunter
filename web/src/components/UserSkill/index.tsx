@@ -7,7 +7,7 @@ import { Icon, Status } from '../../UI'
 import * as s from './UserSkill.css'
 
 interface Props {
-  professionId: number
+  skillsetId: number
   data: SkillType
   resources: ResourceType[]
 }
@@ -32,7 +32,7 @@ class UserSkill extends React.Component<Props, State> {
     const {
       data,
       resources,
-      professionId,
+      skillsetId,
     } = this.props
 
     return (
@@ -64,7 +64,7 @@ class UserSkill extends React.Component<Props, State> {
 
         {isOpen && (
           <Resources
-            professionId={professionId}
+            skillsetId={skillsetId}
             skillId={data.id}
             data={resources}
           />

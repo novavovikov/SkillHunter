@@ -4,7 +4,7 @@ import { SkillType } from '../../types'
 import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { SkillsActionTypes } from '../actionTypes/skills'
-import { AddSkillsByProfessionId, GetSkillsDataPayload } from '../interfaces/skills'
+import { AddSkillsBySkillsetId, GetSkillsDataPayload } from '../interfaces/skills'
 
 export function * getSkillsDataSaga ({ payload }: GetSkillsDataPayload) {
   yield put(ac.setSkillsLoadingStatus(true))
@@ -13,7 +13,7 @@ export function * getSkillsDataSaga ({ payload }: GetSkillsDataPayload) {
     const { data } = yield call(ajax, `${API.USER_SKILLS}/${payload}`)
 
     const skillIds = yield data.map(({ id }: SkillType) => id)
-    yield put(ac.getResourcesSaga({ professionId: payload, skillIds }))
+    yield put(ac.getResourcesSaga({ skillsetId: payload, skillIds }))
 
     yield put(ac.setSkillsData(data))
   } catch (error) {
@@ -24,17 +24,17 @@ export function * getSkillsDataSaga ({ payload }: GetSkillsDataPayload) {
   yield put(ac.setSkillsLoadingStatus(false))
 }
 
-export function * addSkillsByProfessionIdSaga ({ payload }: AddSkillsByProfessionId) {
+export function * addSkillsBySkillsetIdSaga ({ payload }: AddSkillsBySkillsetId) {
   yield put(ac.setSkillsLoadingStatus(true))
 
   try {
-    const { data } = yield call(ajax.post, `${API.USER_SKILLS}/${payload.professionId}`, {
+    const { data } = yield call(ajax.post, `${API.USER_SKILLS}/${payload.skillsetId}`, {
       skills: payload.skills,
     })
 
     yield put(ac.addSkillToData(data))
   } catch (error) {
-    console.warn('addSkillsByProfessionIdSaga: ', error)
+    console.warn('addSkillsBySkillsetIdSaga: ', error)
   }
 
   yield put(ac.setSkillsLoadingStatus(false))
@@ -42,5 +42,5 @@ export function * addSkillsByProfessionIdSaga ({ payload }: AddSkillsByProfessio
 
 export function * watchGetSkillsData () {
   yield takeEvery(SkillsActionTypes.SAGA_GET_SKILLS, getSkillsDataSaga)
-  yield takeEvery(SkillsActionTypes.SAGA_ADD_SKILLS, addSkillsByProfessionIdSaga)
+  yield takeEvery(SkillsActionTypes.SAGA_ADD_SKILLS, addSkillsBySkillsetIdSaga)
 }

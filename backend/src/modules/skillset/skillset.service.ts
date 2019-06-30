@@ -3,17 +3,17 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { FindOneOptions, Repository } from 'typeorm'
 import { unique } from '../../utils/unique'
 import { Skill } from '../skill/skill.entity'
-import { Profession } from './profession.entity'
+import { Skillset } from './skillset.entity'
 
 @Injectable()
-export class ProfessionService {
+export class SkillsetService {
   constructor (
-    @InjectRepository(Profession)
-    private professionRepository: Repository<Profession>,
+    @InjectRepository(Skillset)
+    private skillsetRepository: Repository<Skillset>,
   ) {}
 
   findAll () {
-    return this.professionRepository.find({
+    return this.skillsetRepository.find({
       order: {
         id: 'ASC',
       },
@@ -21,13 +21,13 @@ export class ProfessionService {
   }
 
   async find (criteria) {
-    return await this.professionRepository.find({
+    return await this.skillsetRepository.find({
       where: criteria,
     })
   }
 
-  async findById (id: number | string, options?: FindOneOptions<Profession>) {
-    return await this.professionRepository.findOne({
+  async findById (id: number | string, options?: FindOneOptions<Skillset>) {
+    return await this.skillsetRepository.findOne({
       where: {
         id: Number(id),
       },
@@ -35,15 +35,15 @@ export class ProfessionService {
     })
   }
 
-  async findByName (name: string, options?: FindOneOptions<Profession>) {
-    return await this.professionRepository.findOne({
+  async findByName (name: string, options?: FindOneOptions<Skillset>) {
+    return await this.skillsetRepository.findOne({
       where: { name },
       ...options,
     })
   }
 
   async like (field: string, value: string) {
-    return await this.professionRepository.
+    return await this.skillsetRepository.
       createQueryBuilder().
       where(`LOWER(${field}) LIKE :${field}`,
         {
@@ -54,15 +54,15 @@ export class ProfessionService {
       getMany()
   }
 
-  async setProfessions (professions: any) {
+  async setSkillsets (skillsets: any) {
     // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
-    const foundProfessions = await this.professionRepository.find(professions)
-    const uniqueProfessions = professions.filter(
-      profession => !foundProfessions.find(({ name }) => profession.name === name),
+    const foundSkillsets = await this.skillsetRepository.find(skillsets)
+    const uniqueSkillsets = skillsets.filter(
+      skillset => !foundSkillsets.find(({ name }) => skillset.name === name),
     )
 
-    if (uniqueProfessions.length) {
-      return await this.professionRepository.save(uniqueProfessions)
+    if (uniqueSkillsets.length) {
+      return await this.skillsetRepository.save(uniqueSkillsets)
     }
 
     return []
@@ -74,10 +74,10 @@ export class ProfessionService {
     })
 
     user.skills = unique([...user.skills, ...skills])
-    return await this.professionRepository.save(user)
+    return await this.skillsetRepository.save(user)
   }
 
-  async save (profession: Partial<Profession>) {
-    return await this.professionRepository.save(profession)
+  async save (skillset: Partial<Skillset>) {
+    return await this.skillsetRepository.save(skillset)
   }
 }

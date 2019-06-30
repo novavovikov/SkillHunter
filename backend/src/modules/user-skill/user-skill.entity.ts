@@ -3,7 +3,7 @@ import { Skill } from '../skill/skill.entity'
 import { User } from '../user/user.entity'
 
 @Entity()
-@Index(['user', 'professionId', 'skill'], { unique: true })
+@Index(['user', 'skillsetId', 'skill'], { unique: true })
 export class UserSkill {
   @PrimaryGeneratedColumn()
   id: number
@@ -12,7 +12,7 @@ export class UserSkill {
   user: User
 
   @Column()
-  professionId: number
+  skillsetId: number
 
   @ManyToOne(() => Skill, (skill: Skill) => skill.userSkills, { eager: true })
   skill: Skill
