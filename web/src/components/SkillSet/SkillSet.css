@@ -1,39 +1,10 @@
-@import "../../styles/variables.css";
-
 .SkillSet {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 70px 0;
 
-  &__caption {
-    margin: 0 0 35px;
-  }
-
-  &__title {
-    margin-bottom: 8px;
-  }
-
   &__input {
-    margin-bottom: 30px;
-  }
-
-  &__button {
-    margin-top: 30px;
-  }
-
-  &__back {
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 20px;
-    text-align: center;
-    padding: 20px;
-    background: none;
-    border: none;
-    color: #BDBDBD;
-
-    &:hover {
-      color: var(--color-dodger-blue);
-    }
+    margin-bottom: 180px;
   }
 }

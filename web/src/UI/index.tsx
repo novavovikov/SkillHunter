@@ -1,5 +1,6 @@
 import * as Animation from './Animation'
 import * as Layout from './Layout'
+import Popup from './Popup'
 import Icon from './Icon'
 import Status from './Status'
 import Loader from './Loader'
@@ -12,6 +13,7 @@ import * as Select from './Select'
 import AutoComplete from './AutoComplete'
 import Button from './Button'
 import IconButton from './IconButton'
+import SimpleButton from './SimpleButton'
 import Menu from './Menu'
 import Item from './Item'
 import Checkbox from './Checkbox'
@@ -20,6 +22,7 @@ import Tip from './Tip'
 export {
   Animation,
   Layout,
+  Popup,
   Icon,
   Status,
   Loader,
@@ -32,6 +35,7 @@ export {
   AutoComplete,
   Button,
   IconButton,
+  SimpleButton,
   Menu,
   Item,
   Checkbox,

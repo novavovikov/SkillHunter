@@ -1,6 +1,6 @@
 @import "../../styles/variables.css";
 
-.UserProfessions {
+.UserSkillSet {
   position: relative;
   margin: 0 0 30px;
 
@@ -37,6 +37,13 @@
       fill: var(--color-tundora);
       transition: var(--transition);
     }
+  }
+
+  &__title {
+    @apply --font-xl;
+    font-weight: normal;
+    color: var(--color-dusty-gray);
+    margin: 0 0 20px;
   }
 
   &__list {
@@ -98,6 +105,7 @@
 
     &_active {
       color: var(--color-dodger-blue);
+      cursor: default;
     }
   }
 }

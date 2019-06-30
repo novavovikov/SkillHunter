@@ -53,6 +53,15 @@ export class UserSkillService {
     }))
   }
 
+  async removeSkillsByProfessionId (
+    user: User,
+    professionId: number
+  ) {
+    const userResources = await this.userSkillRepository.find({ user, professionId })
+
+    return await this.userSkillRepository.remove(userResources)
+  }
+
   async removeAllSkills (
     user: User,
   ) {

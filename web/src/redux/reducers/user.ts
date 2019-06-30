@@ -33,6 +33,18 @@ export const user: Reducer<UserState, UserAction> = (state = initState, action) 
           ...action.payload,
         },
       }
+    case UserActionTypes.REMOVE_USER_SKILL_SET:
+      if (!state.data) {
+        return state
+      }
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          professions: state.data.professions.filter(({ id }) => id !== action.payload),
+        },
+      }
     default:
       return state
   }

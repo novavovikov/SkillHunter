@@ -34,7 +34,7 @@ export interface SkillType {
   professionId: number
 }
 
-export interface ProfessionType {
+export interface SkillSetType {
   id: number
   name: string
   created: string
@@ -49,5 +49,5 @@ export interface UserType {
   name: string
   picture: string
   role: string
-  professions: ProfessionType[]
+  professions: SkillSetType[]
 }

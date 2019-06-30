@@ -6,8 +6,8 @@ import Faq from './Faq'
 import HeaderMenu from './HeaderMenu'
 import Search from './Search'
 import ShareMenu from './ShareMenu'
-import Profession from './Profession'
 import SkillSet from './SkillSet'
+import SkillList from './SkillList'
 import SkillSetCreator from './SkillSetCreator'
 import SkillCreator from './SkillCreator'
 import Skills from './Skills'
@@ -15,7 +15,8 @@ import UserSkill from './UserSkill'
 import Resources from './Resources'
 import Resource from './Resource'
 import ResourceCreator from './ResourceCreator'
-import UserProfessions from './UserProfessions'
+import UserSkillSet from './UserSkillSet'
+import RemoveSkillSet from './RemoveSkillSet'
 import Tabs from './Tabs'
 import Nav from './Nav'
 import * as Steps from './Steps'
@@ -29,8 +30,8 @@ export {
   Search,
   ShareMenu,
   Faq,
-  Profession,
   SkillSet,
+  SkillList,
   SkillSetCreator,
   SkillCreator,
   Skills,
@@ -38,7 +39,8 @@ export {
   Resources,
   Resource,
   ResourceCreator,
-  UserProfessions,
+  UserSkillSet,
+  RemoveSkillSet,
   Tabs,
   Nav,
   Steps

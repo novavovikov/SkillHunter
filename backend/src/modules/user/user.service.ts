@@ -81,4 +81,13 @@ export class UserService {
     user.professions = unique([...user.professions, profession])
     return await this.userRepository.save(user)
   }
+
+  async removeProfession (userId: number, professionId: number) {
+    const user = await this.findById(userId, {
+      relations: ['professions'],
+    })
+
+    user.professions = user.professions.filter(({ id }) => id !== professionId)
+    return await this.userRepository.save(user)
+  }
 }

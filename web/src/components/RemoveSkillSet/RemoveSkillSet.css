@@ -1,0 +1,18 @@
+@import "../../styles/variables.css";
+
+.RemoveSkillSet {
+  width: 250px;
+  padding: 30px;
+  text-align: center;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+
+  &__content {
+    margin: 0 0 50px;
+  }
+
+  &__button {
+    margin: 0 8px;
+  }
+}

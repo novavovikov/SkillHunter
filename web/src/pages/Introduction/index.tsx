@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { Profession, SkillSet, Steps } from '../../components'
+import { SkillSet, SkillList, Steps } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { withNotification } from '../../providers/Notification'
@@ -10,17 +10,22 @@ import { NotificationProps } from '../../providers/Notification/context'
 import { updateUserData } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
-import { ProfessionType } from '../../types'
+import { SkillSetType, SkillType } from '../../types'
 import { Layout, Logo } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
   user: UserState
-  setProfessions: (data: ProfessionType[]) => void,
+  setSkillSets: (data: SkillSetType[]) => void,
   notificationApi: NotificationProps
 }
 
-class Introduction extends React.Component<Props> {
+interface State {
+  profession: string
+  skills: string[]
+}
+
+class Introduction extends React.Component<Props, State> {
   state = {
     profession: '',
     skills: [],
@@ -35,13 +40,13 @@ class Introduction extends React.Component<Props> {
   }
 
   onSubmit = () => {
-    const { history, setProfessions, notificationApi } = this.props
+    const { history, setSkillSets, notificationApi } = this.props
 
     ajax.
       post('user/profession', this.state).
       then(({ data }) => {
-        setProfessions(data as ProfessionType[])
-        history.push(ROUTES.HOME)
+        setSkillSets(data as SkillSetType[])
+        history.push(`${ROUTES.SKILL_SET}/${this.state.profession}`)
       }).
       catch(e => {
         notificationApi.showNotification('System error. Try again.', NotificationTypes.error)
@@ -59,20 +64,20 @@ class Introduction extends React.Component<Props> {
           initStep="Profession"
           steps={[
             {
-              label: '1. Specialty',
+              label: '1. Skillset',
               id: 'Profession',
             },
             {
-              label: '2. SkillSet',
+              label: '2. Skills',
               id: 'Skills',
             },
           ]}
         >
           <Steps.Content id={'Profession'}>
-            <Profession onSubmit={this.setProfession}/>
+            <SkillSet onSubmit={this.setProfession}/>
           </Steps.Content>
           <Steps.Content id={'Skills'}>
-            <SkillSet onSubmit={this.setSkills}/>
+            <SkillList onSubmit={this.setSkills}/>
           </Steps.Content>
         </Steps.Wrap>
       </>
@@ -86,7 +91,7 @@ export default compose(
   connect(
     ({ user }: RootState) => ({ user }),
     {
-      setProfessions: (professions: ProfessionType[]) => updateUserData({ professions }),
+      setSkillSets: (professions: SkillSetType[]) => updateUserData({ professions }),
     },
   ),
 )(Introduction)

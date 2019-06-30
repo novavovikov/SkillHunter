@@ -91,16 +91,6 @@ export class UserController {
     return this.userService.delete(req.user.id)
   }
 
-  @Delete('skills')
-  @ApiUseTags('user')
-  async deleteSkills (
-    @Req() req,
-    @Body('professionId') professionId: number,
-    @Body('skillIds') skillIds: number[],
-  ) {
-    return null
-  }
-
   @Get('professions')
   @ApiUseTags('user')
   async getProfession (@Req() req): Promise<Profession[]> {
@@ -134,5 +124,15 @@ export class UserController {
     )
 
     return updatedUser.professions
+  }
+
+  @Delete('profession/:professionId')
+  async removeProfession (
+    @Param('professionId') professionId: string,
+    @Req() req
+  ) {
+    await this.userResourceService.removeResourcesByProfessionId(req.user, Number(professionId))
+    await this.userSkillService.removeSkillsByProfessionId(req.user, Number(professionId))
+    await this.userService.removeProfession(req.user.id, Number(professionId))
   }
 }

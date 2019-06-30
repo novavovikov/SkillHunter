@@ -1,9 +1,20 @@
 import cookies from 'js-cookie'
 import { UserActionTypes } from '../actionTypes/user'
-import { GetUserData, SetUserData, SetUserLoadingStatus, UpdateUserData } from '../interfaces/user'
+import {
+  GetUserDataSaga, RemoveUserSkillSet,
+  RemoveUserSkillSetSaga,
+  SetUserData,
+  SetUserLoadingStatus,
+  UpdateUserData,
+} from '../interfaces/user'
 
-export const getUserDataSaga = (): GetUserData => ({
+export const getUserDataSaga = (): GetUserDataSaga => ({
   type: UserActionTypes.SAGA_GET_USER,
+})
+
+export const removeUserProfessionSaga = (professionId: number): RemoveUserSkillSetSaga => ({
+  type: UserActionTypes.SAGA_REMOVE_USER_SKILL_SET,
+  payload: professionId
 })
 
 export const logoutUser = (): SetUserData => {
@@ -30,4 +41,9 @@ export const updateUserData = (data: any): UpdateUserData => ({
 export const setUserLoadingStatus = (status: boolean): SetUserLoadingStatus => ({
   type: UserActionTypes.SET_USER_LOADING_STATUS,
   payload: status,
+})
+
+export const removeUserProfession = (professionId: number): RemoveUserSkillSet => ({
+  type: UserActionTypes.REMOVE_USER_SKILL_SET,
+  payload: professionId,
 })
