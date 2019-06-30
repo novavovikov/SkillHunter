@@ -2,10 +2,6 @@
 // Please do not change this file!
 interface CssExports {
   'UserProfessions': string;
-  'UserProfessions__enter': string;
-  'UserProfessions__enter_active': string;
-  'UserProfessions__exit': string;
-  'UserProfessions__exit_active': string;
   'UserProfessions__item': string;
   'UserProfessions__link': string;
   'UserProfessions__link_active': string;

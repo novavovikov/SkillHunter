@@ -22,10 +22,6 @@
     @apply --font-s;
     color: var(--color-dusty-gray);
 
-    &_full {
-      width: 100%;
-    }
-
     &_info {
       width: calc(730/1105*100%);
     }
@@ -36,6 +32,10 @@
 
     &_actions {
       width: calc(205/1105*100%);
+    }
+
+    &_full {
+      width: 100%;
     }
   }
 }

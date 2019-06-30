@@ -5,13 +5,14 @@ import * as s from './IconButton.css'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   theme?: string
+  size?: string
 }
 
 const IconButton: FC<Props> = (
   {
     children,
     className,
-    theme,
+    size,
     ...rest
   },
 ) => {
@@ -19,6 +20,9 @@ const IconButton: FC<Props> = (
     <button
       className={cn(
         s.IconButton,
+        {
+          [s.IconButton_s]: size === 's',
+        },
         className
       )}
       {...rest}

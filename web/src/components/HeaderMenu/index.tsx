@@ -6,6 +6,7 @@ import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
+import { Animation, Icon } from '../../UI'
 import * as s from './HeaderMenu.css'
 
 const MENU = [
@@ -74,9 +75,14 @@ class HeaderMenu extends React.Component<Props, State> {
               />
             )}
           </span>
+
+          <Icon
+            type={isOpen ? 'arrow-up' : 'arrow-down'}
+            size="xl"
+          />
         </button>
 
-        {isOpen && (
+        <Animation.Dropdown in={isOpen}>
           <div className={s.HeaderMenu__list}>
             {MENU.map(({ to, label }) => (
               <Link
@@ -89,7 +95,7 @@ class HeaderMenu extends React.Component<Props, State> {
               </Link>
             ))}
           </div>
-        )}
+        </Animation.Dropdown>
       </div>
     )
   }

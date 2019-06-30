@@ -9,6 +9,7 @@ import ShareMenu from './ShareMenu'
 import Profession from './Profession'
 import SkillSet from './SkillSet'
 import SkillSetCreator from './SkillSetCreator'
+import SkillCreator from './SkillCreator'
 import Skills from './Skills'
 import UserSkill from './UserSkill'
 import Resources from './Resources'
@@ -31,6 +32,7 @@ export {
   Profession,
   SkillSet,
   SkillSetCreator,
+  SkillCreator,
   Skills,
   UserSkill,
   Resources,

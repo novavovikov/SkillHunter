@@ -1,3 +1,4 @@
+import * as Animation from './Animation'
 import * as Layout from './Layout'
 import Icon from './Icon'
 import Status from './Status'
@@ -17,6 +18,7 @@ import Checkbox from './Checkbox'
 import Tip from './Tip'
 
 export {
+  Animation,
   Layout,
   Icon,
   Status,

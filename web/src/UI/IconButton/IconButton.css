@@ -21,10 +21,20 @@
     height: 38px;
     background: var(--color-dodger-blue);
     color: #fff;
-    margin: 0 20px 0 0;
+    margin: 0 18px 0 0;
     font-weight: 300;
     font-size: 2em;
     border-radius: var(--radius);
+  }
+
+  &_s {
+    @apply --font-m;
+
+    &:before {
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+    }
   }
 
   &:hover {

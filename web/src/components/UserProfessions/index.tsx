@@ -2,7 +2,6 @@ import React from 'react'
 import withClickOutside from 'react-click-outside'
 import { connect } from 'react-redux'
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
-import { CSSTransition } from 'react-transition-group'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
@@ -10,7 +9,7 @@ import { AddSkillsRequestPayload } from '../../redux/interfaces/skills'
 import { RootState } from '../../redux/reducers'
 import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
-import { Icon } from '../../UI'
+import { Animation, Icon } from '../../UI'
 import { SkillSetCreator } from '../index'
 import * as s from './UserProfessions.css'
 
@@ -75,17 +74,7 @@ class UserProfessions extends React.Component<Props, State> {
           />
         </button>
 
-        <CSSTransition
-          in={isOpen}
-          timeout={300}
-          unmountOnExit
-          classNames={{
-            enterActive: s.UserProfessions__enter,
-            enterDone: s.UserProfessions__enter_active,
-            exit: s.UserProfessions__exit,
-            exitActive: s.UserProfessions__exit_active,
-          }}
-        >
+        <Animation.Dropdown in={isOpen}>
           <div className={s.UserProfessions__list}>
             {user.data.professions.map(({ id, name }) => (
               <div
@@ -109,7 +98,7 @@ class UserProfessions extends React.Component<Props, State> {
 
             <SkillSetCreator/>
           </div>
-        </CSSTransition>
+        </Animation.Dropdown>
       </div>
     )
   }

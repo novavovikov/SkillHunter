@@ -100,25 +100,4 @@
       color: var(--color-dodger-blue);
     }
   }
-
-  &__enter {
-    margin-top: 10px;
-    opacity: 0;
-
-    &_active {
-      margin-top: 0;
-      opacity: 1;
-      transition: var(--transition-fast);
-    }
-  }
-
-  &__exit {
-    opacity: 1;
-
-    &_active {
-      margin-top: 10px;
-      opacity: 0;
-      transition: var(--transition-fast);
-    }
-  }
 }

@@ -5,10 +5,10 @@
   display: inline-flex;
 
   &__button {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     width: 26px;
     height: 26px;
     border: none;
@@ -16,26 +16,15 @@
     padding: 0;
     border-radius: var(--radius);
     transition: var(--transition-fast);
-  }
 
-  &__enter {
-    margin-top: 10px;
-    opacity: 0;
-
-    &_active {
-      margin-top: 0;
-      opacity: 1;
-      transition: var(--transition-fast);
-    }
-  }
-
-  &__exit {
-    opacity: 1;
-
-    &_active {
-      margin-top: 10px;
-      opacity: 0;
-      transition: var(--transition-fast);
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 10px;
     }
   }
 

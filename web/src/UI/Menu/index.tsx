@@ -1,7 +1,6 @@
 import cn from 'classnames'
 import React from 'react'
-import { CSSTransition } from 'react-transition-group'
-import { Icon } from '../index'
+import { Animation, Icon } from '../index'
 import * as s from './Menu.css'
 
 interface Props {
@@ -57,21 +56,11 @@ class Menu extends React.Component<Props, State> {
             active={isOpen}
           />
         </button>
-        <CSSTransition
-          in={isOpen}
-          timeout={300}
-          unmountOnExit
-          classNames={{
-            enterActive: s.Menu__enter,
-            enterDone: s.Menu__enter_active,
-            exit: s.Menu__exit,
-            exitActive: s.Menu__exit_active,
-          }}
-        >
+        <Animation.Dropdown in={isOpen}>
           <div className={s.Menu__list}>
             {children}
           </div>
-        </CSSTransition>
+        </Animation.Dropdown>
       </div>
     )
   }
