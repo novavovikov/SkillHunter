@@ -4,6 +4,7 @@ import Scrollbar from 'react-custom-scrollbars'
 import { SuggestionType } from '../../types'
 import { Button, Checkbox } from '../../UI'
 import { ajax } from '../../utils/ajax'
+import { Hash } from '../../utils/hash'
 import * as s from './SkillsSearch.css'
 
 interface Props {
@@ -54,7 +55,7 @@ class SkillsSearch extends Component<Props, State> {
 
   getSkillList = () => {
     const { selected, suggestions, inputValue } = this.state
-    const startArr = inputValue ? [{ name: inputValue, id: -1 }] : []
+    const startArr = inputValue ? [{ id: -Hash.generateNumeric(inputValue), name: inputValue }] : []
 
     return [...selected, ...suggestions].reduce((acc, suggest: SuggestionType) => {
       if (acc.find(({ name }) => name === suggest.name)) {
@@ -104,6 +105,8 @@ class SkillsSearch extends Component<Props, State> {
     const { onClose } = this.props
 
     const skillList = this.getSkillList()
+
+    console.log(skillList)
 
     return (
       <form className={s.SkillsSearch} onSubmit={this.submitForm}>

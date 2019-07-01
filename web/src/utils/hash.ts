@@ -19,4 +19,8 @@ export class Hash {
 
     return await Hash.hexString(buffer)
   }
+
+  static generateNumeric (text: string) {
+    return Array.from(text).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0)
+  }
 }
