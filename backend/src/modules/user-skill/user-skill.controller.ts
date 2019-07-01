@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
+import { In } from 'typeorm'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
@@ -32,11 +33,22 @@ export class UserSkillController {
     @Body('skills') skills: string[],
   ) {
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
+    const createdSkills = await this.userSkillService.find({
+      user: req.user,
+      skillsetId,
+      skill: In(skillList.map(({ id }) => id)),
+    })
 
-    return await this.userSkillService.addSkills(
-      req.user,
-      Number(skillsetId),
-      skillList,
-    )
+    const newSkills = skillList.filter(({ id }: Skill) => createdSkills.find(({ skill }) => id !== skill.id))
+
+    if (newSkills.length) {
+      return await this.userSkillService.addSkills(
+        req.user,
+        Number(skillsetId),
+        newSkills,
+      )
+    }
+
+    return []
   }
 }

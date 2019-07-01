@@ -32,8 +32,8 @@ export class SkillService {
       getMany()
   }
 
-  async find (criteria: any, options?: FindOneOptions<Skill>) {
-    return await this.skillRepository.
+  find (criteria: any, options?: FindOneOptions<Skill>) {
+    return this.skillRepository.
       find({
         where: criteria,
         ...options,

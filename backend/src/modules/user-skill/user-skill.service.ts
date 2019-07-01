@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { FindManyOptions, Repository } from 'typeorm'
 import { Skill } from '../skill/skill.entity'
 import { User } from '../user/user.entity'
 import { UserSkill } from './user-skill.entity'
@@ -11,6 +11,13 @@ export class UserSkillService {
     @InjectRepository(UserSkill)
     private userSkillRepository: Repository<UserSkill>,
   ) {}
+
+  find (criteria: any, options?: FindManyOptions<UserSkill>) {
+    return this.userSkillRepository.find({
+      where: criteria,
+      ...options,
+    })
+  }
 
   async getSkillsBySkillsetId (
     userId: number,
@@ -55,7 +62,7 @@ export class UserSkillService {
 
   async removeSkillsBySkillsetId (
     user: User,
-    skillsetId: number
+    skillsetId: number,
   ) {
     const userResources = await this.userSkillRepository.find({ user, skillsetId })
 

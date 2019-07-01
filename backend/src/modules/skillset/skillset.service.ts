@@ -20,8 +20,8 @@ export class SkillsetService {
     })
   }
 
-  async find (criteria) {
-    return await this.skillsetRepository.find({
+  find (criteria) {
+    return this.skillsetRepository.find({
       where: criteria,
     })
   }

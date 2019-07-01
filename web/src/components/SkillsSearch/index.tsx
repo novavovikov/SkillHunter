@@ -106,8 +106,6 @@ class SkillsSearch extends Component<Props, State> {
 
     const skillList = this.getSkillList()
 
-    console.log(skillList)
-
     return (
       <form className={s.SkillsSearch} onSubmit={this.submitForm}>
         <div className={s.SkillsSearch__header}>
@@ -166,7 +164,10 @@ class SkillsSearch extends Component<Props, State> {
           >
             Cancel
           </Button>
-          <Button className={s.SkillsSearch__submit}>
+          <Button
+            className={s.SkillsSearch__submit}
+            disabled={!selected.length}
+          >
             Choose
           </Button>
         </div>
