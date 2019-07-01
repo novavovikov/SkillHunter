@@ -27,6 +27,10 @@ export class ResourceService {
     return this.resourceRepository.findOne({ link })
   }
 
+  urlNormalizer = (url: string) => {
+    return url.replace(/([^:]\/)\/+/g, '$1')
+  }
+
   getFavicon (document: Document, origin?: string) {
     let icon: HTMLLinkElement = document.querySelector('link[rel=icon]')
 
@@ -35,16 +39,20 @@ export class ResourceService {
     }
 
     if (!icon && origin) {
-      return `${origin}/favicon.ico`
+      return this.urlNormalizer(`${origin}/favicon.ico`)
     }
 
     const href = icon && icon.href
 
     if (href && !href.includes('http')) {
-      return `${origin}/${href}`
+      return this.urlNormalizer(`${origin}/${href}`)
     }
 
-    return href || null
+    if (href) {
+      return this.urlNormalizer(href)
+    }
+
+    return null
   }
 
   async getFromLink (link: string) {
