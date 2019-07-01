@@ -15,7 +15,9 @@ const Popup: FC<Props> = ({ isOpen, onClose, children }) => {
   return createPortal(
     (
       <div className={s.Popup}>
-        {children}
+        <div className={s.Popup__content}>
+          {children}
+        </div>
         <div
           className={s.Popup__overlay}
           onClick={onClose}

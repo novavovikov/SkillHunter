@@ -3,14 +3,10 @@ import { debounce } from 'debounce'
 import React from 'react'
 import withClickOutside from 'react-click-outside'
 import Scrollbar from 'react-custom-scrollbars'
+import { SuggestionType } from '../../types'
 import { ajax } from '../../utils/ajax'
 import Input, { InputProps } from '../Input'
 import * as s from './AutoComplete.css'
-
-interface Suggestion {
-  id: string,
-  name: string
-}
 
 interface Props {
   className?: string
@@ -19,7 +15,7 @@ interface Props {
 }
 
 interface State {
-  suggestions: Suggestion[]
+  suggestions: SuggestionType[]
 }
 
 class AutoComplete extends React.Component<Props, State> {
@@ -35,7 +31,7 @@ class AutoComplete extends React.Component<Props, State> {
     this.setSuggestions([])
   }
 
-  setSuggestions = (suggestions: Suggestion[]) => {
+  setSuggestions = (suggestions: SuggestionType[]) => {
     this.setState({ suggestions })
   }
 
@@ -83,7 +79,7 @@ class AutoComplete extends React.Component<Props, State> {
       ? [{ id: '-1', name: input.value }]
       : []
 
-    return suggestions.reduce((acc, suggestion: Suggestion) => {
+    return suggestions.reduce((acc, suggestion: SuggestionType) => {
       if (acc.some(({ name }) => name.toLowerCase() === suggestion.name.toLowerCase())) {
         return acc
       }

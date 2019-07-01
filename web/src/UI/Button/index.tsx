@@ -22,6 +22,7 @@ const Button: FC<Props> = (
         {
           [s.Button_plus]: theme === 'plus',
           [s.Button_large]: theme === 'large',
+          [s.Button_transparent]: theme === 'transparent',
         },
       )}
       {...rest}

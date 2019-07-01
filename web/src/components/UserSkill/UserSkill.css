@@ -31,8 +31,6 @@
 
   &__title {
     margin: 0;
-    @apply --font-xl;
-    font-weight: 700;
   }
 
   &__switcher {

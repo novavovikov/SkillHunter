@@ -7,7 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
-  Put,
+  Put, Query,
   Req,
   UseGuards,
 } from '@nestjs/common'
@@ -67,17 +67,17 @@ export class UserResourceController {
     )
   }
 
-  @Post(':skillsetId')
+  @Get(':skillsetId')
   @ApiUseTags('user-resource')
   async getResourcesBulk (
     @Req() req,
     @Param('skillsetId') skillsetId: string,
-    @Body() skillsIds: number[],
+    @Query('skillIds') skillsIds: string,
   ) {
-    return this.userResourceService.getResourcesBulk(
+      return this.userResourceService.getResourcesBulk(
       req.user,
       Number(skillsetId),
-      skillsIds,
+      skillsIds.split(',').map(Number),
     )
   }
 

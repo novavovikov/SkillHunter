@@ -4,6 +4,7 @@ interface CssExports {
   'Button': string;
   'Button_large': string;
   'Button_plus': string;
+  'Button_transparent': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

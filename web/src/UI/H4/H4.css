@@ -2,9 +2,6 @@
 
 .H4 {
   @apply --title;
-  font-size: 18px;
-  line-height: 21px;
-  text-align: center;
-  color: #555555;
+  @apply --font-xl;
   margin: 0 0 10px;
 }

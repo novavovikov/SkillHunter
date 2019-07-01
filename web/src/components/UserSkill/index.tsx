@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Resources } from '../../components'
 import { RootState } from '../../redux/reducers'
 import { ResourceType, SkillType } from '../../types'
-import { Icon, Status } from '../../UI'
+import { H4, Icon, Status } from '../../UI'
 import * as s from './UserSkill.css'
 
 interface Props {
@@ -48,9 +48,9 @@ class UserSkill extends React.Component<Props, State> {
             />
           </button>
 
-          <h4 className={s.UserSkill__title}>
+          <H4 className={s.UserSkill__title}>
             {data.name}
-          </h4>
+          </H4>
 
           {!resources.length && !isOpen && (
             <Status

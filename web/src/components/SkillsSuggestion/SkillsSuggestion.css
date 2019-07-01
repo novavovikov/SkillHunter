@@ -1,0 +1,33 @@
+@import "../../styles/variables.css";
+
+.SkillsSuggestion {
+  max-width: 100%;
+  width: 500px;
+  background: #fff;
+  text-align: left;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--color-desert-storm);
+    padding: 20px;
+    min-height: 100px;
+  }
+
+  &__title {
+    margin: 0 0 6px;
+  }
+
+  &__body {
+    padding: 15px 20px 30px;
+  }
+
+  &__row {
+    display: flex;
+    min-height: 38px;
+  }
+}

@@ -1,9 +1,14 @@
 import React, { FC } from 'react'
+import cn from 'classnames'
 import * as s from './H4.css'
 
-const H4: FC = ({ children }) => {
+interface Props {
+  className?: string
+}
+
+const H4: FC<Props> = ({ className, children }) => {
   return (
-    <h4 className={s.H4}>
+    <h4 className={cn(s.H4, className)}>
       {children}
     </h4>
   )
