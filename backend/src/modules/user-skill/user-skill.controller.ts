@@ -39,7 +39,7 @@ export class UserSkillController {
       skill: In(skillList.map(({ id }) => id)),
     })
 
-    const newSkills = skillList.filter(({ id }: Skill) => createdSkills.find(({ skill }) => id !== skill.id))
+    const newSkills = skillList.filter(({ id }: Skill) => !createdSkills.find(({ skill }) => id === skill.id))
 
     if (newSkills.length) {
       return await this.userSkillService.addSkills(
