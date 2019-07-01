@@ -1,44 +1,69 @@
-import React, { FC } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { RouteComponentProps, withRouter } from 'react-router'
+import { compose } from 'redux'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
+import { SkillsetType, UserType } from '../../types'
 import { Layout, Logo } from '../../UI'
 import { Header, Nav, SkillCreator, UserSkillset } from '../index'
 import * as s from './Page.css'
 
-interface Props {
+interface Params {
+  skillset: string
+}
+
+interface Props extends RouteComponentProps<Params> {
   user: UserState
 }
 
-const Page: FC<Props> = ({ children, user }) => {
-  return (
-    <Layout.Wrap>
-      <Layout.Aside>
-        <Logo className={s.Page__logo}/>
+class Page extends Component<Props> {
+  getSkillsetId = (skillset: string, userData: UserType) => {
+    const selectedSkillset = userData.skillsets.find(({ name }: SkillsetType) => name === skillset)
 
-        {user.data && (
-          <>
-            <UserSkillset/>
-            <Nav/>
-            <SkillCreator/>
-          </>
-        )}
-      </Layout.Aside>
+    if (selectedSkillset) {
+      return selectedSkillset.id
+    }
 
-      <Layout.Content>
-        <Header/>
-        <Layout.Data>
-          {/*<Layout.Caption>*/}
-          {/*  <H2 className={s.Page__title}>Skillset</H2>*/}
-          {/*</Layout.Caption>*/}
+    return null
+  }
 
-          {children}
-        </Layout.Data>
-      </Layout.Content>
-    </Layout.Wrap>
-  )
+  render () {
+    const { user, match, children } = this.props
+
+    return (
+      <Layout.Wrap>
+        <Layout.Aside>
+          <Logo className={s.Page__logo}/>
+
+          {user.data && (
+            <>
+              <UserSkillset/>
+              <Nav/>
+              <SkillCreator
+                skillsetId={this.getSkillsetId(
+                  match.params.skillset,
+                  user.data,
+                )}
+              />
+            </>
+          )}
+        </Layout.Aside>
+
+        <Layout.Content>
+          <Header/>
+          <Layout.Data>
+            {children}
+          </Layout.Data>
+        </Layout.Content>
+      </Layout.Wrap>
+    )
+  }
 }
 
-export default connect(
-  ({ user }: RootState) => ({ user }),
+export default compose(
+  withRouter,
+  connect(
+    ({ user }: RootState) => ({ user }),
+  ),
 )(Page)

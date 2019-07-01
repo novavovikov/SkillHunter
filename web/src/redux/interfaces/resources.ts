@@ -1,11 +1,6 @@
 import { ResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 
-export interface GetResourcesRequestPayload {
-  skillsetId: number
-  skillIds: number[]
-}
-
 export interface ResourceSagaPayload {
   skillsetId: number
   skillId: number
@@ -29,52 +24,53 @@ export interface ResourcePayload {
 }
 
 export interface GetResourcesSaga {
-  type: ResourcesActionTypes.SAGA_GET_RESOURCES,
-  payload: GetResourcesRequestPayload
+  type: ResourcesActionTypes.SAGA_GET_RESOURCES
+  skillsetId: number
+  skillIds: number[]
 }
 
 export interface AddResourceSaga {
-  type: ResourcesActionTypes.SAGA_ADD_RESOURCE,
+  type: ResourcesActionTypes.SAGA_ADD_RESOURCE
   payload: ResourceSagaPayload
 }
 
 export interface UpdateResourceSaga {
-  type: ResourcesActionTypes.SAGA_UPDATE_RESOURCE,
+  type: ResourcesActionTypes.SAGA_UPDATE_RESOURCE
   payload: Partial<ResourceType>
 }
 
 export interface ChangeResourceLikeStatusSaga {
-  type: ResourcesActionTypes.SAGA_CHANGE_RESOURCE_LIKE_STATUS,
+  type: ResourcesActionTypes.SAGA_CHANGE_RESOURCE_LIKE_STATUS
   payload: ResourceLikeStatusSagaPayload
 }
 
 export interface RemoveResourceSaga {
-  type: ResourcesActionTypes.SAGA_REMOVE_RESOURCE,
+  type: ResourcesActionTypes.SAGA_REMOVE_RESOURCE
   payload: ResourceSagaPayload
 }
 
 export interface SetResources {
-  type: ResourcesActionTypes.SET_RESOURCES,
+  type: ResourcesActionTypes.SET_RESOURCES
   payload: any
 }
 
 export interface AddResource {
-  type: ResourcesActionTypes.ADD_RESOURCE,
+  type: ResourcesActionTypes.ADD_RESOURCE
   payload: ResourceType
 }
 
 export interface UpdateResource {
-  type: ResourcesActionTypes.UPDATE_RESOURCE,
+  type: ResourcesActionTypes.UPDATE_RESOURCE
   payload: ResourceType
 }
 
 export interface ChangeResourceLikeStatus {
-  type: ResourcesActionTypes.CHANGE_RESOURCE_LIKE_STATUS,
+  type: ResourcesActionTypes.CHANGE_RESOURCE_LIKE_STATUS
   payload: ResourceLikeStatusPayload
 }
 
 export interface RemoveResource {
-  type: ResourcesActionTypes.REMOVE_RESOURCE,
+  type: ResourcesActionTypes.REMOVE_RESOURCE
   payload: ResourcePayload
 }
 

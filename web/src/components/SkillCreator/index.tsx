@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { SkillsSuggestion } from '../../components'
+import { addSkillsSaga } from '../../redux/actions/skills'
 import { IconButton, Popup } from '../../UI'
 import * as s from './SkillCreator.css'
 
 interface Props {
-
+  skillsetId: number | null
+  addSkills: (skillsetId: number, skills: string[]) => void
 }
 
 interface State {
@@ -13,19 +16,27 @@ interface State {
 
 class SkillCreator extends Component<Props, State> {
   state = {
-    isOpen: false
+    isOpen: false,
   }
 
   showPopup = () => {
     this.setState({
-      isOpen: true
+      isOpen: true,
     })
   }
 
   closePopup = () => {
     this.setState({
-      isOpen: false
+      isOpen: false,
     })
+  }
+
+  addSkills = (skills: string[]) => {
+    const { skillsetId, addSkills } = this.props
+
+    if (skillsetId) {
+      addSkills(skillsetId, skills)
+    }
   }
 
   render () {
@@ -44,11 +55,19 @@ class SkillCreator extends Component<Props, State> {
           isOpen={isOpen}
           onClose={this.closePopup}
         >
-          <SkillsSuggestion onClose={this.closePopup}/>
+          <SkillsSuggestion
+            onSubmit={this.addSkills}
+            onClose={this.closePopup}
+          />
         </Popup>
       </div>
     )
   }
 }
 
-export default SkillCreator
+export default connect(
+  null,
+  {
+    addSkills: addSkillsSaga,
+  },
+)(SkillCreator)

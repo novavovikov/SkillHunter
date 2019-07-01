@@ -25,7 +25,17 @@
   }
 
   &__content {
-    width: calc(100% - 65px);
+    flex: 1 1 100%;
+  }
+
+  &__body {
+
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
   }
 
   &__submit {

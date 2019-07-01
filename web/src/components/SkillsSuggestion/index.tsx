@@ -4,12 +4,13 @@ import { SkillsSearch } from '../index'
 import * as s from './SkillsSuggestion.css'
 
 interface Props {
+  onSubmit: (skills: string[]) => void
   onClose: () => void
 }
 
 class SkillsSuggestion extends Component<Props> {
   render () {
-    const { onClose } = this.props
+    const { onSubmit, onClose } = this.props
 
     return (
       <div className={s.SkillsSuggestion}>
@@ -23,7 +24,10 @@ class SkillsSuggestion extends Component<Props> {
         </div>
 
         <div className={s.SkillsSuggestion__body}>
-          <SkillsSearch onClose={onClose}/>
+          <SkillsSearch
+            onSubmit={onSubmit}
+            onClose={onClose}
+          />
         </div>
       </div>
     )

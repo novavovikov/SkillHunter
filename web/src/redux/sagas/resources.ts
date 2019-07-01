@@ -10,9 +10,9 @@ import {
   UpdateResourceSaga,
 } from '../interfaces/resources'
 
-export function * getResourcesSaga ({ payload }: GetResourcesSaga) {
+export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) {
   try {
-    const { data } = yield call(ajax, `${API.USER_RESOURCE}/${payload.skillsetId}?skillIds=${payload.skillIds}`)
+    const { data } = yield call(ajax, `${API.USER_RESOURCE}/${skillsetId}?skillIds=${skillIds}`)
 
     yield put(ac.setResources(data))
   } catch (error) {

@@ -5,7 +5,6 @@ import {
   AddResourceSaga,
   ChangeResourceLikeStatus,
   ChangeResourceLikeStatusSaga,
-  GetResourcesRequestPayload,
   GetResourcesSaga,
   RemoveResource,
   RemoveResourceSaga,
@@ -18,9 +17,10 @@ import {
   UpdateResourceSaga,
 } from '../interfaces/resources'
 
-export const getResourcesSaga = (data: GetResourcesRequestPayload): GetResourcesSaga => ({
+export const getResourcesSaga = (skillsetId: number, skillIds: number[]): GetResourcesSaga => ({
   type: ResourcesActionTypes.SAGA_GET_RESOURCES,
-  payload: data,
+  skillsetId,
+  skillIds,
 })
 
 export const addResourceSaga = (data: ResourceSagaPayload): AddResourceSaga => ({

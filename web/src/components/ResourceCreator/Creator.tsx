@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
 import { ChangeEvent } from 'react'
 import { connect } from 'react-redux'
 import { addResourceSaga } from '../../redux/actions/resources'
@@ -41,7 +41,7 @@ class Creator extends React.Component<Props, State> {
     })
   }
 
-  submitForm = async (e: any) => {
+  submitForm = async (e: FormEvent) => {
     e.preventDefault()
     const { skillId, skillsetId, addResource, onClose } = this.props
     const { inputValue } = this.state

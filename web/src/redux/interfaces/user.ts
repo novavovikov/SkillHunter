@@ -4,14 +4,9 @@ export interface GetUserDataSaga {
   type: UserActionTypes.SAGA_GET_USER
 }
 
-export interface AddUserSkillSaga {
-  type: UserActionTypes.SAGA_ADD_USER_SKILL,
-  payload: string[]
-}
-
 export interface RemoveUserSkillsetSaga {
   type: UserActionTypes.SAGA_REMOVE_USER_SKILLSET,
-  payload: number
+  skillsetId: number
 }
 
 

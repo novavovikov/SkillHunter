@@ -2,11 +2,13 @@
 // Please do not change this file!
 interface CssExports {
   'SkillsSearch': string;
+  'SkillsSearch__body': string;
   'SkillsSearch__checkbox': string;
   'SkillsSearch__content': string;
   'SkillsSearch__footer': string;
   'SkillsSearch__header': string;
   'SkillsSearch__input': string;
+  'SkillsSearch__row': string;
   'SkillsSearch__submit': string;
 }
 declare var cssExports: CssExports;

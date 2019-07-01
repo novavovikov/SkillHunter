@@ -1,8 +1,8 @@
 import cookies from 'js-cookie'
 import { UserActionTypes } from '../actionTypes/user'
 import {
-  AddUserSkillSaga,
-  GetUserDataSaga, RemoveUserSkillset,
+  GetUserDataSaga,
+  RemoveUserSkillset,
   RemoveUserSkillsetSaga,
   SetUserData,
   SetUserLoadingStatus,
@@ -13,14 +13,9 @@ export const getUserDataSaga = (): GetUserDataSaga => ({
   type: UserActionTypes.SAGA_GET_USER,
 })
 
-export const addUserSkillSaga = (skills: string[]): AddUserSkillSaga => ({
-  type: UserActionTypes.SAGA_ADD_USER_SKILL,
-  payload: skills
-})
-
 export const removeUserSkillsetSaga = (skillsetId: number): RemoveUserSkillsetSaga => ({
   type: UserActionTypes.SAGA_REMOVE_USER_SKILLSET,
-  payload: skillsetId
+  skillsetId,
 })
 
 export const logoutUser = (): SetUserData => {
