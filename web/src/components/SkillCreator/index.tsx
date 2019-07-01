@@ -13,7 +13,7 @@ interface State {
 
 class SkillCreator extends Component<Props, State> {
   state = {
-    isOpen: true
+    isOpen: false
   }
 
   showPopup = () => {
