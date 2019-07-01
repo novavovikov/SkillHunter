@@ -22,10 +22,10 @@
     position: relative;
     width: 18px;
     height: 18px;
-    flex-basis: 18px;
-    border-radius: var(--radius);
+    flex: 0 0 18px;
     background: #fff;
-    border: 2px solid #767676;
+    border-radius: var(--radius);
+    border: 2px solid var(--color-gallery);
     transition: var(--transition-fast);
 
     &:before {
@@ -44,6 +44,9 @@
   }
 
   &__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     flex: 1 1 100%;
     padding: 0 0 0 10px;
   }

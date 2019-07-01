@@ -12,7 +12,7 @@ import {
 
 export function * getResourcesSaga ({ payload }: GetResourcesSaga) {
   try {
-    const { data } = yield call(ajax.post, `${API.USER_RESOURCE}/${payload.skillsetId}`, payload.skillIds)
+    const { data } = yield call(ajax, `${API.USER_RESOURCE}/${payload.skillsetId}?skillIds=${payload.skillIds}`)
 
     yield put(ac.setResources(data))
   } catch (error) {

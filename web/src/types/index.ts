@@ -6,6 +6,11 @@ export enum ResourceStatusTypes {
   Done = 'Done'
 }
 
+export interface SuggestionType {
+  id: string,
+  name: string
+}
+
 export interface NotificationType {
   type: NotificationTypes,
   message: string | number

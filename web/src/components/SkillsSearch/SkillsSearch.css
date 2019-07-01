@@ -1,0 +1,39 @@
+@import "../../styles/variables.css";
+
+.SkillsSearch {
+  position: relative;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-alto);
+  }
+
+  &__input {
+    width: 100%;
+    height: 38px;
+    border: none;
+    background: none;
+
+    &::placeholder {
+      color: var(--color-dusty-gray);
+    }
+  }
+
+  &__checkbox {
+    width: 65px;
+  }
+
+  &__content {
+    width: calc(100% - 65px);
+  }
+
+  &__submit {
+    margin: 0 0 0 10px;
+  }
+
+  &__footer {
+    text-align: right;
+    margin: 20px 0 0;
+  }
+}

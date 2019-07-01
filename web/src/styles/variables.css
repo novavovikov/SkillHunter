@@ -9,7 +9,6 @@
   --radius-lg: 5px;
   --radius-xl: 7px;
 
-  --color-desert-storm: #F8F8F7;
   --color-tundora: #424242;
   --color-blue-ribbon: #005FFF;
   --color-dodger-blue: #2576FF;
@@ -19,9 +18,10 @@
   --color-marzipan: #F8DEA0;
   --color-vista-blue: #84D09E;
   --color-dusty-gray: #999999;
-  --color-gallery: #EBEBEB;
-  --color-alto: #DADADA;
   --color-silver: #C6C6C6;
+  --color-alto: #DADADA;
+  --color-gallery: #EBEBEB;
+  --color-desert-storm: #F8F8F7;
 
   --color-red-orange: #FF3737;
   --color-cold-purple: #A1B6DF;

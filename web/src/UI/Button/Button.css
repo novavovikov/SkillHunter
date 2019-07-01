@@ -14,6 +14,10 @@
   border-radius: var(--radius);
   transition: var(--transition-fast);
 
+  &:hover {
+    background: var(--color-blue-ribbon);
+  }
+
   &_large {
     min-height: 52px;
     width: 270px;
@@ -32,8 +36,14 @@
     }
   }
 
-  &:hover {
-    background: var(--color-blue-ribbon);
+  &_transparent {
+    color: var(--color-silver);
+    background: none;
+
+    &:hover {
+      color: var(--color-tundora);
+      background: var(--color-alto);
+    }
   }
 
   &:disabled {
