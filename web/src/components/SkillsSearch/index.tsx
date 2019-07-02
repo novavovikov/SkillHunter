@@ -57,7 +57,7 @@ class SkillsSearch extends Component<Props, State> {
     const { selected, suggestions, inputValue } = this.state
     const startArr = inputValue ? [{ id: -Hash.generateNumeric(inputValue), name: inputValue }] : []
 
-    return [...selected, ...suggestions].reduce((acc, suggest: SuggestionType) => {
+    return [...suggestions, ...selected].reduce((acc, suggest: SuggestionType) => {
       if (acc.find(({ name }) => name === suggest.name)) {
         return acc
       }
