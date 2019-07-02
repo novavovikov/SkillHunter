@@ -6,7 +6,6 @@ import { NotificationApiProps } from '../../providers/Notification/context'
 import { Item, Menu } from '../../UI'
 import { getShareLink, SHARE_SITES } from '../../utils/share'
 import { urlNormalizer } from '../../utils/url'
-import * as s from './ShareMenu.css'
 
 interface Props {
   notificationApi: NotificationApiProps
@@ -42,6 +41,10 @@ const SHARE_LINKS = [
 ]
 
 class ShareMenu extends React.Component<Props> {
+  static originUrl = window.location.hostname === 'localhost'
+    ? 'https://app.skillhunter.io'
+    : window.location.origin
+
   handleShare = (system: SHARE_SITES, url: string) => {
     const { text } = this.props
     const link = getShareLink(system, { url, text })
@@ -51,7 +54,7 @@ class ShareMenu extends React.Component<Props> {
 
   render () {
     const { link, notificationApi } = this.props
-    const url = urlNormalizer(`https://app.skillhunter.io/${link}`)
+    const url = urlNormalizer(`${ShareMenu.originUrl}${link}`)
 
     return (
       <Menu icon="share">
