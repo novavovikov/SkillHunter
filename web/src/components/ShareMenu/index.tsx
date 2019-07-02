@@ -5,6 +5,7 @@ import { withNotification } from '../../providers/Notification'
 import { NotificationApiProps } from '../../providers/Notification/context'
 import { Item, Menu } from '../../UI'
 import { getShareLink, SHARE_SITES } from '../../utils/share'
+import { urlNormalizer } from '../../utils/url'
 import * as s from './ShareMenu.css'
 
 interface Props {
@@ -49,8 +50,8 @@ class ShareMenu extends React.Component<Props> {
   }
 
   render () {
-    const { link, text, notificationApi } = this.props
-    const url = `https://app.skillhunter.io/${link}`
+    const { link, notificationApi } = this.props
+    const url = urlNormalizer(`https://app.skillhunter.io/${link}`)
 
     return (
       <Menu

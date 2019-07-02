@@ -1,3 +1,5 @@
+import { urlNormalizer } from './url'
+
 export enum SHARE_SITES {
   facebook,
   twitter,
@@ -33,14 +35,14 @@ const QUERY_KEYS: any = {
     url: 'url',
     text: 'text',
     via: 'via',
-    hashtags: 'hashTags'
+    hashtags: 'hashTags',
   },
   [SHARE_SITES.linkedIn]: {
     url: 'url',
   },
   [SHARE_SITES.reddit]: {
     url: 'url',
-    title: 'text'
+    title: 'text',
   },
   [SHARE_SITES.vk]: {
     url: 'url',
@@ -51,11 +53,7 @@ const QUERY_KEYS: any = {
   [SHARE_SITES.telegram]: {
     url: 'url',
     title: 'text',
-  }
-}
-
-const urlNormalizer = (url: string) => {
-  return url.replace(/([^:]\/)\/+/g, '$1')
+  },
 }
 
 const paramsToQueryKeys = (site: SHARE_SITES, params?: any) => {
@@ -66,12 +64,13 @@ const paramsToQueryKeys = (site: SHARE_SITES, params?: any) => {
   }
 
   return Object.keys(queryKeys).reduce((acc, key: string) => {
-    const paramValue = params[queryKeys[key]]
+    const param = queryKeys[key]
+    const paramValue = params[param]
 
     if (paramValue) {
       return {
         ...acc,
-        [key]: paramValue
+        [key]: paramValue,
       }
     }
 

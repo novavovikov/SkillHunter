@@ -1,3 +1,7 @@
+export const urlNormalizer = (url: string) => {
+  return url.replace(/([^:]\/)\/+/g, '$1')
+}
+
 export const getUrl = (url: string) => {
   try {
     return new URL(url)
