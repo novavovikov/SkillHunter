@@ -6,7 +6,7 @@ import { Skillset, SkillList, Steps } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { withNotification } from '../../providers/Notification'
-import { NotificationProps } from '../../providers/Notification/context'
+import { NotificationApiProps } from '../../providers/Notification/context'
 import { updateUserData } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
@@ -17,7 +17,7 @@ import { ajax } from '../../utils/ajax'
 interface Props extends RouteComponentProps {
   user: UserState
   setSkillsets: (data: SkillsetType[]) => void,
-  notificationApi: NotificationProps
+  notificationApi: NotificationApiProps
 }
 
 interface State {

@@ -28,7 +28,6 @@
       width: calc(205 / 1105 * 100%);
       visibility: hidden;
       opacity: 0;
-      transition: var(--transition-fast);
     }
   }
 
@@ -155,7 +154,6 @@
     text-indent: 0.01px; /* Removes default arrow from firefox*/
     visibility: hidden;
     opacity: 0;
-    transition: var(--transition-fast);
 
     &::-ms-expand {
       display: none;

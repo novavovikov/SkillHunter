@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React from 'react'
+import React, { ReactChild, ReactElement, ReactNode } from 'react'
 import { Animation, Icon } from '../index'
 import * as s from './Menu.css'
 
@@ -42,6 +42,7 @@ class Menu extends React.Component<Props, State> {
     const { isOpen } = this.state
 
     const IconName: string = icon || 'dots'
+    const childrenList = React.Children.toArray(children)
 
     return (
       <div
@@ -58,7 +59,11 @@ class Menu extends React.Component<Props, State> {
         </button>
         <Animation.Dropdown in={isOpen}>
           <div className={s.Menu__list}>
-            {children}
+            {React.Children.map(childrenList, (child: ReactElement) => (
+              React.cloneElement(child, {
+                onClose: this.hideMenu
+              })
+            ))}
           </div>
         </Animation.Dropdown>
       </div>

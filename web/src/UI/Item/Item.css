@@ -1,12 +1,14 @@
 @import "../../styles/variables.css";
 
 .Item {
-  width: 100%;
+  display: flex;
+  align-items: center;
   background: #fff;
   border: none;
   text-align: left;
   min-height: 40px;
   padding: 5px 20px;
+  cursor: pointer;
 
   &:hover {
     background: #EDF3FD;

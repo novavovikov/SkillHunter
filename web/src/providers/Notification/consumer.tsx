@@ -1,23 +1,28 @@
 import React from 'react'
-import { NotificationProps, NotificationContext } from './context'
+import { NotificationApiProps, NotificationContext } from './context'
 
-export const withNotification = (WrappedComponent: React.ComponentClass<any>) => {
-  class Component extends React.Component<NotificationProps> {
+interface InjectedProps {
+  notificationApi: NotificationApiProps
+}
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
+type Subtract<T, K> = Omit<T, keyof K>
+
+export const withNotification = <T extends InjectedProps> (WrappedComponent: React.ComponentClass<T>) => (
+  class Component extends React.Component<Subtract<T, InjectedProps>> {
     static displayName = WrappedComponent.name || 'WrappedNotificationComponent'
 
     render () {
       return (
         <NotificationContext.Consumer>
-          {(notificationApi: any) =>
+          {(notificationApi: NotificationApiProps) =>
             <WrappedComponent
               notificationApi={notificationApi}
-              {...this.props}
+              {...this.props as T}
             />
           }
         </NotificationContext.Consumer>
       )
     }
   }
-
-  return Component
-}
+)

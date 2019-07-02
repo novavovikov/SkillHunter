@@ -1,5 +1,9 @@
 @import "../../styles/variables.css";
 
-.Share {
+.ShareMenu {
+  color: var(--color-tundora);
 
+  &:hover {
+    color: var(--color-tundora);
+  }
 }

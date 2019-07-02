@@ -5,12 +5,12 @@ import { Header } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { withNotification } from '../../providers/Notification'
-import { NotificationProps } from '../../providers/Notification/context'
+import { NotificationApiProps } from '../../providers/Notification/context'
 import { Button } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
-  notificationApi: NotificationProps
+  notificationApi: NotificationApiProps
 }
 
 const Settings: FC<Props> = ({ history, notificationApi }) => {

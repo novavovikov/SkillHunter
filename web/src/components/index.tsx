@@ -6,6 +6,7 @@ import Faq from './Faq'
 import HeaderMenu from './HeaderMenu'
 import Search from './Search'
 import ShareMenu from './ShareMenu'
+import ShareLink from './ShareLink'
 import Skillset from './Skillset'
 import SkillList from './SkillList'
 import SkillsetCreator from './SkillsetCreator'
@@ -31,6 +32,7 @@ export {
   HeaderMenu,
   Search,
   ShareMenu,
+  ShareLink,
   Faq,
   Skillset,
   SkillList,

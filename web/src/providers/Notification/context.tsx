@@ -1,8 +1,8 @@
 import React from 'react'
 import { NotificationTypes } from '../../constants/notification'
 
-export interface NotificationProps {
+export interface NotificationApiProps {
   showNotification: (message: string, type?: NotificationTypes) => void
 }
 
-export const NotificationContext = React.createContext<NotificationProps | null>(null)
+export const NotificationContext = React.createContext<NotificationApiProps | null>(null)
