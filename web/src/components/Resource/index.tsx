@@ -148,7 +148,7 @@ class Resource extends React.Component<Props> {
           {!shared && (
             <div className={s.Resource__control}>
               <ShareMenu
-                link={`${ROUTES.SHARE}?ids=[${data.id}]`}
+                link={`${ROUTES.SHARE}?ids=${data.id},25`}
                 text={data.title}
               />
             </div>

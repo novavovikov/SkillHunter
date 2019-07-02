@@ -34,6 +34,7 @@
     right: 0;
     @apply --font-m;
     overflow: hidden;
+    color: var(--color-tundora);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     z-index: 10;

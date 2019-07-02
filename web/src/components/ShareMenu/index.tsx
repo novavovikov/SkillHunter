@@ -54,10 +54,7 @@ class ShareMenu extends React.Component<Props> {
     const url = urlNormalizer(`https://app.skillhunter.io/${link}`)
 
     return (
-      <Menu
-        icon="share"
-        className={s.ShareMenu}
-      >
+      <Menu icon="share">
         <Item
           onClick={() => {
             copy(url)

@@ -20,7 +20,7 @@ export class ResourceController {
     @Query('ids') ids: string,
   ) {
     const query: FindOneOptions<Resource> = {}
-    const resourceIds = ids && JSON.parse(ids)
+    const resourceIds = ids.split(',')
 
     if (resourceIds) {
       query.where = {
