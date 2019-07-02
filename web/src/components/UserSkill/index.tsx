@@ -1,15 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Resources } from '../../components'
+import { removeSkillsSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
 import { ResourceType, SkillType } from '../../types'
-import { H4, Icon, Status } from '../../UI'
+import { H4, Icon, Item, Menu, Status } from '../../UI'
 import * as s from './UserSkill.css'
 
 interface Props {
   skillsetId: number
   data: SkillType
   resources: ResourceType[]
+  removeSkill: (skillsetId: number, skillIds: number[]) => void
 }
 
 interface State {
@@ -25,6 +27,12 @@ class UserSkill extends React.Component<Props, State> {
     this.setState({
       isOpen: !this.state.isOpen,
     })
+  }
+
+  removeSkill = () => {
+    const { skillsetId, data, removeSkill } = this.props
+
+    removeSkill(skillsetId, [data.id])
   }
 
   render () {
@@ -52,6 +60,12 @@ class UserSkill extends React.Component<Props, State> {
             {data.name}
           </H4>
 
+          <Menu className={s.UserSkill__menu}>
+            <Item onClick={this.removeSkill}>
+              Delete
+            </Item>
+          </Menu>
+
           {!resources.length && !isOpen && (
             <Status
               className={s.UserSkill__empty}
@@ -78,4 +92,7 @@ export default connect(
   ({ resources }: RootState, { data }: any) => ({
     resources: resources[data.id] || [],
   }),
+  {
+    removeSkill: removeSkillsSaga,
+  },
 )(UserSkill)

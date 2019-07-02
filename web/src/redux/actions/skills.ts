@@ -3,7 +3,8 @@ import { SkillsActionTypes } from '../actionTypes/skills'
 import {
   AddSkills,
   AddSkillsSaga,
-  GetSkillsDataPayload,
+  GetSkillsDataPayload, RemoveSkills,
+  RemoveSkillsSaga,
   SetSkillsData,
   SetSkillsLoadingStatus,
 } from '../interfaces/skills'
@@ -19,6 +20,12 @@ export const addSkillsSaga = (skillsetId: number, skills: string[]): AddSkillsSa
   skills,
 })
 
+export const removeSkillsSaga = (skillsetId: number, skillIds: number[]): RemoveSkillsSaga => ({
+  type: SkillsActionTypes.SAGA_REMOVE_SKILLS,
+  skillsetId,
+  skillIds,
+})
+
 export const setSkillsData = (data: SkillType[]): SetSkillsData => ({
   type: SkillsActionTypes.SET_SKILLS_DATA,
   payload: data,
@@ -32,4 +39,9 @@ export const addSkillToData = (data: SkillType[]): AddSkills => ({
 export const setSkillsLoadingStatus = (status: boolean): SetSkillsLoadingStatus => ({
   type: SkillsActionTypes.SET_SKILLS_LOADING_STATUS,
   payload: status,
+})
+
+export const removeSkills = (skillIds: number[]): RemoveSkills => ({
+  type: SkillsActionTypes.REMOVE_SKILLS,
+  payload: skillIds,
 })

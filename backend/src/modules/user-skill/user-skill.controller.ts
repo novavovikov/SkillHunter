@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
@@ -51,4 +51,19 @@ export class UserSkillController {
 
     return []
   }
+
+  @Delete(':skillsetId')
+  @ApiUseTags('user-skill')
+  async deleteSkills (
+    @Req() req,
+    @Param('skillsetId') skillsetId: string,
+    @Query('ids') ids: string
+  ) {
+    return this.userSkillService.removeSkills(
+      req.user,
+      Number(skillsetId),
+      ids.split(',').map(Number)
+    )
+  }
+
 }

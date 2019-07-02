@@ -30,6 +30,11 @@ export const skills: Reducer<SkillsState, SkillsAction> = (state = initState, ac
         ...state,
         isLoading: action.payload,
       }
+    case SkillsActionTypes.REMOVE_SKILLS:
+      return {
+        ...state,
+        data: state.data.filter(({ id }) => !action.payload.includes(id))
+      }
     default:
       return state
   }
