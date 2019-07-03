@@ -1,5 +1,6 @@
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, Index, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Skill } from '../skill/skill.entity'
+import { UserResource } from '../user-resource/user-resource.entity'
 import { User } from '../user/user.entity'
 
 @Entity()
@@ -16,4 +17,7 @@ export class UserSkill {
 
   @ManyToOne(() => Skill, (skill: Skill) => skill.userSkills, { eager: true })
   skill: Skill
+
+  @OneToMany(() => UserResource, (userResource: UserResource) => userResource.skill)
+  userResources: UserResource[]
 }

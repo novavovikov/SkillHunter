@@ -1,10 +1,11 @@
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { UserResourceStatusType } from '../../constants/status-type'
 import { Resource } from '../resource/resource.entity'
+import { UserSkill } from '../user-skill/user-skill.entity'
 import { User } from '../user/user.entity'
 
 @Entity()
-@Index(['user', 'skillsetId', 'skillId', 'resource'], { unique: true })
+@Index(['user', 'skillsetId', 'userSkill', 'resource'], { unique: true })
 export class UserResource {
   @PrimaryGeneratedColumn()
   id: number
@@ -15,11 +16,11 @@ export class UserResource {
   @Column()
   skillsetId: number
 
-  @Column()
-  skillId: number
-
   @Column({ type: 'enum', enum: UserResourceStatusType, default: UserResourceStatusType.Backlog })
   status: string
+
+  @ManyToOne(() => UserSkill, (userSkill: UserSkill) => userSkill.userResources, { eager: true })
+  userSkill: UserSkill
 
   @ManyToOne(() => Resource, (resource: Resource) => resource.userResources, { eager: true })
   resource: Resource
