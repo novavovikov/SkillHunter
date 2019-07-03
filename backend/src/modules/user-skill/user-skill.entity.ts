@@ -18,6 +18,6 @@ export class UserSkill {
   @ManyToOne(() => Skill, (skill: Skill) => skill.userSkills, { eager: true })
   skill: Skill
 
-  @OneToMany(() => UserResource, (userResource: UserResource) => userResource.skill)
+  @OneToMany(() => UserResource, (userResource: UserResource) => userResource.userSkill)
   userResources: UserResource[]
 }
