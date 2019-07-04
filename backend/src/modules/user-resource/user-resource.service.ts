@@ -152,6 +152,18 @@ export class UserResourceService {
     return await this.userResourceRepository.remove(userResources)
   }
 
+  async removeResourcesByUserSkillIds (
+    user: User,
+    userSkillIds: number[]
+  ) {
+    const userResources = await this.userResourceRepository.find({
+      user,
+      userSkill: In(userSkillIds)
+    })
+
+    return await this.userResourceRepository.remove(userResources)
+  }
+
   async removeAllResources (
     user: User,
   ) {

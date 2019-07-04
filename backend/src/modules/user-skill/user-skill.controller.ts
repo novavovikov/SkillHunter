@@ -5,6 +5,7 @@ import { In } from 'typeorm'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
+import { UserResourceService } from '../user-resource/user-resource.service'
 import { UserSkillService } from './user-skill.service'
 
 @Controller('user-skill')
@@ -13,6 +14,7 @@ import { UserSkillService } from './user-skill.service'
 export class UserSkillController {
   constructor (
     private userSkillService: UserSkillService,
+    private userResourceService: UserResourceService,
     private skillService: SkillService,
   ) {}
 
@@ -60,6 +62,7 @@ export class UserSkillController {
   ) {
     const userSkillsIds = ids.split(',').map(Number)
 
+    await this.userResourceService.removeResourcesByUserSkillIds(req.user, userSkillsIds)
     return this.userSkillService.deleteSkills(userSkillsIds)
   }
 }
