@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { In, Repository } from 'typeorm'
 import { UserResourceStatusType } from '../../constants/status-type'
 import { Resource } from '../resource/resource.entity'
+import { UserSkill } from '../user-skill/user-skill.entity'
 import { User } from '../user/user.entity'
 import { UserResource } from './user-resource.entity'
 
@@ -16,13 +17,13 @@ export class UserResourceService {
   async addResource (
     user: User,
     skillsetId: number,
-    skillId: number,
+    userSkill: UserSkill,
     resource: Resource,
   ) {
     const userResource = this.userResourceRepository.create({
       user,
       skillsetId,
-      skillId,
+      userSkill,
       resource,
     })
 
@@ -32,27 +33,27 @@ export class UserResourceService {
       status,
       user.id,
       skillsetId,
-      skillId,
+      userSkill.id,
     )
   }
 
   async updateResource (
     user: User,
     skillsetId: number,
-    skillId: number,
+    userSkill: UserSkill,
     resource: Resource,
     data: any,
   ) {
     await this.userResourceRepository.update({
       user,
       skillsetId,
-      skillId,
+      userSkill,
       resource,
     }, data)
 
     return {
       id: resource.id,
-      skillId,
+      skillId: userSkill.id,
       skillsetId,
       ...data,
     }
@@ -94,16 +95,16 @@ export class UserResourceService {
       where: {
         user,
         skillsetId,
-        skillId: In(skillsIds),
+        skill: In(skillsIds),
       },
     })
 
     return userResources.reduce((acc, {
-      skillsetId,
-      skillId,
+      userSkill,
       resource,
       status,
     }) => {
+      const skillId = userSkill.id
       const resourceData = this.getResourceModel(
         resource,
         status,
@@ -129,13 +130,13 @@ export class UserResourceService {
   async removeResourceBySkillId (
     user: User,
     skillsetId: number,
-    skillId: number,
+    userSkill: UserSkill,
     resource: Resource,
   ) {
     const userResources = await this.userResourceRepository.find({
       user,
       skillsetId,
-      skillId,
+      userSkill,
       resource,
     })
 
@@ -144,7 +145,7 @@ export class UserResourceService {
 
   async removeResourcesBySkillsetId (
     user: User,
-    skillsetId: number
+    skillsetId: number,
   ) {
     const userResources = await this.userResourceRepository.find({ user, skillsetId })
 

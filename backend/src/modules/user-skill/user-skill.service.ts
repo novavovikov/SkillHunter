@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindManyOptions, In, Repository } from 'typeorm'
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm'
 import { Skill } from '../skill/skill.entity'
 import { User } from '../user/user.entity'
 import { UserSkill } from './user-skill.entity'
@@ -19,11 +19,24 @@ export class UserSkillService {
     })
   }
 
-  async getSkillsBySkillsetId (
+  findByIds (ids: number[], options?: FindManyOptions<UserSkill>) {
+    return this.userSkillRepository.findByIds(ids, options)
+  }
+
+  findById (id: number | string, options?: FindOneOptions<UserSkill>) {
+    return this.userSkillRepository.findOne({
+      where: {
+        id: Number(id),
+      },
+      ...options,
+    })
+  }
+
+  getSkillsBySkillsetId (
     userId: number,
     skillsetId: number,
   ) {
-    const foundSkillsets = await this.userSkillRepository.find({
+    return this.userSkillRepository.find({
       where: {
         userId,
         skillsetId,
@@ -32,11 +45,6 @@ export class UserSkillService {
         id: 'DESC',
       },
     })
-
-    return foundSkillsets.map(({ skill }) => ({
-      ...skill,
-      skillsetId,
-    }))
   }
 
   async addSkills (
@@ -52,26 +60,15 @@ export class UserSkillService {
       })
     })
 
-    const createdSkills = await this.userSkillRepository.save(userSkills)
-
-    return createdSkills.map(({ skill }) => ({
-      ...skill,
-      skillsetId,
-    }))
+    return this.userSkillRepository.save(userSkills)
   }
 
-  async removeSkills (
-    user: User,
-    skillsetId: number,
-    skills: number[],
-  ) {
-    const userSkills = await this.userSkillRepository.find({
-      user,
-      skillsetId,
-      skill: In(skills)
-    })
+  save (userSkill: UserSkill[]) {
+    return this.userSkillRepository.save(userSkill)
+  }
 
-    return await this.userSkillRepository.remove(userSkills)
+  deleteSkills (data: any) {
+    return this.userSkillRepository.delete(data)
   }
 
   async removeSkillsBySkillsetId (

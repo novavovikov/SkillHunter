@@ -14,7 +14,6 @@ export interface AddSkillsSaga {
 
 export interface RemoveSkillsSaga {
   type: SkillsActionTypes.SAGA_REMOVE_SKILLS
-  skillsetId: number
   skillIds: number[]
 }
 

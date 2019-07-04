@@ -39,6 +39,12 @@ export interface SkillType {
   skillsetId: number
 }
 
+export interface UserSkillType {
+  id: number
+  skillsetId: number
+  skill: SkillType
+}
+
 export interface SkillsetType {
   id: number
   name: string

@@ -52,18 +52,14 @@ export class UserSkillController {
     return []
   }
 
-  @Delete(':skillsetId')
+  @Delete()
   @ApiUseTags('user-skill')
   async deleteSkills (
     @Req() req,
-    @Param('skillsetId') skillsetId: string,
-    @Query('ids') ids: string
+    @Query('ids') ids: string,
   ) {
-    return this.userSkillService.removeSkills(
-      req.user,
-      Number(skillsetId),
-      ids.split(',').map(Number)
-    )
-  }
+    const userSkillsIds = ids.split(',').map(Number)
 
+    return this.userSkillService.deleteSkills(userSkillsIds)
+  }
 }
