@@ -20,9 +20,8 @@ export const addSkillsSaga = (skillsetId: number, skills: string[]): AddSkillsSa
   skills,
 })
 
-export const removeSkillsSaga = (skillsetId: number, skillIds: number[]): RemoveSkillsSaga => ({
+export const removeSkillsSaga = (skillIds: number[]): RemoveSkillsSaga => ({
   type: SkillsActionTypes.SAGA_REMOVE_SKILLS,
-  skillsetId,
   skillIds,
 })
 

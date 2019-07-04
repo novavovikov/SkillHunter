@@ -7,7 +7,8 @@ import {
   HttpStatus,
   Param,
   Post,
-  Put, Query,
+  Put,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common'
@@ -15,11 +16,13 @@ import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { UserResourceStatusType } from '../../constants/status-type'
-import { Skillset } from '../skillset/skillset.entity'
-import { SkillsetService } from '../skillset/skillset.service'
 import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
 import { SkillService } from '../skill/skill.service'
+import { Skillset } from '../skillset/skillset.entity'
+import { SkillsetService } from '../skillset/skillset.service'
+import { UserSkill } from '../user-skill/user-skill.entity'
+import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserResourceService } from './user-resource.service'
 
 @Controller('user-resource')
@@ -28,6 +31,7 @@ import { UserResourceService } from './user-resource.service'
 export class UserResourceController {
   constructor (
     private userResourceService: UserResourceService,
+    private userSkillService: UserSkillService,
     private skillsetService: SkillsetService,
     private skillService: SkillService,
     private resourceService: ResourceService,
@@ -59,10 +63,16 @@ export class UserResourceController {
       return new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
     }
 
+    const userSkill = await this.userSkillService.findById(skillId)
+
+    if (!userSkill) {
+      return new HttpException('UserSkill not found', HttpStatus.BAD_REQUEST)
+    }
+
     return this.userResourceService.addResource(
       req.user,
       skillsetId,
-      skillId,
+      userSkill,
       resource,
     )
   }
@@ -74,7 +84,7 @@ export class UserResourceController {
     @Param('skillsetId') skillsetId: string,
     @Query('skillIds') skillsIds: string,
   ) {
-      return this.userResourceService.getResourcesBulk(
+    return this.userResourceService.getResourcesBulk(
       req.user,
       Number(skillsetId),
       skillsIds.split(',').map(Number),
@@ -122,10 +132,16 @@ export class UserResourceController {
       return new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
     }
 
+    const userSkill = await this.userSkillService.findById(skillId)
+
+    if (!userSkill) {
+      return new HttpException('UserSkill not found', HttpStatus.BAD_REQUEST)
+    }
+
     return this.userResourceService.updateResource(
       req.user,
       Number(skillsetId),
-      Number(skillId),
+      userSkill,
       resource,
       {
         status,
@@ -142,11 +158,12 @@ export class UserResourceController {
     @Param('resourceId') resourceId: string,
   ) {
     const resource: Resource = await this.resourceService.findById(resourceId)
+    const userSkill: UserSkill = await this.userSkillService.findById(skillId)
 
     return this.userResourceService.removeResourceBySkillId(
       req.user,
       Number(skillsetId),
-      Number(skillId),
+      userSkill,
       resource,
     )
   }

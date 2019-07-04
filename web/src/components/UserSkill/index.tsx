@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 import { Resources } from '../../components'
 import { removeSkillsSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
-import { ResourceType, SkillType } from '../../types'
+import { ResourceType, UserSkillType } from '../../types'
 import { H4, Icon, Item, Menu, Status } from '../../UI'
 import * as s from './UserSkill.css'
 
 interface Props {
-  skillsetId: number
-  data: SkillType
+  data: UserSkillType
   resources: ResourceType[]
-  removeSkill: (skillsetId: number, skillIds: number[]) => void
+  removeSkill: (skillIds: number[]) => void
 }
 
 interface State {
@@ -30,9 +29,9 @@ class UserSkill extends React.Component<Props, State> {
   }
 
   removeSkill = () => {
-    const { skillsetId, data, removeSkill } = this.props
+    const { data, removeSkill } = this.props
 
-    removeSkill(skillsetId, [data.id])
+    removeSkill([data.id])
   }
 
   render () {
@@ -40,7 +39,6 @@ class UserSkill extends React.Component<Props, State> {
     const {
       data,
       resources,
-      skillsetId,
     } = this.props
 
     return (
@@ -57,7 +55,7 @@ class UserSkill extends React.Component<Props, State> {
           </button>
 
           <H4 className={s.UserSkill__title}>
-            {data.name}
+            {data.skill.name}
           </H4>
 
           <Menu className={s.UserSkill__menu}>
@@ -78,7 +76,7 @@ class UserSkill extends React.Component<Props, State> {
 
         {isOpen && (
           <Resources
-            skillsetId={skillsetId}
+            skillsetId={data.skillsetId}
             skillId={data.id}
             data={resources}
           />

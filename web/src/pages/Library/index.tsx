@@ -80,7 +80,6 @@ class Library extends React.Component<Props> {
         {!isLoading && data.map((skill: SkillType) => (
           <UserSkill
             key={skill.id}
-            skillsetId={this.getSkillsetId()}
             data={skill}
           />
         ))}

@@ -38,9 +38,9 @@ export function * addSkillsSaga ({ skillsetId, skills }: AddSkillsSaga) {
   yield put(ac.setSkillsLoadingStatus(false))
 }
 
-export function * removeSkillsSaga ({ skillsetId, skillIds }: RemoveSkillsSaga) {
+export function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
   try {
-    yield call(ajax.delete, `${API.USER_SKILL}/${skillsetId}?ids=${skillIds}`)
+    yield call(ajax.delete, `${API.USER_SKILL}?ids=${skillIds}`)
 
     yield put(ac.removeSkills(skillIds))
   } catch (error) {
