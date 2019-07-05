@@ -1,26 +1,17 @@
-import React, { FormEvent } from 'react'
-import { ChangeEvent } from 'react'
-import { connect } from 'react-redux'
-import { addResourceSaga } from '../../redux/actions/resources'
-import { ResourceSagaPayload } from '../../redux/interfaces/resources'
-import { ResourceType } from '../../types'
-import { Button, IconButton } from '../../UI'
-import { ajax } from '../../utils/ajax'
+import React, { ChangeEvent, FormEvent } from 'react'
+import { IconButton, Button } from '../../UI'
 import { getUrl, getUrlFromClipboard } from '../../utils/url'
 import * as s from './ResourceCreator.css'
 
 interface Props {
-  skillsetId: number
-  skillId: number
-  addResource: (data: ResourceSagaPayload) => void
-  onClose: () => void
+  onSubmit: (link: string) => void
 }
 
 interface State {
   inputValue: string
 }
 
-class Creator extends React.Component<Props, State> {
+class Form extends React.Component<Props, State> {
   state = {
     inputValue: '',
   }
@@ -43,23 +34,10 @@ class Creator extends React.Component<Props, State> {
 
   submitForm = async (e: FormEvent) => {
     e.preventDefault()
-    const { skillId, skillsetId, addResource, onClose } = this.props
+    const { onSubmit } = this.props
     const { inputValue } = this.state
-    const url = getUrl(inputValue)
 
-    if (url) {
-      const resource = await ajax.post('resource', {
-        link: url.href,
-      }).then(({ data }) => data as ResourceType)
-
-      addResource({
-        skillsetId,
-        skillId,
-        resourceId: resource.id,
-      })
-
-      onClose()
-    }
+    onSubmit(inputValue)
   }
 
   render () {
@@ -71,9 +49,7 @@ class Creator extends React.Component<Props, State> {
         className={s.ResourceCreator__form}
         onSubmit={this.submitForm}
       >
-        <IconButton disabled={!url}/>
-
-        <div>
+        <div className={s.ResourceCreator__field}>
           <input
             type="text"
             className={s.ResourceCreator__input}
@@ -89,14 +65,13 @@ class Creator extends React.Component<Props, State> {
             }
           </div>
         </div>
+
+        <Button disabled={!url}>
+          Add
+        </Button>
       </form>
     )
   }
 }
 
-export default connect(
-  null,
-  {
-    addResource: addResourceSaga,
-  },
-)(Creator)
+export default Form

@@ -2,51 +2,22 @@
 
 .Input {
   position: relative;
-  display: inline-flex;
-  background: #fff;
-  border-radius: var(--radius-xl);
-  width: 432px;
-  z-index: 0;
-
-  &__placeholder {
-    position: absolute;
-    top: 50%;
-    margin-top: -10px;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 20px;
-    color: #999999;
-    max-width: 100%;
-    padding: 0 20px;
-    transition: var(--transition-fast);
-    z-index: -1;
-
-    &_filled {
-      font-size: 12px;
-      top: 3px;
-      margin-top: 0;
-    }
-  }
+  display: block;
 
   &__field {
     width: 100%;
-    font-size: 18px;
-    font-family: inherit;
-    height: 52px;
-    border: 1px solid #999999;
+    height: 38px;
+    border: none;
     background: none;
-    padding: 12px 20px 0;
-    border-radius: var(--radius-xl);
+    border-bottom: 1px solid var(--color-alto);
     transition: var(--transition-fast);
 
     &:focus {
-      border-color: var(--color-dodger-blue);
+      border-color: var(--color-cornflower-blue);
     }
-  }
 
-  &__field:focus + &__placeholder {
-    font-size: 12px;
-    top: 3px;
-    margin-top: 0;
+    &::placeholder {
+      color: var(--color-dusty-gray);
+    }
   }
 }

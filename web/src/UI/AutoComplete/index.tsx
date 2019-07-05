@@ -1,16 +1,16 @@
 import cn from 'classnames'
 import { debounce } from 'debounce'
-import React from 'react'
+import React, { ChangeEvent, InputHTMLAttributes } from 'react'
 import withClickOutside from 'react-click-outside'
 import Scrollbar from 'react-custom-scrollbars'
 import { SuggestionType } from '../../types'
 import { ajax } from '../../utils/ajax'
-import Input, { InputProps } from '../Input'
+import Input from '../Input'
 import * as s from './AutoComplete.css'
 
 interface Props {
   className?: string
-  input: InputProps
+  input: InputHTMLAttributes<HTMLInputElement>
   debounce?: number
 }
 
@@ -48,22 +48,26 @@ class AutoComplete extends React.Component<Props, State> {
   }, this.props.debounce)
 
   handleSuggestion = (e: any) => {
-    this.props.input.onChange(e)
     this.setSuggestions([])
   }
 
-  handleInput = (e: any) => {
+  handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
+    const { input } = this.props
 
     this.getSuggestions(value)
-    this.props.input.onChange(e)
+
+    if (typeof input.onChange === 'function') {
+      input.onChange(e as ChangeEvent<HTMLInputElement>)
+    }
+
   }
 
   onFocusInput = (e: any) => {
     const { input } = this.props
 
     if (input.value) {
-      this.getSuggestions(input.value)
+      this.getSuggestions(input.value as string)
     }
 
     if (typeof input.onFocus === 'function') {
@@ -80,7 +84,7 @@ class AutoComplete extends React.Component<Props, State> {
       : []
 
     return suggestions.reduce((acc, suggestion: SuggestionType) => {
-      if (acc.some(({ name }) => name.toLowerCase() === suggestion.name.toLowerCase())) {
+      if (acc.some(({ name }: SuggestionType) => name.toLowerCase() === suggestion.name.toLowerCase())) {
         return acc
       }
 

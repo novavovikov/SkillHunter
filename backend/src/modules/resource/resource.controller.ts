@@ -35,12 +35,15 @@ export class ResourceController {
   @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
   async setResource (@Body() data: ResourceDto) {
-    let resource = await this.resourceService.findByLink(data.link)
+    let resource: Partial<Resource> = await this.resourceService.findByLink(data.link)
 
     if (!resource) {
       resource = await this.resourceService.getFromLink(data.link)
 
-      return this.resourceService.create(resource)
+      return this.resourceService.create({
+        ...data,
+        ...resource,
+      })
     }
 
     return resource

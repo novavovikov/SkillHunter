@@ -1,8 +1,9 @@
+import cn from 'classnames'
 import { debounce } from 'debounce'
 import React, { ChangeEvent, Component, FormEvent } from 'react'
 import Scrollbar from 'react-custom-scrollbars'
 import { SuggestionType } from '../../types'
-import { Button, Checkbox } from '../../UI'
+import { Button, Checkbox, Input } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { Hash } from '../../utils/hash'
 import * as s from './SkillsSearch.css'
@@ -110,7 +111,7 @@ class SkillsSearch extends Component<Props, State> {
       <form className={s.SkillsSearch} onSubmit={this.submitForm}>
         <div className={s.SkillsSearch__header}>
           {skillList.length > 0 && (
-            <div className={s.SkillsSearch__checkbox}>
+            <div className={cn(s.SkillsSearch__checkbox, s.SkillsSearch__checkbox_header)}>
               <Checkbox
                 checked={skillList.length === selected.length}
                 onChange={this.selectedAll}
@@ -120,8 +121,10 @@ class SkillsSearch extends Component<Props, State> {
             </div>
           )}
           <div className={s.SkillsSearch__content}>
-            <input
-              className={s.SkillsSearch__input}
+            <Input
+              classNameField={cn({
+                [s.SkillsSearch__input]: skillList.length
+              })}
               type="text"
               placeholder="Type in for search or added new skill"
               value={inputValue}

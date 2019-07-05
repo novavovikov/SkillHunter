@@ -3,6 +3,8 @@
 interface CssExports {
   'Input': string;
   'Input__field': string;
+  'Input__placeholder': string;
+  'Input__placeholder_filled': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

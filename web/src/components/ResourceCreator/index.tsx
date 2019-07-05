@@ -1,27 +1,52 @@
 import cn from 'classnames'
 import React from 'react'
 import withClickOutside from 'react-click-outside'
-import { Button, IconButton } from '../../UI'
-import Creator from './Creator'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { addResourceSaga } from '../../redux/actions/resources'
+import { ResourceSagaPayload } from '../../redux/interfaces/resources'
+import { ResourceType } from '../../types'
+import { IconButton } from '../../UI'
+import { ajax } from '../../utils/ajax'
+import { getUrl } from '../../utils/url'
+import Form from './Form'
 import * as s from './ResourceCreator.css'
+import Type from './Type'
 
 interface Props {
   className?: string
   skillsetId: number
   skillId: number
+  addResource: (data: ResourceSagaPayload) => void
 }
 
 interface State {
   isOpen: boolean
+  type: string | null
 }
 
 class ResourceCreator extends React.Component<Props, State> {
   state = {
     isOpen: false,
+    type: null
   }
 
   handleClickOutside = () => {
     this.closeCreator()
+  }
+
+  closeCreator = () => {
+    this.setState({
+      type: null,
+      isOpen: false,
+    })
+  }
+
+  setType = (type: string | null) => {
+    this.setState({
+      type,
+      isOpen: false
+    })
   }
 
   openCreator = () => {
@@ -30,25 +55,35 @@ class ResourceCreator extends React.Component<Props, State> {
     })
   }
 
-  closeCreator = () => {
-    this.setState({
-      isOpen: false,
-    })
+  createResource = async (link: string) => {
+    const { type } = this.state
+    const { skillId, skillsetId, addResource } = this.props
+    const url = getUrl(link)
+
+    if (url) {
+      const resource = await ajax.post('resource', {
+        link: url.href,
+        type
+      }).then(({ data }) => data as ResourceType)
+
+      addResource({
+        skillsetId,
+        skillId,
+        resourceId: resource.id,
+      })
+
+      this.closeCreator()
+    }
   }
 
   render () {
-    const { className, skillId, skillsetId } = this.props
-    const { isOpen } = this.state
+    const { className } = this.props
+    const { isOpen, type } = this.state
 
     return (
       <div className={cn(s.ResourceCreator, className)}>
-        {isOpen && (
-          <Creator
-            skillId={skillId}
-            skillsetId={skillsetId}
-            onClose={this.closeCreator}
-          />
-        )}
+        {isOpen && <Type onSubmit={this.setType}/>}
+        {type && <Form onSubmit={this.createResource} />}
 
         <IconButton onClick={this.openCreator}>
           Add source
@@ -58,4 +93,11 @@ class ResourceCreator extends React.Component<Props, State> {
   }
 }
 
-export default withClickOutside(ResourceCreator)
+export default compose(
+  connect(
+    null,
+    {
+      addResource: addResourceSaga,
+    },
+  ),
+)(withClickOutside(ResourceCreator))

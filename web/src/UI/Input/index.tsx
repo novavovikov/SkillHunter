@@ -1,40 +1,25 @@
-import React, { FC } from 'react'
 import cn from 'classnames'
+import React, { FC, InputHTMLAttributes } from 'react'
 import * as s from './Input.css'
 
-export interface InputProps {
-  value: any
-  placeholder?: string
-  onChange: (e?: any) => void
-  onKeyDown?: (e?: any) => void
-  onFocus?: (e?: any) => void
-  className?: string | number | symbol | any
-  autoFocus?: boolean
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  classNameField?: string
 }
 
 const Input: FC<InputProps> = (
   {
     className,
-    placeholder,
-    value,
+    classNameField,
     ...rest
   },
 ) => {
   return (
     <label className={cn(s.Input, className)}>
       <input
-        className={s.Input__field}
+        className={cn(s.Input__field, classNameField)}
         type={'text'}
-        value={value}
         {...rest}
       />
-      <span
-        className={cn(s.Input__placeholder, {
-          [s.Input__placeholder_filled]: !!value,
-        })}
-      >
-        {placeholder}
-      </span>
     </label>
   )
 }
