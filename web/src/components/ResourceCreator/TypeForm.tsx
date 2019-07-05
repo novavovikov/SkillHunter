@@ -24,14 +24,14 @@ interface Props {
   onSubmit: (type: string) => void
 }
 
-class Type extends React.Component<Props> {
+class TypeForm extends React.Component<Props> {
   handleButton = (e: any) => {
     this.props.onSubmit(e.target.value)
   }
 
   render () {
     return (
-      <div className={s.ResourceCreator__form}>
+      <>
         <div>
           <div className={s.ResourceCreator__controls}>
             {TYPES.map(({ value, label }) => (
@@ -50,9 +50,9 @@ class Type extends React.Component<Props> {
             Select source type
           </div>
         </div>
-      </div>
+      </>
     )
   }
 }
 
-export default Type
+export default TypeForm

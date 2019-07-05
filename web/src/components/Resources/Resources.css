@@ -38,4 +38,9 @@
       width: 100%;
     }
   }
+
+  &__creator {
+    display: flex;
+    align-items: flex-start;
+  }
 }

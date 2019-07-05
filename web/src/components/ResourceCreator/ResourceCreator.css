@@ -4,18 +4,39 @@
   position: relative;
   z-index: 3;
 
+  &__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
+  }
+
   &__form {
     position: absolute;
-    left: -35px;
-    top: -16px;
+    left: 0;
+    top: 0;
     display: flex;
     align-items: flex-start;
     background: var(--color-desert-storm);
-    padding: 16px 35px 5px;
+    padding: 15px 25px 10px;
+    border-radius: var(--radius);
     z-index: 2;
   }
 
   &__field {
+    display: inline-block;
+    vertical-align: top;
     margin: 0 15px 0 0;
   }
 

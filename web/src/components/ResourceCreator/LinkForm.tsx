@@ -11,7 +11,7 @@ interface State {
   inputValue: string
 }
 
-class Form extends React.Component<Props, State> {
+class LinkForm extends React.Component<Props, State> {
   state = {
     inputValue: '',
   }
@@ -45,10 +45,7 @@ class Form extends React.Component<Props, State> {
     const url = getUrl(inputValue)
 
     return (
-      <form
-        className={s.ResourceCreator__form}
-        onSubmit={this.submitForm}
-      >
+      <form onSubmit={this.submitForm}>
         <div className={s.ResourceCreator__field}>
           <input
             type="text"
@@ -74,4 +71,4 @@ class Form extends React.Component<Props, State> {
   }
 }
 
-export default Form
+export default LinkForm

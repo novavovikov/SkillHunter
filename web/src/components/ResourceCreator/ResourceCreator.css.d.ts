@@ -9,6 +9,8 @@ interface CssExports {
   'ResourceCreator__field': string;
   'ResourceCreator__form': string;
   'ResourceCreator__input': string;
+  'ResourceCreator__modal': string;
+  'ResourceCreator__overlay': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;
