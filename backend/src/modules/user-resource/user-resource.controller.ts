@@ -23,6 +23,7 @@ import { Skillset } from '../skillset/skillset.entity'
 import { SkillsetService } from '../skillset/skillset.service'
 import { UserSkill } from '../user-skill/user-skill.entity'
 import { UserSkillService } from '../user-skill/user-skill.service'
+import { UserResource } from './user-resource.entity'
 import { UserResourceService } from './user-resource.service'
 
 @Controller('user-resource')
@@ -44,6 +45,7 @@ export class UserResourceController {
     @Body('skillsetId') skillsetId: number,
     @Body('skillId') skillId: number,
     @Body('resourceId') resourceId: number,
+    @Body('data') data: Partial<UserResource>,
   ) {
     const resource: Resource = await this.resourceService.findById(resourceId)
 
@@ -74,6 +76,7 @@ export class UserResourceController {
       skillsetId,
       userSkill,
       resource,
+      data
     )
   }
 

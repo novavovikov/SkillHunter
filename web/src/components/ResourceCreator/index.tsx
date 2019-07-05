@@ -22,13 +22,13 @@ interface Props {
 
 interface State {
   isOpen: boolean
-  type: string | null
+  type: string
 }
 
 class ResourceCreator extends React.Component<Props, State> {
   state = {
     isOpen: false,
-    type: null
+    type: ''
   }
 
   handleClickOutside = () => {
@@ -37,12 +37,12 @@ class ResourceCreator extends React.Component<Props, State> {
 
   closeCreator = () => {
     this.setState({
-      type: null,
+      type: '',
       isOpen: false,
     })
   }
 
-  setType = (type: string | null) => {
+  setType = (type: string) => {
     this.setState({
       type,
       isOpen: false
@@ -62,14 +62,16 @@ class ResourceCreator extends React.Component<Props, State> {
 
     if (url) {
       const resource = await ajax.post('resource', {
-        link: url.href,
-        type
+        link: url.href
       }).then(({ data }) => data as ResourceType)
 
       addResource({
         skillsetId,
         skillId,
         resourceId: resource.id,
+        data: {
+          type
+        }
       })
 
       this.closeCreator()

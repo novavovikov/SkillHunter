@@ -5,6 +5,7 @@ export interface ResourceSagaPayload {
   skillsetId: number
   skillId: number
   resourceId: number
+  data: Partial<ResourceType>
 }
 
 export interface ResourceLikeStatusSagaPayload {

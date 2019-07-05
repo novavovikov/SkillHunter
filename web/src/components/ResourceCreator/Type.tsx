@@ -7,20 +7,16 @@ const TYPES = [
     label: 'Article',
   },
   {
-    value: 'video',
-    label: 'Video',
+    value: 'media',
+    label: 'Media',
+  },
+  {
+    value: 'book',
+    label: 'Book',
   },
   {
     value: 'course',
     label: 'Course',
-  },
-  {
-    value: 'tool',
-    label: 'Tool',
-  },
-  {
-    value: 'framework',
-    label: 'Framework',
   },
 ]
 

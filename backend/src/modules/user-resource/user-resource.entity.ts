@@ -1,4 +1,5 @@
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { ResourceType } from '../../constants/resource-type'
 import { UserResourceStatusType } from '../../constants/status-type'
 import { Resource } from '../resource/resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
@@ -18,6 +19,9 @@ export class UserResource {
 
   @Column({ type: 'enum', enum: UserResourceStatusType, default: UserResourceStatusType.Backlog })
   status: string
+
+  @Column({ default: ResourceType.article })
+  type: ResourceType
 
   @ManyToOne(() => UserSkill, (userSkill: UserSkill) => userSkill.userResources, { eager: true })
   userSkill: UserSkill

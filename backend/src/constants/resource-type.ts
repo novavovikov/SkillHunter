@@ -1,7 +1,6 @@
 export enum ResourceType {
   article = 'article',
-  video = 'video',
+  media = 'media',
+  book = 'book',
   course = 'course',
-  tool = 'tool',
-  framework = 'framework',
 }

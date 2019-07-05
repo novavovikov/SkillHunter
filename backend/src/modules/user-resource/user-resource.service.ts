@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { In, Repository } from 'typeorm'
+import { ResourceType } from '../../constants/resource-type'
 import { UserResourceStatusType } from '../../constants/status-type'
 import { Resource } from '../resource/resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
@@ -19,18 +20,21 @@ export class UserResourceService {
     skillsetId: number,
     userSkill: UserSkill,
     resource: Resource,
+    data: Partial<UserResource>,
   ) {
     const userResource = this.userResourceRepository.create({
+      ...data,
       user,
       skillsetId,
       userSkill,
       resource,
     })
 
-    const { status } = await this.userResourceRepository.save(userResource)
+    const { status, type } = await this.userResourceRepository.save(userResource)
     return this.getResourceModel(
       resource,
       status,
+      type,
       user.id,
       skillsetId,
       userSkill.id,
@@ -75,10 +79,11 @@ export class UserResourceService {
       },
     })
 
-    return resources.map(({ status, resource }) => {
+    return resources.map(({ status, type, resource }) => {
       return this.getResourceModel(
         resource,
         status,
+        type,
         userId,
         skillsetId,
         skillId,
@@ -103,11 +108,13 @@ export class UserResourceService {
       userSkill,
       resource,
       status,
+      type,
     }) => {
       const skillId = userSkill.id
       const resourceData = this.getResourceModel(
         resource,
         status,
+        type,
         user.id,
         skillsetId,
         skillId,
@@ -154,11 +161,11 @@ export class UserResourceService {
 
   async removeResourcesByUserSkillIds (
     user: User,
-    userSkillIds: number[]
+    userSkillIds: number[],
   ) {
     const userResources = await this.userResourceRepository.find({
       user,
-      userSkill: In(userSkillIds)
+      userSkill: In(userSkillIds),
     })
 
     return await this.userResourceRepository.remove(userResources)
@@ -175,6 +182,7 @@ export class UserResourceService {
   getResourceModel = (
     resource: Resource,
     status: string | UserResourceStatusType,
+    type: string | ResourceType,
     userId: number,
     skillsetId: number,
     skillId: number,
@@ -183,6 +191,7 @@ export class UserResourceService {
     skillsetId,
     skillId,
     status,
+    type,
     likes: resource.userIdsLikes.length,
     isLiked: resource.userIdsLikes.includes(userId),
   })

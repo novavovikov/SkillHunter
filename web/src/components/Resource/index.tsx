@@ -6,14 +6,33 @@ import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/
 import { ResourceStatusTypes, ResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
 import { ShareMenu } from '../index'
+import articleIcon from './icons/article.svg'
+import bookIcon from './icons/book.svg'
+import courseIcon from './icons/course.svg'
+import mediaIcon from './icons/media.svg'
 import * as s from './Resource.css'
+
+const getIconByType = (type: string) => {
+  switch (type) {
+    case 'article':
+      return articleIcon
+    case 'media':
+      return mediaIcon
+    case 'book':
+      return bookIcon
+    case 'course':
+      return courseIcon
+    default:
+      return articleIcon
+  }
+}
 
 interface Props {
   data: ResourceType,
   shared?: boolean
   likeHandler: (data: ResourceLikeStatusSagaPayload) => void
   updateHandler: (data: Partial<ResourceType>) => void
-  removeHandler: (data: ResourceSagaPayload) => void
+  removeHandler: (data: Partial<ResourceSagaPayload>) => void
 }
 
 class Resource extends React.Component<Props> {
@@ -77,7 +96,7 @@ class Resource extends React.Component<Props> {
       <div className={s.Resource}>
         <div className={cn(s.Resource__col, s.Resource__col_info)}>
           <div className={s.Resource__type}>
-            <img src={require(`./icons/${data.type}.svg`)} alt=""/>
+            <img src={getIconByType(data.type)} alt=""/>
           </div>
 
           <div className={s.Resource__info}>

@@ -21,9 +21,6 @@ export class Resource {
   @CreateDateColumn()
   created: Date
 
-  @Column({ default: ResourceType.article })
-  type: ResourceType
-
   @Column()
   title: string
 
