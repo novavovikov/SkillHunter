@@ -31,6 +31,8 @@
     background: var(--color-desert-storm);
     padding: 15px 25px 10px;
     border-radius: var(--radius);
+    animation: ShowForm var(--transition-fast) forwards;
+    transform-origin: left top;
     z-index: 2;
   }
 
@@ -88,5 +90,15 @@
       background: var(--color-dodger-blue);
       color: #fff;
     }
+  }
+}
+
+@keyframes ShowForm {
+  from {
+    transform: scale(0.4);
+  }
+
+  to {
+    transform: scale(1);
   }
 }

@@ -11,6 +11,7 @@ interface CssExports {
   'ResourceCreator__input': string;
   'ResourceCreator__modal': string;
   'ResourceCreator__overlay': string;
+  'ShowForm': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

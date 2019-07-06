@@ -10,6 +10,7 @@ import heartFilledIcon from './icons/heart-filled-ico.svg?inline'
 import heartIcon from './icons/heart-ico.svg?inline'
 import shareIcon from './icons/share-ico.svg?inline'
 import userIcon from './icons/user-ico.svg?inline'
+import removeIcon from './icons/remove-ico.svg?inline'
 
 interface Props {
   type: string
@@ -38,6 +39,8 @@ const getIcon = (type: string) => {
       return arrowDownIcon
     case 'arrow-right':
       return arrowRightIcon
+    case 'remove':
+      return removeIcon
     default:
       return null
   }
