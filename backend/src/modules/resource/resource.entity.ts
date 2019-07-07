@@ -21,13 +21,13 @@ export class Resource {
   @CreateDateColumn()
   created: Date
 
-  @Column()
+  @Column({ nullable: true })
   title: string
 
   @Column({ unique: true })
   link: string
 
-  @Column()
+  @Column({ nullable: true })
   icon: string
 
   @ManyToMany(() => Skill, (skill: Skill) => skill.resources, { cascade: true })

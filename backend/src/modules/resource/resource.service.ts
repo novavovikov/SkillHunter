@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { JSDOM, VirtualConsole } from 'jsdom'
 import { map } from 'rxjs/operators'
 import { FindOneOptions, Repository } from 'typeorm'
+import { Favicon } from '../../utils/favicon'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
 
@@ -27,47 +28,21 @@ export class ResourceService {
     return this.resourceRepository.findOne({ link })
   }
 
-  urlNormalizer = (url: string) => {
-    return url.replace(/([^:]\/)\/+/g, '$1')
-  }
-
-  getFavicon (document: Document, origin?: string) {
-    let icon: HTMLLinkElement = document.querySelector('link[rel=icon]')
-
-    if (!icon) {
-      icon = document.querySelector('link[rel="shortcut icon"]')
-    }
-
-    if (!icon && origin) {
-      return this.urlNormalizer(`${origin}/favicon.ico`)
-    }
-
-    const href = icon && icon.href
-
-    if (href && !href.includes('http')) {
-      return this.urlNormalizer(`${origin}/${href}`)
-    }
-
-    if (href) {
-      return this.urlNormalizer(href)
-    }
-
-    return null
-  }
-
   async getFromLink (link: string) {
     try {
       return await this.http.get(link).
         pipe(map(({ data }) => data)).
         toPromise().
-        then(resp => {
+        then(async resp => {
           const virtualConsole = new VirtualConsole()
           const dom = new JSDOM(resp, {
             virtualConsole,
           })
+          const { document } = dom.window
           const url: URL = new URL(link)
-          const icon: string = this.getFavicon(dom.window.document, url.origin)
-          const title: HTMLTitleElement = dom.window.document.querySelector('title')
+          const FaviconClass = new Favicon(this.http)
+          const icon: string = await FaviconClass.getFaviconFromDocument(document, url.origin)
+          const title: HTMLTitleElement = document.querySelector('title')
 
           return {
             link,

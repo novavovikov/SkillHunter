@@ -6,6 +6,7 @@ import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/
 import { ResourceStatusTypes, ResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
 import { ShareMenu } from '../index'
+import faviconIcon from './icons/favicon.svg'
 import articleIcon from './icons/article.svg'
 import bookIcon from './icons/book.svg'
 import courseIcon from './icons/course.svg'
@@ -101,7 +102,7 @@ class Resource extends React.Component<Props> {
 
           <div className={s.Resource__info}>
             <h4 className={s.Resource__title}>
-              {data.title}
+              {data.title || data.link}
             </h4>
 
             <a
@@ -111,7 +112,7 @@ class Resource extends React.Component<Props> {
             >
           <span className={s.Resource__favicon}>
             <img
-              src={data.icon}
+              src={data.icon || faviconIcon}
               alt=""
             />
           </span>
