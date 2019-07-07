@@ -1,6 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
+import { textNormalizer } from '../../utils/normalizer'
 import { SkillsetService } from '../skillset/skillset.service'
 import { SkillService } from '../skill/skill.service'
 import { SUGGESTS } from './constants/uri'
@@ -22,21 +23,25 @@ export class SuggestsController {
     @Query('skill') skill: string,
   ) {
     if (skillset) {
-      const data = await this.suggestsService.getDataFromHH(SUGGESTS.skillset, skillset)
+      const normalizedText = textNormalizer(skillset)
+      const data = await this.suggestsService.getDataFromHH(SUGGESTS.skillset, normalizedText)
       await this.skillsetService.setSkillsets(data.map(item => ({
         ...item,
         accepted: true,
       })))
-      return await this.skillsetService.like('name', skillset)
+
+      return await this.skillsetService.like('name', normalizedText)
     }
 
     if (skill) {
-      const data = await this.suggestsService.getDataFromHH(SUGGESTS.skill, skill)
+      const normalizedText = textNormalizer(skill)
+      const data = await this.suggestsService.getDataFromHH(SUGGESTS.skill, normalizedText)
       await this.skillService.setSkills(data.map(item => ({
         ...item,
         accepted: true,
       })))
-      return await this.skillService.like('name', skill)
+
+      return await this.skillService.like('name', normalizedText)
     }
 
     return []

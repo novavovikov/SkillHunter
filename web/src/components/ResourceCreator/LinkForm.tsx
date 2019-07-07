@@ -9,11 +9,13 @@ interface Props {
 
 interface State {
   inputValue: string
+  disabled: boolean
 }
 
 class LinkForm extends React.Component<Props, State> {
   state = {
     inputValue: '',
+    disabled: false
   }
 
   async componentDidMount () {
@@ -38,10 +40,13 @@ class LinkForm extends React.Component<Props, State> {
     const { inputValue } = this.state
 
     onSubmit(inputValue)
+    this.setState({
+      disabled: true
+    })
   }
 
   render () {
-    const { inputValue } = this.state
+    const { inputValue, disabled } = this.state
     const url = getUrl(inputValue)
 
     return (
@@ -63,7 +68,7 @@ class LinkForm extends React.Component<Props, State> {
           </div>
         </div>
 
-        <Button disabled={!url}>
+        <Button disabled={!url || disabled}>
           Add
         </Button>
       </form>
