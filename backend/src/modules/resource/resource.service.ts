@@ -15,6 +15,13 @@ export class ResourceService {
     private readonly http: HttpService,
   ) {}
 
+  async findOne (data: Partial<Resource>, options?: FindOneOptions<Resource>) {
+    return await this.resourceRepository.findOne({
+      where: data,
+      ...options,
+    })
+  }
+
   async findById (id: number | string, options?: FindOneOptions<Resource>) {
     return await this.resourceRepository.findOne({
       where: {
@@ -22,10 +29,6 @@ export class ResourceService {
       },
       ...options,
     })
-  }
-
-  findByLink (link: string) {
-    return this.resourceRepository.findOne({ link })
   }
 
   async getFromLink (link: string) {
@@ -41,12 +44,12 @@ export class ResourceService {
           const { document } = dom.window
           const url: URL = new URL(link)
           const FaviconClass = new Favicon(this.http)
-          const icon: string = await FaviconClass.getFaviconFromDocument(document, url.origin)
+          const picture: string = await FaviconClass.getFaviconFromDocument(document, url.origin)
           const title: HTMLTitleElement = document.querySelector('title')
 
           return {
             link,
-            icon,
+            picture,
             title: title && title.text,
           }
         }).
@@ -56,6 +59,27 @@ export class ResourceService {
     } catch (err) {
       return null
     }
+  }
+
+  async getBook (author: string, title) {
+    return await this.http.get(encodeURI(`https://www.googleapis.com/books/v1/volumes?q=${author} ${title}`)).
+      pipe(map(({ data }) => data)).
+      toPromise().
+      then((resp: any) => {
+        const { selfLink, volumeInfo  }: any = resp.items[0]
+
+        return {
+          link: selfLink,
+          title: volumeInfo.title,
+          author: volumeInfo.authors,
+          icon: volumeInfo.imageLinks.thumbnail
+        }
+      }).
+      catch(err => {
+
+        console.log(1234)
+        return null
+      })
   }
 
   async findAll (options?: FindOneOptions<Resource>) {

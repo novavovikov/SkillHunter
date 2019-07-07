@@ -3,7 +3,6 @@ import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { FindOneOptions, In } from 'typeorm'
 import { RolesGuard } from '../../common/guards/roles.guard'
-import { ResourceDto } from './resource.dto'
 import { Resource } from './resource.entity'
 import { ResourceService } from './resource.service'
 
@@ -31,19 +30,39 @@ export class ResourceController {
     return this.resourceService.findAll(query)
   }
 
-  @Post()
+  @Post('article|media|course')
   @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
-  async setResource (@Body() data: ResourceDto) {
-    let resource: Partial<Resource> = await this.resourceService.findByLink(data.link)
+  async setResource (
+    @Body('link') link: string,
+  ) {
+    let resource: Partial<Resource> = await this.resourceService.findOne({ link })
 
     if (!resource) {
-      resource = await this.resourceService.getFromLink(data.link)
+      resource = await this.resourceService.getFromLink(link)
 
-      return this.resourceService.create({
-        ...data,
-        ...resource,
-      })
+      return this.resourceService.create(resource)
+    }
+
+    return resource
+  }
+
+  @Post('book')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiUseTags('resource')
+  async setBookResource (
+    @Body('title') title: string,
+    @Body('author') author: string,
+  ) {
+    let resource: Partial<Resource> = await this.resourceService.findOne({
+      title,
+      author: [author]
+    })
+
+    if (!resource) {
+      resource = await this.resourceService.getBook(author, title)
+
+      return this.resourceService.create(resource)
     }
 
     return resource

@@ -8,10 +8,9 @@ import {
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm'
-import { ResourceType } from '../../constants/resource-type'
 import { Skill } from '../skill/skill.entity'
-import { User } from '../user/user.entity'
 import { UserResource } from '../user-resource/user-resource.entity'
+import { User } from '../user/user.entity'
 
 @Entity()
 export class Resource {
@@ -24,11 +23,14 @@ export class Resource {
   @Column({ nullable: true })
   title: string
 
+  @Column({ type: 'simple-array', nullable: true })
+  author: string[]
+
   @Column({ unique: true })
   link: string
 
   @Column({ nullable: true })
-  icon: string
+  picture: string
 
   @ManyToMany(() => Skill, (skill: Skill) => skill.resources, { cascade: true })
   @JoinTable({ name: 'skill_resources' })

@@ -4,6 +4,7 @@ import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
+  AddResourceSaga,
   ChangeResourceLikeStatusSaga,
   GetResourcesSaga,
   RemoveResourceSaga,
@@ -21,13 +22,23 @@ export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) 
   }
 }
 
-export function * addResourceSaga ({ payload }: RemoveResourceSaga) {
+export function * addResourceSaga ({ payload }: AddResourceSaga) {
   try {
-    const { data } = yield call(ajax.post, API.USER_RESOURCE, payload)
+    const { data } = payload
 
-    yield put(ac.addResource(data))
+    const { data: resource } = yield call(ajax.post, `${API.RESOURCE}/${data.type}`, data)
+
+    if (!resource) {
+      throw new Error('Resource in not defined')
+    }
+
+    const { data: userResource } = yield call(ajax.post, API.USER_RESOURCE, {
+      resourceId: resource.id,
+      ...payload,
+    })
+
+    yield put(ac.addResource(userResource))
   } catch (error) {
-    yield put(ac.setUserData([]))
     console.warn('getResourcesSaga: ', error)
   }
 }

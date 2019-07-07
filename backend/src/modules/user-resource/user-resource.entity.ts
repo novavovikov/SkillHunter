@@ -20,6 +20,12 @@ export class UserResource {
   @Column({ type: 'enum', enum: UserResourceStatusType, default: UserResourceStatusType.Backlog })
   status: string
 
+  @Column({ nullable: true })
+  author: string
+
+  @Column({ nullable: true })
+  title: string
+
   @Column({ default: ResourceType.article })
   type: ResourceType
 

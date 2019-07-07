@@ -2,7 +2,7 @@ import { ResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
   AddResource,
-  AddResourceSaga,
+  AddResourceSaga, AddResourceSagaPayload,
   ChangeResourceLikeStatus,
   ChangeResourceLikeStatusSaga,
   GetResourcesSaga,
@@ -23,7 +23,7 @@ export const getResourcesSaga = (skillsetId: number, skillIds: number[]): GetRes
   skillIds,
 })
 
-export const addResourceSaga = (data: ResourceSagaPayload): AddResourceSaga => ({
+export const addResourceSaga = (data: AddResourceSagaPayload): AddResourceSaga => ({
   type: ResourcesActionTypes.SAGA_ADD_RESOURCE,
   payload: data,
 })

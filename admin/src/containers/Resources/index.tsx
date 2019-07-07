@@ -49,9 +49,9 @@ const Resources: React.FC = () => {
               {resource.title}
             </Table.Td>
             <Table.Td>
-              {resource.icon && (
+              {resource.picture && (
                 <img
-                  src={resource.icon}
+                  src={resource.picture}
                   alt={''}
                   style={{
                     width: 16,

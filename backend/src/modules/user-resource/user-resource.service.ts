@@ -30,9 +30,11 @@ export class UserResourceService {
       resource,
     })
 
-    const { status, type } = await this.userResourceRepository.save(userResource)
+    const { status, type, title, author } = await this.userResourceRepository.save(userResource)
     return this.getResourceModel(
       resource,
+      title,
+      author,
       status,
       type,
       user.id,
@@ -79,9 +81,11 @@ export class UserResourceService {
       },
     })
 
-    return resources.map(({ status, type, resource }) => {
+    return resources.map(({ status, type, resource, title, author }) => {
       return this.getResourceModel(
         resource,
+        title,
+        author,
         status,
         type,
         userId,
@@ -109,10 +113,14 @@ export class UserResourceService {
       resource,
       status,
       type,
+      title,
+      author
     }) => {
       const skillId = userSkill.id
       const resourceData = this.getResourceModel(
         resource,
+        title,
+        author,
         status,
         type,
         user.id,
@@ -181,6 +189,8 @@ export class UserResourceService {
 
   getResourceModel = (
     resource: Resource,
+    userTitle: string,
+    author: string,
     status: string | UserResourceStatusType,
     type: string | ResourceType,
     userId: number,
@@ -192,6 +202,8 @@ export class UserResourceService {
     skillId,
     status,
     type,
+    userTitle,
+    author,
     likes: resource.userIdsLikes.length,
     isLiked: resource.userIdsLikes.includes(userId),
   })

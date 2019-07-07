@@ -21,9 +21,11 @@ export interface ResourceType {
   skillsetId: number
   skillId: number
   created: string
-  icon: string
+  picture: string
   link: string
   title: string
+  userTitle: string
+  author: string
   type: string
   status: ResourceStatusTypes | string
   userIdsLikes: number[]

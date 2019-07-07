@@ -1,10 +1,14 @@
 import React, { ChangeEvent, FormEvent } from 'react'
-import { IconButton, Button } from '../../UI'
+import { Button } from '../../UI'
 import { getUrl, getUrlFromClipboard } from '../../utils/url'
 import * as s from './ResourceCreator.css'
 
+interface SubmitData {
+  link: string
+}
+
 interface Props {
-  onSubmit: (link: string) => void
+  onSubmit: (data: SubmitData) => void
 }
 
 interface State {
@@ -15,7 +19,7 @@ interface State {
 class LinkForm extends React.Component<Props, State> {
   state = {
     inputValue: '',
-    disabled: false
+    disabled: false,
   }
 
   async componentDidMount () {
@@ -39,9 +43,9 @@ class LinkForm extends React.Component<Props, State> {
     const { onSubmit } = this.props
     const { inputValue } = this.state
 
-    onSubmit(inputValue)
+    onSubmit({ link: inputValue })
     this.setState({
-      disabled: true
+      disabled: true,
     })
   }
 
@@ -57,6 +61,7 @@ class LinkForm extends React.Component<Props, State> {
             className={s.ResourceCreator__input}
             onChange={this.onChangeInput}
             value={inputValue}
+            placeholder="Add a link to the source"
             autoFocus
           />
 

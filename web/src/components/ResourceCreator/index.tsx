@@ -4,30 +4,30 @@ import { createPortal } from 'react-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { addResourceSaga } from '../../redux/actions/resources'
-import { ResourceSagaPayload } from '../../redux/interfaces/resources'
+import { AddResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceType } from '../../types'
-import { ajax } from '../../utils/ajax'
-import { getUrl } from '../../utils/url'
+import BookForm from './BookForm'
 import LinkForm from './LinkForm'
 import * as s from './ResourceCreator.css'
 import TypeForm from './TypeForm'
 
-enum ModalTypes {
-  type = 'type',
-  link = 'link'
-}
+const LINK_TYPES = [
+  'article',
+  'media',
+  'course',
+]
 
 interface Props {
   className?: string
   skillsetId: number
   skillId: number
   onClose: () => void
-  addResource: (data: ResourceSagaPayload) => void
+  addResource: (data: AddResourceSagaPayload) => void
 }
 
 interface State {
   formPosition: any
-  modalType: ModalTypes
+  typeModalVisibility: boolean
   type: string
 }
 
@@ -35,45 +35,38 @@ class ResourceCreator extends React.Component<Props, State> {
   private wrapRef = createRef<HTMLDivElement>()
 
   state = {
-    modalType: ModalTypes.type,
+    typeModalVisibility: true,
     formPosition: {},
     type: '',
   }
 
   componentDidMount () {
     this.setState({
-      formPosition: this.getFormPosition()
+      formPosition: this.getFormPosition(),
     })
   }
 
   setType = (type: string) => {
     this.setState({
-      modalType: ModalTypes.link,
+      typeModalVisibility: false,
       type,
     })
   }
 
-  createResource = async (link: string) => {
+  createResource = (data: Partial<ResourceType>) => {
     const { type } = this.state
     const { skillId, skillsetId, addResource, onClose } = this.props
-    const url = getUrl(link)
 
-    if (url) {
-      const resource = await ajax.post('resource', {
-        link: url.href,
-      }).then(({ data }) => data as ResourceType)
+    addResource({
+      skillsetId,
+      skillId,
+      data: {
+        ...data,
+        type,
+      },
+    })
 
-      addResource({
-        skillsetId,
-        skillId,
-        resourceId: resource.id,
-        data: {
-          type,
-        },
-      })
-
-      onClose()
-    }
+    onClose()
   }
 
   getFormPosition = () => {
@@ -84,14 +77,14 @@ class ResourceCreator extends React.Component<Props, State> {
 
       return {
         left: `${params.left}px`,
-        top: `${params.top}px`
+        top: `${params.top}px`,
       }
     }
   }
 
   render () {
     const { className, onClose } = this.props
-    const { modalType, formPosition } = this.state
+    const { typeModalVisibility, type, formPosition } = this.state
 
     return (
       <div
@@ -109,8 +102,13 @@ class ResourceCreator extends React.Component<Props, State> {
                 className={s.ResourceCreator__form}
                 style={formPosition}
               >
-                {modalType === ModalTypes.type && <TypeForm onSubmit={this.setType}/>}
-                {modalType === ModalTypes.link && <LinkForm onSubmit={this.createResource}/>}
+                {typeModalVisibility && <TypeForm onSubmit={this.setType}/>}
+
+                {type && (
+                  LINK_TYPES.includes(type)
+                    ? <LinkForm onSubmit={this.createResource}/>
+                    : <BookForm onSubmit={this.createResource}/>
+                )}
               </div>
             </div>
           ),

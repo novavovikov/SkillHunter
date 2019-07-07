@@ -6,10 +6,10 @@ import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/
 import { ResourceStatusTypes, ResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
 import { ShareMenu } from '../index'
-import faviconIcon from './icons/favicon.svg'
 import articleIcon from './icons/article.svg'
 import bookIcon from './icons/book.svg'
 import courseIcon from './icons/course.svg'
+import faviconIcon from './icons/favicon.svg'
 import mediaIcon from './icons/media.svg'
 import * as s from './Resource.css'
 
@@ -102,22 +102,31 @@ class Resource extends React.Component<Props> {
 
           <div className={s.Resource__info}>
             <h4 className={s.Resource__title}>
-              {data.title || data.link}
+              {data.userTitle || data.title || data.link}
             </h4>
 
-            <a
-              href={data.link}
-              className={s.Resource__site}
-              target="_blank"
-            >
+            {data.type !== 'book' && (
+              <a
+                href={data.link}
+                className={s.Resource__site}
+                target="_blank"
+              >
           <span className={s.Resource__favicon}>
             <img
-              src={data.icon || faviconIcon}
+              src={data.picture || faviconIcon}
               alt=""
             />
           </span>
-              {this.url.hostname}
-            </a>
+                {this.url.hostname}
+              </a>
+            )}
+
+            {data.type === 'book' && (
+              <div className={s.Resource__site}>
+                {data.author}
+              </div>
+            )}
+
           </div>
         </div>
 
