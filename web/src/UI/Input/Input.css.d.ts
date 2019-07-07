@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'Input': string;
+  'Input__clear': string;
   'Input__field': string;
 }
 declare var cssExports: CssExports;

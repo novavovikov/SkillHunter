@@ -9,6 +9,7 @@
     height: 38px;
     border: none;
     background: none;
+    padding: 0 40px 0 0;
     border-bottom: 1px solid var(--color-alto);
     transition: var(--transition-fast);
 
@@ -18,6 +19,23 @@
 
     &::placeholder {
       color: var(--color-dusty-gray);
+    }
+  }
+
+  &__clear {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 38px;
+    height: 38px;
+    margin-top: -19px;
+    border: none;
+    background: none;
+
+    &:hover {
+      path {
+        fill: var(--color-dusty-gray);
+      }
     }
   }
 }
