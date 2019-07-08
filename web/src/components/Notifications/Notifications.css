@@ -1,4 +1,4 @@
-@import "../../../styles/variables.css";
+@import "../../styles/variables.css";
 
 .Notifications {
   position: fixed;
@@ -7,7 +7,7 @@
   min-width: 100px;
   max-width: 300px;
   bottom: 20px;
-  right: 20px;
+  right: 40px;
 
   &__item {
     padding: 20px;

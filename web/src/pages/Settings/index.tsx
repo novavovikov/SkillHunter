@@ -1,19 +1,20 @@
 import React, { FC } from 'react'
+import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { Header } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
-import { withNotification } from '../../providers/Notification'
-import { NotificationApiProps } from '../../providers/Notification/context'
+import { addNotification } from '../../redux/actions/notifications'
+import { NotificationType } from '../../types'
 import { Button } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
-  notificationApi: NotificationApiProps
+  showNotification: (data: NotificationType) => void
 }
 
-const Settings: FC<Props> = ({ history, notificationApi }) => {
+const Settings: FC<Props> = ({ history, showNotification }) => {
   const handleRemove = async () => {
     await ajax.delete('user')
     history.push(ROUTES.LOGOUT)
@@ -24,36 +25,37 @@ const Settings: FC<Props> = ({ history, notificationApi }) => {
       <Header/>
       <div>
         <p>
-          <Button onClick={() => notificationApi.showNotification('Пример простого сообщения')}>
+          <Button onClick={() => showNotification({ message: 'Пример простого сообщения' })}>
             Простое сообщение
           </Button>
         </p>
         <p>
           <Button onClick={() =>
-            notificationApi.showNotification(
-              'Пример сообщения об ошибке',
-              NotificationTypes.error,
-            )
+            showNotification({
+              message: 'Пример сообщения об ошибке',
+              type: NotificationTypes.error,
+            })
           }>
             Сообщение об ошибке
           </Button>
         </p>
         <p>
           <Button onClick={() =>
-            notificationApi.showNotification(
-              'Пример простого сообщения-уведомления пользователя',
-              NotificationTypes.warning,
-            )
+            showNotification({
+              message: 'Пример простого сообщения-уведомления пользователя',
+              type: NotificationTypes.warning,
+            })
           }>
             Сообщение-предупреждение
           </Button>
         </p>
         <p>
           <Button onClick={() =>
-            notificationApi.showNotification(
-              'Пример сообщения об успешности операции',
-              NotificationTypes.success,
-            )
+            showNotification({
+              message: 'Пример сообщения об успешности операции',
+              type: NotificationTypes.success,
+            })
+
           }>
             Сообщение об успешности
           </Button>
@@ -73,5 +75,7 @@ const Settings: FC<Props> = ({ history, notificationApi }) => {
 
 export default compose(
   withRouter,
-  withNotification,
+  connect(null, {
+    showNotification: addNotification,
+  }),
 )(Settings)

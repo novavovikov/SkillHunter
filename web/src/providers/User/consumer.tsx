@@ -5,7 +5,6 @@ import { Redirect } from 'react-router'
 import { ROUTES } from '../../constants/routing'
 import { getUserDataSaga } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
-import { UserState } from '../../redux/reducers/user'
 
 export const withUser = (WrappedComponent: React.ComponentType) => {
   class Component extends React.Component<any> {

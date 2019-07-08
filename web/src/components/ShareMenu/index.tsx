@@ -1,14 +1,15 @@
 import copy from 'copy-to-clipboard'
 import React from 'react'
+import { connect } from 'react-redux'
 import { NotificationTypes } from '../../constants/notification'
-import { withNotification } from '../../providers/Notification'
-import { NotificationApiProps } from '../../providers/Notification/context'
+import { addNotification } from '../../redux/actions/notifications'
+import { NotificationType } from '../../types'
 import { Item, Menu } from '../../UI'
 import { getShareLink, SHARE_SITES } from '../../utils/share'
 import { urlNormalizer } from '../../utils/url'
 
 interface Props {
-  notificationApi: NotificationApiProps
+  showNotification: (data: NotificationType) => void
   link: string
   text: string
 }
@@ -53,7 +54,7 @@ class ShareMenu extends React.Component<Props> {
   }
 
   render () {
-    const { link, notificationApi } = this.props
+    const { link, showNotification } = this.props
     const url = urlNormalizer(`${ShareMenu.originUrl}${link}`)
 
     return (
@@ -61,7 +62,10 @@ class ShareMenu extends React.Component<Props> {
         <Item
           onClick={() => {
             copy(url)
-            notificationApi.showNotification('Link copied', NotificationTypes.success)
+            showNotification({
+              message: 'Link copied',
+              type: NotificationTypes.success
+            })
           }}
         >
           Copy link
@@ -79,4 +83,8 @@ class ShareMenu extends React.Component<Props> {
   }
 }
 
-export default withNotification(ShareMenu)
+export default connect(
+  null, {
+    showNotification: addNotification,
+  },
+)(ShareMenu)

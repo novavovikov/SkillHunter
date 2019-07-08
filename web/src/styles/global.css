@@ -5,6 +5,7 @@
     box-sizing: border-box;
     border-radius: 0;
     outline: none;
+    appearance: none;
 
     &:before, &:after {
       box-sizing: border-box;

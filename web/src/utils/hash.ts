@@ -1,3 +1,5 @@
+export const generateHash = () => Math.random().toString(36).substring(7)
+
 export class Hash {
   static readonly algorithm = 'SHA-256'
 

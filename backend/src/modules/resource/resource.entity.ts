@@ -26,7 +26,7 @@ export class Resource {
   @Column({ type: 'simple-array', nullable: true })
   author: string[]
 
-  @Column({ unique: true })
+  @Column()
   link: string
 
   @Column({ nullable: true })

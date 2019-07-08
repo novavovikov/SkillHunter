@@ -1,6 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { API } from '../../constants/api'
+import { NotificationTypes } from '../../constants/notification'
 import { ajax } from '../../utils/ajax'
+import { logger } from '../../utils/logger'
 import ac from '../actions'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
@@ -18,7 +20,7 @@ export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) 
     yield put(ac.setResources(data))
   } catch (error) {
     yield put(ac.setUserData([]))
-    console.warn('getResourcesSaga: ', error)
+    logger('getResourcesSaga: ', error)
   }
 }
 
@@ -38,8 +40,16 @@ export function * addResourceSaga ({ payload }: AddResourceSaga) {
     })
 
     yield put(ac.addResource(userResource))
+    yield put(ac.addNotification({
+      message: 'Material was added',
+      type: NotificationTypes.success,
+    }))
   } catch (error) {
-    console.warn('getResourcesSaga: ', error)
+    logger('getResourcesSaga: ', error)
+    yield put(ac.addNotification({
+      message: 'Material error',
+      type: NotificationTypes.error,
+    }))
   }
 }
 
@@ -51,7 +61,7 @@ export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
     yield put(ac.updateResource(data))
   } catch (error) {
     yield put(ac.setUserData([]))
-    console.warn('getResourcesSaga: ', error)
+    logger('getResourcesSaga: ', error)
   }
 }
 
@@ -65,7 +75,7 @@ export function * changeResourceLikeStatusSaga ({ payload }: ChangeResourceLikeS
     yield put(ac.changeResourceLikeStatus(data))
   } catch (error) {
     yield put(ac.setUserData([]))
-    console.warn('getResourcesSaga: ', error)
+    logger('getResourcesSaga: ', error)
   }
 }
 
@@ -76,7 +86,7 @@ export function * removeResourcesSaga ({ payload: { skillsetId, skillId, resourc
     yield put(ac.removeResource({ skillId, resourceId }))
   } catch (error) {
     yield put(ac.setUserData([]))
-    console.warn('getResourcesSaga: ', error)
+    logger('getResourcesSaga: ', error)
   }
 }
 

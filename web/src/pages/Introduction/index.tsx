@@ -2,22 +2,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { Skillset, SkillList, Steps } from '../../components'
+import { SkillList, Skillset, Steps } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
-import { withNotification } from '../../providers/Notification'
-import { NotificationApiProps } from '../../providers/Notification/context'
+import { addNotification } from '../../redux/actions/notifications'
 import { updateUserData } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
-import { SkillsetType, SkillType } from '../../types'
+import { NotificationType, SkillsetType } from '../../types'
 import { Layout, Logo } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
   user: UserState
   setSkillsets: (data: SkillsetType[]) => void,
-  notificationApi: NotificationApiProps
+  showNotification: (data: NotificationType) => void
 }
 
 interface State {
@@ -40,7 +39,7 @@ class Introduction extends React.Component<Props, State> {
   }
 
   onSubmit = () => {
-    const { history, setSkillsets, notificationApi } = this.props
+    const { history, setSkillsets, showNotification } = this.props
 
     ajax.
       post('user/skillset', this.state).
@@ -49,7 +48,10 @@ class Introduction extends React.Component<Props, State> {
         history.push(`${ROUTES.SKILLSET}/${this.state.skillset}`)
       }).
       catch(e => {
-        notificationApi.showNotification('System error. Try again.', NotificationTypes.error)
+        showNotification({
+          message: 'System error. Try again.',
+          type: NotificationTypes.error,
+        })
       })
   }
 
@@ -87,11 +89,11 @@ class Introduction extends React.Component<Props, State> {
 
 export default compose(
   withRouter,
-  withNotification,
   connect(
     ({ user }: RootState) => ({ user }),
     {
       setSkillsets: (skillsets: SkillsetType[]) => updateUserData({ skillsets }),
+      showNotification: addNotification,
     },
   ),
 )(Introduction)

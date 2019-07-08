@@ -7,7 +7,7 @@ import getCombinedReducers from './reducers'
 import sagas from './sagas'
 
 const sagaMiddleware = createSagaMiddleware()
-const store: Store = createStore(
+export const store: Store = createStore(
   getCombinedReducers(),
   {},
   composeWithDevTools(applyMiddleware(sagaMiddleware)),

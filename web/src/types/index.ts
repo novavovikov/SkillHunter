@@ -12,8 +12,12 @@ export interface SuggestionType {
 }
 
 export interface NotificationType {
-  type: NotificationTypes,
+  type?: NotificationTypes,
   message: string | number
+}
+
+export interface NotificationTypeWithId extends NotificationType{
+  id: string
 }
 
 export interface ResourceType {

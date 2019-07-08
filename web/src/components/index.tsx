@@ -1,4 +1,5 @@
 import Page from './Page'
+import Notifications from './Notifications'
 import Filters from './Filters'
 import FeatureController from './FeatureController'
 import Header from './Header'
@@ -26,6 +27,7 @@ import * as Steps from './Steps'
 
 export {
   Page,
+  Notifications,
   Filters,
   FeatureController,
   Header,
