@@ -72,15 +72,18 @@
     text-overflow: ellipsis;
   }
 
-  &__site {
+  &__source {
     display: inline-block;
     @apply --font-s;
     color: var(--color-dusty-gray);
     margin: 5px 0 0;
-    transition: var(--transition);
 
-    &:hover {
-      color: var(--color-dodger-blue);
+    &_site {
+      transition: var(--transition);
+
+      &:hover {
+        color: var(--color-dodger-blue);
+      }
     }
   }
 

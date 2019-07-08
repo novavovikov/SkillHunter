@@ -108,7 +108,7 @@ class Resource extends React.Component<Props> {
             {data.type !== 'book' && (
               <a
                 href={data.link}
-                className={s.Resource__site}
+                className={cn(s.Resource__source, s.Resource__source_site)}
                 target="_blank"
               >
           <span className={s.Resource__favicon}>
@@ -122,7 +122,7 @@ class Resource extends React.Component<Props> {
             )}
 
             {data.type === 'book' && (
-              <div className={s.Resource__site}>
+              <div className={s.Resource__source}>
                 {data.author}
               </div>
             )}

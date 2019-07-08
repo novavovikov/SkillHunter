@@ -12,7 +12,8 @@ interface CssExports {
   'Resource__likes': string;
   'Resource__menu': string;
   'Resource__select': string;
-  'Resource__site': string;
+  'Resource__source': string;
+  'Resource__source_site': string;
   'Resource__status': string;
   'Resource__status_backlog': string;
   'Resource__status_done': string;
