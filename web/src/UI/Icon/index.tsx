@@ -11,6 +11,13 @@ import heartIcon from './icons/heart-ico.svg?inline'
 import shareIcon from './icons/share-ico.svg?inline'
 import userIcon from './icons/user-ico.svg?inline'
 import removeIcon from './icons/remove-ico.svg?inline'
+import copyIcon from './icons/copy-ico.svg?inline'
+import facebookIcon from './icons/facebook-ico.svg?inline'
+import linkedinIcon from './icons/linkedin-ico.svg?inline'
+import redditIcon from './icons/reddit-ico.svg?inline'
+import telegramIcon from './icons/telegram-ico.svg?inline'
+import twitterIcon from './icons/twitter-ico.svg?inline'
+import vkIcon from './icons/vk-ico.svg?inline'
 
 interface Props {
   type: string
@@ -41,6 +48,22 @@ const getIcon = (type: string) => {
       return arrowRightIcon
     case 'remove':
       return removeIcon
+    case 'copy':
+      return copyIcon
+    case 'facebook':
+      return facebookIcon
+    case 'twitter':
+      return twitterIcon
+    case 'linkedin':
+      return linkedinIcon
+    case 'reddit':
+      return redditIcon
+    case 'telegram':
+      return telegramIcon
+    case 'twitter':
+      return twitterIcon
+    case 'vk':
+      return vkIcon
     default:
       return null
   }

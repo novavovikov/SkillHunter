@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { NotificationTypes } from '../../constants/notification'
 import { addNotification } from '../../redux/actions/notifications'
 import { NotificationType } from '../../types'
-import { Item, Menu } from '../../UI'
+import { Item, Menu, Icon } from '../../UI'
 import { getShareLink, SHARE_SITES } from '../../utils/share'
 import { urlNormalizer } from '../../utils/url'
+import s from './ShareMenu.css'
 
 interface Props {
   showNotification: (data: NotificationType) => void
@@ -68,6 +69,10 @@ class ShareMenu extends React.Component<Props> {
             })
           }}
         >
+          <Icon
+            type="copy"
+            className={s.ShareMenu__ico}
+          />
           Copy link
         </Item>
         {SHARE_LINKS.map(({ label, system }, index) => (
@@ -75,6 +80,10 @@ class ShareMenu extends React.Component<Props> {
             key={index}
             onClick={() => this.handleShare(system, url)}
           >
+            <Icon
+              type={system}
+              className={s.ShareMenu__ico}
+            />
             {label}
           </Item>
         ))}

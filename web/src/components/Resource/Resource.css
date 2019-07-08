@@ -187,8 +187,10 @@
     &:hover {
       color: var(--color-blue-ribbon);
 
-      path {
-        fill: var(--color-dodger-blue);
+      & > span {
+        path {
+          fill: var(--color-dodger-blue);
+        }
       }
     }
   }

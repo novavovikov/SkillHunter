@@ -1,12 +1,12 @@
 import { urlNormalizer } from './url'
 
 export enum SHARE_SITES {
-  facebook,
-  twitter,
-  linkedIn,
-  reddit,
-  vk,
-  telegram
+  facebook = 'facebook',
+  twitter = 'twitter',
+  linkedIn = 'linkedin',
+  reddit = 'reddit',
+  vk = 'vk',
+  telegram = 'telegram'
 }
 
 const SITES_LINKS = {
