@@ -103,7 +103,7 @@ export class ResourceService {
     })
 
     if (!resource) {
-      return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
     }
 
     if (resource.usersLikes.find(({ id }) => id === user.id)) {
@@ -131,7 +131,7 @@ export class ResourceService {
     })
 
     if (!resource) {
-      return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
     }
 
     resource.usersLikes = resource.usersLikes.filter(({ id }) => id !== user.id)

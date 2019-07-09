@@ -50,25 +50,25 @@ export class UserResourceController {
     const resource: Resource = await this.resourceService.findById(resourceId)
 
     if (!resource) {
-      return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
     }
 
     const skillset: Skillset = await this.skillsetService.findById(skillsetId)
 
     if (!skillset) {
-      return new HttpException('skillsetId  not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('skillsetId  not found', HttpStatus.BAD_REQUEST)
     }
 
     const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
 
     if (!resourceSkillRelation) {
-      return new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
     }
 
     const userSkill = await this.userSkillService.findById(skillId)
 
     if (!userSkill) {
-      return new HttpException('UserSkill not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('UserSkill not found', HttpStatus.BAD_REQUEST)
     }
 
     return this.userResourceService.addResource(
@@ -120,25 +120,25 @@ export class UserResourceController {
     const resource: Resource = await this.resourceService.findById(resourceId)
 
     if (!resource) {
-      return new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
     }
 
     const skillset: Skillset = await this.skillsetService.findById(skillsetId)
 
     if (!skillset) {
-      return new HttpException('skillsetId  not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('skillsetId  not found', HttpStatus.BAD_REQUEST)
     }
 
     const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
 
     if (!resourceSkillRelation) {
-      return new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
     }
 
     const userSkill = await this.userSkillService.findById(skillId)
 
     if (!userSkill) {
-      return new HttpException('UserSkill not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('UserSkill not found', HttpStatus.BAD_REQUEST)
     }
 
     return this.userResourceService.updateResource(
