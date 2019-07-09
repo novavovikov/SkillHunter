@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import withUser from '../../HOC/userHOC'
 
 const FeatureController: React.FC<any> = (

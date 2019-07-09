@@ -2,16 +2,26 @@ import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } fro
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { FindOneOptions, In } from 'typeorm'
+import { Roles } from '../../common/decorators/roles.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
+import { RoleType } from '../../constants/role-type'
 import { Resource } from './resource.entity'
 import { ResourceService } from './resource.service'
 
 @Controller('resource')
-@UseGuards(RolesGuard)
 export class ResourceController {
   constructor (
     private resourceService: ResourceService,
   ) {}
+
+  @Get()
+  @ApiUseTags('resource')
+  @UseGuards(RolesGuard)
+  @Roles([RoleType.Admin])
+  @UseGuards(AuthGuard('jwt'))
+  getAllResources () {
+    return this.resourceService.findAll()
+  }
 
   @Get()
   @ApiUseTags('resource')

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Table } from '../../components'
 import { ajax } from '../../utils/ajax'
 
@@ -20,7 +20,7 @@ const Subscribers: React.FC = () => {
           <Table.Th>id</Table.Th>
           <Table.Th>email</Table.Th>
           <Table.Th>created</Table.Th>
-          <Table.Th>profession</Table.Th>
+          <Table.Th>skillset</Table.Th>
           <Table.Th>expectation</Table.Th>
         </Table.Tr>
       </Table.Head>

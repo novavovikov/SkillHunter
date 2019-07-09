@@ -1,15 +1,15 @@
-import * as React from 'react'
+import React from 'react'
 import { Table } from '../../components'
 import { ajax } from '../../utils/ajax'
 
 const Professions: React.FC = () => {
-  const [professions, setProfessions] = React.useState([])
+  const [skillsets, setSkillsets] = React.useState([])
 
   React.useEffect(() => {
     ajax.
-      get('profession').
+      get('skillset').
       then(({ data }: any) => {
-        setProfessions(data)
+        setSkillsets(data)
       }).catch(err => console.warn('Professions', err))
   }, [])
 
@@ -24,19 +24,19 @@ const Professions: React.FC = () => {
         </Table.Tr>
       </Table.Head>
       <Table.Body>
-        {professions.map((profession: any) => (
-          <Table.Tr key={profession.id}>
+        {skillsets.map((skillset: any) => (
+          <Table.Tr key={skillset.id}>
             <Table.Td>
-              {profession.id}
+              {skillset.id}
             </Table.Td>
             <Table.Td>
-              {profession.name}
+              {skillset.name}
             </Table.Td>
             <Table.Td>
-              {profession.created}
+              {skillset.created}
             </Table.Td>
             <Table.Td>
-              {profession.accepted
+              {skillset.accepted
                 ? 'Подтвержденный'
                 : 'Неподтвержденный'
               }

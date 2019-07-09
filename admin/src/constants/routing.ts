@@ -2,7 +2,7 @@ export const ROUTES = {
   HOME: '/',
   USERS: '/users',
   SUBSCRIBERS: '/subscribers',
-  PROFESSIONS: '/professions',
+  SKILLSETS: '/skillsets',
   SKILLS: '/skills',
   RESOURCES: '/resources',
 }
@@ -21,8 +21,8 @@ export const MENU = [
     to: ROUTES.USERS,
   },
   {
-    label: 'Professions',
-    to: ROUTES.PROFESSIONS,
+    label: 'Skillsets',
+    to: ROUTES.SKILLSETS,
   },
   {
     label: 'Skills',

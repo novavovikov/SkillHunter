@@ -1,16 +1,16 @@
-import * as React from 'react'
+import React from 'react'
 import { Route, Switch } from 'react-router'
 import { FeatureController, Layout } from '../components'
 import { RoleType } from '../constants/role-type'
 import { ROUTES } from '../constants/routing'
 
-const NotFound = React.lazy(() => import('../containers/NotFound'))
-const Dashboard = React.lazy(() => import('../containers/Dashboard'))
-const Users = React.lazy(() => import('../containers/Users'))
-const Subscribers = React.lazy(() => import('../containers/Subscribers'))
-const Professions = React.lazy(() => import('../containers/Professions'))
-const Skills = React.lazy(() => import('../containers/Skills'))
-const Resources = React.lazy(() => import('../containers/Resources'))
+import NotFound from '../containers/NotFound'
+import Dashboard from '../containers/Dashboard'
+import Users from '../containers/Users'
+import Subscribers from '../containers/Subscribers'
+import Professions from '../containers/Professions'
+import Skills from '../containers/Skills'
+import Resources from '../containers/Resources'
 
 const Routes: React.FC = () => {
   return (
@@ -19,50 +19,48 @@ const Routes: React.FC = () => {
       ReplacementComponent={NotFound}
     >
       <Layout>
-        <React.Suspense fallback={<div>Loading...</div>}>
-          <Switch>
-            <Route
-              path={ROUTES.HOME}
-              component={Dashboard}
-              exact
-            />
+        <Switch>
+          <Route
+            path={ROUTES.SUBSCRIBERS}
+            component={Subscribers}
+            exact
+          />
 
-            <Route
-              path={ROUTES.SUBSCRIBERS}
-              component={Subscribers}
-              exact
-            />
+          <Route
+            path={ROUTES.USERS}
+            component={Users}
+            exact
+          />
 
-            <Route
-              path={ROUTES.USERS}
-              component={Users}
-              exact
-            />
+          <Route
+            path={ROUTES.SKILLSETS}
+            component={Professions}
+            exact
+          />
 
-            <Route
-              path={ROUTES.PROFESSIONS}
-              component={Professions}
-              exact
-            />
+          <Route
+            path={ROUTES.SKILLS}
+            component={Skills}
+            exact
+          />
 
-            <Route
-              path={ROUTES.SKILLS}
-              component={Skills}
-              exact
-            />
+          <Route
+            path={ROUTES.RESOURCES}
+            component={Resources}
+            exact
+          />
 
-            <Route
-              path={ROUTES.RESOURCES}
-              component={Resources}
-              exact
-            />
+          <Route
+            path={ROUTES.HOME}
+            component={Dashboard}
+            exact
+          />
 
-            <Route
-              path={'*'}
-              component={NotFound}
-            />
-          </Switch>
-        </React.Suspense>
+          <Route
+            path={'*'}
+            component={NotFound}
+          />
+        </Switch>
       </Layout>
     </FeatureController>
   )

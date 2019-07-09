@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { applyMiddleware, createStore, Store } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'

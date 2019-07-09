@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import * as s from './Table.css'
 
 const Table: React.FC = ({ children }) => {
