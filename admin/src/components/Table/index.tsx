@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ThHTMLAttributes } from 'react'
 import * as s from './Table.css'
 
 const Table: React.FC = ({ children }) => {
@@ -35,9 +35,9 @@ const Tr: React.FC = ({ children }) => {
   )
 }
 
-const Th: React.FC = ({ children }) => {
+const Th: React.FC<ThHTMLAttributes<HTMLTableCellElement>> = ({ children, ...rest }) => {
   return (
-    <th className={s.Table__cell}>
+    <th className={s.Table__cell} {...rest}>
       {children}
     </th>
   )

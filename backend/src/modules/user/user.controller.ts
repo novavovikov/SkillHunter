@@ -80,6 +80,10 @@ export class UserController {
       updatedData.locale = data.locale
     }
 
+    if (data.role) {
+      updatedData.role = data.role
+    }
+
     return this.userService.update(req.user.id, updatedData)
   }
 

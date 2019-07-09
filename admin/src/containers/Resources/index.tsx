@@ -29,8 +29,9 @@ const Resources: React.FC = () => {
         <Table.Tr>
           <Table.Th>id</Table.Th>
           <Table.Th>created</Table.Th>
-          <Table.Th>title</Table.Th>
-          <Table.Th>icon</Table.Th>
+          <Table.Th style={{ width: '500px' }}>title</Table.Th>
+          <Table.Th>author</Table.Th>
+          <Table.Th>picture</Table.Th>
           <Table.Th>link</Table.Th>
         </Table.Tr>
       </Table.Head>
@@ -47,6 +48,15 @@ const Resources: React.FC = () => {
             </Table.Td>
             <Table.Td>
               {resource.title}
+            </Table.Td>
+            <Table.Td>
+              {resource.author
+                ? resource.author.map((author: string) => (
+                  <div key={author}>
+                    {author}
+                  </div>
+                ))
+              : '—'}
             </Table.Td>
             <Table.Td>
               {resource.picture && (
