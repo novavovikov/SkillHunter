@@ -6,6 +6,7 @@
     border-radius: 0;
     outline: none;
     appearance: none;
+    margin: 0;
 
     &:before, &:after {
       box-sizing: border-box;

@@ -41,9 +41,26 @@ class ResourceCreator extends React.Component<Props, State> {
   }
 
   componentDidMount () {
+    window.addEventListener('keydown', this.onKeyPress)
+
     this.setState({
       formPosition: this.getFormPosition(),
     })
+  }
+
+  componentWillUnmount (): void {
+    window.removeEventListener('keydown', this.onKeyPress)
+  }
+
+  onKeyPress = (e: any) => {
+    const { onClose } = this.props
+
+    if (
+      e.key === 'Escape' &&
+      typeof onClose === 'function'
+    ) {
+      onClose()
+    }
   }
 
   setType = (type: string) => {
