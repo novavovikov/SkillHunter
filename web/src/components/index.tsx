@@ -1,4 +1,5 @@
 import Page from './Page'
+import ProgressBar from './ProgressBar'
 import Notifications from './Notifications'
 import Filters from './Filters'
 import FeatureController from './FeatureController'
@@ -27,6 +28,7 @@ import * as Steps from './Steps'
 
 export {
   Page,
+  ProgressBar,
   Notifications,
   Filters,
   FeatureController,

@@ -1,0 +1,38 @@
+@import "../../styles/variables.css";
+
+.ProgressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0;
+  transition: var(--transition);
+  background: var(--color-cornflower-blue);
+  animation: ProgressBar 3s forwards;
+  overflow: hidden;
+  transform-origin: left;
+
+  &_active {
+    animation: ProgressBarDone var(--transition) forwards;
+  }
+}
+
+@keyframes ProgressBar {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 70%;
+  }
+}
+
+@keyframes ProgressBarDone {
+  from {
+    width: 70%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
