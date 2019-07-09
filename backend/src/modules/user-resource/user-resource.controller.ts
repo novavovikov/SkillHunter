@@ -59,16 +59,16 @@ export class UserResourceController {
       throw new HttpException('skillsetId  not found', HttpStatus.BAD_REQUEST)
     }
 
-    const resourceSkillRelation = await this.skillService.addResourceToSkill(skillId, resource)
-
-    if (!resourceSkillRelation) {
-      throw new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
-    }
-
     const userSkill = await this.userSkillService.findById(skillId)
 
     if (!userSkill) {
       throw new HttpException('UserSkill not found', HttpStatus.BAD_REQUEST)
+    }
+
+    const resourceSkillRelation = await this.skillService.addResourceToSkill(userSkill.skill.id, resource)
+
+    if (!resourceSkillRelation) {
+      throw new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
     }
 
     return this.userResourceService.addResource(
