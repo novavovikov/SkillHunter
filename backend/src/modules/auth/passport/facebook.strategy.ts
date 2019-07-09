@@ -24,21 +24,29 @@ export class FacebookStrategy extends PassportStrategy(Strategy) {
     profile: any,
     done: any,
   ) {
+    let user = null
     const { email } = profile._json
-    let user = await this.userService.findByAuthData({
-      facebookId: profile.id,
-      email,
-    })
 
-    if (!user && email) {
+    if (email) {
+      user = await this.userService.findByAuthData({ email }, { facebookId: profile.id })
+    }
+
+    if (!user) {
+      user = await this.userService.findByAuthData({ facebookId: profile.id })
+    }
+
+    if (!user) {
+      const picture = Array.isArray(profile.photos) && profile.photos.length && profile.photos[0].value
+
       user = await this.userService.create({
         email,
+        picture,
         facebookId: profile.id,
         name: profile.displayName,
       })
     }
 
-    const token = await this.authService.signPayload({ email: user.email })
+    const token = await this.authService.signPayload({ id: user.id, facebookId: user.facebookId })
 
     done(null, { ...user, token })
   }

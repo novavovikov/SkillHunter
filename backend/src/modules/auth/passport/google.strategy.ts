@@ -25,13 +25,18 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     profile: any,
     done,
   ) {
+    let user = null
     const { email, locale, picture } = profile._json
-    let user = await this.userService.findByAuthData({
-      googleId: profile.id,
-      email,
-    })
 
-    if (!user && email) {
+    if (email) {
+      user = await this.userService.findByAuthData({ email }, { googleId: profile.id })
+    }
+
+    if (!user) {
+      user = await this.userService.findByAuthData({ googleId: profile.id })
+    }
+
+    if (!user) {
       user = await this.userService.create({
         email,
         locale,
@@ -41,7 +46,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       })
     }
 
-    const token = await this.authService.signPayload({ email: user.email })
+    const token = await this.authService.signPayload({ id: user.id, googleId: user.googleId })
 
     done(null, { ...user, token })
   }

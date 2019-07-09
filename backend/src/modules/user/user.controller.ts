@@ -90,8 +90,8 @@ export class UserController {
   @Delete()
   @ApiUseTags('user')
   async deleteUser (@Req() req) {
-    await this.userSkillService.removeAllSkills(req.user)
     await this.userResourceService.removeAllResources(req.user)
+    await this.userSkillService.removeAllSkills(req.user)
     return this.userService.delete(req.user.id)
   }
 

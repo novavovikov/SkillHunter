@@ -16,7 +16,7 @@ export class User {
   @Column({ type: 'enum', enum: RoleType, default: RoleType.User })
   role: RoleType
 
-  @Column({ unique: true })
+  @Column({ nullable: true })
   email: string
 
   @Column({ nullable: true })

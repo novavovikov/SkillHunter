@@ -46,10 +46,8 @@ export class UserService {
     return { deleted: true }
   }
 
-  async findByAuthData (userData: UserDto) {
-    const user = await this.userRepository.findOne({
-      email: userData.email,
-    })
+  async findByAuthData (searchData: UserDto, userData: UserDto = {}) {
+    const user = await this.userRepository.findOne(searchData)
 
     if (!user) {
       return null
@@ -68,9 +66,14 @@ export class UserService {
     return user
   }
 
-  async findByPayload (payload: any) {
-    const { email } = payload
-    return await this.userRepository.findOne({ email })
+  findByPayload (payload: any) {
+    const { id, googleId, facebookId } = payload
+
+    if (googleId) {
+      return this.userRepository.findOne({ id, googleId })
+    }
+
+    return this.userRepository.findOne({ id, facebookId })
   }
 
   async addSkillset (userId: number | string, skillset: Skillset) {
