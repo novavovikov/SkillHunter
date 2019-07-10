@@ -8,11 +8,8 @@ import { withUser } from '../../providers/User'
 import { getSkillsDataSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
 import { ResourcesState } from '../../redux/reducers/resources'
-import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
 import { SkillType } from '../../types'
-import { Loader } from '../../UI'
-import * as s from './Library.css'
 
 interface Params {
   skillset: string
@@ -20,7 +17,7 @@ interface Params {
 
 interface Props extends RouteComponentProps<Params> {
   user: UserState,
-  skills: SkillsState
+  skills: SkillType[]
   resources: ResourcesState
   getSkills: (skillsetId: number) => void
 }
@@ -59,10 +56,7 @@ class Library extends React.Component<Props> {
   render () {
     const {
       match,
-      skills: {
-        isLoading,
-        data,
-      },
+      skills,
     } = this.props
 
     if (!match.params.skillset) {
@@ -71,13 +65,7 @@ class Library extends React.Component<Props> {
 
     return (
       <Page>
-        {isLoading && (
-          <div className={s.Library__loader}>
-            <Loader/>
-          </div>
-        )}
-
-        {!isLoading && data.map((skill: SkillType) => (
+        {skills.map((skill: SkillType) => (
           <UserSkill
             key={skill.id}
             data={skill}

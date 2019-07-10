@@ -8,7 +8,7 @@ import { SkillsActionTypes } from '../actionTypes/skills'
 import { AddSkillsSaga, GetSkillsDataPayload, RemoveSkillsSaga } from '../interfaces/skills'
 
 export function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
-  yield put(ac.setSkillsLoadingStatus(true))
+  yield put(ac.addLoading('skill'))
 
   try {
     const { data } = yield call(ajax, `${API.USER_SKILL}/${skillsetId}`)
@@ -22,11 +22,11 @@ export function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
     logger('getSkillsDataSaga: ', error)
   }
 
-  yield put(ac.setSkillsLoadingStatus(false))
+  yield put(ac.removeLoading('skill'))
 }
 
 export function * addSkillsSaga ({ skillsetId, skills }: AddSkillsSaga) {
-  yield put(ac.setSkillsLoadingStatus(true))
+  yield put(ac.addLoading('skill'))
 
   try {
     const { data } = yield call(ajax.post, `${API.USER_SKILL}/${skillsetId}`, { skills })
@@ -36,10 +36,12 @@ export function * addSkillsSaga ({ skillsetId, skills }: AddSkillsSaga) {
     logger('addSkillsSaga: ', error)
   }
 
-  yield put(ac.setSkillsLoadingStatus(false))
+  yield put(ac.removeLoading('skill'))
 }
 
 export function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
+  yield put(ac.addLoading('skill'))
+
   try {
     yield call(ajax.delete, `${API.USER_SKILL}?ids=${skillIds}`)
 
@@ -48,7 +50,7 @@ export function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
     logger('removeSkillsSaga: ', error)
   }
 
-  yield put(ac.setSkillsLoadingStatus(false))
+  yield put(ac.removeLoading('skill'))
 }
 
 export function * watchGetSkillsData () {

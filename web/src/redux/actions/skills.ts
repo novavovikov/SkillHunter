@@ -6,7 +6,6 @@ import {
   GetSkillsDataPayload, RemoveSkills,
   RemoveSkillsSaga,
   SetSkillsData,
-  SetSkillsLoadingStatus,
 } from '../interfaces/skills'
 
 export const getSkillsDataSaga = (skillsetId: number): GetSkillsDataPayload => ({
@@ -33,11 +32,6 @@ export const setSkillsData = (data: SkillType[]): SetSkillsData => ({
 export const addSkillToData = (data: SkillType[]): AddSkills => ({
   type: SkillsActionTypes.ADD_SKILLS,
   payload: data,
-})
-
-export const setSkillsLoadingStatus = (status: boolean): SetSkillsLoadingStatus => ({
-  type: SkillsActionTypes.SET_SKILLS_LOADING_STATUS,
-  payload: status,
 })
 
 export const removeSkills = (skillIds: number[]): RemoveSkills => ({

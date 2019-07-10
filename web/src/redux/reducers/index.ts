@@ -1,14 +1,17 @@
 import { combineReducers } from 'redux'
+import { SkillType } from '../../types'
+import { loading, LoadingState } from './loading'
 import { notifications, NotificationState } from './notifications'
 import { resources, ResourcesState } from './resources'
-import { skills, SkillsState } from './skills'
+import { skills } from './skills'
 import { user, UserState } from './user'
 
 export interface RootState {
   notifications: NotificationState
   user: UserState
-  skills: SkillsState
+  skills: SkillType[]
   resources: ResourcesState
+  loading: LoadingState
 }
 
 export default () => {
@@ -17,5 +20,6 @@ export default () => {
     user,
     skills,
     resources,
+    loading,
   })
 }

@@ -28,11 +28,6 @@ export interface AddSkills {
   payload: SkillType[]
 }
 
-export interface SetSkillsLoadingStatus {
-  type: SkillsActionTypes.SET_SKILLS_LOADING_STATUS
-  payload: boolean
-}
-
 export interface RemoveSkills {
   type: SkillsActionTypes.REMOVE_SKILLS
   payload: number[]
@@ -44,5 +39,4 @@ export type SkillsAction =
   RemoveSkillsSaga |
   AddSkills |
   SetSkillsData |
-  SetSkillsLoadingStatus |
   RemoveSkills

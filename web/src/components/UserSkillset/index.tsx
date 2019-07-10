@@ -1,12 +1,9 @@
 import React from 'react'
 import withClickOutside from 'react-click-outside'
-import { connect } from 'react-redux'
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
-import { RootState } from '../../redux/reducers'
-import { SkillsState } from '../../redux/reducers/skills'
 import { UserState } from '../../redux/reducers/user'
 import { Animation, Icon, Popup } from '../../UI'
 import { RemoveSkillset, SkillsetCreator } from '../index'
@@ -28,7 +25,6 @@ interface SkillsetType {
 
 interface Props extends RouteComponentProps<Params> {
   user: UserState
-  skills: SkillsState
 }
 
 interface State {
@@ -150,6 +146,4 @@ class UserSkillset extends React.Component<Props, State> {
 export default compose(
   withUser,
   withRouter,
-  connect(({ skills }: RootState) => ({ skills }),
-  ),
 )(withClickOutside(UserSkillset))

@@ -5,34 +5,25 @@
   top: 0;
   left: 0;
   height: 4px;
-  width: 0;
-  transition: var(--transition);
   background: var(--color-cornflower-blue);
-  animation: ProgressBar 3s forwards;
   overflow: hidden;
   transform-origin: left;
 
-  &_active {
-    animation: ProgressBarDone var(--transition) forwards;
-  }
-}
-
-@keyframes ProgressBar {
-  from {
+  &__enter {
     width: 0;
+
+    &_active {
+      width: 75%;
+      transition: 2s;
+    }
   }
 
-  to {
-    width: 70%;
-  }
-}
+  &__exit {
+    width: 75%;
 
-@keyframes ProgressBarDone {
-  from {
-    width: 70%;
-  }
-
-  to {
-    width: 100%;
+    &_active {
+      width: 100%;
+      transition: 100ms;
+    }
   }
 }
