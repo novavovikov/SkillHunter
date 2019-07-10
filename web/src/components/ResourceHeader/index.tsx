@@ -1,10 +1,35 @@
-import React, { Component } from 'react'
+import cn from 'classnames'
+import React, { PureComponent } from 'react'
 import * as s from './ResourceHeader.css'
 
-class ResourceHeader extends Component {
+interface State {
+  fixedClass: boolean
+}
+
+class ResourceHeader extends PureComponent<{}, State> {
+  state = {
+    fixedClass: false,
+  }
+
+  componentDidMount (): void {
+    window.addEventListener('scroll', this.checkWindowPosition)
+  }
+
+  componentWillUnmount (): void {
+    window.removeEventListener('scroll', this.checkWindowPosition)
+  }
+
+  checkWindowPosition = () => {
+    this.setState({ fixedClass: window.scrollY > 0 })
+  }
+
   render () {
+    const { fixedClass } = this.state
+
     return (
-      <div className={s.ResourceHeader}>
+      <header className={cn(s.ResourceHeader, {
+        [s.ResourceHeader_fixed]: fixedClass,
+      })}>
         <div className={s.ResourceHeader__item}>
           Backlog
         </div>
@@ -20,7 +45,7 @@ class ResourceHeader extends Component {
         <div className={s.ResourceHeader__item}>
           More
         </div>
-      </div>
+      </header>
     )
   }
 }

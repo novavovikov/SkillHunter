@@ -3,6 +3,7 @@
 interface CssExports {
   'ResourceHeader': string;
   'ResourceHeader__item': string;
+  'ResourceHeader_fixed': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;
