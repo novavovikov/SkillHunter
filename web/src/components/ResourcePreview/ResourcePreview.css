@@ -1,6 +1,6 @@
 @import "../../styles/variables.css";
 
-.Resource {
+.ResourcePreview {
   display: flex;
   align-items: center;
   padding: 15px 0;

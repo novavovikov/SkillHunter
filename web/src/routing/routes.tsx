@@ -10,6 +10,7 @@ const Settings = React.lazy(() => import('../pages/Settings'))
 const Logout = React.lazy(() => import('../pages/Logout'))
 const Introduction = React.lazy(() => import('../pages/Introduction'))
 const Library = React.lazy(() => import('../pages/Library'))
+const Resource = React.lazy(() => import('../pages/Resource'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
 const Routes: FC = () => {
@@ -60,6 +61,12 @@ const Routes: FC = () => {
         <PrivateRoute
           path={ROUTES.SKILLSET}
           component={Library}
+        />
+
+        <PrivateRoute
+          path={`${ROUTES.RESOURCE}/:id`}
+          component={Resource}
+          exact
         />
 
         <PrivateRoute

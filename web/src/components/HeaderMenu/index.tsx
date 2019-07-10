@@ -78,7 +78,7 @@ class HeaderMenu extends React.Component<Props, State> {
 
           <Icon
             type={isOpen ? 'arrow-up' : 'arrow-down'}
-            size="xl"
+            size="24"
           />
         </button>
 

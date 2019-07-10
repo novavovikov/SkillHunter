@@ -15,7 +15,7 @@ const Status: FC<Props> = ({ className, icon, children }) => {
         {icon && (
           <Icon
             type={icon}
-            size="xl"
+            size="24"
           />
         )}
       </div>

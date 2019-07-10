@@ -52,7 +52,7 @@ class Input extends Component<InputProps> {
           >
             <Icon
               type="remove"
-              size="lg"
+              size="18"
             />
           </button>
         )}

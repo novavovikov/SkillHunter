@@ -1,0 +1,95 @@
+@import "../../styles/variables.css";
+
+.Notification {
+  background: #fff;
+  @apply --font-m;
+  white-space: pre-line;
+  color: #000;
+  margin: 5px 0;
+  padding: 15px 40px 10px 15px;
+  box-shadow: var(--shadow);
+  animation: showNotification var(--transition-fast) forwards;
+
+  &__text {
+    position: relative;
+    min-height: 2em;
+    padding: 0 0 0 30px;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: -4px;
+      width: 24px;
+      height: 24px;
+      background: url("./icons/info.svg") no-repeat center/contain;
+    }
+
+    &_error {
+      &:before {
+        background-image: url("./icons/error-ico.svg");
+      }
+    }
+
+    &_warning {
+      &:before {
+        background-image: url("./icons/warning.svg");
+      }
+    }
+
+    &_success {
+      &:before {
+        background-image: url("./icons/success.svg");
+      }
+    }
+  }
+
+  &__timer {
+    position: relative;
+    @apply --font-xs;
+    color: var(--color-dusty-gray);
+    padding: 0 0 0 22px;
+    margin: 5px 0 0;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      margin-top: -6px;
+      width: 12px;
+      height: 12px;
+      background: url("./icons/timer.svg") no-repeat center;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+
+    &:hover {
+      path {
+        fill: var(--color-dusty-gray);
+      }
+    }
+  }
+}
+
+@keyframes showNotification {
+  from {
+    transform: translate(100%);
+  }
+
+  to {
+    transform: translate(0);
+  }
+}

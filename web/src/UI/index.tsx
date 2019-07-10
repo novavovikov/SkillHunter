@@ -8,6 +8,7 @@ import H2 from './H2'
 import H3 from './H3'
 import H4 from './H4'
 import Logo from './Logo'
+import Notification from './Notification'
 import Input from './Input'
 import * as Select from './Select'
 import AutoComplete from './AutoComplete'
@@ -31,6 +32,7 @@ export {
   H4,
   Logo,
   Input,
+  Notification,
   Select,
   AutoComplete,
   Button,

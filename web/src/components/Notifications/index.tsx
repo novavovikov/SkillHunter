@@ -1,10 +1,9 @@
-import cn from 'classnames'
 import React, { FC } from 'react'
 import { connect } from 'react-redux'
-import { NotificationTypes } from '../../constants/notification'
 import { removeNotification } from '../../redux/actions/notifications'
 import { RootState } from '../../redux/reducers'
 import { NotificationTypeWithId } from '../../types'
+import { Notification } from '../../UI'
 import * as s from './Notifications.css'
 
 interface Props {
@@ -16,17 +15,13 @@ const Notifications: FC<Props> = ({ notifications, hideNotification }) => {
   return (
     <div className={s.Notifications}>
       {notifications.map(({ id, type, message }) => (
-        <div
+        <Notification
           key={id}
-          className={cn(s.Notifications__item, {
-            [s.Notifications__item_error]: type === NotificationTypes.error,
-            [s.Notifications__item_warning]: type === NotificationTypes.warning,
-            [s.Notifications__item_success]: type === NotificationTypes.success,
-          })}
-          onClick={() => hideNotification(id)}
-        >
-          {message}
-        </div>
+          id={id}
+          type={type}
+          message={message}
+          onClose={hideNotification}
+        />
       ))}
     </div>
   )

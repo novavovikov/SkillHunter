@@ -6,40 +6,7 @@
   flex-direction: column-reverse;
   min-width: 100px;
   max-width: 300px;
+  min-height: 70px;
   bottom: 20px;
   right: 40px;
-
-  &__item {
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
-    white-space: pre-line;
-    margin: 5px 0;
-    animation: showNotificaion var(--transition-fast) forwards;
-    cursor: pointer;
-
-    &_error {
-      background: var(--color-red-orange);
-      color: #fff;
-    }
-
-    &_warning {
-      background: var(--color-saffron);
-    }
-
-    &_success {
-      background: var(--color-salem);
-      color: #fff;
-    }
-  }
-}
-
-@keyframes showNotificaion {
-  from {
-    transform: translate(100%);
-  }
-
-  to {
-    transform: translate(0);
-  }
 }

@@ -1,0 +1,8 @@
+@import "../../styles/variables.css";
+
+.Resource {
+  width: 100%;
+  max-width: 780px;
+  padding: 0 20px;
+  margin: 0 auto;
+}

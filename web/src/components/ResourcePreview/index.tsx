@@ -11,7 +11,7 @@ import bookIcon from './icons/book.svg'
 import courseIcon from './icons/course.svg'
 import faviconIcon from './icons/favicon.svg'
 import mediaIcon from './icons/media.svg'
-import * as s from './Resource.css'
+import * as s from './ResourcePreview.css'
 
 const getIconByType = (type: string) => {
   switch (type) {
@@ -36,7 +36,7 @@ interface Props {
   removeHandler: (data: Partial<ResourceSagaPayload>) => void
 }
 
-class Resource extends React.Component<Props> {
+class ResourcePreview extends React.Component<Props> {
   static defaultProps = {
     updateHandler: (data: Partial<ResourceType>) => {},
     removeHandler: (data: ResourceSagaPayload) => {},
@@ -94,24 +94,24 @@ class Resource extends React.Component<Props> {
     const { data, shared } = this.props
 
     return (
-      <div className={s.Resource}>
-        <div className={cn(s.Resource__col, s.Resource__col_info)}>
-          <div className={s.Resource__type}>
+      <div className={s.ResourcePreview}>
+        <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_info)}>
+          <div className={s.ResourcePreview__type}>
             <img src={getIconByType(data.type)} alt=""/>
           </div>
 
-          <div className={s.Resource__info}>
-            <h4 className={s.Resource__title}>
+          <div className={s.ResourcePreview__info}>
+            <h4 className={s.ResourcePreview__title}>
               {data.userTitle || data.title || data.link}
             </h4>
 
             {data.type !== 'book' && (
               <a
                 href={data.link}
-                className={cn(s.Resource__source, s.Resource__source_site)}
+                className={cn(s.ResourcePreview__source, s.ResourcePreview__source_site)}
                 target="_blank"
               >
-          <span className={s.Resource__favicon}>
+          <span className={s.ResourcePreview__favicon}>
             <img
               src={data.picture || faviconIcon}
               alt=""
@@ -122,7 +122,7 @@ class Resource extends React.Component<Props> {
             )}
 
             {data.type === 'book' && (
-              <div className={s.Resource__source}>
+              <div className={s.ResourcePreview__source}>
                 {data.author}
               </div>
             )}
@@ -130,20 +130,20 @@ class Resource extends React.Component<Props> {
           </div>
         </div>
 
-        <div className={cn(s.Resource__col, s.Resource__col_status)}>
+        <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_status)}>
           {!shared && (
             <div
               className={cn(
-                s.Resource__status,
+                s.ResourcePreview__status,
                 {
-                  [s.Resource__status_backlog]: data.status === ResourceStatusTypes.Backlog,
-                  [s.Resource__status_plan]: data.status === ResourceStatusTypes.Plan,
-                  [s.Resource__status_done]: data.status === ResourceStatusTypes.Done,
+                  [s.ResourcePreview__status_backlog]: data.status === ResourceStatusTypes.Backlog,
+                  [s.ResourcePreview__status_plan]: data.status === ResourceStatusTypes.Plan,
+                  [s.ResourcePreview__status_done]: data.status === ResourceStatusTypes.Done,
                 },
               )}
             >
               <select
-                className={s.Resource__select}
+                className={s.ResourcePreview__select}
                 value={data.status}
                 onChange={this.handleStatus}
               >
@@ -161,21 +161,21 @@ class Resource extends React.Component<Props> {
           )}
         </div>
 
-        <div className={cn(s.Resource__col, s.Resource__col_actions)}>
+        <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_actions)}>
           <a
             href={data.link}
-            className={s.Resource__control}
+            className={s.ResourcePreview__control}
             target="_blank"
           >
             More
             <Icon
               type="arrow-right"
-              size="lg"
+              size="18"
             />
           </a>
 
           {!shared && (
-            <div className={s.Resource__control}>
+            <div className={s.ResourcePreview__control}>
               <ShareMenu
                 link={`${ROUTES.SHARE}?ids=${data.id}`}
                 text={data.title}
@@ -183,10 +183,10 @@ class Resource extends React.Component<Props> {
             </div>
           )}
           <button
-            className={s.Resource__control}
+            className={s.ResourcePreview__control}
             onClick={this.handleLike}
           >
-              <span className={s.Resource__likes}>
+              <span className={s.ResourcePreview__likes}>
                 {data.likes}
               </span>
             <Icon
@@ -196,7 +196,7 @@ class Resource extends React.Component<Props> {
           </button>
 
           {!shared && (
-            <Menu className={s.Resource__menu}>
+            <Menu className={s.ResourcePreview__menu}>
               <Item>
                 Edit
               </Item>
@@ -211,4 +211,4 @@ class Resource extends React.Component<Props> {
   }
 }
 
-export default Resource
+export default ResourcePreview

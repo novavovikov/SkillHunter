@@ -10,6 +10,7 @@ import heartFilledIcon from './icons/heart-filled-ico.svg?inline'
 import heartIcon from './icons/heart-ico.svg?inline'
 import shareIcon from './icons/share-ico.svg?inline'
 import userIcon from './icons/user-ico.svg?inline'
+import closeIcon from './icons/close-ico.svg?inline'
 import removeIcon from './icons/remove-ico.svg?inline'
 import copyIcon from './icons/copy-ico.svg?inline'
 import facebookIcon from './icons/facebook-ico.svg?inline'
@@ -46,6 +47,8 @@ const getIcon = (type: string) => {
       return arrowDownIcon
     case 'arrow-right':
       return arrowRightIcon
+    case 'close':
+      return closeIcon
     case 'remove':
       return removeIcon
     case 'copy':
@@ -60,8 +63,6 @@ const getIcon = (type: string) => {
       return redditIcon
     case 'telegram':
       return telegramIcon
-    case 'twitter':
-      return twitterIcon
     case 'vk':
       return vkIcon
     default:
@@ -82,8 +83,8 @@ const Icon: FC<Props> = (
       className={cn(s.Icon, {
         [s.Icon_active]: active,
         [s.Icon_free]: size === 'free',
-        [s.Icon_lg]: size === 'lg',
-        [s.Icon_xl]: size === 'xl',
+        [s.Icon_lg]: size === '18',
+        [s.Icon_xl]: size === '24',
       }, className)}
       dangerouslySetInnerHTML={{ __html: getIcon(type) }}
     />

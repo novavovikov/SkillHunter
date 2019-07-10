@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { Page, Resource } from '../../components'
+import { Page, ResourcePreview } from '../../components'
 import { changeResourceLikeStatusSaga } from '../../redux/actions/resources'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceType } from '../../types'
@@ -36,7 +36,7 @@ class Share extends React.Component<Props, State> {
     return (
       <Page>
         {resources.map((resource: ResourceType) => (
-          <Resource
+          <ResourcePreview
             key={resource.id}
             data={resource}
             likeHandler={changeResourceLikeStatus}

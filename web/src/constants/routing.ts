@@ -8,5 +8,6 @@ export const ROUTES = {
   PROFESSION: '/skillset',
   SKILLSET: '/skillset',
   EVALUATION: '/evaluation',
+  RESOURCE: '/resource',
   PLAN: '/plan',
 }

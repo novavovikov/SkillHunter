@@ -13,7 +13,7 @@ export interface SuggestionType {
 
 export interface NotificationType {
   type?: NotificationTypes,
-  message: string | number
+  message: string
 }
 
 export interface NotificationTypeWithId extends NotificationType{

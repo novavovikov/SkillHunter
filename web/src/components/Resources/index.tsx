@@ -5,7 +5,7 @@ import { changeResourceLikeStatusSaga, removeResourceSaga, updateResourceSaga } 
 import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceType } from '../../types'
 import { IconButton, Status } from '../../UI'
-import { Resource, ResourceCreator } from '../index'
+import { ResourcePreview, ResourceCreator } from '../index'
 import * as s from './Resources.css'
 
 interface Props {
@@ -84,7 +84,7 @@ class Resources extends Component<Props, State> {
         </div>
 
         {data.map((resource: ResourceType) => (
-          <Resource
+          <ResourcePreview
             key={resource.id}
             data={resource}
             updateHandler={updateResource}

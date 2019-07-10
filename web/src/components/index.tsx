@@ -18,7 +18,7 @@ import SkillsSuggestion from './SkillsSuggestion'
 import SkillsSearch from './SkillsSearch'
 import UserSkill from './UserSkill'
 import Resources from './Resources'
-import Resource from './Resource'
+import ResourcePreview from './ResourcePreview'
 import ResourceCreator from './ResourceCreator'
 import UserSkillset from './UserSkillset'
 import RemoveSkillset from './RemoveSkillset'
@@ -47,7 +47,7 @@ export {
   SkillsSearch,
   UserSkill,
   Resources,
-  Resource,
+  ResourcePreview,
   ResourceCreator,
   UserSkillset,
   RemoveSkillset,
