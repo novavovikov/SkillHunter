@@ -1,0 +1,9 @@
+@import "../../styles/variables.css";
+
+.H1 {
+  color: #000;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  margin: 0 0 1em;
+}

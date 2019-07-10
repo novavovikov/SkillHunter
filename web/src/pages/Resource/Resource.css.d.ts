@@ -2,6 +2,13 @@
 // Please do not change this file!
 interface CssExports {
   'Resource': string;
+  'Resource__info': string;
+  'Resource__infoItem': string;
+  'Resource__skills': string;
+  'Resource__skillsItem': string;
+  'Resource__skillsTitle': string;
+  'Resource__text': string;
+  'Resource__title': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

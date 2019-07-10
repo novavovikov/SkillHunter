@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { ChangeEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, ResourceType } from '../../types'
@@ -162,17 +163,16 @@ class ResourcePreview extends React.Component<Props> {
         </div>
 
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_actions)}>
-          <a
-            href={data.link}
+          <Link
+            to={`${ROUTES.RESOURCE}/${data.id}`}
             className={s.ResourcePreview__control}
-            target="_blank"
           >
             More
             <Icon
               type="arrow-right"
               size="18"
             />
-          </a>
+          </Link>
 
           {!shared && (
             <div className={s.ResourcePreview__control}>

@@ -3,6 +3,67 @@
 .Resource {
   width: 100%;
   max-width: 780px;
-  padding: 0 20px;
   margin: 0 auto;
+  padding: 0 20px 50px;
+
+  &__title {
+    color: #000;
+    margin: 0 0 12px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    margin: 0 0 40px;
+  }
+
+  &__infoItem {
+    position: relative;
+
+    &:after {
+      content: '∙';
+      display: inline-block;
+      vertical-align: bottom;
+      font-size: 24px;
+      margin: 0 10px;
+    }
+  }
+
+  &__skills {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 35px;
+  }
+
+  &__skillsTitle {
+    @apply --font-xl;
+    color: var(--color-dusty-gray);
+    width: 100%;
+    margin: 0 0 12px;
+  }
+
+  &__skillsItem {
+    position: relative;
+
+    &:after {
+      content: '∙';
+      display: inline-block;
+      vertical-align: bottom;
+      font-size: 24px;
+      margin: 0 10px;
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &__text {
+    white-space: pre-line;
+    font-size: 26px;
+    line-height: 40px;
+    color: #000000;
+  }
 }

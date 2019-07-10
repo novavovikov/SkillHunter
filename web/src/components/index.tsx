@@ -21,6 +21,7 @@ import Resources from './Resources'
 import ResourcePreview from './ResourcePreview'
 import ResourceCreator from './ResourceCreator'
 import UserSkillset from './UserSkillset'
+import ResourceHeader from './ResourceHeader'
 import RemoveSkillset from './RemoveSkillset'
 import Tabs from './Tabs'
 import Nav from './Nav'
@@ -51,6 +52,7 @@ export {
   ResourceCreator,
   UserSkillset,
   RemoveSkillset,
+  ResourceHeader,
   Tabs,
   Nav,
   Steps

@@ -1,0 +1,19 @@
+@import "../../styles/variables.css";
+
+.ResourceHeader {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 25px 0;
+  background: #fff;
+  z-index: 5;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+  }
+}
