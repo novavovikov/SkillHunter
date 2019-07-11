@@ -6,15 +6,16 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin: 25px 0;
+  padding: 25px 0;
   background: #fff;
   border-bottom: 1px solid transparent;
-  transition: var(--transition);
+  transition: var(--transition-fast);
   z-index: 5;
 
   &_fixed {
-    margin: 10px 0;
+    padding: 10px 0;
     border-bottom-color: var(--color-gallery);
+    @apply --font-xs;
   }
 
   &_fixed &__item {
@@ -25,8 +26,24 @@
   &__item {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
     width: 100px;
     height: 100px;
-    transition: var(--transition);
+    transition:  height var(--transition-fast), width var(--transition-fast);
+    cursor: pointer;
+
+    &:hover {
+      background: var(--color-cornflower-blue);
+      color: #fff;
+
+      path {
+        fill: #fff;
+      }
+    }
+  }
+
+  &__icon {
+    margin: 0 0 10px;
   }
 }
