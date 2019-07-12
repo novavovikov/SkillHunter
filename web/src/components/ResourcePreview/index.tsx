@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
-import { ResourceStatusTypes, ResourceType } from '../../types'
+import { ResourceStatusTypes, UserResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
 import { ShareMenu } from '../index'
 import articleIcon from './icons/article.svg'
@@ -30,37 +30,31 @@ const getIconByType = (type: string) => {
 }
 
 interface Props {
-  data: ResourceType,
+  data: UserResourceType,
   shared?: boolean
   likeHandler: (data: ResourceLikeStatusSagaPayload) => void
-  updateHandler: (data: Partial<ResourceType>) => void
+  updateHandler: (data: Partial<UserResourceType>) => void
   removeHandler: (data: Partial<ResourceSagaPayload>) => void
 }
 
 class ResourcePreview extends React.Component<Props> {
   static defaultProps = {
-    updateHandler: (data: Partial<ResourceType>) => {},
+    updateHandler: (data: Partial<UserResourceType>) => {},
     removeHandler: (data: ResourceSagaPayload) => {},
   }
 
   get url () {
-    return new URL(this.props.data.link)
+    return new URL(this.props.data.resource.link)
   }
 
   handleStatus = (e: ChangeEvent<HTMLSelectElement>) => {
     const {
       updateHandler,
-      data: {
-        id,
-        skillId,
-        skillsetId,
-      },
+      data: { id },
     } = this.props
 
     updateHandler({
       id,
-      skillId,
-      skillsetId,
       status: e.target.value,
     })
   }
@@ -78,17 +72,11 @@ class ResourcePreview extends React.Component<Props> {
     const {
       removeHandler,
       data: {
-        skillsetId,
-        skillId,
         id: resourceId,
       },
     } = this.props
 
-    removeHandler({
-      skillsetId,
-      skillId,
-      resourceId,
-    })
+    removeHandler({ resourceId })
   }
 
   render () {
@@ -103,18 +91,18 @@ class ResourcePreview extends React.Component<Props> {
 
           <div className={s.ResourcePreview__info}>
             <h4 className={s.ResourcePreview__title}>
-              {data.userTitle || data.title || data.link}
+              {data.title || data.resource.title || data.resource.link}
             </h4>
 
             {data.type !== 'book' && (
               <a
-                href={data.link}
+                href={data.resource.link}
                 className={cn(s.ResourcePreview__source, s.ResourcePreview__source_site)}
                 target="_blank"
               >
           <span className={s.ResourcePreview__favicon}>
             <img
-              src={data.picture || faviconIcon}
+              src={data.resource.picture || faviconIcon}
               alt=""
             />
           </span>

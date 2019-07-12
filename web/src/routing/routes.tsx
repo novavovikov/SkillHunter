@@ -64,7 +64,7 @@ const Routes: FC = () => {
         />
 
         <PrivateRoute
-          path={`${ROUTES.RESOURCE}/:id`}
+          path={`${ROUTES.RESOURCE}/:userResourceId`}
           component={Resource}
           exact
         />

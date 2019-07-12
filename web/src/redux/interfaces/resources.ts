@@ -1,17 +1,17 @@
-import { ResourceType } from '../../types'
+import { UserResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 
 export interface AddResourceSagaPayload {
   skillsetId: number
   skillId: number
-  data: Partial<ResourceType>
+  data: Partial<UserResourceType>
 }
 
 export interface ResourceSagaPayload {
   skillsetId: number
   skillId: number
   resourceId: number
-  data: Partial<ResourceType>
+  data: Partial<UserResourceType>
 }
 
 export interface ResourceLikeStatusSagaPayload {
@@ -43,7 +43,7 @@ export interface AddResourceSaga {
 
 export interface UpdateResourceSaga {
   type: ResourcesActionTypes.SAGA_UPDATE_RESOURCE
-  payload: Partial<ResourceType>
+  payload: Partial<UserResourceType>
 }
 
 export interface ChangeResourceLikeStatusSaga {
@@ -63,12 +63,12 @@ export interface SetResources {
 
 export interface AddResource {
   type: ResourcesActionTypes.ADD_RESOURCE
-  payload: ResourceType
+  payload: UserResourceType
 }
 
 export interface UpdateResource {
   type: ResourcesActionTypes.UPDATE_RESOURCE
-  payload: ResourceType
+  payload: UserResourceType
 }
 
 export interface ChangeResourceLikeStatus {

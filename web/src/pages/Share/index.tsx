@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import { Page, ResourcePreview } from '../../components'
 import { changeResourceLikeStatusSaga } from '../../redux/actions/resources'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
-import { ResourceType } from '../../types'
+import { UserResourceType } from '../../types'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
@@ -13,7 +13,7 @@ interface Props extends RouteComponentProps {
 }
 
 interface State {
-  resources: ResourceType[]
+  resources: UserResourceType[]
 }
 
 class Share extends React.Component<Props, State> {
@@ -35,7 +35,7 @@ class Share extends React.Component<Props, State> {
 
     return (
       <Page>
-        {resources.map((resource: ResourceType) => (
+        {resources.map((resource: UserResourceType) => (
           <ResourcePreview
             key={resource.id}
             data={resource}

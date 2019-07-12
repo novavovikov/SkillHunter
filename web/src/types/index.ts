@@ -16,25 +16,31 @@ export interface NotificationType {
   message: string
 }
 
-export interface NotificationTypeWithId extends NotificationType{
+export interface NotificationTypeWithId extends NotificationType {
   id: string
 }
 
 export interface ResourceType {
-  id: number
-  skillsetId: number
-  skillId: number
+  author: string[] | number
   created: string
-  picture: string
+  id: number
   link: string
+  picture: string
   title: string
-  userTitle: string
-  author: string
-  type: string
-  status: ResourceStatusTypes | string
   userIdsLikes: number[]
-  likes: number
+}
+
+export interface UserResourceType {
+  author: string[] | number
+  id: number
   isLiked: boolean
+  likes: number
+  resource: ResourceType
+  skillsetId: number
+  status: string | ResourceStatusTypes
+  title: string
+  type: string
+  userSkill: UserSkillType
 }
 
 export interface SkillType {

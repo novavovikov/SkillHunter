@@ -55,8 +55,8 @@ export function * addResourceSaga ({ payload }: AddResourceSaga) {
 
 export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
   try {
-    const { skillsetId, skillId, id, ...otherProps } = payload
-    const { data } = yield call(ajax.put, `${API.USER_RESOURCE}/${skillsetId}/${skillId}/${id}`, otherProps)
+    const { id, ...otherProps } = payload
+    const { data } = yield call(ajax.put, `${API.USER_RESOURCE}/${id}`, otherProps)
 
     yield put(ac.updateResource(data))
   } catch (error) {

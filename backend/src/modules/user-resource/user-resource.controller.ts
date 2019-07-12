@@ -94,6 +94,15 @@ export class UserResourceController {
     )
   }
 
+  @Get(':resourceId/content')
+  @ApiUseTags('user-resource')
+  async getResourceContent (
+    @Req() req,
+    @Param('resourceId') resourceId: string
+  ) {
+    return this.userResourceService.findById(resourceId)
+  }
+
   @Get(':skillsetId/:skillId')
   @ApiUseTags('user-resource')
   async getResources (

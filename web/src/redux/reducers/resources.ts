@@ -1,10 +1,10 @@
 import { Reducer } from 'redux'
-import { ResourceType } from '../../types'
+import { UserResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import { ResourcesAction } from '../interfaces/resources'
 
 export interface ResourcesState {
-  [id: number]: ResourceType[]
+  [id: number]: UserResourceType[]
 }
 
 const initState = {}
@@ -14,16 +14,16 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
     case ResourcesActionTypes.SET_RESOURCES:
       return action.payload
     case ResourcesActionTypes.ADD_RESOURCE:
-      const resourceList = state[action.payload.skillId] || []
+      const resourceList = state[action.payload.userSkill.id] || []
 
       return {
         ...state,
-        [action.payload.skillId]: [action.payload, ...resourceList],
+        [action.payload.userSkill.id]: [action.payload, ...resourceList],
       }
     case ResourcesActionTypes.UPDATE_RESOURCE:
       return {
         ...state,
-        [action.payload.skillId]: state[action.payload.skillId].map((resource: ResourceType) => {
+        [action.payload.userSkill.id]: state[action.payload.userSkill.id].map((resource: UserResourceType) => {
           if (resource.id === action.payload.id) {
             return {
               ...resource,
@@ -37,7 +37,7 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
     case ResourcesActionTypes.CHANGE_RESOURCE_LIKE_STATUS:
       return Object.keys(state).
         reduce((acc, key) => {
-          const resourcesList = state[key as any].map((resource: ResourceType) => {
+          const resourcesList = state[key as any].map((resource: UserResourceType) => {
             if (resource.id === action.payload.id) {
               return {
                 ...resource,

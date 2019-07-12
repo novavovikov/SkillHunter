@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { Component, FC } from 'react'
 import s from './Layout.css'
 
 const Wrap: FC = ({ children }) => {
@@ -25,12 +25,27 @@ const Content: FC = ({ children }) => {
   )
 }
 
-const Data: FC = ({ children }) => {
-  return (
-    <div className={s.Layout__data}>
-      {children}
-    </div>
-  )
+class Data extends Component<{}, { hasError: boolean }> {
+  state = {
+    hasError: false,
+  }
+
+  componentDidCatch (error: Error, errorInfo: React.ErrorInfo): void {
+    console.log(123, error)
+    console.log(31, errorInfo)
+  }
+
+  render () {
+    if (this.state.hasError) {
+      return null
+    }
+
+    return (
+      <div className={s.Layout__data}>
+        {this.props.children}
+      </div>
+    )
+  }
 }
 
 const Caption: FC = ({ children }) => {

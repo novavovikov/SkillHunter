@@ -1,16 +1,63 @@
 import React, { Component } from 'react'
-import { H1 } from '../../UI'
+import { RouteComponentProps, withRouter } from 'react-router'
 import { ResourceHeader } from '../../components'
+import { ResourceType, UserResourceType } from '../../types'
+import { H1 } from '../../UI'
+import { ajax } from '../../utils/ajax'
 import s from './Resource.css'
 
-class Resource extends Component {
+interface Params {
+  userResourceId: string
+}
+
+interface Props extends RouteComponentProps<Params> {
+}
+
+interface State {
+  isLoading: boolean
+  userResource: UserResourceType | null
+}
+
+class Resource extends Component<Props, State> {
+  state = {
+    isLoading: true,
+    userResource: null,
+  }
+
+  componentDidMount () {
+    const { match } = this.props
+    const { userResourceId } = match.params
+
+    ajax.get(`user-resource/${userResourceId}/content`).
+      then(({ data }) => {
+        this.setState({
+          isLoading: false,
+          userResource: data as UserResourceType,
+        })
+      }).
+      catch(e => {
+        this.setState({
+          isLoading: false
+        })
+      })
+  }
+
   render () {
+    const { isLoading, userResource } = this.state
+
+    if (isLoading) {
+      return null
+    }
+
+    if (userResource) {
+      return null
+    }
+
     return (
       <div className={s.Resource}>
         <ResourceHeader/>
 
         <H1 className={s.Resource__title}>
-          How To Overcome Digital Addiction and Have More Willpower
         </H1>
 
         <div className={s.Resource__info}>
@@ -252,4 +299,4 @@ class Resource extends Component {
   }
 }
 
-export default Resource
+export default withRouter(Resource)

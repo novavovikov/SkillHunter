@@ -1,4 +1,4 @@
-import { ResourceType } from '../../types'
+import { UserResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
   AddResource,
@@ -27,7 +27,7 @@ export const addResourceSaga = (data: AddResourceSagaPayload): AddResourceSaga =
   type: ResourcesActionTypes.SAGA_ADD_RESOURCE,
   payload: data,
 })
-export const updateResourceSaga = (data: Partial<ResourceType>): UpdateResourceSaga => ({
+export const updateResourceSaga = (data: Partial<UserResourceType>): UpdateResourceSaga => ({
   type: ResourcesActionTypes.SAGA_UPDATE_RESOURCE,
   payload: data,
 })
@@ -47,12 +47,12 @@ export const setResources = (data: any): SetResources => ({
   payload: data,
 })
 
-export const addResource = (data: ResourceType): AddResource => ({
+export const addResource = (data: UserResourceType): AddResource => ({
   type: ResourcesActionTypes.ADD_RESOURCE,
   payload: data,
 })
 
-export const updateResource = (data: ResourceType): UpdateResource => ({
+export const updateResource = (data: UserResourceType): UpdateResource => ({
   type: ResourcesActionTypes.UPDATE_RESOURCE,
   payload: data,
 })

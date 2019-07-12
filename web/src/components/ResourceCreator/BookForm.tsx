@@ -8,7 +8,7 @@ interface SubmitData {
 }
 
 interface Props {
-  onSubmit: (data: SubmitData) => void
+  onSubmit: (data: any) => void
 }
 
 interface State {

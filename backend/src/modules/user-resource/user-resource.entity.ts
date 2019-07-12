@@ -1,4 +1,4 @@
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { AfterLoad, Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { ResourceType } from '../../constants/resource-type'
 import { UserResourceStatusType } from '../../constants/status-type'
 import { Resource } from '../resource/resource.entity'
@@ -34,4 +34,13 @@ export class UserResource {
 
   @ManyToOne(() => Resource, (resource: Resource) => resource.userResources, { eager: true })
   resource: Resource
+
+  likes: number
+
+  @AfterLoad()
+  getLikes () {
+    if (this.resource) {
+      this.likes = this.resource.userIdsLikes.length
+    }
+  }
 }

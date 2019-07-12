@@ -3,16 +3,16 @@ import React, { Component, FC } from 'react'
 import { connect } from 'react-redux'
 import { changeResourceLikeStatusSaga, removeResourceSaga, updateResourceSaga } from '../../redux/actions/resources'
 import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
-import { ResourceType } from '../../types'
+import { UserResourceType } from '../../types'
 import { IconButton, Status } from '../../UI'
 import { ResourcePreview, ResourceCreator } from '../index'
 import * as s from './Resources.css'
 
 interface Props {
-  data: ResourceType[]
+  data: UserResourceType[]
   skillsetId: number
   skillId: number
-  updateResource: (data: Partial<ResourceType>) => void
+  updateResource: (data: Partial<UserResourceType>) => void
   changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
   removeResource: (data: ResourceSagaPayload) => void
 }
@@ -83,7 +83,7 @@ class Resources extends Component<Props, State> {
           )}
         </div>
 
-        {data.map((resource: ResourceType) => (
+        {data.map((resource: UserResourceType) => (
           <ResourcePreview
             key={resource.id}
             data={resource}

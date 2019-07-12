@@ -1,12 +1,22 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { In, Repository } from 'typeorm'
-import { ResourceType } from '../../constants/resource-type'
-import { UserResourceStatusType } from '../../constants/status-type'
+import { FindOneOptions, In, Repository } from 'typeorm'
 import { Resource } from '../resource/resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
 import { User } from '../user/user.entity'
 import { UserResource } from './user-resource.entity'
+
+const selectOptions: FindOneOptions = {
+  select: [
+    'id',
+    'author',
+    'skillsetId',
+    'status',
+    'title',
+    'type',
+  ],
+  relations: ['resource'],
+}
 
 @Injectable()
 export class UserResourceService {
@@ -14,6 +24,10 @@ export class UserResourceService {
     @InjectRepository(UserResource)
     private userResourceRepository: Repository<UserResource>,
   ) {}
+
+  findById (id: string | number) {
+    return this.userResourceRepository.findOne({ id: Number(id) }, selectOptions)
+  }
 
   async addResource (
     user: User,
@@ -30,16 +44,10 @@ export class UserResourceService {
       resource,
     })
 
-    const { status, type, title, author } = await this.userResourceRepository.save(userResource)
+    const savedUserResource = await this.userResourceRepository.save(userResource)
     return this.getResourceModel(
-      resource,
-      title,
-      author,
-      status,
-      type,
+      savedUserResource,
       user.id,
-      skillsetId,
-      userSkill.id,
     )
   }
 
@@ -81,16 +89,10 @@ export class UserResourceService {
       },
     })
 
-    return resources.map(({ status, type, resource, title, author }) => {
+    return resources.map((userResource) => {
       return this.getResourceModel(
-        resource,
-        title,
-        author,
-        status,
-        type,
+        userResource,
         userId,
-        skillsetId,
-        skillId,
       )
     })
   }
@@ -108,36 +110,24 @@ export class UserResourceService {
       },
     })
 
-    return userResources.reduce((acc, {
-      userSkill,
-      resource,
-      status,
-      type,
-      title,
-      author
-    }) => {
-      const skillId = userSkill.id
+    return userResources.reduce((acc, userResource) => {
+
+      const userSkillId = userResource.userSkill.id
       const resourceData = this.getResourceModel(
-        resource,
-        title,
-        author,
-        status,
-        type,
+        userResource,
         user.id,
-        skillsetId,
-        skillId,
       )
 
-      if (acc[skillId]) {
+      if (acc[userSkillId]) {
         return {
           ...acc,
-          [skillId]: [...acc[skillId], resourceData],
+          [userSkillId]: [...acc[userSkillId], resourceData],
         }
       }
 
       return {
         ...acc,
-        [skillId]: [resourceData],
+        [userSkillId]: [resourceData],
       }
     }, {})
   }
@@ -188,23 +178,13 @@ export class UserResourceService {
   }
 
   getResourceModel = (
-    resource: Resource,
-    userTitle: string,
-    author: string,
-    status: string | UserResourceStatusType,
-    type: string | ResourceType,
+    userResource: UserResource,
     userId: number,
-    skillsetId: number,
-    skillId: number,
-  ) => ({
-    ...resource,
-    skillsetId,
-    skillId,
-    status,
-    type,
-    userTitle,
-    author,
-    likes: resource.userIdsLikes.length,
-    isLiked: resource.userIdsLikes.includes(userId),
-  })
+  ) => {
+    const { userIdsLikes } = userResource.resource
+    return {
+      ...userResource,
+      isLiked: userIdsLikes ? userIdsLikes.includes(userId) : false,
+    }
+  }
 }
