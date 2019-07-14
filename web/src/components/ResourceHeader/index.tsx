@@ -1,13 +1,18 @@
 import cn from 'classnames'
 import React, { PureComponent } from 'react'
+import { UserResourceType } from '../../types'
 import { Icon } from '../../UI'
 import * as s from './ResourceHeader.css'
+
+interface Props {
+  data: UserResourceType
+}
 
 interface State {
   fixedClass: boolean
 }
 
-class ResourceHeader extends PureComponent<{}, State> {
+class ResourceHeader extends PureComponent<Props, State> {
   state = {
     fixedClass: false,
   }
@@ -26,6 +31,7 @@ class ResourceHeader extends PureComponent<{}, State> {
 
   render () {
     const { fixedClass } = this.state
+    const { data } = this.props
 
     return (
       <header className={cn(s.ResourceHeader, {
@@ -38,7 +44,7 @@ class ResourceHeader extends PureComponent<{}, State> {
               size="18"
             />
           </div>
-          Backlog
+          {data.status}
         </div>
         <div className={s.ResourceHeader__item}>
           <div className={s.ResourceHeader__icon}>
@@ -47,7 +53,7 @@ class ResourceHeader extends PureComponent<{}, State> {
               size="18"
             />
           </div>
-          1000000
+          {data.likes}
         </div>
         <div className={s.ResourceHeader__item}>
           <div className={s.ResourceHeader__icon}>

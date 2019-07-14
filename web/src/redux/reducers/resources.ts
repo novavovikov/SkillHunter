@@ -27,38 +27,44 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
           if (resource.id === action.payload.id) {
             return {
               ...resource,
-              ...action.payload
+              ...action.payload,
             }
           }
 
           return resource
-        })
+        }),
       }
     case ResourcesActionTypes.CHANGE_RESOURCE_LIKE_STATUS:
       return Object.keys(state).
         reduce((acc, key) => {
-          const resourcesList = state[key as any].map((resource: UserResourceType) => {
-            if (resource.id === action.payload.id) {
+          const resourcesList = state[key as any].map((userResource: UserResourceType) => {
+            const { id, ...data } = action.payload
+
+            if (userResource.resource.id === id) {
               return {
-                ...resource,
-                ...action.payload
+                ...userResource,
+                ...data,
               }
             }
 
-            return resource
+            return userResource
           })
 
           return {
             ...acc,
-            [key]: resourcesList
+            [key]: resourcesList,
           }
         }, {})
     case ResourcesActionTypes.REMOVE_RESOURCE:
-      const { skillId, resourceId } = action.payload
+      const { userSkill, id: resourceId } = action.payload
+
+      if (!userSkill) {
+        return state
+      }
 
       return {
         ...state,
-        [skillId]: state[skillId].filter(({ id }) => id !== resourceId),
+        [userSkill.id]: state[userSkill.id].filter(({ id }) => id !== resourceId),
       }
     default:
       return state

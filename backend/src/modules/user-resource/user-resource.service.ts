@@ -25,8 +25,13 @@ export class UserResourceService {
     private userResourceRepository: Repository<UserResource>,
   ) {}
 
-  findById (id: string | number) {
-    return this.userResourceRepository.findOne({ id: Number(id) }, selectOptions)
+  async findById (
+    userId: number,
+    resourceId: string | number
+  ) {
+    const userResource = await this.userResourceRepository.findOne({ id: Number(resourceId) })
+
+    return this.getResourceModel(userResource, userId)
   }
 
   async addResource (
@@ -51,26 +56,11 @@ export class UserResourceService {
     )
   }
 
-  async updateResource (
-    user: User,
-    skillsetId: number,
-    userSkill: UserSkill,
-    resource: Resource,
-    data: any,
+  updateResource (
+    id: number,
+    data: Partial<UserResource>,
   ) {
-    await this.userResourceRepository.update({
-      user,
-      skillsetId,
-      userSkill,
-      resource,
-    }, data)
-
-    return {
-      id: resource.id,
-      skillId: userSkill.id,
-      skillsetId,
-      ...data,
-    }
+    return this.userResourceRepository.update(id, data)
   }
 
   async getResourcesBySkillId (
@@ -132,20 +122,10 @@ export class UserResourceService {
     }, {})
   }
 
-  async removeResourceBySkillId (
-    user: User,
-    skillsetId: number,
-    userSkill: UserSkill,
-    resource: Resource,
-  ) {
-    const userResources = await this.userResourceRepository.find({
-      user,
-      skillsetId,
-      userSkill,
-      resource,
-    })
+  async remove (id: number) {
+    const userResource = await this.userResourceRepository.findOne(id)
 
-    this.userResourceRepository.remove(userResources)
+    this.userResourceRepository.remove(userResource)
   }
 
   async removeResourcesBySkillsetId (

@@ -19,7 +19,6 @@ export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) 
 
     yield put(ac.setResources(data))
   } catch (error) {
-    yield put(ac.setUserData([]))
     logger('getResourcesSaga: ', error)
   }
 }
@@ -45,7 +44,8 @@ export function * addResourceSaga ({ payload }: AddResourceSaga) {
       type: NotificationTypes.success,
     }))
   } catch (error) {
-    logger('getResourcesSaga: ', error)
+    logger('addResourceSaga: ', error)
+
     yield put(ac.addNotification({
       message: 'Material error',
       type: NotificationTypes.error,
@@ -60,8 +60,7 @@ export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
 
     yield put(ac.updateResource(data))
   } catch (error) {
-    yield put(ac.setUserData([]))
-    logger('getResourcesSaga: ', error)
+    logger('updateResourceSaga: ', error)
   }
 }
 
@@ -74,19 +73,17 @@ export function * changeResourceLikeStatusSaga ({ payload }: ChangeResourceLikeS
 
     yield put(ac.changeResourceLikeStatus(data))
   } catch (error) {
-    yield put(ac.setUserData([]))
-    logger('getResourcesSaga: ', error)
+    logger('changeResourceLikeStatusSaga: ', error)
   }
 }
 
-export function * removeResourcesSaga ({ payload: { skillsetId, skillId, resourceId } }: RemoveResourceSaga) {
+export function * removeResourcesSaga ({ payload: { userSkill, id } }: RemoveResourceSaga) {
   try {
-    yield call(ajax.delete, `${API.USER_RESOURCE}/${skillsetId}/${skillId}/${resourceId}`)
+    yield call(ajax.delete, `${API.USER_RESOURCE}/${id}`)
 
-    yield put(ac.removeResource({ skillId, resourceId }))
+    yield put(ac.removeResource({ userSkill, id }))
   } catch (error) {
-    yield put(ac.setUserData([]))
-    logger('getResourcesSaga: ', error)
+    logger('removeResourcesSaga: ', error)
   }
 }
 

@@ -2,7 +2,8 @@ import { UserResourceType } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
   AddResource,
-  AddResourceSaga, AddResourceSagaPayload,
+  AddResourceSaga,
+  AddResourceSagaPayload,
   ChangeResourceLikeStatus,
   ChangeResourceLikeStatusSaga,
   GetResourcesSaga,
@@ -10,8 +11,6 @@ import {
   RemoveResourceSaga,
   ResourceLikeStatusPayload,
   ResourceLikeStatusSagaPayload,
-  ResourcePayload,
-  ResourceSagaPayload,
   SetResources,
   UpdateResource,
   UpdateResourceSaga,
@@ -37,7 +36,7 @@ export const changeResourceLikeStatusSaga = (data: ResourceLikeStatusSagaPayload
   payload: data,
 })
 
-export const removeResourceSaga = (data: ResourceSagaPayload): RemoveResourceSaga => ({
+export const removeResourceSaga = (data: Partial<UserResourceType>): RemoveResourceSaga => ({
   type: ResourcesActionTypes.SAGA_REMOVE_RESOURCE,
   payload: data,
 })
@@ -62,7 +61,7 @@ export const changeResourceLikeStatus = (data: ResourceLikeStatusPayload): Chang
   payload: data,
 })
 
-export const removeResource = (data: ResourcePayload): RemoveResource => ({
+export const removeResource = (data: Partial<UserResourceType>): RemoveResource => ({
   type: ResourcesActionTypes.REMOVE_RESOURCE,
   payload: data,
 })

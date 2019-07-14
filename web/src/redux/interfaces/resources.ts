@@ -8,7 +8,6 @@ export interface AddResourceSagaPayload {
 }
 
 export interface ResourceSagaPayload {
-  skillsetId: number
   skillId: number
   resourceId: number
   data: Partial<UserResourceType>
@@ -53,7 +52,7 @@ export interface ChangeResourceLikeStatusSaga {
 
 export interface RemoveResourceSaga {
   type: ResourcesActionTypes.SAGA_REMOVE_RESOURCE
-  payload: ResourceSagaPayload
+  payload: Partial<UserResourceType>
 }
 
 export interface SetResources {
@@ -78,7 +77,7 @@ export interface ChangeResourceLikeStatus {
 
 export interface RemoveResource {
   type: ResourcesActionTypes.REMOVE_RESOURCE
-  payload: ResourcePayload
+  payload: Partial<UserResourceType>
 }
 
 export type ResourcesAction =

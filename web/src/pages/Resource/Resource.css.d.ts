@@ -3,7 +3,9 @@
 interface CssExports {
   'Resource': string;
   'Resource__info': string;
+  'Resource__infoIcon': string;
   'Resource__infoItem': string;
+  'Resource__infoLink': string;
   'Resource__skills': string;
   'Resource__skillsItem': string;
   'Resource__skillsTitle': string;

@@ -27,6 +27,31 @@
       font-size: 24px;
       margin: 0 10px;
     }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &__infoLink {
+    color: var(--color-dusty-gray);
+    display: inline-block;
+    vertical-align: middle;
+
+    &:hover {
+      color: var(--color-dodger-blue);
+    }
+  }
+
+  &__infoIcon {
+    display: inline-block;
+    vertical-align: middle;
+
+    path {
+      fill: #424242;
+    }
   }
 
   &__skills {

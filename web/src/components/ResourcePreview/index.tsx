@@ -34,13 +34,13 @@ interface Props {
   shared?: boolean
   likeHandler: (data: ResourceLikeStatusSagaPayload) => void
   updateHandler: (data: Partial<UserResourceType>) => void
-  removeHandler: (data: Partial<ResourceSagaPayload>) => void
+  removeHandler: (data: Partial<UserResourceType>) => void
 }
 
 class ResourcePreview extends React.Component<Props> {
   static defaultProps = {
     updateHandler: (data: Partial<UserResourceType>) => {},
-    removeHandler: (data: ResourceSagaPayload) => {},
+    removeHandler: (data: Partial<UserResourceType>) => {},
   }
 
   get url () {
@@ -50,11 +50,12 @@ class ResourcePreview extends React.Component<Props> {
   handleStatus = (e: ChangeEvent<HTMLSelectElement>) => {
     const {
       updateHandler,
-      data: { id },
+      data: { id, userSkill },
     } = this.props
 
     updateHandler({
       id,
+      userSkill,
       status: e.target.value,
     })
   }
@@ -63,7 +64,7 @@ class ResourcePreview extends React.Component<Props> {
     const { data, likeHandler } = this.props
 
     likeHandler({
-      resourceId: data.id,
+      resourceId: data.resource.id,
       isLiked: !data.isLiked,
     })
   }
@@ -72,11 +73,12 @@ class ResourcePreview extends React.Component<Props> {
     const {
       removeHandler,
       data: {
-        id: resourceId,
+        id,
+        userSkill
       },
     } = this.props
 
-    removeHandler({ resourceId })
+    removeHandler({ id, userSkill })
   }
 
   render () {
