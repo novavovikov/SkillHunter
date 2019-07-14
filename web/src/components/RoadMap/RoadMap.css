@@ -1,0 +1,44 @@
+@import "../../styles/variables.css";
+
+.RoadMap {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+
+  &__item {
+    position: relative;
+    width: 20%;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 9px;
+      right: -16px;
+      width: 32px;
+      height: 32px;
+      background: url("./icons/arrow.svg") no-repeat center;
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &__itemIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 30px;
+  }
+
+  &__itemTitle {
+    @apply --font-xl;
+    font-weight: 500;
+    margin: 0 0 8px;
+  }
+}

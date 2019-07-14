@@ -26,6 +26,7 @@ import RemoveSkillset from './RemoveSkillset'
 import Tabs from './Tabs'
 import Nav from './Nav'
 import SignUpBlock from './SignUpBlock'
+import RoadMap from './RoadMap'
 import * as Steps from './Steps'
 
 export {
@@ -57,5 +58,6 @@ export {
   Tabs,
   Nav,
   SignUpBlock,
+  RoadMap,
   Steps
 }
