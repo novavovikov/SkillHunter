@@ -25,6 +25,7 @@ import ResourceHeader from './ResourceHeader'
 import RemoveSkillset from './RemoveSkillset'
 import Tabs from './Tabs'
 import Nav from './Nav'
+import SignUpBlock from './SignUpBlock'
 import * as Steps from './Steps'
 
 export {
@@ -55,5 +56,6 @@ export {
   ResourceHeader,
   Tabs,
   Nav,
+  SignUpBlock,
   Steps
 }

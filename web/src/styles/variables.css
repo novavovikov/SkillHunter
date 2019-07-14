@@ -65,4 +65,55 @@
     font-weight: bold;
     color: var(--color-tundora);
   };
+
+  --h1: {
+    font-size: 36px;
+    line-height: 42px;
+  };
+
+  --h2: {
+    font-size: 32px;
+    line-height: 38px;
+  };
+
+  --h3: {
+    font-size: 22px;
+    line-height: 26px;
+  };
+
+  --link {
+    color: var(--color-dodger-blue);
+
+    &:hover {
+      color: var(--color-blue-ribbon);
+      text-decoration: underline;
+    }
+  }
+
+  --button: {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    @apply --font-m;
+    min-height: 38px;
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    white-space: nowrap;
+    background: var(--color-dodger-blue);
+    border-radius: var(--radius);
+    transition: var(--transition-fast);
+
+    &:hover {
+      background: var(--color-blue-ribbon);
+    }
+
+    &:disabled {
+      cursor: default;
+      background: #BDBDBD;
+      box-shadow: none;
+    }
+  };
 }

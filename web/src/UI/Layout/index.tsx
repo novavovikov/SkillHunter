@@ -25,6 +25,14 @@ const Content: FC = ({ children }) => {
   )
 }
 
+const Footer: FC = ({ children }) => {
+  return (
+    <footer className={s.Layout__footer}>
+      {children}
+    </footer>
+  )
+}
+
 class Data extends Component<{}, { hasError: boolean }> {
   state = {
     hasError: false,
@@ -80,4 +88,5 @@ export {
   Caption,
   Container,
   Section,
+  Footer,
 }

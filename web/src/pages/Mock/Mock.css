@@ -1,0 +1,14 @@
+@import "../../styles/variables.css";
+
+.Mock {
+  max-width: 740px;
+
+  &__title {
+    margin: 14px 0 34px;
+  }
+
+  &__text {
+    @apply --font-xl;
+    color: var(--color-dusty-gray);
+  }
+}

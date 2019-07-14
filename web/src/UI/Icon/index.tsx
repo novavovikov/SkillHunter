@@ -1,7 +1,9 @@
 import cn from 'classnames'
 import React, { FC } from 'react'
 import * as s from './Icon.css'
+import addIcon from './icons/add-ico.svg?inline'
 import arrowDownIcon from './icons/arrow-down-ico.svg?inline'
+import arrowLeftIcon from './icons/arrow-left-ico.svg?inline'
 import arrowRightIcon from './icons/arrow-right-ico.svg?inline'
 import arrowUpIcon from './icons/arrow-up-ico.svg?inline'
 import binIcon from './icons/bin-ico.svg?inline'
@@ -13,7 +15,6 @@ import heartFilledIcon from './icons/heart-filled-ico.svg?inline'
 import heartIcon from './icons/heart-ico.svg?inline'
 import linkedinIcon from './icons/linkedin-ico.svg?inline'
 import redditIcon from './icons/reddit-ico.svg?inline'
-import addIcon from './icons/add-ico.svg?inline'
 import removeIcon from './icons/remove-ico.svg?inline'
 import shareIcon from './icons/share-ico.svg?inline'
 import telegramIcon from './icons/telegram-ico.svg?inline'
@@ -47,6 +48,8 @@ const getIcon = (type: string) => {
       return arrowUpIcon
     case 'arrow-down':
       return arrowDownIcon
+    case 'arrow-left':
+      return arrowLeftIcon
     case 'arrow-right':
       return arrowRightIcon
 

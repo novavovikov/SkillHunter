@@ -56,6 +56,10 @@ class Page extends Component<Props> {
             {children}
           </Layout.Data>
         </Layout.Content>
+
+        <Layout.Footer>
+          Copyright ©2019 skillhunter
+        </Layout.Footer>
       </Layout.Wrap>
     )
   }

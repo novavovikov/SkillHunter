@@ -35,9 +35,10 @@
   button {
     font-family: inherit;
     font-size: inherit;
-    transition: var(--transition-fast);
+    color: inherit;
     border-radius: 0;
     margin: 0;
+    transition: var(--transition-fast);
     cursor: pointer;
   }
 

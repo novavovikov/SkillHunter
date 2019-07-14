@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { ResourceHeader } from '../../components'
+import { ResourceHeader, SignUpBlock } from '../../components'
 import { UserResourceType } from '../../types'
 import { H1, Icon } from '../../UI'
 import { ajax } from '../../utils/ajax'
@@ -99,7 +99,7 @@ class Resource extends Component<Props, State> {
                   className={s.Resource__infoLink}
                   target="_blank"
                 >
-                  {url.origin}
+                  {url.hostname}
                 </a>
               )}
             </div>
@@ -119,7 +119,7 @@ class Resource extends Component<Props, State> {
         )}
 
         <div className={s.Resource__text}>
-
+          <SignUpBlock/>
         </div>
       </div>
     )

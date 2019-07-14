@@ -37,8 +37,6 @@
 
   &__infoLink {
     color: var(--color-dusty-gray);
-    display: inline-block;
-    vertical-align: middle;
 
     &:hover {
       color: var(--color-dodger-blue);

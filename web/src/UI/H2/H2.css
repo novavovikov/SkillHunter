@@ -2,7 +2,6 @@
 
 .H2 {
   @apply --title;
-  font-size: 32px;
-  line-height: 38px;
+  @apply --h2;
   margin: 0 0 1em;
 }

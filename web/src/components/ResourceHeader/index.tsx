@@ -1,5 +1,7 @@
 import cn from 'classnames'
 import React, { PureComponent } from 'react'
+import { Link } from 'react-router-dom'
+import { ROUTES } from '../../constants/routing'
 import { UserResourceType } from '../../types'
 import { Icon } from '../../UI'
 import * as s from './ResourceHeader.css'
@@ -37,6 +39,15 @@ class ResourceHeader extends PureComponent<Props, State> {
       <header className={cn(s.ResourceHeader, {
         [s.ResourceHeader_fixed]: fixedClass,
       })}>
+
+        <Link
+          to={ROUTES.SKILLSET}
+          className={s.ResourceHeader__back}
+        >
+          <Icon type="arrow-left"/>
+          Back
+        </Link>
+
         <div className={s.ResourceHeader__item}>
           <div className={s.ResourceHeader__icon}>
             <Icon

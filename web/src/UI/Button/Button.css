@@ -1,22 +1,7 @@
 @import "../../styles/variables.css";
 
 .Button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  @apply --font-m;
-  height: 38px;
-  padding: 5px 20px;
-  border: none;
-  color: #fff;
-  white-space: nowrap;
-  background: var(--color-dodger-blue);
-  border-radius: var(--radius);
-  transition: var(--transition-fast);
-
-  &:hover {
-    background: var(--color-blue-ribbon);
-  }
+  @apply --button;
 
   &_large {
     min-height: 52px;
@@ -44,11 +29,5 @@
       color: var(--color-tundora);
       background: var(--color-alto);
     }
-  }
-
-  &:disabled {
-    cursor: default;
-    background: #BDBDBD;
-    box-shadow: none;
   }
 }

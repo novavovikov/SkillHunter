@@ -9,8 +9,9 @@ const Home = React.lazy(() => import('../pages/Home'))
 const Settings = React.lazy(() => import('../pages/Settings'))
 const Logout = React.lazy(() => import('../pages/Logout'))
 const Introduction = React.lazy(() => import('../pages/Introduction'))
-const Library = React.lazy(() => import('../pages/Library'))
+const Skillset = React.lazy(() => import('../pages/Skillset'))
 const Resource = React.lazy(() => import('../pages/Resource'))
+const Mock = React.lazy(() => import('../pages/Mock'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
 const Routes: FC = () => {
@@ -55,18 +56,28 @@ const Routes: FC = () => {
 
         <PrivateRoute
           path={`${ROUTES.SKILLSET}/:skillset`}
-          component={Library}
+          component={Skillset}
         />
 
         <PrivateRoute
           path={ROUTES.SKILLSET}
-          component={Library}
+          component={Skillset}
         />
 
         <PrivateRoute
           path={`${ROUTES.RESOURCE}/:userResourceId`}
           component={Resource}
           exact
+        />
+
+        <PrivateRoute
+          path={`${ROUTES.EVALUATION}/:skillset`}
+          component={Mock}
+        />
+
+        <PrivateRoute
+          path={`${ROUTES.PLAN}/:skillset`}
+          component={Mock}
         />
 
         <PrivateRoute

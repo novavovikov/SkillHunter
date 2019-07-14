@@ -2,7 +2,6 @@
 
 .H3 {
   @apply --title;
-  font-size: 22px;
-  line-height: 26px;
+  @apply --h3;
   margin: 0 0 25px;
 }

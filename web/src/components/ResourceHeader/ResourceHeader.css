@@ -43,6 +43,27 @@
     }
   }
 
+  &__back {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 65px;
+    left: 35px;
+    color: var(--color-dusty-gray);
+
+    path {
+      fill: var(--color-dusty-gray);
+    }
+
+    &:hover {
+      color: var(--color-dodger-blue);
+
+      path {
+        fill: var(--color-dodger-blue);
+      }
+    }
+  }
+
   &__icon {
     margin: 0 0 10px;
   }

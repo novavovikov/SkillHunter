@@ -22,7 +22,7 @@ interface Props extends RouteComponentProps<Params> {
   getSkills: (skillsetId: number) => void
 }
 
-class Library extends React.Component<Props> {
+class Skillset extends React.Component<Props> {
   componentDidMount (): void {
     this.getSkills()
   }
@@ -87,4 +87,4 @@ export default compose(
       getSkills: getSkillsDataSaga,
     },
   ),
-)(Library)
+)(Skillset)

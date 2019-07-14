@@ -1,0 +1,49 @@
+@import "../../styles/variables.css";
+
+.NotFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 0;
+
+  &__img {
+    height: 250px;
+    margin: 0 0 20px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 56px;
+  }
+
+  &__subtitle {
+    color: var(--color-dusty-gray);
+    @apply --h2;
+    font-weight: 300;
+    margin: 0 0 40px;
+  }
+
+  &__submit {
+    @apply --button;
+    font-weight: bold;
+    border-radius: var(--radius-lg);
+    width: 270px;
+  }
+
+  &__submitLabel {
+    display: block;
+    width: 100%;
+    @apply --font-s;
+    font-weight: 300;
+  }
+
+  &__label {
+    color: var(--color-dusty-gray);
+    margin: 10px 0;
+  }
+
+  &__link {
+    @apply --link;
+  }
+}
