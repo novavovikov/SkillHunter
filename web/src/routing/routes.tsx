@@ -72,12 +72,12 @@ const Routes: FC = () => {
 
         <PrivateRoute
           path={`${ROUTES.EVALUATION}/:skillset`}
-          component={Mock}
+          component={() => <Mock title="Evaluation сoming soon"/>}
         />
 
         <PrivateRoute
           path={`${ROUTES.PLAN}/:skillset`}
-          component={Mock}
+          component={() => <Mock title="Plan сoming soon"/>}
         />
 
         <PrivateRoute

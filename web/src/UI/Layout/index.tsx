@@ -19,9 +19,9 @@ const Aside: FC = ({ children }) => {
 
 const Content: FC = ({ children }) => {
   return (
-    <main className={s.Layout__content}>
+    <div className={s.Layout__content}>
       {children}
-    </main>
+    </div>
   )
 }
 
@@ -56,11 +56,11 @@ class Data extends Component<{}, { hasError: boolean }> {
   }
 }
 
-const Caption: FC = ({ children }) => {
+const Main: FC = ({ children }) => {
   return (
-    <div className={s.Layout__caption}>
+    <main className={s.Layout__main}>
       {children}
-    </div>
+    </main>
   )
 }
 
@@ -85,7 +85,7 @@ export {
   Aside,
   Content,
   Data,
-  Caption,
+  Main,
   Container,
   Section,
   Footer,

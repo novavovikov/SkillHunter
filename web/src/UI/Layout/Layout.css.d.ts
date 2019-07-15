@@ -3,11 +3,11 @@
 interface CssExports {
   'Layout': string;
   'Layout__aside': string;
-  'Layout__caption': string;
   'Layout__container': string;
   'Layout__content': string;
   'Layout__data': string;
   'Layout__footer': string;
+  'Layout__main': string;
   'Layout__section': string;
 }
 declare var cssExports: CssExports;

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { Header } from '../../components'
+import { Page } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { addNotification } from '../../redux/actions/notifications'
@@ -21,9 +21,7 @@ const Settings: FC<Props> = ({ history, showNotification }) => {
   }
 
   return (
-    <>
-      <Header/>
-      <div>
+    <Page>
         <p>
           <Button onClick={() => showNotification({ message: 'Пример простого сообщения' })}>
             Простое сообщение
@@ -68,8 +66,7 @@ const Settings: FC<Props> = ({ history, showNotification }) => {
             Remove account?
           </Button>
         </p>
-      </div>
-    </>
+    </Page>
   )
 }
 

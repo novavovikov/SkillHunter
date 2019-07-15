@@ -3,13 +3,17 @@ import { Page, RoadMap } from '../../components'
 import { H2 } from '../../UI'
 import * as s from './Mock.css'
 
-const Mock: FC = () => {
+interface Props {
+  title: string
+}
+
+const Mock: FC<Props> = ({ title }) => {
   return (
 
     <Page>
       <div className={s.Mock}>
         <H2 className={s.Mock__title}>
-          Evaluation сoming soon
+          {title}
         </H2>
 
         <div className={s.Mock__text}>
