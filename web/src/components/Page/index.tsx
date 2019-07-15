@@ -51,17 +51,19 @@ class Page extends Component<Props> {
             )}
           </Layout.Aside>
 
-          <Layout.Main> <Scrollbar
-            autoHeight
-            autoHeightMax="100%"
-          >
-            <Layout.Data>
-              {children}
-            </Layout.Data>
-          </Scrollbar>
+          <Layout.Main>
+            <Scrollbar
+              autoHeight
+              autoHeightMax="100%"
+              autoHide
+            >
+              <Layout.Data>
+                {children}
+              </Layout.Data>
+            </Scrollbar>
 
             <Layout.Footer>
-              Copyright ©2019 skillhunter
+              Copyright ©2019 SkillHunter
             </Layout.Footer>
           </Layout.Main>
         </Layout.Content>
