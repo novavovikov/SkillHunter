@@ -1,5 +1,6 @@
 import cn from 'classnames'
-import React, { ReactChild, ReactElement, ReactNode } from 'react'
+import React, { createRef, ReactElement } from 'react'
+import { createPortal } from 'react-dom'
 import { Animation, Icon } from '../index'
 import * as s from './Menu.css'
 
@@ -22,6 +23,8 @@ const getIconSize = (icon: string) => {
 }
 
 class Menu extends React.Component<Props, State> {
+  btnRef = createRef<HTMLButtonElement>()
+
   state = {
     isOpen: false,
   }
@@ -38,6 +41,21 @@ class Menu extends React.Component<Props, State> {
     })
   }
 
+  setMenuPosition = (element: HTMLDivElement) => {
+    const { current } = this.btnRef
+
+    if (!current) {
+      return null
+    }
+
+    const params = current.getBoundingClientRect()
+
+    Object.assign(element.style, {
+      top: `${params.top + params.height}px`,
+      left: `${params.left}px`
+    })
+  }
+
   render () {
     const { className, icon, position, children } = this.props
     const { isOpen } = this.state
@@ -51,24 +69,36 @@ class Menu extends React.Component<Props, State> {
         onMouseEnter={this.showMenu}
         onMouseLeave={this.hideMenu}
       >
-        <button className={s.Menu__button}>
+        <button
+          className={s.Menu__button}
+          ref={this.btnRef}
+        >
           <Icon
             type={IconName}
             size={getIconSize(IconName)}
             active={isOpen}
           />
         </button>
-        <Animation.Dropdown in={isOpen}>
-          <div className={cn(s.Menu__list, {
-            [s.Menu__list_left]: position === 'left'
-          })}>
-            {React.Children.map(childrenList, (child: ReactElement) => (
-              React.cloneElement(child, {
-                onClose: this.hideMenu
-              })
-            ))}
-          </div>
-        </Animation.Dropdown>
+        {createPortal(
+          (
+            <Animation.Dropdown
+              in={isOpen}
+              onEnter={this.setMenuPosition}>
+              <div
+                className={cn(s.Menu__list, {
+                  [s.Menu__list]: position === 'left',
+                })}
+              >
+                {React.Children.map(childrenList, (child: ReactElement) => (
+                  React.cloneElement(child, {
+                    onClose: this.hideMenu,
+                  })
+                ))}
+              </div>
+            </Animation.Dropdown>
+          ),
+          document.body,
+        )}
       </div>
     )
   }
