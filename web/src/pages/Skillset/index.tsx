@@ -66,13 +66,9 @@ class Skillset extends React.Component<Props> {
       return <Redirect to={ROUTES.HOME}/>
     }
 
-    if (isLoading) {
-      return null
-    }
-
     return (
       <Page>
-        {skills.map((skill: SkillType) => (
+        {!isLoading && skills.map((skill: SkillType) => (
           <UserSkill
             key={skill.id}
             data={skill}
