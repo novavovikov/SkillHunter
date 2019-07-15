@@ -9,6 +9,7 @@
   width: 100%;
   height: 80px;
   padding: 15px 20px;
+  z-index: 20;
 
   &__logo {
     flex: 250px 0 0;
