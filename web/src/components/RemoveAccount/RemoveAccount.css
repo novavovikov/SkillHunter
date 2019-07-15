@@ -1,0 +1,29 @@
+@import "../../styles/variables.css";
+
+.RemoveAccount {
+  padding: 40px 0;
+
+  &__form {
+    background: #fff;
+    padding: 40px;
+    border-radius: var(--radius-lg);
+  }
+
+  &__title {
+    @apply --font-xl;
+    font-weight: bold;
+    margin: 0 0 30px;
+  }
+
+  &__text {
+    margin: 0 0 10px;
+  }
+
+  &__input {
+    margin: 0 0 20px;
+  }
+
+  &__submit {
+    margin: 0 10px 0 0;
+  }
+}

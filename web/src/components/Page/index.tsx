@@ -1,55 +1,26 @@
 import React, { Component } from 'react'
 import Scrollbar from 'react-custom-scrollbars'
-import { connect } from 'react-redux'
-import { RouteComponentProps, withRouter } from 'react-router'
-import { compose } from 'redux'
-import { RootState } from '../../redux/reducers'
-import { UserState } from '../../redux/reducers/user'
-import { SkillsetType, UserType } from '../../types'
 import { Layout } from '../../UI'
-import { Header, Nav, SkillCreator, UserSkillset } from '../index'
+import { Header, Sidebar } from '../index'
 
-interface Params {
-  skillset: string
-}
-
-interface Props extends RouteComponentProps<Params> {
-  user: UserState
+interface Props {
+  sidebar: boolean
 }
 
 class Page extends Component<Props> {
-  getSkillsetId = (skillset: string, userData: UserType) => {
-    const selectedSkillset = userData.skillsets.find(({ name }: SkillsetType) => name === skillset)
-
-    if (selectedSkillset) {
-      return selectedSkillset.id
-    }
-
-    return null
+  static defaultProps = {
+    sidebar: true
   }
 
   render () {
-    const { user, match, children } = this.props
+    const { children, sidebar } = this.props
 
     return (
       <Layout.Wrap>
         <Header/>
 
         <Layout.Content>
-          <Layout.Aside>
-            {user.data && (
-              <>
-                <UserSkillset/>
-                <Nav/>
-                <SkillCreator
-                  skillsetId={this.getSkillsetId(
-                    match.params.skillset,
-                    user.data,
-                  )}
-                />
-              </>
-            )}
-          </Layout.Aside>
+          {sidebar && <Sidebar/>}
 
           <Layout.Main>
             <Scrollbar
@@ -72,9 +43,4 @@ class Page extends Component<Props> {
   }
 }
 
-export default compose(
-  withRouter,
-  connect(
-    ({ user }: RootState) => ({ user }),
-  ),
-)(Page)
+export default Page

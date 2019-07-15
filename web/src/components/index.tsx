@@ -4,6 +4,7 @@ import Notifications from './Notifications'
 import Filters from './Filters'
 import FeatureController from './FeatureController'
 import Header from './Header'
+import Sidebar from './Sidebar'
 import Faq from './Faq'
 import HeaderMenu from './HeaderMenu'
 import Search from './Search'
@@ -27,6 +28,7 @@ import Tabs from './Tabs'
 import Nav from './Nav'
 import SignUpBlock from './SignUpBlock'
 import RoadMap from './RoadMap'
+import RemoveAccount from './RemoveAccount'
 import * as Steps from './Steps'
 
 export {
@@ -36,6 +38,7 @@ export {
   Filters,
   FeatureController,
   Header,
+  Sidebar,
   HeaderMenu,
   Search,
   ShareMenu,
@@ -59,5 +62,6 @@ export {
   Nav,
   SignUpBlock,
   RoadMap,
-  Steps
+  Steps,
+  RemoveAccount
 }
