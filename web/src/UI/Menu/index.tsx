@@ -6,6 +6,7 @@ import * as s from './Menu.css'
 interface Props {
   className?: string
   icon?: string
+  position?: 'left'
 }
 
 interface State {
@@ -38,7 +39,7 @@ class Menu extends React.Component<Props, State> {
   }
 
   render () {
-    const { className, icon, children } = this.props
+    const { className, icon, position, children } = this.props
     const { isOpen } = this.state
 
     const IconName: string = icon || 'dots'
@@ -58,7 +59,9 @@ class Menu extends React.Component<Props, State> {
           />
         </button>
         <Animation.Dropdown in={isOpen}>
-          <div className={s.Menu__list}>
+          <div className={cn(s.Menu__list, {
+            [s.Menu__list_left]: position === 'left'
+          })}>
             {React.Children.map(childrenList, (child: ReactElement) => (
               React.cloneElement(child, {
                 onClose: this.hideMenu

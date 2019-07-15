@@ -8,6 +8,7 @@
   text-align: left;
   min-height: 40px;
   padding: 5px 20px;
+  white-space: nowrap;
   cursor: pointer;
 
   &:hover {

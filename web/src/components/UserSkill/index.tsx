@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Resources } from '../../components'
+import { ResourceCreator, Resources } from '../../components'
 import { removeSkillsSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
 import { UserResourceType, UserSkillType } from '../../types'
@@ -15,11 +15,19 @@ interface Props {
 
 interface State {
   isOpen: boolean
+  creatorVisible: boolean
 }
 
 class UserSkill extends React.Component<Props, State> {
   state = {
     isOpen: !!this.props.resources.length,
+    creatorVisible: false,
+  }
+
+  toggleCreatorVisibility = () => {
+    this.setState({
+      creatorVisible: !this.state.creatorVisible,
+    })
   }
 
   toggleOpen = () => {
@@ -35,7 +43,7 @@ class UserSkill extends React.Component<Props, State> {
   }
 
   render () {
-    const { isOpen } = this.state
+    const { isOpen, creatorVisible } = this.state
     const {
       data,
       resources,
@@ -58,9 +66,15 @@ class UserSkill extends React.Component<Props, State> {
             {data.skill.name}
           </H4>
 
-          <Menu className={s.UserSkill__menu}>
+          <Menu
+            className={s.UserSkill__menu}
+            position="left"
+          >
+            <Item onClick={this.toggleCreatorVisibility}>
+              Add resource
+            </Item>
             <Item onClick={this.removeSkill}>
-              Delete
+              Delete skill
             </Item>
           </Menu>
 
@@ -74,10 +88,17 @@ class UserSkill extends React.Component<Props, State> {
           )}
         </div>
 
-        {isOpen && (
-          <Resources
+        {creatorVisible && (
+          <ResourceCreator
             skillsetId={data.skillsetId}
             skillId={data.id}
+            onClose={this.toggleCreatorVisibility}
+          />
+        )}
+
+        {isOpen && (
+          <Resources
+            openCreator={this.toggleCreatorVisibility}
             data={resources}
           />
         )}

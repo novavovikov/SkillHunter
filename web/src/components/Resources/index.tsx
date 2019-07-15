@@ -5,44 +5,26 @@ import { changeResourceLikeStatusSaga, removeResourceSaga, updateResourceSaga } 
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { UserResourceType } from '../../types'
 import { IconButton, Status } from '../../UI'
-import { ResourceCreator, ResourcePreview } from '../index'
+import { ResourcePreview } from '../index'
 import * as s from './Resources.css'
 
 interface Props {
   data: UserResourceType[]
-  skillsetId: number
-  skillId: number
+  openCreator: () => void
   updateResource: (data: Partial<UserResourceType>) => void
   changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
   removeResource: (data: Partial<UserResourceType>) => void
 }
 
-interface State {
-  creatorVisible: boolean
-}
-
-class Resources extends Component<Props, State> {
-  state = {
-    creatorVisible: false,
-  }
-
-  toggleCreatorVisibility = () => {
-    this.setState({
-      creatorVisible: !this.state.creatorVisible,
-    })
-  }
-
+class Resources extends Component<Props> {
   render () {
     const {
       data,
-      skillsetId,
-      skillId,
+      openCreator,
       updateResource,
       changeResourceLikeStatus,
       removeResource,
     } = this.props
-
-    const { creatorVisible } = this.state
 
     return (
       <div className={s.Resources}>
@@ -51,15 +33,7 @@ class Resources extends Component<Props, State> {
             [s.Resources__col_full]: !data.length,
           })}>
             <div className={s.Resources__creator}>
-              {creatorVisible && (
-                <ResourceCreator
-                  skillsetId={skillsetId}
-                  skillId={skillId}
-                  onClose={this.toggleCreatorVisibility}
-                />
-              )}
-
-              <IconButton onClick={this.toggleCreatorVisibility}>
+              <IconButton onClick={openCreator}>
                 Add source
               </IconButton>
             </div>
