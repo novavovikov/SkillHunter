@@ -14,6 +14,8 @@ import {
 } from '../interfaces/resources'
 
 export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) {
+  yield put(ac.addLoading('resources'))
+
   try {
     const { data } = yield call(ajax, `${API.USER_RESOURCE}/${skillsetId}?skillIds=${skillIds}`)
 
@@ -21,6 +23,8 @@ export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) 
   } catch (error) {
     logger('getResourcesSaga: ', error)
   }
+
+  yield put(ac.removeLoading('resources'))
 }
 
 export function * addResourceSaga ({ payload }: AddResourceSaga) {

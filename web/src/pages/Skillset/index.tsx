@@ -7,6 +7,7 @@ import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { getSkillsDataSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
+import { LoadingState } from '../../redux/reducers/loading'
 import { ResourcesState } from '../../redux/reducers/resources'
 import { UserState } from '../../redux/reducers/user'
 import { SkillType } from '../../types'
@@ -16,7 +17,8 @@ interface Params {
 }
 
 interface Props extends RouteComponentProps<Params> {
-  user: UserState,
+  user: UserState
+  isLoading: boolean
   skills: SkillType[]
   resources: ResourcesState
   getSkills: (skillsetId: number) => void
@@ -57,10 +59,15 @@ class Skillset extends React.Component<Props> {
     const {
       match,
       skills,
+      isLoading
     } = this.props
 
     if (!match.params.skillset) {
       return <Redirect to={ROUTES.HOME}/>
+    }
+
+    if (isLoading) {
+      return null
     }
 
     return (
@@ -80,7 +87,8 @@ export default compose(
   withUser,
   withRouter,
   connect(
-    ({ skills }: RootState) => ({
+    ({ skills, loading }: RootState) => ({
+      isLoading: loading.resources || loading.skill,
       skills,
     }),
     {

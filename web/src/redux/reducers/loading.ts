@@ -7,6 +7,7 @@ export interface LoadingState {
 }
 
 const initState = {
+  resources: false,
   skill: false
 }
 

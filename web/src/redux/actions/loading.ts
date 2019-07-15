@@ -3,10 +3,10 @@ import { AddLoading, RemoveLoading } from '../interfaces/loading'
 
 export const addLoading = (name: string): AddLoading => ({
   type: LoadingActionTypes.ADD_LOADING,
-  payload: status,
+  payload: name,
 })
 
 export const removeLoading = (name: string): RemoveLoading => ({
   type: LoadingActionTypes.REMOVE_LOADING,
-  payload: status,
+  payload: name,
 })

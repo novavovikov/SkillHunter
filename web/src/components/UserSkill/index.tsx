@@ -19,7 +19,7 @@ interface State {
 
 class UserSkill extends React.Component<Props, State> {
   state = {
-    isOpen: true,
+    isOpen: !!this.props.resources.length,
   }
 
   toggleOpen = () => {
