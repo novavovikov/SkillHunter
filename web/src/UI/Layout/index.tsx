@@ -1,4 +1,5 @@
 import React, { Component, FC } from 'react'
+import cn from 'classnames'
 import s from './Layout.css'
 
 const Wrap: FC = ({ children }) => {
@@ -33,32 +34,13 @@ const Footer: FC = ({ children }) => {
   )
 }
 
-class Data extends Component<{}, { hasError: boolean }> {
-  state = {
-    hasError: false,
-  }
-
-  componentDidCatch (error: Error, errorInfo: React.ErrorInfo): void {
-    console.log(123, error)
-    console.log(31, errorInfo)
-  }
-
-  render () {
-    if (this.state.hasError) {
-      return null
-    }
-
-    return (
-      <div className={s.Layout__data}>
-        {this.props.children}
-      </div>
-    )
-  }
+interface Props {
+  className?: string
 }
 
-const Main: FC = ({ children }) => {
+const Main: FC<Props> = ({ children, className }) => {
   return (
-    <main className={s.Layout__main}>
+    <main className={cn(s.Layout__main, className)}>
       {children}
     </main>
   )
@@ -84,7 +66,6 @@ export {
   Wrap,
   Aside,
   Content,
-  Data,
   Main,
   Container,
   Section,

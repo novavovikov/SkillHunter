@@ -1,3 +1,7 @@
 .Page {
   position: relative;
+
+  &_withSidebar {
+    width: calc(100% - 250px);
+  }
 }

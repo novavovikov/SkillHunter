@@ -1,7 +1,8 @@
+import cn from 'classnames'
 import React, { Component } from 'react'
-import Scrollbar from 'react-custom-scrollbars'
 import { Layout } from '../../UI'
 import { Header, Sidebar } from '../index'
+import * as s from './Page.css'
 
 interface Props {
   sidebar: boolean
@@ -19,25 +20,21 @@ class Page extends Component<Props> {
       <Layout.Wrap>
         <Header/>
 
-        <Layout.Content>
-          {sidebar && <Sidebar/>}
+        {sidebar && <Sidebar/>}
 
-          <Layout.Main>
-            <Scrollbar
-              autoHeight
-              autoHeightMax="100%"
-              autoHide
-            >
-              <Layout.Data>
-                {children}
-              </Layout.Data>
-            </Scrollbar>
+        <Layout.Main
+          className={cn({
+            [s.Page_withSidebar]: sidebar,
+          })}
+        >
+          <Layout.Content>
+            {children}
+          </Layout.Content>
 
-            <Layout.Footer>
-              Copyright ©2019 SkillHunter
-            </Layout.Footer>
-          </Layout.Main>
-        </Layout.Content>
+          <Layout.Footer>
+            Copyright ©2019 SkillHunter
+          </Layout.Footer>
+        </Layout.Main>
       </Layout.Wrap>
     )
   }

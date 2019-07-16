@@ -4,6 +4,11 @@
   position: relative;
   display: inline-flex;
 
+  &__body {
+    overflow: hidden;
+    padding-right: 15px;
+  }
+
   &__button {
     position: relative;
     display: flex;

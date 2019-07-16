@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'Menu': string;
+  'Menu__body': string;
   'Menu__button': string;
   'Menu__list': string;
 }
