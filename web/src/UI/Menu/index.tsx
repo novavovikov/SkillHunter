@@ -41,23 +41,50 @@ class Menu extends React.Component<Props, State> {
     })
   }
 
+  getOffsetY = (params: ClientRect, menu: HTMLDivElement) => {
+    const top = params.top + params.height
+
+    if (top + menu.clientHeight + 25 < window.innerHeight) {
+      return { top: `${top}px` }
+    }
+
+    return {
+      bottom: `${window.innerHeight - params.bottom + params.height}px`,
+    }
+  }
+
+  getOffsetX = (params: ClientRect, menu: HTMLDivElement) => {
+    const { position } = this.props
+
+    if (position === 'left') {
+      return { left: `${params.left}px` }
+    }
+
+    return { right: `${window.innerWidth - params.left - params.width}px` }
+  }
+
+  getMenuOffset (btn: HTMLButtonElement, menu: HTMLDivElement) {
+    const params = btn.getBoundingClientRect()
+    const offsetX = this.getOffsetX(params, menu)
+    const offsetY = this.getOffsetY(params, menu)
+
+    return { ...offsetX, ...offsetY }
+  }
+
   setMenuPosition = (element: HTMLDivElement) => {
     const { current } = this.btnRef
-
     if (!current) {
+
       return null
     }
 
-    const params = current.getBoundingClientRect()
+    const styles = this.getMenuOffset(current, element)
 
-    Object.assign(element.style, {
-      top: `${params.top + params.height}px`,
-      left: `${params.left}px`
-    })
+    Object.assign(element.style, styles)
   }
 
   render () {
-    const { className, icon, position, children } = this.props
+    const { className, icon, children } = this.props
     const { isOpen } = this.state
 
     const IconName: string = icon || 'dots'
@@ -84,11 +111,7 @@ class Menu extends React.Component<Props, State> {
             <Animation.Dropdown
               in={isOpen}
               onEnter={this.setMenuPosition}>
-              <div
-                className={cn(s.Menu__list, {
-                  [s.Menu__list]: position === 'left',
-                })}
-              >
+              <div className={s.Menu__list}>
                 {React.Children.map(childrenList, (child: ReactElement) => (
                   React.cloneElement(child, {
                     onClose: this.hideMenu,

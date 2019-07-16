@@ -36,10 +36,5 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     z-index: 10;
-
-    &_left {
-      right: auto;
-      left: 0;
-    }
   }
 }

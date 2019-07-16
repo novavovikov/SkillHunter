@@ -18,7 +18,8 @@
     top: 0;
     display: flex;
     align-items: center;
-    padding: 20px 0;
+    padding: 14px 0;
+    min-height: 68px;
     background: var(--color-desert-storm);
     z-index: 8;
   }

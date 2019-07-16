@@ -4,7 +4,6 @@ interface CssExports {
   'Menu': string;
   'Menu__button': string;
   'Menu__list': string;
-  'Menu__list_left': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;
