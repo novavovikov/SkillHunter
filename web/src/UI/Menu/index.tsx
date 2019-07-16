@@ -1,13 +1,18 @@
 import cn from 'classnames'
-import React, { createRef, ReactElement } from 'react'
-import { createPortal } from 'react-dom'
+import React, { createRef, FC } from 'react'
 import withClickOutside from 'react-click-outside'
+import { createPortal } from 'react-dom'
 import { Animation, Icon } from '../index'
 import * as s from './Menu.css'
+
+interface ComponentProps {
+  isOpen: boolean
+}
 
 interface Props {
   className?: string
   icon?: string
+  Component?: FC<ComponentProps>
   position?: 'left'
 }
 
@@ -24,7 +29,7 @@ const getIconSize = (icon: string) => {
 }
 
 class Menu extends React.Component<Props, State> {
-  btnRef = createRef<HTMLButtonElement>()
+  menuRef = createRef<HTMLDivElement>()
 
   state = {
     isOpen: false,
@@ -46,6 +51,7 @@ class Menu extends React.Component<Props, State> {
     this.setState({
       isOpen: false,
     })
+
     document.body.classList.remove(s.Menu__body)
   }
 
@@ -71,8 +77,8 @@ class Menu extends React.Component<Props, State> {
     return { right: `${window.innerWidth - params.left - params.width}px` }
   }
 
-  getMenuOffset (btn: HTMLButtonElement, menu: HTMLDivElement) {
-    const params = btn.getBoundingClientRect()
+  getMenuOffset (wrap: HTMLDivElement, menu: HTMLDivElement) {
+    const params = wrap.getBoundingClientRect()
     const offsetX = this.getOffsetX(params, menu)
     const offsetY = this.getOffsetY(params, menu)
 
@@ -80,7 +86,7 @@ class Menu extends React.Component<Props, State> {
   }
 
   setMenuPosition = (element: HTMLDivElement) => {
-    const { current } = this.btnRef
+    const { current } = this.menuRef
     if (!current) {
 
       return null
@@ -92,44 +98,51 @@ class Menu extends React.Component<Props, State> {
   }
 
   render () {
-    const { className, icon, children } = this.props
     const { isOpen } = this.state
+    const {
+      Component,
+      className,
+      icon,
+      children,
+    } = this.props
 
     const IconName: string = icon || 'dots'
-    const childrenList = React.Children.toArray(children)
 
     return (
-      <div
-        className={cn(s.Menu, className)}
-        onClick={this.toggleMenu}
-      >
-        <button
-          className={s.Menu__button}
-          ref={this.btnRef}
+      <>
+        <div
+          className={cn(s.Menu, className)}
+          ref={this.menuRef}
+          onClick={this.toggleMenu}
         >
-          <Icon
-            type={IconName}
-            size={getIconSize(IconName)}
-            active={isOpen}
-          />
-        </button>
+          {Component
+            ? <Component isOpen={isOpen}/>
+            : (
+              <button className={s.Menu__button}>
+                <Icon
+                  type={IconName}
+                  size={getIconSize(IconName)}
+                  active={isOpen}
+                />
+              </button>
+            )
+          }
+        </div>
+
         {createPortal(
           (
             <Animation.Dropdown
               in={isOpen}
-              onEnter={this.setMenuPosition}>
+              onEnter={this.setMenuPosition}
+            >
               <div className={s.Menu__list}>
-                {React.Children.map(childrenList, (child: ReactElement) => (
-                  React.cloneElement(child, {
-                    onClose: this.hideMenu,
-                  })
-                ))}
+                {children}
               </div>
             </Animation.Dropdown>
           ),
           document.body,
         )}
-      </div>
+      </>
     )
   }
 }

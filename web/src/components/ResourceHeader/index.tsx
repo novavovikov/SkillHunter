@@ -49,49 +49,50 @@ class ResourceHeader extends PureComponent<Props, State> {
         </Link>
 
         <div className={s.ResourceHeader__item}>
-          <div className={s.ResourceHeader__icon}>
             <Icon
               type="dots"
               size="18"
             />
+          <div className={s.ResourceHeader__label}>
+            {data.status}
           </div>
-          {data.status}
         </div>
-        <div className={s.ResourceHeader__item}>
-          <div className={s.ResourceHeader__icon}>
+        <button className={s.ResourceHeader__item}>
             <Icon
-              type="heart"
+              type={data.isLiked ? 'heart-filled' : 'heart'}
+              active={data.isLiked}
               size="18"
             />
-          </div>
-          {data.likes}
-        </div>
+          <span className={s.ResourceHeader__label}>
+            {data.likes}
+          </span>
+        </button>
         <div className={s.ResourceHeader__item}>
-          <div className={s.ResourceHeader__icon}>
             <Icon
               type="share"
               size="18"
             />
+          <div className={s.ResourceHeader__label}>
+            Share
           </div>
-          Share
         </div>
         <div className={s.ResourceHeader__item}>
-          <div className={s.ResourceHeader__icon}>
             <Icon
               type="add"
               size="18"
             />
+          <div className={s.ResourceHeader__label}>
+            2 skills
           </div>
-          2 skills
         </div>
         <div className={s.ResourceHeader__item}>
-          <div className={s.ResourceHeader__icon}>
             <Icon
               type="dots"
               size="18"
             />
+          <div className={s.ResourceHeader__label}>
+            More
           </div>
-          More
         </div>
       </header>
     )

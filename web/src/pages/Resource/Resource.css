@@ -55,7 +55,7 @@
   &__skills {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 0 35px;
+    margin: 0 0 120px;
   }
 
   &__skillsTitle {

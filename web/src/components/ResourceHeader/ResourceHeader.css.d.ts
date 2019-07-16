@@ -3,8 +3,8 @@
 interface CssExports {
   'ResourceHeader': string;
   'ResourceHeader__back': string;
-  'ResourceHeader__icon': string;
   'ResourceHeader__item': string;
+  'ResourceHeader__label': string;
   'ResourceHeader_fixed': string;
 }
 declare var cssExports: CssExports;

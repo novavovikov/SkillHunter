@@ -145,29 +145,6 @@
     opacity: 1;
   }
 
-  &__select {
-    padding: 0 20px;
-    width: 90px;
-    background: url('./icons/select-arrow.svg') no-repeat 75px center/10px 6px;
-    border: none;
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: 0 !important; /*Removes border*/
-    appearance: none;
-    text-overflow: '';
-    text-indent: 0.01px; /* Removes default arrow from firefox*/
-    visibility: hidden;
-    opacity: 0;
-
-    &::-ms-expand {
-      display: none;
-    }
-  }
-
   &__menu {
     margin-right: -5px;
   }

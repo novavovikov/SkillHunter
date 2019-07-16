@@ -7,7 +7,6 @@
   align-items: center;
   justify-content: flex-end;
   padding: 25px 0;
-  background: #fff;
   border-bottom: 1px solid transparent;
   transition: var(--transition-fast);
   z-index: 5;
@@ -30,16 +29,12 @@
     flex-direction: column;
     width: 100px;
     height: 100px;
+    background: none;
+    border: none;
     transition:  height var(--transition-fast), width var(--transition-fast);
-    cursor: pointer;
 
     &:hover {
-      background: var(--color-cornflower-blue);
-      color: #fff;
-
-      path {
-        fill: #fff;
-      }
+      color: var(--color-dodger-blue);
     }
   }
 
@@ -64,7 +59,7 @@
     }
   }
 
-  &__icon {
-    margin: 0 0 10px;
+  &__label {
+    margin: 10px 0 0;
   }
 }

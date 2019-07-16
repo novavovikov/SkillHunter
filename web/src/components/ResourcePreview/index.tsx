@@ -1,9 +1,9 @@
 import cn from 'classnames'
 import * as React from 'react'
-import { ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { ResourceStatus } from '../../components'
 import { ROUTES } from '../../constants/routing'
-import { ResourceLikeStatusSagaPayload, ResourceSagaPayload } from '../../redux/interfaces/resources'
+import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, UserResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
 import { ShareMenu } from '../index'
@@ -47,7 +47,7 @@ class ResourcePreview extends React.Component<Props> {
     return new URL(this.props.data.resource.link)
   }
 
-  handleStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+  handleStatus = (status: string) => {
     const {
       updateHandler,
       data: { id, userSkill },
@@ -56,7 +56,7 @@ class ResourcePreview extends React.Component<Props> {
     updateHandler({
       id,
       userSkill,
-      status: e.target.value,
+      status,
     })
   }
 
@@ -123,31 +123,29 @@ class ResourcePreview extends React.Component<Props> {
 
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_status)}>
           {!shared && (
-            <div
-              className={cn(
-                s.ResourcePreview__status,
-                {
-                  [s.ResourcePreview__status_backlog]: data.status === ResourceStatusTypes.Backlog,
-                  [s.ResourcePreview__status_plan]: data.status === ResourceStatusTypes.Plan,
-                  [s.ResourcePreview__status_done]: data.status === ResourceStatusTypes.Done,
-                },
-              )}
-            >
-              <select
-                className={s.ResourcePreview__select}
-                value={data.status}
-                onChange={this.handleStatus}
+            <div className={cn(s.ResourcePreview__status, {
+              [s.ResourcePreview__status_backlog]: data.status === ResourceStatusTypes.Backlog,
+              [s.ResourcePreview__status_plan]: data.status === ResourceStatusTypes.Plan,
+              [s.ResourcePreview__status_done]: data.status === ResourceStatusTypes.Done,
+            },)}>
+              <Menu
+                position="left"
+                Component={(props) => (
+                  <ResourceStatus
+                    status={data.status}
+                    {...props}
+                  />
+                )}
               >
-                <option>
-                  {ResourceStatusTypes.Backlog}
-                </option>
-                <option>
-                  {ResourceStatusTypes.Plan}
-                </option>
-                <option>
-                  {ResourceStatusTypes.Done}
-                </option>
-              </select>
+                {Object.keys(ResourceStatusTypes).map(status => (
+                  <Item
+                    onClick={() => this.handleStatus(status)}
+                    key={status}
+                  >
+                    {status}
+                  </Item>
+                ))}
+              </Menu>
             </div>
           )}
         </div>

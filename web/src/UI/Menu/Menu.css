@@ -34,7 +34,7 @@
   }
 
   &__list {
-    position: absolute;
+    position: fixed;
     @apply --font-m;
     overflow: hidden;
     color: var(--color-tundora);
