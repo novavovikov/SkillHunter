@@ -7,9 +7,12 @@ import { Routes } from './routing'
 
 class App extends Component {
   componentDidMount (): void {
-    TagManager.initialize({
-      gtmId: 'GTM-K4FPF86',
-    })
+    console.log(123, process)
+    if (process.env.NODE_ENV as any !== 'development') {
+      TagManager.initialize({
+        gtmId: 'GTM-K4FPF86',
+      })
+    }
   }
 
   render () {

@@ -53,7 +53,7 @@ class Menu extends React.Component<Props, State> {
     })
   }
 
-  setMenuPosition = (element: HTMLDivElement) => {
+  setMenuPosition = (element: HTMLElement) => {
     const { current } = this.menuRef
 
     if (!current) {
@@ -64,6 +64,15 @@ class Menu extends React.Component<Props, State> {
     const styles = getElementOffset(current, element, position)
 
     Object.assign(element.style, styles)
+  }
+
+  onEnterList = (el: HTMLElement) => {
+    this.setMenuPosition(el)
+    window.addEventListener('resize', () => this.setMenuPosition(el))
+  }
+
+  onExitList = (el: HTMLElement) => {
+    window.removeEventListener('resize', () => this.setMenuPosition(el))
   }
 
   render () {
@@ -108,7 +117,8 @@ class Menu extends React.Component<Props, State> {
           (
             <Animation.Dropdown
               in={isOpen}
-              onEnter={this.setMenuPosition}
+              onEnter={this.onEnterList}
+              onExit={this.onExitList}
             >
               <div className={s.Menu__list}>
                 {children}

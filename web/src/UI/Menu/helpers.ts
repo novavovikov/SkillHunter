@@ -13,8 +13,8 @@ const getOffsetX = (rect: ClientRect, position?: 'left') => {
 }
 
 export const getElementOffset = (
-  wrap: HTMLDivElement,
-  element: HTMLDivElement,
+  wrap: HTMLElement,
+  element: HTMLElement,
   position?: 'left'
 ) => {
   const rect = wrap.getBoundingClientRect()

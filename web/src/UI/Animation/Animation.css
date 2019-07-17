@@ -10,7 +10,7 @@
     &_active {
       margin-top: 10px;
       opacity: 1;
-      transition: var(--transition-fast);
+      transition: opacity var(--transition-fast), margin-top var(--transition-fast);
     }
   }
 
@@ -21,7 +21,7 @@
     &_active {
       margin-top: 20px;
       opacity: 0;
-      transition: var(--transition-fast);
+      transition: opacity var(--transition-fast), margin-top var(--transition-fast);
     }
   }
 }
