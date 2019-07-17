@@ -2,8 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   'Menu': string;
-  'Menu__body': string;
   'Menu__button': string;
+  'Menu__button_withLabel': string;
+  'Menu__label': string;
   'Menu__list': string;
 }
 declare var cssExports: CssExports;

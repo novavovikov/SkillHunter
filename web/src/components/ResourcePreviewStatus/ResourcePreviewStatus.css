@@ -1,0 +1,36 @@
+@import "../../styles/variables.css";
+
+.ResourcePreviewStatus {
+  position: relative;
+  cursor: pointer;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    border-radius: 50%;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    width: 10px;
+    height: 6px;
+    background: url('./icons/select-arrow.svg') no-repeat center/contain;
+    margin-top: -3px;
+    transition: var(--transition-fast);
+  }
+
+  &_opened {
+    &:after {
+      transform: rotate(180deg);
+    }
+  }
+}

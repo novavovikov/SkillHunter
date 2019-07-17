@@ -16,15 +16,6 @@ export class ResourceController {
 
   @Get()
   @ApiUseTags('resource')
-  @UseGuards(RolesGuard)
-  @Roles([RoleType.Admin])
-  @UseGuards(AuthGuard('jwt'))
-  getAllResources () {
-    return this.resourceService.findAll()
-  }
-
-  @Get()
-  @ApiUseTags('resource')
   getResources (
     @Query('ids') ids: string,
   ) {
@@ -38,6 +29,15 @@ export class ResourceController {
     }
 
     return this.resourceService.findAll(query)
+  }
+
+  @Get('list')
+  @ApiUseTags('resource')
+  @UseGuards(RolesGuard)
+  @Roles([RoleType.Admin])
+  @UseGuards(AuthGuard('jwt'))
+  getAllResources () {
+    return this.resourceService.findAll()
   }
 
   @Post('article|media|course')

@@ -1,30 +1,22 @@
+import React, { FC } from 'react'
 import cn from 'classnames'
-import React, { FC, PureComponent } from 'react'
 import { ResourceStatusTypes } from '../../types'
 import * as s from './ResourceStatus.css'
 
 interface Props {
-  isOpen?: boolean
   status: ResourceStatusTypes | string
 }
 
-class ResourceStatus extends PureComponent<Props> {
-  render () {
-    const { status, isOpen } = this.props
-
-    return (
-      <div
-        className={cn(
-          s.ResourceStatus,
-          {
-            [s.ResourceStatus_opened]: isOpen,
-          },
-        )}
-      >
-        {status}
-      </div>
-    )
-  }
+const ResourceStatus: FC<Props> = ({ status }) => {
+  return (
+    <button className={cn(s.ResourceStatus, {
+      [s.ResourceStatus_backlog]: status === ResourceStatusTypes.Backlog,
+      [s.ResourceStatus_plan]: status === ResourceStatusTypes.Plan,
+      [s.ResourceStatus_done]: status === ResourceStatusTypes.Done,
+    })}>
+      {status}
+    </button>
+  )
 }
 
 export default ResourceStatus

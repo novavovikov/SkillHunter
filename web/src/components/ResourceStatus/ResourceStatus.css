@@ -3,40 +3,34 @@
 .ResourceStatus {
   position: relative;
   @apply --font-m;
-  color: var(--color-gray);
   border: none;
   background: none;
-  min-width: 95px;
-  padding: 5px 20px;
   cursor: pointer;
 
   &:before {
     content: '';
     display: block;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 12px;
-    height: 12px;
-    margin-top: -6px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
+    margin: 0 auto 10px;
   }
 
-  &:after {
-    content: '';
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    width: 10px;
-    height: 6px;
-    background: url('./icons/select-arrow.svg') no-repeat center/contain;
-    margin-top: -3px;
-    transition: var(--transition-fast);
+  &_backlog {
+    &:before {
+      background: var(--color-alto);
+    }
   }
 
-  &_opened {
-    &:after {
-      transform: rotate(180deg);
+  &_plan {
+    &:before {
+      background: var(--color-saffron);
+    }
+  }
+
+  &_done {
+    &:before {
+      background: var(--color-salem);
     }
   }
 }

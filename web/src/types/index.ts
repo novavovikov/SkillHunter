@@ -27,7 +27,8 @@ export interface ResourceType {
   link: string
   picture: string
   title: string
-  userIdsLikes: number[]
+  userIdsLikes: number[],
+  skills?: SkillType[]
 }
 
 export interface UserResourceType {

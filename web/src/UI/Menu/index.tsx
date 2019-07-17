@@ -3,6 +3,7 @@ import React, { createRef, FC } from 'react'
 import withClickOutside from 'react-click-outside'
 import { createPortal } from 'react-dom'
 import { Animation, Icon } from '../index'
+import { getElementOffset } from './helpers'
 import * as s from './Menu.css'
 
 interface ComponentProps {
@@ -12,6 +13,7 @@ interface ComponentProps {
 interface Props {
   className?: string
   icon?: string
+  label?: string
   Component?: FC<ComponentProps>
   position?: 'left'
 }
@@ -43,56 +45,23 @@ class Menu extends React.Component<Props, State> {
     this.setState({
       isOpen: !this.state.isOpen
     })
-
-    document.body.classList.toggle(s.Menu__body)
   }
 
   hideMenu = () => {
     this.setState({
       isOpen: false,
     })
-
-    document.body.classList.remove(s.Menu__body)
-  }
-
-  getOffsetY = (params: ClientRect, menu: HTMLDivElement) => {
-    const top = params.top + params.height
-
-    if (top + menu.clientHeight + 25 < window.innerHeight) {
-      return { top: `${top}px` }
-    }
-
-    return {
-      bottom: `${window.innerHeight - params.bottom + params.height}px`,
-    }
-  }
-
-  getOffsetX = (params: ClientRect, menu: HTMLDivElement) => {
-    const { position } = this.props
-
-    if (position === 'left') {
-      return { left: `${params.left}px` }
-    }
-
-    return { right: `${window.innerWidth - params.left - params.width}px` }
-  }
-
-  getMenuOffset (wrap: HTMLDivElement, menu: HTMLDivElement) {
-    const params = wrap.getBoundingClientRect()
-    const offsetX = this.getOffsetX(params, menu)
-    const offsetY = this.getOffsetY(params, menu)
-
-    return { ...offsetX, ...offsetY }
   }
 
   setMenuPosition = (element: HTMLDivElement) => {
     const { current } = this.menuRef
-    if (!current) {
 
+    if (!current) {
       return null
     }
 
-    const styles = this.getMenuOffset(current, element)
+    const { position } = this.props
+    const styles = getElementOffset(current, element, position)
 
     Object.assign(element.style, styles)
   }
@@ -103,6 +72,7 @@ class Menu extends React.Component<Props, State> {
       Component,
       className,
       icon,
+      label,
       children,
     } = this.props
 
@@ -118,12 +88,17 @@ class Menu extends React.Component<Props, State> {
           {Component
             ? <Component isOpen={isOpen}/>
             : (
-              <button className={s.Menu__button}>
+              <button className={cn(s.Menu__button, s.Menu__button_withLabel)}>
                 <Icon
                   type={IconName}
                   size={getIconSize(IconName)}
                   active={isOpen}
                 />
+                {label && (
+                  <span className={s.Menu__label}>
+                    {label}
+                  </span>
+                )}
               </button>
             )
           }

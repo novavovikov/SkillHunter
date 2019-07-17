@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { ResourceStatus } from '../../components'
+import { ResourcePreviewStatus } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, UserResourceType } from '../../types'
@@ -31,7 +31,6 @@ const getIconByType = (type: string) => {
 
 interface Props {
   data: UserResourceType,
-  shared?: boolean
   likeHandler: (data: ResourceLikeStatusSagaPayload) => void
   updateHandler: (data: Partial<UserResourceType>) => void
   removeHandler: (data: Partial<UserResourceType>) => void
@@ -82,7 +81,7 @@ class ResourcePreview extends React.Component<Props> {
   }
 
   render () {
-    const { data, shared } = this.props
+    const { data } = this.props
 
     return (
       <div className={s.ResourcePreview}>
@@ -102,12 +101,12 @@ class ResourcePreview extends React.Component<Props> {
                 className={cn(s.ResourcePreview__source, s.ResourcePreview__source_site)}
                 target="_blank"
               >
-          <span className={s.ResourcePreview__favicon}>
-            <img
-              src={data.resource.picture || faviconIcon}
-              alt=""
-            />
-          </span>
+                <span className={s.ResourcePreview__favicon}>
+                  <img
+                    src={data.resource.picture || faviconIcon}
+                    alt=""
+                  />
+                </span>
                 {this.url.hostname}
               </a>
             )}
@@ -122,32 +121,29 @@ class ResourcePreview extends React.Component<Props> {
         </div>
 
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_status)}>
-          {!shared && (
-            <div className={cn(s.ResourcePreview__status, {
-              [s.ResourcePreview__status_backlog]: data.status === ResourceStatusTypes.Backlog,
-              [s.ResourcePreview__status_plan]: data.status === ResourceStatusTypes.Plan,
-              [s.ResourcePreview__status_done]: data.status === ResourceStatusTypes.Done,
-            },)}>
-              <Menu
-                position="left"
-                Component={(props) => (
-                  <ResourceStatus
-                    status={data.status}
-                    {...props}
-                  />
-                )}
+          <Menu
+            position="left"
+            Component={(props) => (
+              <ResourcePreviewStatus
+                status={data.status}
+                className={cn(s.ResourcePreview__status, {
+                  [s.ResourcePreview__status_backlog]: data.status === ResourceStatusTypes.Backlog,
+                  [s.ResourcePreview__status_plan]: data.status === ResourceStatusTypes.Plan,
+                  [s.ResourcePreview__status_done]: data.status === ResourceStatusTypes.Done,
+                })}
+                {...props}
+              />
+            )}
+          >
+            {Object.keys(ResourceStatusTypes).map(status => (
+              <Item
+                onClick={() => this.handleStatus(status)}
+                key={status}
               >
-                {Object.keys(ResourceStatusTypes).map(status => (
-                  <Item
-                    onClick={() => this.handleStatus(status)}
-                    key={status}
-                  >
-                    {status}
-                  </Item>
-                ))}
-              </Menu>
-            </div>
-          )}
+                {status}
+              </Item>
+            ))}
+          </Menu>
         </div>
 
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_actions)}>
@@ -162,14 +158,12 @@ class ResourcePreview extends React.Component<Props> {
             />
           </Link>
 
-          {!shared && (
             <div className={s.ResourcePreview__control}>
               <ShareMenu
-                link={`${ROUTES.SHARE}?ids=${data.id}`}
+                link={`${ROUTES.SHARE}?ids=${data.resource.id}`}
                 text={data.title}
               />
             </div>
-          )}
           <button
             className={s.ResourcePreview__control}
             onClick={this.handleLike}
@@ -183,16 +177,11 @@ class ResourcePreview extends React.Component<Props> {
             />
           </button>
 
-          {!shared && (
             <Menu className={s.ResourcePreview__menu}>
-              <Item>
-                Edit
-              </Item>
               <Item onClick={this.handleRemove}>
                 Delete
               </Item>
             </Menu>
-          )}
         </div>
       </div>
     )

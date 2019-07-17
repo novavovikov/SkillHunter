@@ -36,10 +36,11 @@
   button {
     font-family: inherit;
     font-size: inherit;
+    line-height: inherit;
     color: inherit;
     border-radius: 0;
     margin: 0;
-    transition: var(--transition-fast);
+    padding: 0;
     cursor: pointer;
   }
 

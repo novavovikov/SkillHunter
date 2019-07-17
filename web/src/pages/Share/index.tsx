@@ -40,7 +40,6 @@ class Share extends React.Component<Props, State> {
             key={resource.id}
             data={resource}
             likeHandler={changeResourceLikeStatus}
-            shared
           />
         ))}
       </Page>

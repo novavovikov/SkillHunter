@@ -98,7 +98,15 @@ export class UserResourceController {
     @Req() req,
     @Param('resourceId') resourceId: string,
   ) {
-    return this.userResourceService.findById(req.user.id, resourceId)
+    return this.userResourceService.findById(req.user.id, resourceId, {
+      join: {
+        alias: 'userResource',
+        leftJoinAndSelect: {
+          'resource': 'userResource.resource',
+          'skills': 'resource.skills',
+        },
+      },
+    })
   }
 
   @Get(':skillsetId/:skillId')

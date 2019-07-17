@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindOneOptions, In, Repository } from 'typeorm'
 import { Resource } from '../resource/resource.entity'
+import { Skill } from '../skill/skill.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
 import { User } from '../user/user.entity'
 import { UserResource } from './user-resource.entity'
@@ -27,9 +28,10 @@ export class UserResourceService {
 
   async findById (
     userId: number,
-    resourceId: string | number
+    resourceId: string | number,
+    options?: FindOneOptions<UserResource>
   ) {
-    const userResource = await this.userResourceRepository.findOne({ id: Number(resourceId) })
+    const userResource = await this.userResourceRepository.findOne({ id: Number(resourceId) }, options)
 
     return this.getResourceModel(userResource, userId)
   }

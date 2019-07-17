@@ -2,12 +2,16 @@ import cn from 'classnames'
 import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import { UserResourceType } from '../../types'
-import { Icon } from '../../UI'
+import { ResourceStatusTypes, UserResourceType } from '../../types'
+import { Icon, Item, Menu } from '../../UI'
+import { ResourceStatus, ShareMenu } from '../index'
 import * as s from './ResourceHeader.css'
 
 interface Props {
   data: UserResourceType
+  changeStatus: (status: ResourceStatusTypes | string) => void
+  handleLike: () => void
+  onRemove: () => void
 }
 
 interface State {
@@ -33,7 +37,7 @@ class ResourceHeader extends PureComponent<Props, State> {
 
   render () {
     const { fixedClass } = this.state
-    const { data } = this.props
+    const { data, changeStatus, onRemove, handleLike } = this.props
 
     return (
       <header className={cn(s.ResourceHeader, {
@@ -49,50 +53,51 @@ class ResourceHeader extends PureComponent<Props, State> {
         </Link>
 
         <div className={s.ResourceHeader__item}>
-            <Icon
-              type="dots"
-              size="18"
-            />
-          <div className={s.ResourceHeader__label}>
-            {data.status}
-          </div>
+          <Menu
+            Component={(props) => (
+              <ResourceStatus
+                status={data.status}
+                {...props}
+              />
+            )}
+          >
+            {Object.keys(ResourceStatusTypes).map(status => (
+              <Item
+                key={status}
+                onClick={() => changeStatus(status)}
+              >
+                {status}
+              </Item>
+            ))}
+          </Menu>
         </div>
-        <button className={s.ResourceHeader__item}>
+
+        <button
+          className={s.ResourceHeader__item}
+          onClick={handleLike}
+        >
             <Icon
               type={data.isLiked ? 'heart-filled' : 'heart'}
               active={data.isLiked}
-              size="18"
             />
           <span className={s.ResourceHeader__label}>
             {data.likes}
           </span>
         </button>
+
         <div className={s.ResourceHeader__item}>
-            <Icon
-              type="share"
-              size="18"
-            />
-          <div className={s.ResourceHeader__label}>
-            Share
-          </div>
+          <ShareMenu
+            link={`${ROUTES.SHARE}?ids=${data.resource.id}`}
+            text={data.title}
+            label="Share"
+          />
         </div>
         <div className={s.ResourceHeader__item}>
-            <Icon
-              type="add"
-              size="18"
-            />
-          <div className={s.ResourceHeader__label}>
-            2 skills
-          </div>
-        </div>
-        <div className={s.ResourceHeader__item}>
-            <Icon
-              type="dots"
-              size="18"
-            />
-          <div className={s.ResourceHeader__label}>
-            More
-          </div>
+          <Menu label="More">
+            <Item onClick={onRemove}>
+              Delete
+            </Item>
+          </Menu>
         </div>
       </header>
     )

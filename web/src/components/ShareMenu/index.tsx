@@ -13,6 +13,7 @@ interface Props {
   showNotification: (data: NotificationType) => void
   link: string
   text: string
+  label?: string
 }
 
 const SHARE_LINKS = [
@@ -55,11 +56,14 @@ class ShareMenu extends React.Component<Props> {
   }
 
   render () {
-    const { link, showNotification } = this.props
+    const { link, label, showNotification } = this.props
     const url = urlNormalizer(`${ShareMenu.originUrl}${link}`)
 
     return (
-      <Menu icon="share">
+      <Menu
+        icon="share"
+        label={label}
+      >
         <Item
           onClick={() => {
             copy(url)

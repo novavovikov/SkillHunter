@@ -102,12 +102,17 @@
     width: calc(100% - 58px);
   }
 
+  &:hover &__status {
+    @apply --font-m;
+  }
+
   &__status {
     position: relative;
-    @apply --font-m;
+    font-size: 0;
     color: var(--color-gray);
     border: none;
     background: none;
+    padding: 5px 20px;
 
     &:before {
       content: '';

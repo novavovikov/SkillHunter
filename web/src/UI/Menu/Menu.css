@@ -2,16 +2,11 @@
 
 .Menu {
   position: relative;
-  display: inline-flex;
-
-  &__body {
-    overflow: hidden;
-    padding-right: 15px;
-  }
 
   &__button {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 26px;
@@ -31,15 +26,24 @@
       width: 100%;
       height: 10px;
     }
+
+    &_withLabel {
+      width: auto;
+      height: auto;
+    }
   }
 
   &__list {
-    position: fixed;
+    position: absolute;
     @apply --font-m;
     overflow: hidden;
     color: var(--color-tundora);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     z-index: 10;
+  }
+
+  &__label {
+    margin: 10px 0 0;
   }
 }
