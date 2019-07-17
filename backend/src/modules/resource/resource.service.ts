@@ -76,8 +76,6 @@ export class ResourceService {
         }
       }).
       catch(err => {
-
-        console.log(1234)
         return null
       })
   }

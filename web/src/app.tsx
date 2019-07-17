@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
-import TagManager from 'react-gtm-module'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Notifications, ProgressBar } from './components'
 import ReduxStore from './redux/store'
 import { Routes } from './routing'
+import { initAnalytics } from './utils/analytics'
 
 class App extends Component {
   componentDidMount (): void {
-    console.log(123, process)
-    if (process.env.NODE_ENV as any !== 'development') {
-      TagManager.initialize({
-        gtmId: 'GTM-K4FPF86',
-      })
-    }
+    initAnalytics()
   }
 
   render () {
