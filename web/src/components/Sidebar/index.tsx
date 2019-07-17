@@ -13,6 +13,7 @@ interface Params {
 }
 
 interface Props extends RouteComponentProps<Params> {
+  className?: string
   user: UserState
 }
 
@@ -28,10 +29,10 @@ class Sidebar extends Component<Props> {
   }
 
   render () {
-    const { user, match } = this.props
+    const { user, match, className } = this.props
 
     return (
-      <Layout.Aside>
+      <Layout.Aside className={className}>
         {user.data && (
           <>
             <UserSkillset/>
@@ -49,7 +50,7 @@ class Sidebar extends Component<Props> {
   }
 }
 
-export default compose(
+export default compose<any>(
   withRouter,
   connect(
     ({ user }: RootState) => ({ user }),

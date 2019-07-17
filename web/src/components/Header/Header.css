@@ -13,6 +13,10 @@
 
   &__logo {
     flex: 250px 0 0;
+
+    @media(--xs) {
+      flex: auto;
+    }
   }
 
   &__section {

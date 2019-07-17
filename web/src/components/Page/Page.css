@@ -1,7 +1,40 @@
+@import "../../styles/variables.css";
+
 .Page {
   position: relative;
 
+  &__switcher {
+    display: none;
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    right: 20px;
+    bottom: 20px;
+
+    @media(--xs) {
+      display: block;
+    }
+  }
+
+  &__sidebar {
+    @media(--xs) {
+      background: #fff;
+      z-index: 20;
+      height: 100%;
+      transition: var(--transition-fast);
+
+      &_opened {
+        left: 0;
+      }
+    }
+  }
+
   &_withSidebar {
     width: calc(100% - 250px);
+
+    @media(--xs) {
+      width: 100%;
+    }
   }
 }

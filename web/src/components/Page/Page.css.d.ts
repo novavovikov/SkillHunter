@@ -2,6 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   'Page': string;
+  'Page__sidebar': string;
+  'Page__sidebar_opened': string;
+  'Page__switcher': string;
   'Page_withSidebar': string;
 }
 declare var cssExports: CssExports;

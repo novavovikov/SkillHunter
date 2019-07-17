@@ -33,6 +33,10 @@
     opacity: 0;
     visibility: hidden;
     transition: var(--transition);
+
+    @media(--xs) {
+      display: none;
+    }
   }
 
   &__title {

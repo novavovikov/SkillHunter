@@ -4,6 +4,7 @@
   background: #fff;
   padding: 0 35px;
   border-radius: var(--radius-lg);
+  overflow: hidden;
 
   &__header {
     display: flex;
@@ -42,5 +43,11 @@
   &__creator {
     display: flex;
     align-items: flex-start;
+  }
+
+  &__onboarding {
+    @media(--xs) {
+      display: none;
+    }
   }
 }

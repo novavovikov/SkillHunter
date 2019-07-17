@@ -9,6 +9,7 @@ interface CssExports {
   'Resources__col_status': string;
   'Resources__creator': string;
   'Resources__header': string;
+  'Resources__onboarding': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

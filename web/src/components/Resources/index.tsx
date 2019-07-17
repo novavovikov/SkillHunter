@@ -39,7 +39,7 @@ class Resources extends Component<Props> {
             </div>
 
             {!data.length && (
-              <Status>
+              <Status className={s.Resources__onboarding}>
                 List is empty. Add source for skill. Collecting, reading later and sharing source.
               </Status>
             )}

@@ -8,19 +8,38 @@ interface Props {
   sidebar: boolean
 }
 
-class Page extends Component<Props> {
+interface State {
+  sidebarVisibility: boolean
+}
+
+class Page extends Component<Props, State> {
   static defaultProps = {
     sidebar: true
   }
 
+  state = {
+    sidebarVisibility: false,
+  }
+
   render () {
     const { children, sidebar } = this.props
+    const { sidebarVisibility } = this.state
 
     return (
       <Layout.Wrap>
         <Header/>
 
-        {sidebar && <Sidebar/>}
+        {sidebar && (
+          <>
+            <button
+              className={s.Page__switcher}
+              onClick={() => this.setState({ sidebarVisibility: !sidebarVisibility })}
+            />
+            <Sidebar className={cn(s.Page__sidebar, {
+              [s.Page__sidebar_opened]: sidebarVisibility,
+            })}/>
+          </>
+        )}
 
         <Layout.Main
           className={cn({

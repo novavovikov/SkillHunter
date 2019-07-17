@@ -1,6 +1,10 @@
-import React, { Component, FC } from 'react'
 import cn from 'classnames'
+import React, { FC } from 'react'
 import s from './Layout.css'
+
+interface LayoutProps {
+  className?: string
+}
 
 const Wrap: FC = ({ children }) => {
   return (
@@ -10,9 +14,9 @@ const Wrap: FC = ({ children }) => {
   )
 }
 
-const Aside: FC = ({ children }) => {
+const Aside: FC<LayoutProps> = ({ children, className }) => {
   return (
-    <aside className={s.Layout__aside}>
+    <aside className={cn(s.Layout__aside, className)}>
       {children}
     </aside>
   )
@@ -34,11 +38,7 @@ const Footer: FC = ({ children }) => {
   )
 }
 
-interface Props {
-  className?: string
-}
-
-const Main: FC<Props> = ({ children, className }) => {
+const Main: FC<LayoutProps> = ({ children, className }) => {
   return (
     <main className={cn(s.Layout__main, className)}>
       {children}

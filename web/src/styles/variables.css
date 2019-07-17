@@ -1,4 +1,9 @@
 :root {
+  @custom-media --xl (max-width: 1360px);
+  @custom-media --lg (max-width: 1024px);
+  @custom-media --sm (max-width: 760px);
+  @custom-media --xs (max-width: 540px);
+
   --transition-fast: .3s;
   --transition: .5s;
   --transition-slow: .8s;
