@@ -87,7 +87,7 @@ class ResourceHeader extends PureComponent<Props, State> {
 
         <div className={s.ResourceHeader__item}>
           <ShareMenu
-            link={`${ROUTES.SHARE}?ids=${data.resource.id}`}
+            link={`${ROUTES.RESOURCE}/${data.id}`}
             text={data.title}
             label="Share"
           />

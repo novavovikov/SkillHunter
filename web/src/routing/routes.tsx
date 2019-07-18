@@ -65,12 +65,6 @@ const Routes: FC = () => {
         />
 
         <PrivateRoute
-          path={`${ROUTES.RESOURCE}/:userResourceId`}
-          component={Resource}
-          exact
-        />
-
-        <PrivateRoute
           path={`${ROUTES.EVALUATION}/:skillset`}
           component={() => <Mock title="Evaluation сoming soon"/>}
         />
@@ -78,6 +72,12 @@ const Routes: FC = () => {
         <PrivateRoute
           path={`${ROUTES.PLAN}/:skillset`}
           component={() => <Mock title="Plan сoming soon"/>}
+        />
+
+        <Route
+          path={`${ROUTES.RESOURCE}/:userResourceId`}
+          component={Resource}
+          exact
         />
 
         <PrivateRoute

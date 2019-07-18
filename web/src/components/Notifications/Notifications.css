@@ -4,9 +4,13 @@
   position: fixed;
   display: flex;
   flex-direction: column-reverse;
-  min-width: 100px;
   max-width: 300px;
-  min-height: 70px;
   bottom: 20px;
   right: 40px;
+  z-index: 10;
+
+  &:not(:empty) {
+    min-height: 70px;
+    min-width: 100px;
+  }
 }

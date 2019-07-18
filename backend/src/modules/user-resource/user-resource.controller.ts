@@ -26,7 +26,6 @@ import { UserResourceService } from './user-resource.service'
 
 @Controller('user-resource')
 @UseGuards(RolesGuard)
-@UseGuards(AuthGuard('jwt'))
 export class UserResourceController {
   constructor (
     private userResourceService: UserResourceService,
@@ -38,6 +37,7 @@ export class UserResourceController {
 
   @Post()
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async addResource (
     @Req() req,
     @Body('skillsetId') skillsetId: number,
@@ -80,6 +80,7 @@ export class UserResourceController {
 
   @Get(':skillsetId')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async getResourcesBulk (
     @Req() req,
     @Param('skillsetId') skillsetId: string,
@@ -94,11 +95,13 @@ export class UserResourceController {
 
   @Get(':resourceId/content')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async getResourceContent (
     @Req() req,
     @Param('resourceId') resourceId: string,
   ) {
-    return this.userResourceService.findById(req.user.id, resourceId, {
+    console.log(123, req.headers)
+    return this.userResourceService.findById(1, resourceId, {
       join: {
         alias: 'userResource',
         leftJoinAndSelect: {
@@ -111,6 +114,7 @@ export class UserResourceController {
 
   @Get(':skillsetId/:skillId')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async getResources (
     @Req() req,
     @Param('skillsetId') skillsetId: string,
@@ -125,6 +129,7 @@ export class UserResourceController {
 
   @Put(':resourceId')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async updateResource (
     @Req() req,
     @Param('resourceId') resourceId: string,
@@ -142,6 +147,7 @@ export class UserResourceController {
 
   @Delete(':resourceId')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async removeResource (
     @Req() req,
     @Param('resourceId') resourceId: string,
