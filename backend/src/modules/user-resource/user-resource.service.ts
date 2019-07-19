@@ -1,23 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindOneOptions, In, Repository } from 'typeorm'
+import { getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Resource } from '../resource/resource.entity'
-import { Skill } from '../skill/skill.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
 import { User } from '../user/user.entity'
 import { UserResource } from './user-resource.entity'
-
-const selectOptions: FindOneOptions = {
-  select: [
-    'id',
-    'author',
-    'skillsetId',
-    'status',
-    'title',
-    'type',
-  ],
-  relations: ['resource'],
-}
 
 @Injectable()
 export class UserResourceService {
@@ -27,13 +15,10 @@ export class UserResourceService {
   ) {}
 
   async findById (
-    userId: number,
     resourceId: string | number,
     options?: FindOneOptions<UserResource>
   ) {
-    const userResource = await this.userResourceRepository.findOne({ id: Number(resourceId) }, options)
-
-    return this.getResourceModel(userResource, userId)
+    return this.userResourceRepository.findOne({ id: Number(resourceId) }, options)
   }
 
   async addResource (
@@ -50,9 +35,9 @@ export class UserResourceService {
       userSkill,
       resource,
     })
-
     const savedUserResource = await this.userResourceRepository.save(userResource)
-    return this.getResourceModel(
+
+    return getUserResourceWithLikedField(
       savedUserResource,
       user.id,
     )
@@ -82,7 +67,7 @@ export class UserResourceService {
     })
 
     return resources.map((userResource) => {
-      return this.getResourceModel(
+      return getUserResourceWithLikedField(
         userResource,
         userId,
       )
@@ -105,7 +90,7 @@ export class UserResourceService {
     return userResources.reduce((acc, userResource) => {
 
       const userSkillId = userResource.userSkill.id
-      const resourceData = this.getResourceModel(
+      const resourceData = getUserResourceWithLikedField(
         userResource,
         user.id,
       )
@@ -157,16 +142,5 @@ export class UserResourceService {
     const userResources = await this.userResourceRepository.find({ user })
 
     return await this.userResourceRepository.remove(userResources)
-  }
-
-  getResourceModel = (
-    userResource: UserResource,
-    userId: number,
-  ) => {
-    const { userIdsLikes } = userResource.resource
-    return {
-      ...userResource,
-      isLiked: userIdsLikes ? userIdsLikes.includes(userId) : false,
-    }
   }
 }

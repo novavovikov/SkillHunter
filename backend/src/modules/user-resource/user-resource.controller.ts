@@ -101,7 +101,7 @@ export class UserResourceController {
     @Param('resourceId') resourceId: string,
     @UserData() user,
   ) {
-    return this.userResourceService.findById(user.id, resourceId, {
+    const resource = await this.userResourceService.findById(resourceId, {
       join: {
         alias: 'userResource',
         leftJoinAndSelect: {
@@ -110,6 +110,8 @@ export class UserResourceController {
         },
       },
     })
+
+    return resource
   }
 
   @Get(':skillsetId/:skillId')
