@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { Strategy } from 'passport-facebook'
-import { FACEBOOK_STRATEGY } from '../constants/auth'
 import { UserService } from '../../user/user.service'
 import { AuthService } from '../auth.service'
+import { FACEBOOK_STRATEGY } from '../constants/auth'
 
 @Injectable()
 export class FacebookStrategy extends PassportStrategy(Strategy) {
   constructor (
     private userService: UserService,
-    private authService: AuthService,
   ) {
     super({
       clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -46,7 +45,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy) {
       })
     }
 
-    const token = await this.authService.signPayload({ id: user.id, facebookId: user.facebookId })
+    const token = AuthService.signPayload({ id: user.id, facebookId: user.facebookId })
 
     done(null, { ...user, token })
   }

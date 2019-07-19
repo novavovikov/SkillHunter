@@ -9,7 +9,6 @@ import { GOOGLE_STRATEGY } from '../constants/auth'
 export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor (
     private userService: UserService,
-    private authService: AuthService,
   ) {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
@@ -46,7 +45,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       })
     }
 
-    const token = await this.authService.signPayload({ id: user.id, googleId: user.googleId })
+    const token = AuthService.signPayload({ id: user.id, googleId: user.googleId })
 
     done(null, { ...user, token })
   }
