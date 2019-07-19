@@ -160,7 +160,7 @@ class ResourcePreview extends React.Component<Props> {
 
             <div className={s.ResourcePreview__control}>
               <ShareMenu
-                link={`${ROUTES.SHARE}?ids=${data.resource.id}`}
+                link={`${ROUTES.RESOURCE}/${data.id}`}
                 text={data.title}
               />
             </div>
