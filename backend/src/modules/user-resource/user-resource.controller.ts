@@ -16,6 +16,7 @@ import { ApiUseTags } from '@nestjs/swagger'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { UserGuard } from '../../common/guards/user.guard'
+import { excludeFieldsFromObject, getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
 import { SkillService } from '../skill/skill.service'
@@ -101,7 +102,7 @@ export class UserResourceController {
     @Param('resourceId') resourceId: string,
     @UserData() user,
   ) {
-    const resource = await this.userResourceService.findById(resourceId, {
+    const userResource = await this.userResourceService.findById(resourceId, {
       join: {
         alias: 'userResource',
         leftJoinAndSelect: {
@@ -111,7 +112,15 @@ export class UserResourceController {
       },
     })
 
-    return resource
+    if (user) {
+      return getUserResourceWithLikedField(user.id, userResource)
+    }
+
+    const userResourceViewOnly = excludeFieldsFromObject(['status'], userResource)
+    return {
+      ...userResourceViewOnly,
+      viewOnly: true
+    }
   }
 
   @Get(':skillsetId/:skillId')

@@ -38,8 +38,8 @@ export class UserResourceService {
     const savedUserResource = await this.userResourceRepository.save(userResource)
 
     return getUserResourceWithLikedField(
-      savedUserResource,
       user.id,
+      savedUserResource,
     )
   }
 
@@ -68,8 +68,8 @@ export class UserResourceService {
 
     return resources.map((userResource) => {
       return getUserResourceWithLikedField(
-        userResource,
         userId,
+        userResource,
       )
     })
   }
@@ -91,8 +91,8 @@ export class UserResourceService {
 
       const userSkillId = userResource.userSkill.id
       const resourceData = getUserResourceWithLikedField(
-        userResource,
         user.id,
+        userResource,
       )
 
       if (acc[userSkillId]) {

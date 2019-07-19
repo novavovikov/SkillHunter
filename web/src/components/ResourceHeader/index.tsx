@@ -92,13 +92,15 @@ class ResourceHeader extends PureComponent<Props, State> {
             label="Share"
           />
         </div>
-        <div className={s.ResourceHeader__item}>
-          <Menu label="More">
-            <Item onClick={onRemove}>
-              Delete
-            </Item>
-          </Menu>
-        </div>
+        {!data.viewOnly && (
+          <div className={s.ResourceHeader__item}>
+            <Menu label="More">
+              <Item onClick={onRemove}>
+                Delete
+              </Item>
+            </Menu>
+          </div>
+        )}
       </header>
     )
   }

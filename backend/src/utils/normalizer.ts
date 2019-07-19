@@ -6,13 +6,27 @@ export const textNormalizer = (text: string) => {
 }
 
 export const getUserResourceWithLikedField = (
-  userResource: UserResource,
   userId: number,
+  userResource: UserResource,
 ) => {
   const { userIdsLikes } = userResource.resource
 
   return {
     ...userResource,
+    viewOnly: false,
     isLiked: userIdsLikes ? userIdsLikes.includes(userId) : false,
   }
+}
+
+export const excludeFieldsFromObject = (fields: string[], data: object) => {
+  return Object.keys(data).reduce((result, fieldName: string) => {
+    if (fields.includes(fieldName)) {
+      return result
+    }
+
+    return {
+      ...result,
+      [fieldName]: data[fieldName]
+    }
+  }, {})
 }
