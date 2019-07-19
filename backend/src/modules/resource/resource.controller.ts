@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { FindOneOptions, In } from 'typeorm'
 import { Roles } from '../../common/decorators/roles.decorator'
+import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
 import { Resource } from './resource.entity'
@@ -81,14 +82,17 @@ export class ResourceController {
   @Post(':resourceId/like')
   @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
-  async setResourceLike (@Param('resourceId') resourceId: string, @Req() req) {
-    return await this.resourceService.setResourceLike(Number(resourceId), req.user)
+  async setResourceLike (@Param('resourceId') resourceId: string, @UserData() user) {
+    return await this.resourceService.setResourceLike(Number(resourceId), user)
   }
 
   @Delete(':resourceId/like')
   @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
-  async removeResourceLike (@Param('resourceId') resourceId: string, @Req() req) {
-    return await this.resourceService.removeResourceLike(Number(resourceId), req.user)
+  async removeResourceLike (
+    @Param('resourceId') resourceId: string,
+    @UserData() user
+  ) {
+    return await this.resourceService.removeResourceLike(Number(resourceId), user)
   }
 }

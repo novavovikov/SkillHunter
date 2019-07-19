@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
+import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
@@ -21,22 +22,22 @@ export class UserSkillController {
   @Get(':skillsetId')
   @ApiUseTags('user-skill')
   getSkills (
-    @Req() req,
+    @UserData() user,
     @Param('skillsetId') skillsetId: string,
   ) {
-    return this.userSkillService.getSkillsBySkillsetId(req.user.id, Number(skillsetId))
+    return this.userSkillService.getSkillsBySkillsetId(user.id, Number(skillsetId))
   }
 
   @Post(':skillsetId')
   @ApiUseTags('user-skill')
   async adSkills (
-    @Req() req,
+    @UserData() user,
     @Param('skillsetId') skillsetId: string,
     @Body('skills') skills: string[],
   ) {
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
     const createdSkills = await this.userSkillService.find({
-      user: req.user,
+      user,
       skillsetId,
       skill: In(skillList.map(({ id }) => id)),
     })
@@ -45,7 +46,7 @@ export class UserSkillController {
 
     if (newSkills.length) {
       return await this.userSkillService.addSkills(
-        req.user,
+        user,
         Number(skillsetId),
         newSkills,
       )
@@ -57,12 +58,12 @@ export class UserSkillController {
   @Delete()
   @ApiUseTags('user-skill')
   async deleteSkills (
-    @Req() req,
+    @UserData() user,
     @Query('ids') ids: string,
   ) {
     const userSkillsIds = ids.split(',').map(Number)
 
-    await this.userResourceService.removeResourcesByUserSkillIds(req.user, userSkillsIds)
+    await this.userResourceService.removeResourcesByUserSkillIds(user, userSkillsIds)
     return this.userSkillService.deleteSkills(userSkillsIds)
   }
 }

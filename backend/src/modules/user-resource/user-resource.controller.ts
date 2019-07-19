@@ -9,12 +9,13 @@ import {
   Post,
   Put,
   Query,
-  Req,
   UseGuards,
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
+import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
+import { UserGuard } from '../../common/guards/user.guard'
 import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
 import { SkillService } from '../skill/skill.service'
@@ -26,7 +27,6 @@ import { UserResourceService } from './user-resource.service'
 
 @Controller('user-resource')
 @UseGuards(RolesGuard)
-@UseGuards(AuthGuard('jwt'))
 export class UserResourceController {
   constructor (
     private userResourceService: UserResourceService,
@@ -38,8 +38,9 @@ export class UserResourceController {
 
   @Post()
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async addResource (
-    @Req() req,
+    @UserData() user,
     @Body('skillsetId') skillsetId: number,
     @Body('skillId') skillId: number,
     @Body('resourceId') resourceId: number,
@@ -70,7 +71,7 @@ export class UserResourceController {
     }
 
     return this.userResourceService.addResource(
-      req.user,
+      user,
       skillsetId,
       userSkill,
       resource,
@@ -80,13 +81,14 @@ export class UserResourceController {
 
   @Get(':skillsetId')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async getResourcesBulk (
-    @Req() req,
+    @UserData() user,
     @Param('skillsetId') skillsetId: string,
     @Query('skillIds') skillsIds: string,
   ) {
     return this.userResourceService.getResourcesBulk(
-      req.user,
+      user,
       Number(skillsetId),
       skillsIds.split(',').map(Number),
     )
@@ -94,11 +96,12 @@ export class UserResourceController {
 
   @Get(':resourceId/content')
   @ApiUseTags('user-resource')
+  @UseGuards(UserGuard)
   async getResourceContent (
-    @Req() req,
     @Param('resourceId') resourceId: string,
+    @UserData() user,
   ) {
-    return this.userResourceService.findById(req.user.id, resourceId, {
+    return this.userResourceService.findById(user.id, resourceId, {
       join: {
         alias: 'userResource',
         leftJoinAndSelect: {
@@ -111,13 +114,14 @@ export class UserResourceController {
 
   @Get(':skillsetId/:skillId')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async getResources (
-    @Req() req,
+    @UserData() user,
     @Param('skillsetId') skillsetId: string,
     @Param('skillId') skillId: string,
   ) {
     return this.userResourceService.getResourcesBySkillId(
-      req.user.id,
+      user.id,
       Number(skillsetId),
       Number(skillId),
     )
@@ -125,8 +129,9 @@ export class UserResourceController {
 
   @Put(':resourceId')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async updateResource (
-    @Req() req,
+    @UserData() user,
     @Param('resourceId') resourceId: string,
     @Body() data: Partial<UserResource>,
   ) {
@@ -142,8 +147,9 @@ export class UserResourceController {
 
   @Delete(':resourceId')
   @ApiUseTags('user-resource')
+  @UseGuards(AuthGuard('jwt'))
   async removeResource (
-    @Req() req,
+    @UserData() user,
     @Param('resourceId') resourceId: string,
   ) {
     return this.userResourceService.remove(Number(resourceId))

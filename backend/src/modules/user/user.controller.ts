@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from 
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
+import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
 import { unique } from '../../utils/unique'
@@ -35,8 +36,8 @@ export class UserController {
 
   @Get('me')
   @ApiUseTags('user')
-  getCurrentUser (@Req() req) {
-    return this.userService.findById(req.user.id, {
+  getCurrentUser (@UserData() user) {
+    return this.userService.findById(user.id, {
       select: [
         'id',
         'created',
@@ -61,7 +62,7 @@ export class UserController {
 
   @Put()
   @ApiUseTags('user')
-  updateUser (@Body() data: UserDto, @Req() req) {
+  updateUser (@Body() data: UserDto, @UserData() user) {
     const updatedData: UserDto = {}
 
     if (data.picture) {
@@ -84,21 +85,21 @@ export class UserController {
       updatedData.role = data.role
     }
 
-    return this.userService.update(req.user.id, updatedData)
+    return this.userService.update(user.id, updatedData)
   }
 
   @Delete()
   @ApiUseTags('user')
-  async deleteUser (@Req() req) {
-    await this.userResourceService.removeAllResources(req.user)
-    await this.userSkillService.removeAllSkills(req.user)
-    return this.userService.delete(req.user.id)
+  async deleteUser (@UserData() user) {
+    await this.userResourceService.removeAllResources(user)
+    await this.userSkillService.removeAllSkills(user)
+    return this.userService.delete(user.id)
   }
 
   @Get('skillsets')
   @ApiUseTags('user')
-  async getSkillset (@Req() req): Promise<Skillset[]> {
-    const { skillsets } = await this.userService.findById(req.user.id, {
+  async getSkillset (@UserData() user): Promise<Skillset[]> {
+    const { skillsets } = await this.userService.findById(user.id, {
       select: ['id'],
       relations: ['skillsets'],
     })
@@ -111,7 +112,7 @@ export class UserController {
   async addInfo (
     @Body('skillset') skillset: string,
     @Body('skills') skills: string[],
-    @Req() req,
+    @UserData() user,
   ) {
     const foundSkillset = await this.skillsetService.findByName(skillset, {
       relations: ['skills'],
@@ -120,9 +121,9 @@ export class UserController {
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
     foundSkillset.skills = unique([...foundSkillset.skills, ...skillList])
 
-    const updatedUser = await this.userService.addSkillset(req.user.id, foundSkillset)
+    const updatedUser = await this.userService.addSkillset(user.id, foundSkillset)
     await this.userSkillService.addSkills(
-      req.user.id,
+      user.id,
       foundSkillset.id,
       skillList,
     )
@@ -133,10 +134,10 @@ export class UserController {
   @Delete('skillset/:skillsetId')
   async removeSkillset (
     @Param('skillsetId') skillsetId: string,
-    @Req() req
+    @UserData() user
   ) {
-    await this.userResourceService.removeResourcesBySkillsetId(req.user, Number(skillsetId))
-    await this.userSkillService.removeSkillsBySkillsetId(req.user, Number(skillsetId))
-    await this.userService.removeSkillset(req.user.id, Number(skillsetId))
+    await this.userResourceService.removeResourcesBySkillsetId(user, Number(skillsetId))
+    await this.userSkillService.removeSkillsBySkillsetId(user, Number(skillsetId))
+    await this.userService.removeSkillset(user.id, Number(skillsetId))
   }
 }

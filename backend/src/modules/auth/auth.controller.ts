@@ -1,6 +1,7 @@
-import { Controller, Get, Next, Req, Res, UseGuards } from '@nestjs/common'
+import { Controller, Get, Next, Res, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
+import { UserData } from '../../common/decorators/user.decorator'
 import { AUTH_COOKIE_OPTIONS, BACK_URL } from './constants/auth'
 
 @Controller('auth')
@@ -12,8 +13,12 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleCallback (@Req() req, @Res() res, @Next() next): Promise<any> {
-    res.cookie('authToken', req.user.token, AUTH_COOKIE_OPTIONS)
+  async googleCallback (
+    @UserData() user,
+    @Res() res,
+    @Next() next,
+  ): Promise<any> {
+    res.cookie('authToken', user.token, AUTH_COOKIE_OPTIONS)
     res.redirect(BACK_URL)
   }
 
@@ -23,8 +28,12 @@ export class AuthController {
 
   @Get('facebook/callback')
   @UseGuards(AuthGuard('facebook'))
-  async facebookCallback (@Req() req, @Res() res, @Next() next): Promise<any> {
-    res.cookie('authToken', req.user.token, AUTH_COOKIE_OPTIONS)
+  async facebookCallback (
+    @UserData() user,
+    @Res() res,
+    @Next() next,
+  ): Promise<any> {
+    res.cookie('authToken', user.token, AUTH_COOKIE_OPTIONS)
     res.redirect(BACK_URL)
   }
 }
