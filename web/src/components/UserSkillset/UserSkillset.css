@@ -2,7 +2,7 @@
 
 .UserSkillset {
   position: relative;
-  margin: 0 0 15px;
+  margin: 0 0 20px;
 
   &__selected {
     position: relative;
@@ -18,7 +18,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 5px 40px 5px 34px;
+    padding: 5px 26px 5px 34px;
   }
 
   &__userIcon {
@@ -30,7 +30,7 @@
 
   &__selectedArrow {
     position: absolute;
-    right: 21px;
+    right: 6px;
     top: 50%;
     margin-top: -8px;
 
