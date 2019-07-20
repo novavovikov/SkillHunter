@@ -43,6 +43,7 @@ export interface UserResourceType {
   type: string
   userSkill: UserSkillType
   viewOnly: boolean
+  content: string
 }
 
 export interface SkillType {
