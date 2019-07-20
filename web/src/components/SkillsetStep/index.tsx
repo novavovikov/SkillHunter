@@ -1,7 +1,7 @@
 import React from 'react'
 import { AutoComplete, Button, H2 } from '../../UI'
 import { ajax } from '../../utils/ajax'
-import * as s from './Skillset.css'
+import * as s from './SkillsetStep.css'
 
 interface State {
   inputValue: string
@@ -12,7 +12,7 @@ interface Props {
   onSubmit: (skillset: string) => void
 }
 
-class Skillset extends React.Component<Props, State> {
+class SkillsetStep extends React.Component<Props, State> {
   state = {
     inputValue: '',
   }
@@ -43,15 +43,15 @@ class Skillset extends React.Component<Props, State> {
 
     return (
       <form
-        className={s.Skillset}
+        className={s.SkillsetStep}
         onSubmit={this.onSubmit}
       >
-        <H2 className={s.Skillset__title}>
+        <H2 className={s.SkillsetStep__title}>
           Create your skillset and improve it
         </H2>
 
         <AutoComplete
-          className={s.Skillset__input}
+          className={s.SkillsetStep__input}
           input={{
             value: inputValue,
             onChange: this.setInputValue,
@@ -65,7 +65,7 @@ class Skillset extends React.Component<Props, State> {
           theme="large"
         >
           Improve
-          <span className={s.Skillset__label}>
+          <span className={s.SkillsetStep__label}>
             your skills
           </span>
         </Button>
@@ -74,4 +74,4 @@ class Skillset extends React.Component<Props, State> {
   }
 }
 
-export default Skillset
+export default SkillsetStep

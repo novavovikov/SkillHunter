@@ -43,6 +43,7 @@ class SkillCreator extends Component<Props> {
 
     if (skillsetId) {
       addSkills(skillsetId, skills)
+      this.closePopup()
     }
   }
 
@@ -70,7 +71,7 @@ class SkillCreator extends Component<Props> {
         >
           <SkillsSuggestion
             onSubmit={this.addSkills}
-            onClose={this.closePopup}
+            onCancel={this.closePopup}
           />
         </Popup>
       </div>

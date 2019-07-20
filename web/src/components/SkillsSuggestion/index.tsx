@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
+import cn from 'classnames'
 import { H4 } from '../../UI'
 import { SkillsSearch } from '../index'
 import * as s from './SkillsSuggestion.css'
 
 interface Props {
+  theme?: 'step'
   onSubmit: (skills: string[]) => void
-  onClose: () => void
+  onCancel: () => void
 }
 
 class SkillsSuggestion extends Component<Props> {
   render () {
-    const { onSubmit, onClose } = this.props
+    const { onSubmit, onCancel, theme } = this.props
 
     return (
-      <div className={s.SkillsSuggestion}>
+      <div className={cn(s.SkillsSuggestion)}>
         <div className={s.SkillsSuggestion__header}>
           <H4 className={s.SkillsSuggestion__title}>
             Choose one or more skills
@@ -25,8 +27,9 @@ class SkillsSuggestion extends Component<Props> {
 
         <div className={s.SkillsSuggestion__body}>
           <SkillsSearch
+            theme={theme}
             onSubmit={onSubmit}
-            onClose={onClose}
+            onCancel={onCancel}
           />
         </div>
       </div>

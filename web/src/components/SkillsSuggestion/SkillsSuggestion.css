@@ -4,10 +4,8 @@
   max-width: 100%;
   width: 500px;
   background: #fff;
-  text-align: left;
   overflow: hidden;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
 
   &__header {
     display: flex;
@@ -23,7 +21,6 @@
   }
 
   &__body {
-    padding: 15px 20px 30px;
   }
 
   &__row {

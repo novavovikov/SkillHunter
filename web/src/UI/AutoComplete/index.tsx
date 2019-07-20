@@ -48,7 +48,13 @@ class AutoComplete extends React.Component<Props, State> {
   }, this.props.debounce)
 
   handleSuggestion = (e: any) => {
+    const { input } = this.props
+
     this.setSuggestions([])
+
+    if (typeof input.onChange === 'function') {
+      input.onChange(e as ChangeEvent<HTMLInputElement>)
+    }
   }
 
   handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +66,6 @@ class AutoComplete extends React.Component<Props, State> {
     if (typeof input.onChange === 'function') {
       input.onChange(e as ChangeEvent<HTMLInputElement>)
     }
-
   }
 
   onFocusInput = (e: any) => {

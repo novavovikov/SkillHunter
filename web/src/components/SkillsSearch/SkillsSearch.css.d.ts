@@ -4,14 +4,16 @@ interface CssExports {
   'ShowCheckbox': string;
   'SkillsSearch': string;
   'SkillsSearch__body': string;
+  'SkillsSearch__btn': string;
   'SkillsSearch__checkbox': string;
   'SkillsSearch__checkbox_header': string;
   'SkillsSearch__content': string;
+  'SkillsSearch__field': string;
   'SkillsSearch__footer': string;
+  'SkillsSearch__footer_step': string;
   'SkillsSearch__header': string;
   'SkillsSearch__input': string;
   'SkillsSearch__row': string;
-  'SkillsSearch__submit': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

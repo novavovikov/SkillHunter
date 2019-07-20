@@ -12,11 +12,10 @@ import Search from './Search'
 import SearchResults from './SearchResults'
 import ShareMenu from './ShareMenu'
 import ShareLink from './ShareLink'
-import Skillset from './Skillset'
-import SkillList from './SkillList'
+import SkillsetStep from './SkillsetStep'
+import SkillStep from './SkillStep'
 import SkillsetCreator from './SkillsetCreator'
 import SkillCreator from './SkillCreator'
-import Skills from './Skills'
 import SkillsSuggestion from './SkillsSuggestion'
 import SkillsSearch from './SkillsSearch'
 import UserSkill from './UserSkill'
@@ -52,11 +51,10 @@ export {
   ShareMenu,
   ShareLink,
   Faq,
-  Skillset,
-  SkillList,
+  SkillsetStep,
+  SkillStep,
   SkillsetCreator,
   SkillCreator,
-  Skills,
   SkillsSuggestion,
   SkillsSearch,
   UserSkill,

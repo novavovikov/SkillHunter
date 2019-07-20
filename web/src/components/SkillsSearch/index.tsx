@@ -9,8 +9,9 @@ import { Hash } from '../../utils/hash'
 import * as s from './SkillsSearch.css'
 
 interface Props {
+  theme?: 'step'
   onSubmit: (skills: string[]) => void
-  onClose: () => void
+  onCancel: () => void
   debounce?: number
 }
 
@@ -94,84 +95,99 @@ class SkillsSearch extends Component<Props, State> {
 
   submitForm = (e: FormEvent) => {
     e.preventDefault()
-    const { onSubmit, onClose } = this.props
+    const { onSubmit } = this.props
     const skills = this.state.selected.map(({ name }) => name)
 
     onSubmit(skills)
-    onClose()
   }
 
   render () {
     const { selected, inputValue } = this.state
-    const { onClose } = this.props
+    const { theme, onCancel } = this.props
 
     const skillList = this.getSkillList()
 
     return (
-      <form className={s.SkillsSearch} onSubmit={this.submitForm}>
+      <form
+        className={cn(s.SkillsSearch)}
+        onSubmit={this.submitForm}
+      >
         <div className={s.SkillsSearch__header}>
-          {skillList.length > 0 && (
-            <div className={cn(s.SkillsSearch__checkbox, s.SkillsSearch__checkbox_header)}>
-              <Checkbox
-                checked={skillList.length === selected.length}
-                onChange={this.selectedAll}
-              >
-                All
-              </Checkbox>
+          <div className={s.SkillsSearch__field}>
+            {skillList.length > 0 && (
+              <div className={cn(s.SkillsSearch__checkbox, s.SkillsSearch__checkbox_header)}>
+                <Checkbox
+                  checked={skillList.length === selected.length}
+                  onChange={this.selectedAll}
+                >
+                  All
+                </Checkbox>
+              </div>
+            )}
+            <div className={s.SkillsSearch__content}>
+              <Input
+                classNameField={cn({
+                  [s.SkillsSearch__input]: skillList.length
+                })}
+                type="text"
+                placeholder="Type in for search or added new skill"
+                value={inputValue}
+                onChange={this.handleInput}
+                autoFocus
+              />
             </div>
-          )}
-          <div className={s.SkillsSearch__content}>
-            <Input
-              classNameField={cn({
-                [s.SkillsSearch__input]: skillList.length
-              })}
-              type="text"
-              placeholder="Type in for search or added new skill"
-              value={inputValue}
-              onChange={this.handleInput}
-              autoFocus
-            />
           </div>
         </div>
 
-        <Scrollbar
-          autoHeight
-          autoHeightMin={250}
-          autoHeightMax={250}
-          className={s.SkillsSearch__body}
-        >
-          {skillList.map(({ id, name }: SuggestionType) => (
-            <div
-              key={id}
-              className={s.SkillsSearch__row}
-            >
-              <div className={s.SkillsSearch__checkbox}>
-                <Checkbox
-                  value={id}
-                  onChange={this.handleCheckbox}
-                  checked={!!selected.find((skill: SuggestionType) => skill.id === id)}
-                />
+        <div className={s.SkillsSearch__body}>
+          <Scrollbar
+            autoHeight
+            autoHide
+            autoHeightMin={250}
+            autoHeightMax={250}
+          >
+            {skillList.map(({ id, name }: SuggestionType) => (
+              <div
+                key={id}
+                className={s.SkillsSearch__row}
+              >
+                <div className={s.SkillsSearch__checkbox}>
+                  <Checkbox
+                    value={id}
+                    onChange={this.handleCheckbox}
+                    checked={!!selected.find((skill: SuggestionType) => skill.id === id)}
+                  />
+                </div>
+                <div className={s.SkillsSearch__content}>
+                  {name}
+                </div>
               </div>
-              <div className={s.SkillsSearch__content}>
-                {name}
-              </div>
-            </div>
-          ))}
-        </Scrollbar>
+            ))}
+          </Scrollbar>
+        </div>
 
-        <div className={s.SkillsSearch__footer}>
+        <div className={cn(s.SkillsSearch__footer, {
+          [s.SkillsSearch__footer_step]: theme === 'step',
+        })}>
           <Button
             theme="transparent"
             type="button"
-            onClick={onClose}
+            onClick={onCancel}
+            className={s.SkillsSearch__btn}
           >
-            Cancel
+            {theme === 'step'
+              ? 'Back'
+              : 'Cancel'
+            }
           </Button>
           <Button
-            className={s.SkillsSearch__submit}
+            className={s.SkillsSearch__btn}
             disabled={!selected.length}
           >
-            Choose
+            {theme === 'step'
+              ? 'Next'
+              : 'Choose'
+            }
           </Button>
         </div>
       </form>
