@@ -1,0 +1,24 @@
+@import "../../styles/variables.css";
+
+.Skillset {
+  position: relative;
+
+  &__empty {
+    text-align: center;
+    @apply --font-xl;
+    max-width: 100%;
+    width: 450px;
+
+    &:before {
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+      margin: 0 auto 20px;
+      background: url("./images/skillset-empty.svg") no-repeat center/contain;
+    }
+  }
+
+  &__btn {
+    margin: 20px 0 0;
+  }
+}

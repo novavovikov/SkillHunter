@@ -46,7 +46,7 @@ class Skillset extends React.Component<Props, State> {
         className={s.Skillset}
         onSubmit={this.onSubmit}
       >
-        <H2>Who are you now or who do you want to become?</H2>
+        <H2>Create your skillset and improve it</H2>
 
         <AutoComplete
           className={s.Skillset__input}
@@ -62,7 +62,10 @@ class Skillset extends React.Component<Props, State> {
           disabled={!inputValue}
           theme="large"
         >
-          Next
+          Improve
+          <span className={s.Skillset__label}>
+            your skills
+          </span>
         </Button>
       </form>
     )

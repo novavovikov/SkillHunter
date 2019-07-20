@@ -23,6 +23,7 @@
   &__text {
     @apply --font-xl;
     color: var(--color-dusty-gray);
+    font-weight: 300;
     margin: 0 0 80px;
   }
 }

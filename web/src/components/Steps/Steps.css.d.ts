@@ -3,10 +3,6 @@
 interface CssExports {
   'Steps': string;
   'Steps__content': string;
-  'Steps__contents': string;
-  'Steps__control': string;
-  'Steps__control_active': string;
-  'Steps__controls': string;
   'Steps__enter': string;
   'Steps__enter_active': string;
   'Steps__exit': string;

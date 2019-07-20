@@ -84,6 +84,10 @@ export class UserResourceController {
       },
     })
 
+    if (!userResource) {
+      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+    }
+
     if (user) {
       return getUserResourceWithLikedField(user.id, userResource)
     }

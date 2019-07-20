@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import { Redirect, RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { Page, UserSkill } from '../../components'
-import { ROUTES } from '../../constants/routing'
+import { CREATOR_SKILL_QUERY, ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { getSkillsDataSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
-import { LoadingState } from '../../redux/reducers/loading'
 import { ResourcesState } from '../../redux/reducers/resources'
 import { UserState } from '../../redux/reducers/user'
 import { SkillType } from '../../types'
+import { Button } from '../../UI'
+import * as s from './Skillset.css'
 
 interface Params {
   skillset: string
@@ -55,6 +56,16 @@ class Skillset extends React.Component<Props> {
     }
   }
 
+  handleSkillCreator = () => {
+    const { location } = this.props
+    const queryParams = new URLSearchParams(location.search)
+    queryParams.append(CREATOR_SKILL_QUERY.param, CREATOR_SKILL_QUERY.value)
+
+    this.props.history.push({
+      search: queryParams.toString(),
+    })
+  }
+
   render () {
     const {
       match,
@@ -74,6 +85,21 @@ class Skillset extends React.Component<Props> {
             data={skill}
           />
         ))}
+
+        {!isLoading && !skills.length && (
+          <div className={s.Skillset__empty}>
+            <div>
+              Skillset list is empty.
+            </div>
+
+            <Button
+              onClick={this.handleSkillCreator}
+              className={s.Skillset__btn}
+            >
+              Add skill
+            </Button>
+          </div>
+        )}
       </Page>
     )
   }

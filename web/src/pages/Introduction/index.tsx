@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { SkillList, Skillset, Steps, Page } from '../../components'
+import { Page, SkillList, Skillset, Steps } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { addNotification } from '../../redux/actions/notifications'
@@ -63,16 +63,7 @@ class Introduction extends React.Component<Props, State> {
       >
         <Steps.Wrap
           initStep="Skillset"
-          steps={[
-            {
-              label: '1. Skillset',
-              id: 'Skillset',
-            },
-            {
-              label: '2. Skills',
-              id: 'Skills',
-            },
-          ]}
+          steps={['Skillset', 'Skills']}
         >
           <Steps.Content id={'Skillset'}>
             <Skillset onSubmit={this.setSkillset}/>

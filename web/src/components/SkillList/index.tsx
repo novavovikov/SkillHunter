@@ -99,7 +99,9 @@ class SkillList extends React.Component<Props, State> {
         onSubmit={this.onSubmit}
       >
         <div className={s.SkillList__caption}>
-          <H2 className={s.SkillList__title}>Создайте скиллсет</H2>
+          <H2 className={s.SkillList__title}>
+            Add skills to your skillset
+          </H2>
           <Tip icon={'info'}>Скиллсет - это набор компетенций и навыков, которыми обладает специалист.</Tip>
         </div>
 

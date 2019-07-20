@@ -2,8 +2,8 @@
 // Please do not change this file!
 interface CssExports {
   'Skillset': string;
-  'Skillset__input': string;
-  'Skillset__label': string;
+  'Skillset__btn': string;
+  'Skillset__empty': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

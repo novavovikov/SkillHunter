@@ -7,6 +7,7 @@ import { ROUTES } from '../../constants/routing'
 import { ResourceStatusTypes, UserResourceType } from '../../types'
 import { H1, Icon } from '../../UI'
 import { ajax } from '../../utils/ajax'
+import NotFound from '../NotFound'
 import s from './Resource.css'
 
 interface Params {
@@ -115,7 +116,7 @@ class Resource extends Component<Props, State> {
     }
 
     if (!userResource) {
-      return null
+      return <NotFound/>
     }
 
     const {

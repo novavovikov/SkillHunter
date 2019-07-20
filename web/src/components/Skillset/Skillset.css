@@ -7,4 +7,12 @@
   &__input {
     margin-bottom: 180px;
   }
+
+  &__label {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.25px;
+  }
 }

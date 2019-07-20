@@ -11,3 +11,8 @@ export const ROUTES = {
   RESOURCE: '/resource',
   PLAN: '/plan',
 }
+
+export const CREATOR_SKILL_QUERY = {
+  param: 'creator',
+  value: 'skill',
+}

@@ -1,33 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { RouteComponentProps, withRouter } from 'react-router'
+import { compose } from 'redux'
 import { SkillsSuggestion } from '../../components'
+import { CREATOR_SKILL_QUERY } from '../../constants/routing'
 import { addSkillsSaga } from '../../redux/actions/skills'
 import { IconButton, Popup } from '../../UI'
 import * as s from './SkillCreator.css'
 
-interface Props {
+interface Props extends RouteComponentProps {
   skillsetId: number | null
   addSkills: (skillsetId: number, skills: string[]) => void
 }
 
-interface State {
-  isOpen: boolean
-}
+class SkillCreator extends Component<Props> {
+  get urlSearchParams () {
+    const { location } = this.props
 
-class SkillCreator extends Component<Props, State> {
-  state = {
-    isOpen: false,
+    return new URLSearchParams(location.search)
   }
 
   showPopup = () => {
-    this.setState({
-      isOpen: true,
+    const queryParams = this.urlSearchParams
+    queryParams.append(CREATOR_SKILL_QUERY.param, CREATOR_SKILL_QUERY.value)
+
+    this.props.history.push({
+      search: queryParams.toString()
     })
   }
 
   closePopup = () => {
-    this.setState({
-      isOpen: false,
+    const queryParams = this.urlSearchParams
+    queryParams.delete(CREATOR_SKILL_QUERY.param)
+
+    this.props.history.push({
+      search: queryParams.toString()
     })
   }
 
@@ -39,8 +46,14 @@ class SkillCreator extends Component<Props, State> {
     }
   }
 
+  getOpenedStatus = () => {
+    const queryParamValue = this.urlSearchParams.get(CREATOR_SKILL_QUERY.param)
+
+    return queryParamValue === CREATOR_SKILL_QUERY.value
+  }
+
   render () {
-    const { isOpen } = this.state
+    const isOpen = this.getOpenedStatus()
 
     return (
       <div className={s.SkillCreator}>
@@ -65,9 +78,12 @@ class SkillCreator extends Component<Props, State> {
   }
 }
 
-export default connect(
-  null,
-  {
-    addSkills: addSkillsSaga,
-  },
+export default compose<any>(
+  withRouter,
+  connect(
+    null,
+    {
+      addSkills: addSkillsSaga,
+    },
+  ),
 )(SkillCreator)
