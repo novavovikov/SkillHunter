@@ -4,8 +4,14 @@
   align-items: center;
   padding: 70px 0;
 
+  &__title {
+    margin: 0 0 80px;
+  }
+
   &__input {
-    margin-bottom: 180px;
+    width: 470px;
+    max-width: 100%;
+    margin-bottom: 50px;
   }
 
   &__label {

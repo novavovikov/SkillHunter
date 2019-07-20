@@ -27,6 +27,10 @@
     border: 1px solid transparent;
     border-radius: var(--radius);
 
+    &:focus {
+      border-color: var(--color-dodger-blue);
+    }
+
     &::placeholder {
       color: var(--color-dusty-gray);
     }

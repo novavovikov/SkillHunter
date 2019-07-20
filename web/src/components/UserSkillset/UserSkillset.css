@@ -2,7 +2,7 @@
 
 .UserSkillset {
   position: relative;
-  margin: 0 0 30px;
+  margin: 0 0 15px;
 
   &__selected {
     position: relative;

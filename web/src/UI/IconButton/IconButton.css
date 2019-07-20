@@ -21,10 +21,13 @@
     height: 38px;
     background: var(--color-dodger-blue);
     color: #fff;
-    margin: 0 18px 0 0;
     font-weight: 300;
     font-size: 2em;
     border-radius: var(--radius);
+  }
+
+  &__text {
+    padding: 0 14px;
   }
 
   &_s {

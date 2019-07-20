@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'IconButton': string;
+  'IconButton__text': string;
   'IconButton_s': string;
 }
 declare var cssExports: CssExports;

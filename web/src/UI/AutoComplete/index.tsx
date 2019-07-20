@@ -100,6 +100,7 @@ class AutoComplete extends React.Component<Props, State> {
       <div className={cn(s.AutoComplete, className)}>
         <Input
           {...input}
+          theme="closed"
           onFocus={this.onFocusInput}
           onChange={this.handleInput}
         />

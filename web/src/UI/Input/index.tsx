@@ -5,6 +5,7 @@ import * as s from './Input.css'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   classNameField?: string
+  theme?: 'closed'
 }
 
 class Input extends Component<InputProps> {
@@ -28,6 +29,7 @@ class Input extends Component<InputProps> {
     const {
       className,
       classNameField,
+      theme,
       value,
       disabled,
       ...rest
@@ -36,7 +38,13 @@ class Input extends Component<InputProps> {
     return (
       <label className={cn(s.Input, className)}>
         <input
-          className={cn(s.Input__field, classNameField)}
+          className={cn(
+            s.Input__field,
+            {
+              [s.Input__field_closed]: theme === 'closed'
+            },
+            classNameField,
+          )}
           ref={this.inputRef}
           type={'text'}
           value={value}

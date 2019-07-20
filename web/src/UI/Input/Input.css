@@ -3,6 +3,7 @@
 .Input {
   position: relative;
   display: block;
+  width: 100%;
 
   &__field {
     @apply --font-m;
@@ -10,9 +11,17 @@
     height: 38px;
     border: none;
     background: none;
-    padding: 0 20px 0 0;
+    padding: 0 26px 0 0;
     border-bottom: 1px solid var(--color-alto);
     transition: var(--transition-fast);
+
+    &_closed {
+      background-color: #fff;
+      height: 50px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding-left: 15px;
+    }
 
     &:focus {
       border-color: var(--color-cornflower-blue);
@@ -25,7 +34,7 @@
 
   &__clear {
     position: absolute;
-    right: 0;
+    right: 6px;
     top: 50%;
     width: 18px;
     height: 18px;

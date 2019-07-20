@@ -4,6 +4,7 @@ interface CssExports {
   'Skillset': string;
   'Skillset__input': string;
   'Skillset__label': string;
+  'Skillset__title': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

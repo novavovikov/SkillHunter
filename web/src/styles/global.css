@@ -4,8 +4,8 @@
   * {
     box-sizing: border-box;
     border-radius: 0;
-    outline: none;
     appearance: none;
+    outline: none;
 
     &:before, &:after {
       box-sizing: border-box;

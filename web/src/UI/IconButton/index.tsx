@@ -27,7 +27,11 @@ const IconButton: FC<Props> = (
       )}
       {...rest}
     >
-      {children}
+      {children && (
+        <div className={s.IconButton__text}>
+          {children}
+        </div>
+      )}
     </button>
   )
 }

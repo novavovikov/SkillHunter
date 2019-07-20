@@ -46,14 +46,16 @@ class Skillset extends React.Component<Props, State> {
         className={s.Skillset}
         onSubmit={this.onSubmit}
       >
-        <H2>Create your skillset and improve it</H2>
+        <H2 className={s.Skillset__title}>
+          Create your skillset and improve it
+        </H2>
 
         <AutoComplete
           className={s.Skillset__input}
           input={{
             value: inputValue,
             onChange: this.setInputValue,
-            placeholder: 'Specialty, skillset or position',
+            placeholder: 'Enter your skillset (speciality, profession or hobby)',
             autoFocus: true,
           }}
         />
