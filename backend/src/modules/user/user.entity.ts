@@ -37,7 +37,7 @@ export class User {
   @ManyToMany(() => Resource, (resource: Resource) => resource.usersLikes)
   likedResources: Resource[]
 
-  @ManyToMany(() => Skillset, (skillset: Skillset) => skillset.users, { cascade: true })
+  @ManyToMany(() => Skillset, (skillset: Skillset) => skillset.users, { cascade: true, eager: true })
   @JoinTable({ name: 'user_skillsets' })
   skillsets: Skillset[]
 

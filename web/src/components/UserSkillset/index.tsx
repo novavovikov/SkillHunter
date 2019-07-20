@@ -1,5 +1,6 @@
 import React from 'react'
 import withClickOutside from 'react-click-outside'
+import Scrollbar from 'react-custom-scrollbars'
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
@@ -95,32 +96,39 @@ class UserSkillset extends React.Component<Props, State> {
 
         <Animation.Dropdown in={isOpen}>
           <div className={s.UserSkillset__list}>
-            {user.data.skillsets.map(({ id, name }) => (
-              <div
-                key={id}
-                className={s.UserSkillset__item}
-              >
-                <NavLink
-                  to={`${ROUTES.SKILLSET}/${name}`}
-                  className={s.UserSkillset__link}
-                  activeClassName={s.UserSkillset__link_active}
-                  onClick={this.closeList}
+            <Scrollbar
+              autoHeight
+              autoHeightMax={150}
+            >
+              {user.data.skillsets.map(({ id, name }) => (
+                <div
+                  key={id}
+                  className={s.UserSkillset__item}
                 >
-                  {name}
-                </NavLink>
-
-                {match.params.skillset !== name && (
-                  <button
-                    className={s.UserSkillset__remove}
-                    onClick={() => this.openRemovePopup(id, name)}
+                  <NavLink
+                    to={`${ROUTES.SKILLSET}/${name}`}
+                    className={s.UserSkillset__link}
+                    activeClassName={s.UserSkillset__link_active}
+                    onClick={this.closeList}
                   >
-                    <Icon type="bin"/>
-                  </button>
-                )}
-              </div>
-            ))}
+                    {name}
+                  </NavLink>
 
-            <SkillsetCreator/>
+                  {match.params.skillset !== name && (
+                    <button
+                      className={s.UserSkillset__remove}
+                      onClick={() => this.openRemovePopup(id, name)}
+                    >
+                      <Icon type="bin"/>
+                    </button>
+                  )}
+                </div>
+              ))}
+            </Scrollbar>
+
+            <div className={s.UserSkillset__create}>
+              <SkillsetCreator/>
+            </div>
           </div>
         </Animation.Dropdown>
 

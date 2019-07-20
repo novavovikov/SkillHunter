@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
@@ -6,10 +6,10 @@ import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
 import { unique } from '../../utils/unique'
-import { Skillset } from '../skillset/skillset.entity'
-import { SkillsetService } from '../skillset/skillset.service'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
+import { Skillset } from '../skillset/skillset.entity'
+import { SkillsetService } from '../skillset/skillset.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
 import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserDto } from './user.dto'
@@ -114,6 +114,10 @@ export class UserController {
     @Body('skills') skills: string[],
     @UserData() user,
   ) {
+    if (user.skillsets.find(({ name }) => name === skillset)) {
+      throw new HttpException('Skillset already exists', HttpStatus.BAD_REQUEST)
+    }
+
     const foundSkillset = await this.skillsetService.findByName(skillset, {
       relations: ['skills'],
     })

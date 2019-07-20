@@ -54,29 +54,11 @@ const Main: FC<LayoutProps> = ({ children, className }) => {
   )
 }
 
-const Container: FC = ({ children }) => {
-  return (
-    <div className={s.Layout__container}>
-      {children}
-    </div>
-  )
-}
-
-const Section: FC = ({ children }) => {
-  return (
-    <section className={s.Layout__section}>
-      {children}
-    </section>
-  )
-}
-
 export {
   Wrap,
   Aside,
   Content,
   Main,
-  Container,
-  Section,
   Header,
   Footer,
 }

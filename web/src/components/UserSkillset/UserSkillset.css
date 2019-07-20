@@ -52,11 +52,11 @@
     top: 100%;
     left: 0;
     min-width: 100%;
-    max-width: 250px;
-    padding: 5px 20px 20px 28px;
+    max-width: 240px;
     @apply --font-m;
     background: #fff;
     overflow: hidden;
+    padding: 5px;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     z-index: 10;
@@ -64,6 +64,11 @@
 
   &__item {
     position: relative;
+    margin: 0 15px;
+  }
+
+  &__create {
+    padding: 20px 15px 15px;
   }
 
   &__item:hover &__remove {

@@ -47,6 +47,15 @@ class Introduction extends React.Component<Props, State> {
         history.push(`${ROUTES.SKILLSET}/${this.state.skillset}`)
       }).
       catch(e => {
+        if (e.response && e.response.status < 500) {
+          return (
+            showNotification({
+              message: e.response.data.message,
+              type: NotificationTypes.error,
+            })
+          )
+        }
+
         showNotification({
           message: 'System error. Try again.',
           type: NotificationTypes.error,

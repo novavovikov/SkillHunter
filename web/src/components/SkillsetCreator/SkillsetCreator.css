@@ -3,9 +3,8 @@
 .SkillsetCreator {
   position: relative;
   display: block;
-  min-height: 40px;
   color: #000;
-  padding: 10px 0 0 44px;
+  padding: 0 0 0 44px;
 
   &:before {
     content: '+';

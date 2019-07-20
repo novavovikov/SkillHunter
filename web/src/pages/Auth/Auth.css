@@ -1,25 +1,25 @@
 @import "../../styles/variables.css";
 
 .Auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  min-height: 100vh;
   text-align: center;
-  letter-spacing: -0.41px;
+  padding: 80px 20px 20px;
 
-  &__login {
-    background: #fff;
+  &__logo {
+    margin: 0 auto 135px;
   }
 
-  &__container {
-    text-align: center;
+  &__title {
+    margin: 0;
   }
 
   &__label {
-    font-size: 14px;
-    line-height: 22px;
-    color: #999999;
-  }
-
-  &__logo {
-    margin: 0 auto 80px;
+    @apply --font-xl;
+    margin: 8px 0;
   }
 
   &__btn {
@@ -64,36 +64,27 @@
     }
   }
 
+  &__footer {
+    margin: auto auto 0;
+  }
+
   &__terms {
-    white-space: pre-line;
-    color: #555555;
-    margin: 50px 0;
+    line-height: 20px;
+    color: var(--color-dusty-gray);
+    margin: 35px 0 60px;
   }
 
   &__security {
-    margin: 0 0 100px;
+    margin: 0 0 30px;
   }
 
   &__description {
-    color: #555555;
-  }
-
-  &__faq {
-    background: #F3F3F3;
-  }
-
-  &__faqRow {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  &__faqCol {
-    max-width: 503px;
-    width: 100%;
+    color: var(--color-dusty-gray);
+    margin: 5px 0 0;
   }
 
   &__link {
+    @apply --link;
     text-decoration: underline;
 
     &:hover {

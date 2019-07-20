@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'UserSkillset': string;
+  'UserSkillset__create': string;
   'UserSkillset__item': string;
   'UserSkillset__link': string;
   'UserSkillset__link_active': string;
