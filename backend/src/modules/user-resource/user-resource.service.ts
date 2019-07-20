@@ -21,15 +21,17 @@ export class UserResourceService {
     return this.userResourceRepository.findOne({ id: Number(resourceId) }, options)
   }
 
-  findByTitleResource (userId: number, title: string) {
+  findByTitleResource (userId: number, query: string) {
     return this.userResourceRepository.
       createQueryBuilder('userResource').
       leftJoinAndSelect('userResource.user', 'user').
       leftJoinAndSelect('userResource.resource', 'resource').
       where('user.id = :userId', { userId }).
       andWhere(new Brackets(qb => {
-        qb.where('userResource.title like :title ', { title: `${title}%` }).
-          orWhere('resource.title like :title ', { title: `${title}%` })
+        qb.where('LOWER(userResource.title) like LOWER(:title) ', { title: `${query}%` }).
+          orWhere('LOWER(userResource.author) like LOWER(:author) ', { author: `${query}%` }).
+          orWhere('LOWER(resource.title) like LOWER(:title) ', { title: `${query}%` }).
+          orWhere('LOWER(resource.author) like LOWER(:author) ', { author: `${query}%` })
       })).
       getMany()
   }
