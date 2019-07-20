@@ -10,10 +10,10 @@ import { Animation, Icon } from '../../UI'
 import * as s from './HeaderMenu.css'
 
 const MENU = [
-  {
-    label: 'Account settings',
-    to: ROUTES.SETTINGS,
-  },
+  // {
+  //   label: 'Account settings',
+  //   to: ROUTES.SETTINGS,
+  // },
   {
     label: 'Logout',
     to: ROUTES.LOGOUT,

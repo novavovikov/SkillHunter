@@ -1,4 +1,5 @@
 import Page from './Page'
+import Footer from './Footer'
 import ProgressBar from './ProgressBar'
 import Notifications from './Notifications'
 import Filters from './Filters'
@@ -38,6 +39,7 @@ import * as Steps from './Steps'
 
 export {
   Page,
+  Footer,
   ProgressBar,
   Notifications,
   Filters,

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { SkillList, Skillset, Steps } from '../../components'
+import { SkillList, Skillset, Steps, Page } from '../../components'
 import { NotificationTypes } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { addNotification } from '../../redux/actions/notifications'
@@ -10,7 +10,6 @@ import { updateUserData } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { NotificationType, SkillsetType } from '../../types'
-import { Layout, Logo } from '../../UI'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
@@ -57,11 +56,11 @@ class Introduction extends React.Component<Props, State> {
 
   render () {
     return (
-      <>
-        <Layout.Container>
-          <Logo/>
-        </Layout.Container>
-
+      <Page
+        sidebar={false}
+        search={false}
+        userMenu={false}
+      >
         <Steps.Wrap
           initStep="Skillset"
           steps={[
@@ -82,7 +81,7 @@ class Introduction extends React.Component<Props, State> {
             <SkillList onSubmit={this.setSkills}/>
           </Steps.Content>
         </Steps.Wrap>
-      </>
+      </Page>
     )
   }
 }

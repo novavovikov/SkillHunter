@@ -1,0 +1,25 @@
+@import "../../styles/variables.css";
+
+.Footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__link {
+    &:after {
+      content: '|';
+      color: var(--color-alto);
+      margin: 0 20px;
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+
+    &:hover {
+      color: var(--color-dodger-blue);
+    }
+  }
+}

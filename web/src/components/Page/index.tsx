@@ -1,11 +1,13 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
 import { Layout } from '../../UI'
-import { Header, Sidebar } from '../index'
+import { Footer, Header, Sidebar } from '../index'
 import * as s from './Page.css'
 
 interface Props {
   sidebar: boolean
+  search: boolean
+  userMenu: boolean
 }
 
 interface State {
@@ -14,7 +16,9 @@ interface State {
 
 class Page extends Component<Props, State> {
   static defaultProps = {
-    sidebar: true
+    sidebar: true,
+    search: true,
+    userMenu: true,
   }
 
   state = {
@@ -22,38 +26,39 @@ class Page extends Component<Props, State> {
   }
 
   render () {
-    const { children, sidebar } = this.props
+    const { children, sidebar, search, userMenu } = this.props
     const { sidebarVisibility } = this.state
 
     return (
       <Layout.Wrap>
-        <Header/>
+        <Header
+          search={search}
+          userMenu={userMenu}
+        />
 
-        {sidebar && (
-          <>
-            <button
-              className={s.Page__switcher}
-              onClick={() => this.setState({ sidebarVisibility: !sidebarVisibility })}
-            />
-            <Sidebar className={cn(s.Page__sidebar, {
-              [s.Page__sidebar_opened]: sidebarVisibility,
-            })}/>
-          </>
-        )}
+        <Layout.Main>
+          {sidebar && (
+            <>
+              <button
+                className={s.Page__switcher}
+                onClick={() => this.setState({ sidebarVisibility: !sidebarVisibility })}
+              />
+              <Sidebar className={cn(s.Page__sidebar, {
+                [s.Page__sidebar_opened]: sidebarVisibility,
+              })}/>
+            </>
+          )}
 
-        <Layout.Main
-          className={cn({
-            [s.Page_withSidebar]: sidebar,
-          })}
-        >
-          <Layout.Content>
+          <Layout.Content
+            className={cn({
+              [s.Page_withSidebar]: sidebar,
+            })}
+          >
             {children}
           </Layout.Content>
-
-          <Layout.Footer>
-            Copyright ©2019 SkillHunter
-          </Layout.Footer>
         </Layout.Main>
+
+        <Footer/>
       </Layout.Wrap>
     )
   }

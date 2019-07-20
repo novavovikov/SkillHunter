@@ -22,11 +22,19 @@ const Aside: FC<LayoutProps> = ({ children, className }) => {
   )
 }
 
-const Content: FC = ({ children }) => {
+const Content: FC<LayoutProps> = ({ children, className }) => {
   return (
-    <div className={s.Layout__content}>
+    <div className={cn(s.Layout__content, className)}>
       {children}
     </div>
+  )
+}
+
+const Header: FC<LayoutProps> = ({ children, className }) => {
+  return (
+    <header className={cn(s.Layout__header, className)}>
+      {children}
+    </header>
   )
 }
 
@@ -69,5 +77,6 @@ export {
   Main,
   Container,
   Section,
+  Header,
   Footer,
 }

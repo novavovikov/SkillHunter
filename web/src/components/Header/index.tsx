@@ -1,21 +1,28 @@
-import React from 'react'
-import { Logo } from '../../UI'
+import React, { FC } from 'react'
+import { Layout, Logo } from '../../UI'
 import { HeaderMenu, Search } from '../index'
 import * as s from './Header.css'
 
-const Header = () => {
+interface Props {
+  search: boolean
+  userMenu: boolean
+}
+
+const Header: FC<Props> = ({ search, userMenu }) => {
   return (
-    <header className={s.Header}>
+    <Layout.Header className={s.Header}>
       <div className={s.Header__logo}>
         <Logo/>
       </div>
 
-      <Search/>
+      {search && <Search/>}
 
-      <div className={s.Header__section}>
-        <HeaderMenu/>
-      </div>
-    </header>
+      {userMenu && (
+        <div className={s.Header__section}>
+          <HeaderMenu/>
+        </div>
+      )}
+    </Layout.Header>
   )
 }
 
