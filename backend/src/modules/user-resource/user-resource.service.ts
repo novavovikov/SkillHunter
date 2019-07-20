@@ -28,11 +28,12 @@ export class UserResourceService {
       leftJoinAndSelect('userResource.resource', 'resource').
       where('user.id = :userId', { userId }).
       andWhere(new Brackets(qb => {
-        qb.where('LOWER(userResource.title) like LOWER(:title) ', { title: `${query}%` }).
-          orWhere('LOWER(userResource.author) like LOWER(:author) ', { author: `${query}%` }).
-          orWhere('LOWER(resource.title) like LOWER(:title) ', { title: `${query}%` }).
-          orWhere('LOWER(resource.author) like LOWER(:author) ', { author: `${query}%` })
+        qb.where('LOWER(userResource.title) like LOWER(:title) ', { title: `%${query}%` }).
+          orWhere('LOWER(userResource.author) like LOWER(:author) ', { author: `%${query}%` }).
+          orWhere('LOWER(resource.title) like LOWER(:title) ', { title: `%${query}%` }).
+          orWhere('LOWER(resource.author) like LOWER(:author) ', { author: `%${query}%` })
       })).
+      limit(10).
       getMany()
   }
 
