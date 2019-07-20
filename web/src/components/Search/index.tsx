@@ -13,6 +13,7 @@ interface Props {
 }
 
 interface State {
+  resultsVisibility: boolean
   inputValue: string
   resources: UserResourceType[]
 }
@@ -21,6 +22,7 @@ class Search extends Component<Props, State> {
   wrapRef = createRef<HTMLDivElement>()
 
   state = {
+    resultsVisibility: false,
     inputValue: '',
     resources: [],
   }
@@ -29,6 +31,7 @@ class Search extends Component<Props, State> {
     this.setState({
       inputValue: '',
       resources: [],
+      resultsVisibility: false
     })
   }
 
@@ -42,18 +45,33 @@ class Search extends Component<Props, State> {
     this.findResources(value)
   }
 
+  onFocus = () => {
+    if (this.state.inputValue) {
+      this.setState({
+        resultsVisibility: true
+      })
+    }
+  }
+
   findResources = (query: string) => {
     ajax.
       get(`${API.USER_RESOURCE}/search?q=${query}`).
       then(({ data }) => {
         this.setState({
           resources: data,
+          resultsVisibility: true
         })
       })
   }
 
+  closeSearch = () => {
+    this.setState({
+      resultsVisibility: false
+    })
+  }
+
   render () {
-    const { resources, inputValue } = this.state
+    const { resources, inputValue, resultsVisibility } = this.state
     const { showNotification } = this.props
 
     return (
@@ -64,8 +82,9 @@ class Search extends Component<Props, State> {
         <input
           type="text"
           className={s.Search__input}
+          value={inputValue}
           onChange={this.onChange}
-          onFocus={this.onChange}
+          onFocus={this.onFocus}
           placeholder="Search source"
         />
 
@@ -83,10 +102,10 @@ class Search extends Component<Props, State> {
         )}
 
         <SearchResults
-          isOpen={inputValue !== ''}
+          isOpen={inputValue !== '' && resultsVisibility}
           isEmpty={inputValue !== '' && !resources.length}
           wrapNode={this.wrapRef.current}
-          onClose={this.clearResourcesState}
+          onClose={this.closeSearch}
         >
           {resources.map((resource: UserResourceType) => (
             <FoundResource

@@ -86,6 +86,11 @@ export function * removeResourcesSaga ({ payload: { userSkill, id } }: RemoveRes
     yield call(ajax.delete, `${API.USER_RESOURCE}/${id}`)
 
     yield put(ac.removeResource({ userSkill, id }))
+
+    yield put(ac.addNotification({
+      message: 'Material was removed',
+      type: NotificationTypes.success,
+    }))
   } catch (error) {
     logger('removeResourcesSaga: ', error)
   }

@@ -36,28 +36,27 @@ class SearchResults extends Component<Props> {
       return null
     }
 
-    if (isEmpty) {
-      return (
-        <div className={s.SearchResults}>
-          <div className={s.SearchResults__empty}>
-            No sources found
-          </div>
-        </div>
-      )
-    }
-
     return (
       <div className={s.SearchResults}>
-        <Scrollbar
-          autoHeightMin={0}
-          autoHeightMax={280}
-          autoHeight
-          autoHide
-        >
-          <div className={s.SearchResults__content}>
-            {children}
-          </div>
-        </Scrollbar>
+        {isEmpty
+          ? (
+            <div className={s.SearchResults__empty}>
+              No sources found
+            </div>
+          )
+          : (
+            <Scrollbar
+              autoHeightMin={0}
+              autoHeightMax={280}
+              autoHeight
+              autoHide
+            >
+              <div className={s.SearchResults__content}>
+                {children}
+              </div>
+            </Scrollbar>
+          )
+        }
       </div>
     )
   }
