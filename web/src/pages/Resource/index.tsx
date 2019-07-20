@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
 import { compose } from 'redux'
 import { ResourceHeader, SignUpBlock } from '../../components'
 import { API } from '../../constants/api'
@@ -182,8 +183,22 @@ class Resource extends Component<Props, State> {
           </div>
         )}
 
-        <div className={s.Resource__text}>
-          {viewOnly && <SignUpBlock/>}
+        <div className={s.Resource__footer}>
+          {viewOnly
+            ? <SignUpBlock/>
+            : (
+              <a
+                className={s.Resource__watch}
+                href={resource.link}
+                target="_blank"
+              >
+                Watch
+                <div className={s.Resource__watchLabel}>
+                  source
+                </div>
+              </a>
+            )
+          }
         </div>
       </div>
     )

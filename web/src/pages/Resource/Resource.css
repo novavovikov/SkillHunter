@@ -83,10 +83,16 @@
     }
   }
 
-  &__text {
-    white-space: pre-line;
-    font-size: 26px;
-    line-height: 40px;
-    color: #000000;
+  &__footer {
+    text-align: center;
+  }
+
+  &__watch {
+    @apply --button;
+    @apply --button-large;
+  }
+
+  &__watchLabel {
+    @apply --button-label;
   }
 }

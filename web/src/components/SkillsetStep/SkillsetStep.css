@@ -1,3 +1,5 @@
+@import "../../styles/variables.css";
+
 .SkillsetStep {
   display: flex;
   flex-direction: column;
@@ -15,10 +17,6 @@
   }
 
   &__label {
-    width: 100%;
-    font-size: 14px;
-    line-height: 1;
-    font-weight: 300;
-    letter-spacing: -0.25px;
+    @apply --button-label;
   }
 }

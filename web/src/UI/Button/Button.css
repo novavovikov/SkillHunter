@@ -4,11 +4,7 @@
   @apply --button;
 
   &_large {
-    min-height: 52px;
-    width: 270px;
-    font-size: 15px;
-    line-height: 20px;
-    border-radius: var(--radius-xl);
+    @apply --button-large;
   }
 
   &_plus {

@@ -121,4 +121,19 @@
       box-shadow: none;
     }
   };
+
+  --button-large: {
+    min-height: 52px;
+    width: 270px;
+    font-size: 15px;
+    line-height: 20px;
+    border-radius: var(--radius-xl);
+  };
+
+  --button-label: {
+    display: block;
+    width: 100%;
+    @apply --font-s;
+    font-weight: 300;
+  };
 }

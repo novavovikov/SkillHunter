@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 25px 0;
+  padding: 25px 0 25px 60px;
   border-bottom: 1px solid transparent;
   transition: var(--transition-fast);
   z-index: 5;
@@ -39,12 +39,13 @@
   }
 
   &__back {
-    position: fixed;
+    position: absolute;
     display: flex;
     align-items: center;
-    top: 65px;
-    left: 35px;
+    top: 50%;
+    left: 0;
     color: var(--color-dusty-gray);
+    transform: translate(0, -50%);
 
     path {
       fill: var(--color-dusty-gray);

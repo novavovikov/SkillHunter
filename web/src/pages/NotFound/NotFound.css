@@ -26,16 +26,11 @@
 
   &__submit {
     @apply --button;
-    font-weight: bold;
-    border-radius: var(--radius-lg);
-    width: 270px;
+    @apply --button-large;
   }
 
   &__submitLabel {
-    display: block;
-    width: 100%;
-    @apply --font-s;
-    font-weight: 300;
+    @apply --button-label;
   }
 
   &__label {
