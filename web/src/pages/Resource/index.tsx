@@ -123,6 +123,7 @@ class Resource extends Component<Props, State> {
       title,
       type,
       resource,
+      viewOnly,
     }: UserResourceType = userResource
 
     const url = this.url
@@ -182,7 +183,7 @@ class Resource extends Component<Props, State> {
         )}
 
         <div className={s.Resource__text}>
-          <SignUpBlock/>
+          {viewOnly && <SignUpBlock/>}
         </div>
       </div>
     )
