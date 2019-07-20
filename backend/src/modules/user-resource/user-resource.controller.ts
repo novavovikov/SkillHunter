@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   HttpException,
-  HttpService,
   HttpStatus,
   Param,
   Post,
@@ -14,8 +13,6 @@ import {
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
-import { JSDOM, VirtualConsole } from 'jsdom'
-import { map } from 'rxjs/operators'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { UserGuard } from '../../common/guards/user.guard'
@@ -39,7 +36,6 @@ export class UserResourceController {
     private skillsetService: SkillsetService,
     private skillService: SkillService,
     private resourceService: ResourceService,
-    private readonly http: HttpService,
   ) {}
 
   @Get('search')
@@ -92,41 +88,14 @@ export class UserResourceController {
       throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
     }
 
-    const content: any = await this.getFromLink(userResource.resource.link)
-
     if (user) {
-      return {
-        ...getUserResourceWithLikedField(user.id, userResource as UserResource),
-        content
-      }
+      return getUserResourceWithLikedField(user.id, userResource)
     }
 
     const userResourceViewOnly = excludeFieldsFromObject(['status'], userResource)
     return {
       ...userResourceViewOnly,
       viewOnly: true
-    }
-  }
-
-  getFromLink (link: string) {
-    try {
-      return this.http.get(link).
-        pipe(map(({ data }) => data)).
-        toPromise().
-        then(async resp => {
-          const virtualConsole = new VirtualConsole()
-          const dom = new JSDOM(resp, {
-            virtualConsole,
-          })
-          const { document } = dom.window
-
-          return resp
-        }).
-        catch(err => {
-          return null
-        })
-    } catch (err) {
-      return null
     }
   }
 

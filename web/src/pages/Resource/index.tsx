@@ -124,7 +124,6 @@ class Resource extends Component<Props, State> {
       type,
       resource,
       viewOnly,
-      content,
     }: UserResourceType = userResource
 
     const url = this.url
@@ -184,7 +183,6 @@ class Resource extends Component<Props, State> {
         )}
 
         <div className={s.Resource__text}>
-          <div dangerouslySetInnerHTML={{ __html: content }}/>
           {viewOnly && <SignUpBlock/>}
         </div>
       </div>
