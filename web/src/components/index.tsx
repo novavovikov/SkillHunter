@@ -8,6 +8,7 @@ import Sidebar from './Sidebar'
 import Faq from './Faq'
 import HeaderMenu from './HeaderMenu'
 import Search from './Search'
+import SearchResults from './SearchResults'
 import ShareMenu from './ShareMenu'
 import ShareLink from './ShareLink'
 import Skillset from './Skillset'
@@ -23,6 +24,8 @@ import ResourcePreview from './ResourcePreview'
 import ResourceCreator from './ResourceCreator'
 import ResourceStatus from './ResourceStatus'
 import ResourcePreviewStatus from './ResourcePreviewStatus'
+import FoundResource from './FoundResource'
+import ResourcePreviewInfo from './ResourcePreviewInfo'
 import UserSkillset from './UserSkillset'
 import ResourceHeader from './ResourceHeader'
 import RemoveSkillset from './RemoveSkillset'
@@ -43,6 +46,7 @@ export {
   Sidebar,
   HeaderMenu,
   Search,
+  SearchResults,
   ShareMenu,
   ShareLink,
   Faq,
@@ -59,6 +63,8 @@ export {
   ResourceCreator,
   ResourceStatus,
   ResourcePreviewStatus,
+  FoundResource,
+  ResourcePreviewInfo,
   UserSkillset,
   RemoveSkillset,
   ResourceHeader,

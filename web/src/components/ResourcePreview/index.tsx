@@ -1,33 +1,13 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { ResourcePreviewStatus } from '../../components'
+import { ResourcePreviewStatus, ResourcePreviewInfo } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, UserResourceType } from '../../types'
 import { Icon, Item, Menu } from '../../UI'
 import { ShareMenu } from '../index'
-import articleIcon from './icons/article.svg'
-import bookIcon from './icons/book.svg'
-import courseIcon from './icons/course.svg'
-import faviconIcon from './icons/favicon.svg'
-import mediaIcon from './icons/media.svg'
 import * as s from './ResourcePreview.css'
-
-const getIconByType = (type: string) => {
-  switch (type) {
-    case 'article':
-      return articleIcon
-    case 'media':
-      return mediaIcon
-    case 'book':
-      return bookIcon
-    case 'course':
-      return courseIcon
-    default:
-      return articleIcon
-  }
-}
 
 interface Props {
   data: UserResourceType,
@@ -40,10 +20,6 @@ class ResourcePreview extends React.Component<Props> {
   static defaultProps = {
     updateHandler: (data: Partial<UserResourceType>) => {},
     removeHandler: (data: Partial<UserResourceType>) => {},
-  }
-
-  get url () {
-    return new URL(this.props.data.resource.link)
   }
 
   handleStatus = (status: string) => {
@@ -86,38 +62,7 @@ class ResourcePreview extends React.Component<Props> {
     return (
       <div className={s.ResourcePreview}>
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_info)}>
-          <div className={s.ResourcePreview__type}>
-            <img src={getIconByType(data.type)} alt=""/>
-          </div>
-
-          <div className={s.ResourcePreview__info}>
-            <h4 className={s.ResourcePreview__title}>
-              {data.title || data.resource.title || data.resource.link}
-            </h4>
-
-            {data.type !== 'book' && (
-              <a
-                href={data.resource.link}
-                className={cn(s.ResourcePreview__source, s.ResourcePreview__source_site)}
-                target="_blank"
-              >
-                <span className={s.ResourcePreview__favicon}>
-                  <img
-                    src={data.resource.picture || faviconIcon}
-                    alt=""
-                  />
-                </span>
-                {this.url.hostname}
-              </a>
-            )}
-
-            {data.type === 'book' && (
-              <div className={s.ResourcePreview__source}>
-                {data.author}
-              </div>
-            )}
-
-          </div>
+          <ResourcePreviewInfo data={data}/>
         </div>
 
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_status)}>

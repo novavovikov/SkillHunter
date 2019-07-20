@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindOneOptions, In, Repository } from 'typeorm'
+import { Brackets, FindOneOptions, In, Repository } from 'typeorm'
 import { getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Resource } from '../resource/resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
@@ -19,6 +19,19 @@ export class UserResourceService {
     options?: FindOneOptions<UserResource>
   ) {
     return this.userResourceRepository.findOne({ id: Number(resourceId) }, options)
+  }
+
+  findByTitleResource (userId: number, title: string) {
+    return this.userResourceRepository.
+      createQueryBuilder('userResource').
+      leftJoinAndSelect('userResource.user', 'user').
+      leftJoinAndSelect('userResource.resource', 'resource').
+      where('user.id = :userId', { userId }).
+      andWhere(new Brackets(qb => {
+        qb.where('userResource.title like :title ', { title: `${title}%` }).
+          orWhere('resource.title like :title ', { title: `${title}%` })
+      })).
+      getMany()
   }
 
   async addResource (

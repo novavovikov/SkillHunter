@@ -1,0 +1,31 @@
+@import "../../styles/variables.css";
+
+.SearchResults {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius);
+  margin: 5px 0 0;
+
+  &__content {
+    padding: 20px;
+  }
+
+  &__empty {
+    text-align: center;
+    padding: 20px;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      margin: 0 16px 0 0;
+      background: url("./icons/box-empty.svg") no-repeat center;
+    }
+  }
+}

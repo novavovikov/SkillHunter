@@ -44,10 +44,6 @@ const SHARE_LINKS = [
 ]
 
 class ShareMenu extends React.Component<Props> {
-  static originUrl = window.location.hostname === 'localhost'
-    ? 'https://app.skillhunter.io'
-    : window.location.origin
-
   handleShare = (system: SHARE_SITES, url: string) => {
     const { text } = this.props
     const link = getShareLink(system, { url, text })
@@ -57,7 +53,7 @@ class ShareMenu extends React.Component<Props> {
 
   render () {
     const { link, label, showNotification } = this.props
-    const url = urlNormalizer(`${ShareMenu.originUrl}${link}`)
+    const url = urlNormalizer(`${window.location.origin}${link}`)
 
     return (
       <Menu
