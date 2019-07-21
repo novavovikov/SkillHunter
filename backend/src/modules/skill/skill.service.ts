@@ -67,7 +67,7 @@ export class SkillService {
     )
 
     if (uniqueSkills.length) {
-      return await this.skillRepository.insert(uniqueSkills)
+      return await this.skillRepository.save(uniqueSkills)
     }
 
     return []
