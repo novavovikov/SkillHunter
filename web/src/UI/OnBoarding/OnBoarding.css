@@ -1,0 +1,46 @@
+@import "../../styles/variables.css";
+
+.OnBoarding {
+  position: relative;
+  display: flex;
+  align-items: center;
+  @apply --font-s;
+  color: var(--color-dusty-gray);
+  padding: 0 0 0 44px;
+  margin: 0 0 0 20px;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 28px;
+    height: 8px;
+    margin-top: -4px;
+    background: url("./icons/arrow-left-long-ico.svg") no-repeat center/contain;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0 15px 0 0;
+    font-size: 28px;
+    background: var(--color-alto);
+    border-radius: var(--radius);
+    color: #fff;
+
+    path {
+      fill: #fff;
+    }
+
+    &:empty {
+      &:before {
+        content: '+';
+      }
+    }
+  }
+}

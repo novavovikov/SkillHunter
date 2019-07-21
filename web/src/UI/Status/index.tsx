@@ -1,25 +1,17 @@
-import cn from 'classnames'
 import React, { FC } from 'react'
-import { Icon } from '../index'
+import cn from 'classnames'
+import { ResourceStatusTypes } from '../../types'
 import * as s from './Status.css'
 
 interface Props {
   className?: string
-  icon?: string
+  value: ResourceStatusTypes | string
 }
 
-const Status: FC<Props> = ({ className, icon, children }) => {
+const Status: FC<Props> = ({ value, className }) => {
   return (
     <div className={cn(s.Status, className)}>
-      <div className={s.Status__icon}>
-        {icon && (
-          <Icon
-            type={icon}
-            size="24"
-          />
-        )}
-      </div>
-      {children}
+      {value}
     </div>
   )
 }
