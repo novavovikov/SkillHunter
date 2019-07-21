@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
 import { compose } from 'redux'
 import { ResourceHeader, SignUpBlock } from '../../components'
 import { API } from '../../constants/api'

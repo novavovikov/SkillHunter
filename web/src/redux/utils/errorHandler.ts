@@ -1,5 +1,5 @@
-import { NotificationTypes } from '../constants/notification'
-import ac from '../redux/actions'
+import { NotificationTypes } from '../../constants/notification'
+import ac from '../actions'
 
 export const errorHandler = (place: string, error: any) => {
   console.warn(`${place}: ${error}`)
@@ -15,7 +15,7 @@ export const errorHandler = (place: string, error: any) => {
 
   return (
     ac.addNotification({
-      message: 'Material error',
+      message: 'System error. Try again.',
       type: NotificationTypes.error,
     })
   )

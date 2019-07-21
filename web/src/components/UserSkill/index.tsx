@@ -4,7 +4,7 @@ import { ResourceCreator, Resources } from '../../components'
 import { removeSkillsSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
 import { UserResourceType, UserSkillType } from '../../types'
-import { H4, Icon, Item, Menu, Status } from '../../UI'
+import { H4, Icon, Item, Menu, OnBoarding } from '../../UI'
 import * as s from './UserSkill.css'
 
 interface Props {
@@ -79,12 +79,12 @@ class UserSkill extends React.Component<Props, State> {
           </Menu>
 
           {!resources.length && !isOpen && (
-            <Status
+            <OnBoarding
               className={s.UserSkill__empty}
               icon="arrow-down"
             >
               Expand list and add source
-            </Status>
+            </OnBoarding>
           )}
         </div>
 

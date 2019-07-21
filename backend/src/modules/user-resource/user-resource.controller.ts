@@ -124,28 +124,36 @@ export class UserResourceController {
     @Body('resourceId') resourceId: number,
     @Body('data') data: Partial<UserResource>,
   ) {
+    const userSkill = await this.userSkillService.findById(skillId, {
+      relations: ['userResources']
+    })
+
+    if (!userSkill) {
+      throw new HttpException('User skill not found', HttpStatus.NOT_FOUND)
+    }
+
+    const createdResource = userSkill.userResources.find(({ resource }) => resource.id === Number(resourceId))
+
+    if (createdResource) {
+      throw new HttpException('Resource already exist in skill', HttpStatus.BAD_REQUEST)
+    }
+
     const resource: Resource = await this.resourceService.findById(resourceId)
 
     if (!resource) {
-      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Resource not found', HttpStatus.NOT_FOUND)
     }
 
     const skillset: Skillset = await this.skillsetService.findById(skillsetId)
 
     if (!skillset) {
-      throw new HttpException('skillsetId  not found', HttpStatus.BAD_REQUEST)
-    }
-
-    const userSkill = await this.userSkillService.findById(skillId)
-
-    if (!userSkill) {
-      throw new HttpException('UserSkill not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Skillset not found', HttpStatus.NOT_FOUND)
     }
 
     const resourceSkillRelation = await this.skillService.addResourceToSkill(userSkill.skill.id, resource)
 
     if (!resourceSkillRelation) {
-      throw new HttpException('Skill not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Skill not found', HttpStatus.NOT_FOUND)
     }
 
     return this.userResourceService.addResource(

@@ -1,11 +1,11 @@
 import cn from 'classnames'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { ResourcePreviewStatus, ResourcePreviewInfo } from '../../components'
+import { ResourcePreviewInfo, ResourcePreviewStatus } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { ResourceStatusTypes, UserResourceType } from '../../types'
-import { Icon, Item, Menu } from '../../UI'
+import { Icon, Item, Menu, Status } from '../../UI'
 import { ShareMenu } from '../index'
 import * as s from './ResourcePreview.css'
 
@@ -85,7 +85,7 @@ class ResourcePreview extends React.Component<Props> {
                 onClick={() => this.handleStatus(status)}
                 key={status}
               >
-                {status}
+                <Status value={status}/>
               </Item>
             ))}
           </Menu>
@@ -103,19 +103,17 @@ class ResourcePreview extends React.Component<Props> {
             />
           </Link>
 
-            <div className={s.ResourcePreview__control}>
-              <ShareMenu
-                link={`${ROUTES.RESOURCE}/${data.id}`}
-                text={data.title}
-              />
-            </div>
+          <div className={s.ResourcePreview__control}>
+            <ShareMenu
+              link={`${ROUTES.RESOURCE}/${data.id}`}
+              text={data.title}
+            />
+          </div>
           <button
             className={s.ResourcePreview__control}
             onClick={this.handleLike}
           >
-              <span className={s.ResourcePreview__likes}>
-                {data.likes}
-              </span>
+            <span className={s.ResourcePreview__likes}>{data.likes}</span>
             <Icon
               type={data.isLiked ? 'heart-filled' : 'heart'}
               active={data.isLiked}

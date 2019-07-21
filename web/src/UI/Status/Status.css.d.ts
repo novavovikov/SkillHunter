@@ -2,6 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   'Status': string;
+  'Status_backlog': string;
+  'Status_done': string;
+  'Status_plan': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

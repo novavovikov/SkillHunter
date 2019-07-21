@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { API } from '../../constants/api'
 import { NotificationTypes } from '../../constants/notification'
 import { ajax } from '../../utils/ajax'
-import { logger } from '../../utils/logger'
+import { errorHandler } from '../utils/errorHandler'
 import ac from '../actions'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
@@ -21,7 +21,7 @@ export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) 
 
     yield put(ac.setResources(data))
   } catch (error) {
-    logger('getResourcesSaga: ', error)
+    yield put(errorHandler('getResourcesSaga: ', error))
   }
 
   yield put(ac.removeLoading('resources'))
@@ -48,12 +48,7 @@ export function * addResourceSaga ({ payload }: AddResourceSaga) {
       type: NotificationTypes.success,
     }))
   } catch (error) {
-    logger('addResourceSaga: ', error)
-
-    yield put(ac.addNotification({
-      message: 'Material error',
-      type: NotificationTypes.error,
-    }))
+    yield put(errorHandler('addResourceSaga: ', error))
   }
 }
 
@@ -64,7 +59,7 @@ export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
 
     yield put(ac.updateResource(data))
   } catch (error) {
-    logger('updateResourceSaga: ', error)
+    yield put(errorHandler('updateResourceSaga: ', error))
   }
 }
 
@@ -77,7 +72,7 @@ export function * changeResourceLikeStatusSaga ({ payload }: ChangeResourceLikeS
 
     yield put(ac.changeResourceLikeStatus(data))
   } catch (error) {
-    logger('changeResourceLikeStatusSaga: ', error)
+    yield put(errorHandler('changeResourceLikeStatusSaga: ', error))
   }
 }
 
@@ -92,7 +87,7 @@ export function * removeResourcesSaga ({ payload: { userSkill, id } }: RemoveRes
       type: NotificationTypes.success,
     }))
   } catch (error) {
-    logger('removeResourcesSaga: ', error)
+    yield put(errorHandler('removeResourcesSaga: ', error))
   }
 }
 

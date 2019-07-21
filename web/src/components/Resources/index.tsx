@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { changeResourceLikeStatusSaga, removeResourceSaga, updateResourceSaga } from '../../redux/actions/resources'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { UserResourceType } from '../../types'
-import { IconButton, Status } from '../../UI'
+import { IconButton, OnBoarding } from '../../UI'
 import { ResourcePreview } from '../index'
 import * as s from './Resources.css'
 
@@ -39,9 +39,9 @@ class Resources extends Component<Props> {
             </div>
 
             {!data.length && (
-              <Status className={s.Resources__onboarding}>
+              <OnBoarding className={s.Resources__onboarding}>
                 List is empty. Add source for skill. Collecting, reading later and sharing source.
-              </Status>
+              </OnBoarding>
             )}
           </div>
 

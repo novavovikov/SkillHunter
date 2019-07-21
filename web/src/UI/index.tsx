@@ -2,6 +2,7 @@ import * as Animation from './Animation'
 import * as Layout from './Layout'
 import Popup from './Popup'
 import Icon from './Icon'
+import OnBoarding from './OnBoarding'
 import Status from './Status'
 import Loader from './Loader'
 import H1 from './H1'
@@ -26,6 +27,7 @@ export {
   Layout,
   Popup,
   Icon,
+  OnBoarding,
   Status,
   Loader,
   H1,

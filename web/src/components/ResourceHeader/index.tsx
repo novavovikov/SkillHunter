@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
 import { ResourceStatusTypes, UserResourceType } from '../../types'
-import { Icon, Item, Menu } from '../../UI'
+import { Icon, Item, Menu, Status } from '../../UI'
 import { ResourceStatus, ShareMenu } from '../index'
 import * as s from './ResourceHeader.css'
 
@@ -66,7 +66,7 @@ class ResourceHeader extends PureComponent<Props, State> {
                 key={status}
                 onClick={() => changeStatus(status)}
               >
-                {status}
+                <Status value={status}/>
               </Item>
             ))}
           </Menu>
