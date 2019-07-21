@@ -122,7 +122,9 @@ export class UserController {
       relations: ['skills'],
     })
 
-    console.log('@@@@@@@@@@@@@@@@@@', foundSkillset)
+    if (!foundSkillset) {
+      throw new HttpException('Skillset not exist', HttpStatus.NOT_FOUND)
+    }
 
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
     foundSkillset.skills = unique([...foundSkillset.skills, ...skillList])

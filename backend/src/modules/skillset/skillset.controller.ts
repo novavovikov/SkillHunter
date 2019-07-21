@@ -28,6 +28,7 @@ export class SkillsetController {
   @Post()
   @ApiUseTags('skillset')
   setSkillsets (@Body('skillsets') skillsets: SkillsetDto[]) {
+    console.log(123)
     return this.skillsetService.setSkillsets(skillsets)
   }
 

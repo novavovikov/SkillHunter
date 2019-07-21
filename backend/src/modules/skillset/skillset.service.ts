@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindOneOptions, Repository } from 'typeorm'
+import { FindOneOptions, In, Repository } from 'typeorm'
 import { unique } from '../../utils/unique'
 import { Skill } from '../skill/skill.entity'
 import { Skillset } from './skillset.entity'
@@ -55,8 +55,12 @@ export class SkillsetService {
   }
 
   async setSkillsets (skillsets: any) {
+    if (!skillsets.length) {
+      return []
+    }
+
     // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
-    const foundSkillsets = await this.skillsetRepository.find(skillsets)
+    const foundSkillsets = await this.skillsetRepository.find({ name: In(skillsets.map(({ name }) => name))})
     const uniqueSkillsets = skillsets.filter(
       skillset => !foundSkillsets.find(({ name }) => skillset.name === name),
     )
