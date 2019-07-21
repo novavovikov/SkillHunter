@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Container from '../Container'
-import Button from '../../UI/Button'
+import Button from '../Button'
 import { HOME_ROUTE, REGISTRATION_ROUTE } from '../../constants/routes'
 
 import css from './Header.scss'

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Typed from 'typed.js'
-import Button from '../../UI/Button'
-import Input from '../../UI/Input'
+import Button from '../Button'
+import Input from '../Input'
 import Container from '../Container'
 
 import s from './Banner.scss'

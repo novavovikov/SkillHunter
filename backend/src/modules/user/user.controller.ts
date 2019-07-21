@@ -122,6 +122,8 @@ export class UserController {
       relations: ['skills'],
     })
 
+    console.log('@@@@@@@@@@@@@@@@@@', foundSkillset)
+
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
     foundSkillset.skills = unique([...foundSkillset.skills, ...skillList])
 

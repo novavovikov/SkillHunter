@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { withNamespaces } from '../../i18n'
 import Link from 'next/link'
-import Button from '../../UI/Button'
+import Button from '../Button'
 import { COOKIE_ROUTE } from '../../constants/routes'
 import css from './Cookie.scss'
 
