@@ -1,22 +1,19 @@
-import { withNamespaces } from '../../i18n'
-import { useEffect } from 'react'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import Typed from 'typed.js'
+import Button from '../../UI/Button'
+import Input from '../../UI/Input'
 import Container from '../Container'
-import Button from '../Button'
+
+import s from './Banner.scss'
 import { REGISTRATION_ROUTE } from '../../constants/routes'
 
-import css from './Banner.scss'
+const Banner = () => {
+  const [inputValue, setInputValue] = useState('')
 
-const Banner = ({ t }) => {
   useEffect(() => {
     const options = {
       strings: [
-        `${t('light')}`,
-        '',
-        `${t('best')}`,
-        '',
-        `${t('promo-text')}<span class="title-label">(${t('soon')})</span>`,
+        `Create your skillset and improve it`,
       ],
       typeSpeed: 50,
       backSpeed: 40,
@@ -28,40 +25,45 @@ const Banner = ({ t }) => {
   })
 
   return (
-    <Container>
-      <div className={css.Banner}>
-        <div className={css.Banner__content}>
-          <h1 className={css.Banner__title}>
+    <form
+      className={s.Banner}
+      onSubmit={(e) => {
+        e.preventDefault()
+        window.location.href = REGISTRATION_ROUTE
+      }}
+    >
+      <Container>
+        <h1>
             <span data-typed=''/>
           </h1>
-          <div className={css.Banner__text}>
-            <p className={css.Banner__description}>
-              {t('description')}
-            </p>
 
-            <Link href={REGISTRATION_ROUTE}>
-              <a>
-                <Button
-                  span
-                  theme="lg"
-                  className={css.Banner__btn}
-                >
-                  {t('common:start')}
-                </Button>
-              </a>
-            </Link>
+        <Input
+          className={s.Banner__input}
+          placeholder="Enter your skillset (speciality, profession or hobby)"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+
+        <div className={s.Banner__footer}>
+          <Button theme="large" disabled={!inputValue}>
+            Improve
+            <span className={s.Banner__label}>
+              your skills
+              </span>
+          </Button>
+        </div>
+
+        <div className={s.Banner__description}>
+          <h5 className={s.Banner__subtitle}>
+            Skillhunter help you
+          </h5>
+          <div>
+            self-development, collecting and share your source for your skills
           </div>
         </div>
-
-        <div className={css.Banner__img}>
-          <img
-            src="/static/images/undraw_investing_7u7.png"
-            alt=""
-          />
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </form>
   )
 }
 
-export default withNamespaces('banner')(Banner)
+export default Banner

@@ -1,8 +1,10 @@
 @import "../../styles/variables";
 
 .Text {
-  margin: 0 auto;
   max-width: 760px;
+  padding: 60px 20px;
+  background: #fff;
+  margin: 30px auto;
 
   &__caption {
     text-align: center;

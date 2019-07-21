@@ -4,7 +4,7 @@ import Typed from 'typed.js'
 import { withNamespaces } from '../../i18n'
 import { HOME_ROUTE } from '../../constants/routes'
 import Container from '../Container'
-import Button from '../Button'
+import Button from '../../UI/Button'
 import css from './Error.scss'
 
 const Error = ({ i18n, lng, t, statusCode }) => {

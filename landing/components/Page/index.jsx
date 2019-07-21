@@ -1,23 +1,14 @@
 import css from './Page.scss'
 import Head from '../Head'
 import Header from '../Header'
-import Main from '../Main'
 import Footer from '../Footer'
-import Banner from '../Banner'
-import Content from '../Content'
-import Promo from '../Promo'
-import Recommendation from '../Recommendation'
 import Cookie from '../Cookie'
 
 export default (
   {
     children,
-    banner,
-    promo,
-    recommendation,
     head,
     header,
-    lng
   },
 ) => (
   <>
@@ -25,20 +16,8 @@ export default (
       <Head {...head}/>
       <Header {...header}/>
 
-      <Main>
-        {banner && <Banner/>}
+      {children}
 
-        <Content>
-          {children}
-        </Content>
-
-        {promo && <Promo/>}
-        {
-          lng === 'ru' &&
-          recommendation &&
-          <Recommendation/>
-        }
-      </Main>
       <Footer/>
       <Cookie/>
     </div>

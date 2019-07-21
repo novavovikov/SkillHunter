@@ -2,87 +2,36 @@
 
 .Banner {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
   min-height: 580px;
-  padding: 30px 0;
+  padding: 100px 0;
+  background: url("./image/banner.svg") no-repeat center top/contain;
+  flex: 1 1 100%;
+  text-align: center;
 
-  @media(--xl) {
-    min-height: 0;
-    padding: 40px 0 0;
+  &__subtitle {
+    margin-bottom: 8px;
   }
 
-  @media(--sm) {
-    padding: 20px 0 0;
+  &__input {
+    max-width: 472px;
   }
 
-  &__content {
-    width: 535px;
-
-    @media(--xl) {
-      width: 50%;
-    }
-
-    @media(--md) {
-      width: 100%;
-      order: 2;
-    }
+  &__footer {
+    margin: 53px 0 0;
   }
 
-  &__title {
-    position: relative;
-    min-height: 94px;
-    white-space: pre-line;
-
-    @media(--sm) {
-      min-height: 60px;
-      letter-spacing: -0.3px;
-    }
-  }
-
-  &__text {
-    font-size: 16px;
-    line-height: 1.5;
-    color: rgba(0, 0, 0, .45);
-    max-width: 420px;
-
-    @media(--md) {
-      max-width: 100%;
-    }
-
-    @media(--sm) {
-      font-size: 14px;
-    }
+  &__label {
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    letter-spacing: -0.25px;
   }
 
   &__description {
-    margin: 0;
-  }
-
-  &__img {
-    width: 600px;
-
-    img {
-      max-width: 100%;
-    }
-
-    @media(--xl) {
-      width: 50%;
-    }
-
-    @media(--md) {
-      order: 1;
-      width: 100%;
-    }
-  }
-
-  &__btn {
-    margin: 80px 0 0;
-    float: right;
-
-    @media(--sm) {
-      margin-top: 30px;
-    }
+    font-size: 18px;
+    line-height: 21px;
+    margin: 100px auto 0;
   }
 }

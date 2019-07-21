@@ -1,0 +1,21 @@
+@import "../../styles/variables.scss";
+
+.Input {
+  width: 100%;
+  height: 50px;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 21px;
+  background: #FFFFFF;
+  border-radius: 3px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+
+  &::placeholder {
+    color: #999999;
+  }
+
+  &:focus {
+    border-color: var(--color-dodger-blue);
+  }
+}

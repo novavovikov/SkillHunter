@@ -4,7 +4,8 @@
   * {
     box-sizing: border-box;
     border-radius: 0;
-    outline-color: var(--green);
+    outline: none;
+    appearance: none;
 
     &:before, &:after {
       box-sizing: border-box;
@@ -15,12 +16,10 @@
     margin: 0;
     font-family: var(--Roboto);
     min-width: 320px;
-    font-size: 16px;
     overflow-x: hidden;
-
-    @media(--sm) {
-      font-size: 14px;
-    }
+    font-size: 14px;
+    line-height: 16px;
+    background: var(--gray);
   }
 
   a {
@@ -36,15 +35,15 @@
   button {
     font-size: inherit;
     font-family: inherit;
+    margin: 0;
+    cursor: pointer;
   }
 
   h1, .h1 {
+    font-size: 32px;
+    line-height: 37px;
     color: #424242;
-    font-size: 35px;
-    line-height: 1.35;
-    font-weight: 500;
-    padding: 0;
-    margin: 0 0 calc(10/35)+em;
+    margin: 0 0 80px;
 
     @media(--lg) {
       font-size: 30px;
@@ -107,6 +106,7 @@
   h5, .h5 {
     color: rgb(66, 66, 66);
     font-size: 24px;
+    line-height: 28px;
     font-weight: 600;
     margin: 0 0 calc(25/24)+em;
 
@@ -134,7 +134,7 @@
   }
 
   .typed-cursor {
-    color: var(--blue);
+    color: var(--color-dodger-blue);
   }
 
   strong, b {
@@ -147,6 +147,6 @@
     top: 5px;
     transform: translate(0, -100%);
     font-size: 12px;
-    color: var(--blue)
+    color: var(--color-dodger-blue)
   }
 }

@@ -1,0 +1,43 @@
+@import "../../styles/variables";
+
+.Button {
+  position: relative;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: var(--color-dodger-blue);
+  color: #fff;
+  min-height: 38px;
+  border-radius: 3px;
+  padding: 4px 16px;
+  transition: var(--transition-fast);
+
+  &:hover {
+    background: var(--color-blue-ribbon);
+  }
+
+  &:disabled {
+    cursor: default;
+    background: #BDBDBD;
+    box-shadow: none;
+  }
+
+  &_transparent {
+    background: none;
+    color: var(--color-dodger-blue);
+
+    &:hover {
+      background: var(--color-alto);
+    }
+  }
+
+  &_large {
+    border-radius: 7px;
+    min-height: 52px;
+    min-width: 270px;
+    font-weight: bold;
+    font-size: 15px;
+  }
+}
