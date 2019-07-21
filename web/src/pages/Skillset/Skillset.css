@@ -8,6 +8,7 @@
     @apply --font-xl;
     max-width: 100%;
     width: 450px;
+    margin: 0 auto;
 
     &:before {
       content: '';

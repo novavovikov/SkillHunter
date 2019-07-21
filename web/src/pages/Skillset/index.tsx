@@ -89,7 +89,7 @@ class Skillset extends React.Component<Props> {
         {!isLoading && !skills.length && (
           <div className={s.Skillset__empty}>
             <div>
-              Skillset list is empty.
+              Skillset list is empty
             </div>
 
             <Button

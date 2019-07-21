@@ -18,10 +18,10 @@ class SkillsSuggestion extends Component<Props> {
       <div className={cn(s.SkillsSuggestion)}>
         <div className={s.SkillsSuggestion__header}>
           <H4 className={s.SkillsSuggestion__title}>
-            Choose one or more skills
+            For added new skill type in name of skill and pick it
           </H4>
           <div>
-            For added new skill type in name of skill and pick it
+            Choose one or more skills
           </div>
         </div>
 
