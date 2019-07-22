@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import css from './Button.scss'
 
-const Button = () => (
+export default (
   {
     span,
     children,
@@ -28,5 +28,3 @@ const Button = () => (
     ? <span {...props}>{children}</span>
     : <button {...props}>{children}</button>
 }
-
-export default Button

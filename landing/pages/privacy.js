@@ -1,5 +1,4 @@
 import React from 'react'
-import { withNamespaces } from '../i18n'
 import Page from '../components/Page'
 import Text from '../components/Text'
 import Section from '../components/Section'
@@ -13,12 +12,6 @@ const CONTENT = [
 ]
 
 class Privacy extends React.Component {
-  static async getInitialProps () {
-    return {
-      namespacesRequired: ['privacy']
-    }
-  }
-
   render () {
     const { t } = this.props
 
@@ -41,4 +34,4 @@ class Privacy extends React.Component {
   }
 }
 
-export default withNamespaces('privacy')(Privacy)
+export default Privacy

@@ -10,23 +10,12 @@
   flex: 1 1 100%;
   text-align: center;
 
+  &__title {
+    min-height: 37px;
+  }
+
   &__subtitle {
     margin-bottom: 8px;
-  }
-
-  &__input {
-    max-width: 472px;
-  }
-
-  &__footer {
-    margin: 53px 0 0;
-  }
-
-  &__label {
-    display: block;
-    width: 100%;
-    font-weight: 400;
-    letter-spacing: -0.25px;
   }
 
   &__description {

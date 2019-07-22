@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { withNamespaces } from '../i18n'
 import Page from '../components/Page'
 import Error from '../components/Error'
 
@@ -12,7 +10,6 @@ class ErrorPage extends React.Component {
 
   static propTypes = {
     statusCode: PropTypes.number,
-    t: PropTypes.func.isRequired,
   }
 
   static getInitialProps({ res, err }) {
@@ -23,13 +20,12 @@ class ErrorPage extends React.Component {
       ({ statusCode } = err)
     }
     return {
-      namespacesRequired: ['error'],
       statusCode,
     }
   }
 
   render() {
-    const { statusCode, t } = this.props
+    const { statusCode } = this.props
 
     return (
       <Page>
@@ -39,4 +35,4 @@ class ErrorPage extends React.Component {
   }
 }
 
-export default withNamespaces('common')(ErrorPage)
+export default ErrorPage

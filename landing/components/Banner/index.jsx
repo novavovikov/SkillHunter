@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react'
 import Typed from 'typed.js'
-import Button from '../Button'
-import Input from '../Input'
+import SkillsetForm from '../SkillsetForm'
 import Container from '../Container'
 
 import s from './Banner.scss'
 import { REGISTRATION_ROUTE } from '../../constants/routes'
 
 const Banner = () => {
-  const [inputValue, setInputValue] = useState('')
-
   useEffect(() => {
     const options = {
       strings: [
@@ -25,33 +22,13 @@ const Banner = () => {
   })
 
   return (
-    <form
-      className={s.Banner}
-      onSubmit={(e) => {
-        e.preventDefault()
-        window.location.href = REGISTRATION_ROUTE
-      }}
-    >
+    <div className={s.Banner}>
       <Container>
-        <h1>
-            <span data-typed=''/>
-          </h1>
+        <h1 className={s.Banner__title}>
+          <span data-typed=''/>
+        </h1>
 
-        <Input
-          className={s.Banner__input}
-          placeholder="Enter your skillset (speciality, profession or hobby)"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-
-        <div className={s.Banner__footer}>
-          <Button theme="large" disabled={!inputValue}>
-            Improve
-            <span className={s.Banner__label}>
-              your skills
-              </span>
-          </Button>
-        </div>
+        <SkillsetForm/>
 
         <div className={s.Banner__description}>
           <h5 className={s.Banner__subtitle}>
@@ -62,7 +39,7 @@ const Banner = () => {
           </div>
         </div>
       </Container>
-    </form>
+    </div>
   )
 }
 

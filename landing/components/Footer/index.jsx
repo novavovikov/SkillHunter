@@ -1,11 +1,10 @@
-import { withNamespaces } from '../../i18n'
 import Link from 'next/link'
 import Container from '../../components/Container'
 import { AGREEMENT_ROUTE, COOKIE_ROUTE } from '../../constants/routes'
 
 import css from './Footer.scss'
 
-const Footer = ({ t, lng }) => {
+const Footer = () => {
   return (
     <footer>
       <Container>
@@ -20,19 +19,19 @@ const Footer = ({ t, lng }) => {
           <div className={css.Footer__links}>
             <Link href={COOKIE_ROUTE}>
               <a className={css.Footer__link}>
-                {t('cookie')}
+                Cookies
               </a>
             </Link>
             <a
-              href={`/static/files/privacy_policy_${lng}.pdf`}
+              href={`/static/files/privacy_policy_en.pdf`}
               className={css.Footer__link}
               target="_blank"
             >
-              {t('privacy')}
+              Privacy Policy
             </a>
             <Link href={AGREEMENT_ROUTE}>
               <a className={css.Footer__link}>
-                {t('agreement')}
+                Terms of Service
               </a>
             </Link>
           </div>
@@ -42,4 +41,4 @@ const Footer = ({ t, lng }) => {
   )
 }
 
-export default withNamespaces('footer')(Footer)
+export default Footer

@@ -1,6 +1,5 @@
 import React from 'react'
 import App, { Container } from 'next/app'
-import { appWithTranslation } from '../i18n'
 
 class MyApp extends App {
   render() {
@@ -14,4 +13,4 @@ class MyApp extends App {
   }
 }
 
-export default appWithTranslation(MyApp)
+export default MyApp

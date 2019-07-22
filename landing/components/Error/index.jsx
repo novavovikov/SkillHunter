@@ -1,30 +1,17 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Typed from 'typed.js'
-import { withNamespaces } from '../../i18n'
 import { HOME_ROUTE } from '../../constants/routes'
 import Container from '../Container'
 import Button from '../Button'
 import css from './Error.scss'
 
-const Error = ({ i18n, lng, t, statusCode }) => {
-  const getContent = () => {
-    try {
-      return i18n.store.data[lng].error[statusCode] ||
-        i18n.store.data[lng].error[404] ||
-        {}
-    } catch (e) {
-      return {}
-    }
-  }
-
-  const content = getContent()
-
+const Error = () => {
   useEffect(() => {
     const options = {
       strings: [
-        String(content.status),
-        String(content.code),
+        String('Page not found'),
+        String(404),
       ],
       typeSpeed: 50,
       backSpeed: 40,
@@ -37,8 +24,8 @@ const Error = ({ i18n, lng, t, statusCode }) => {
   })
 
   return (
-    <Container>
-      <div className={css.Error}>
+    <div className={css.Error}>
+      <Container>
         <div className={css.Error__statusCode}>
           <span data-typed=''/>
         </div>
@@ -50,21 +37,22 @@ const Error = ({ i18n, lng, t, statusCode }) => {
         />
 
         <div className={css.Error__status}>
-          {content.status}
+          Page not found
         </div>
 
         <div className={css.Error__description}>
-          {content.description}
+          The page you are looking for can't be found.
+          You can look for it on the main page
         </div>
 
         <Link href={HOME_ROUTE}>
           <Button span>
-            {t('button')}
+            To main page
           </Button>
         </Link>
-      </div>
-    </Container>
+      </Container>
+    </div>
   )
 }
 
-export default withNamespaces('error')(Error)
+export default Error

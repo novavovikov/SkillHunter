@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+
+.SkillsetForm {
+  &__input {
+    max-width: 472px;
+  }
+
+  &__footer {
+    margin: 53px 0 0;
+  }
+
+  &__label {
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    letter-spacing: -0.25px;
+  }
+}
