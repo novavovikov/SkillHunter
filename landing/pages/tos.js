@@ -39,8 +39,6 @@ const CONTENT = [
 
 class Tos extends React.Component {
   render () {
-    const { t } = this.props
-
     return (
       <Page>
         <Text title="Website Terms of Use">

@@ -26,15 +26,7 @@ const CONTENT =  [
 ]
 
 class Cookie extends React.Component {
-  static async getInitialProps () {
-    return {
-      namespacesRequired: ['cookie'],
-    }
-  }
-
   render () {
-    const { t } = this.props
-
     return (
       <Page>
         <Text title="Cookie Notice">
