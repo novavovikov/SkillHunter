@@ -27,8 +27,8 @@ export class SkillsetController {
 
   @Post()
   @ApiUseTags('skillset')
-  async setSkillsets (@Body('skillsets') skillsets: SkillsetDto[]) {
-    return await this.skillsetService.setSkillsets(skillsets)
+  setSkillsets (@Body('skillsets') skillsets: SkillsetDto[]) {
+    return this.skillsetService.setSkillsets(skillsets)
   }
 
   @Get(':skillsetId')
