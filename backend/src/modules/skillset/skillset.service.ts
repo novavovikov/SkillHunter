@@ -62,9 +62,12 @@ export class SkillsetService {
 
     // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
     const foundSkillsets = await this.skillsetRepository.find({ name: In(skillsets.map(({ name }) => name)) })
+
+    console.log(123, foundSkillsets)
     const uniqueSkillsets = skillsets.filter(
       skillset => !foundSkillsets.find(({ name }) => skillset.name === name),
     )
+    console.log(123, uniqueSkillsets)
 
     if (uniqueSkillsets.length) {
       return await this.skillsetRepository.insert(uniqueSkillsets)
