@@ -70,7 +70,9 @@ export class SkillsetService {
     console.log(2, uniqueSkillsets)
 
     if (uniqueSkillsets.length) {
-      return this.skillsetRepository.save(uniqueSkillsets)
+      const createdSkillsets = this.skillsetRepository.create(uniqueSkillsets)
+      console.log(3, uniqueSkillsets)
+      return this.skillsetRepository.save(createdSkillsets)
     }
 
     return []
