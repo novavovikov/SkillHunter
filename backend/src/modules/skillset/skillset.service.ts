@@ -68,7 +68,7 @@ export class SkillsetService {
     )
 
     if (uniqueSkillsets.length) {
-      return uniqueSkillsets.map(skillset => this.skillsetRepository.save(skillset))
+      return this.skillsetRepository.save(uniqueSkillsets)
     }
 
     return []
