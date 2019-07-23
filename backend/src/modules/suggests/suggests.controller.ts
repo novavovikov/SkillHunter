@@ -30,7 +30,7 @@ export class SuggestsController {
         accepted: true,
       })))
 
-      return await this.skillsetService.like('name', normalizedText)
+      return this.skillsetService.like('name', normalizedText)
     }
 
     if (skill) {
@@ -41,7 +41,7 @@ export class SuggestsController {
         accepted: true,
       })))
 
-      return await this.skillService.like('name', normalizedText)
+      return this.skillService.like('name', normalizedText)
     }
 
     return []
