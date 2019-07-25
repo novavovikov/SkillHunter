@@ -5,6 +5,10 @@
   align-items: center;
   justify-content: space-between;
 
+  @media --sm {
+
+  };
+
   &__link {
     &:after {
       content: '|';
