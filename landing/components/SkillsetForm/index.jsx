@@ -3,6 +3,7 @@ import Input from '../Input'
 import Button from '../Button'
 import { REGISTRATION_ROUTE } from '../../constants/routes'
 import s from './SkillsetForm.scss'
+import { analytics } from '../../utils/analytics'
 
 class SkillsetForm extends Component {
   state = {
@@ -18,6 +19,10 @@ class SkillsetForm extends Component {
   submitForm = (e) => {
     e.preventDefault()
     window.location.href = REGISTRATION_ROUTE
+
+    analytics({
+      event: 'landing_submit_form_skillset'
+    })
   }
 
   render () {

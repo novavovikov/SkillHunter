@@ -1,17 +1,10 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
-import TagManager from 'react-gtm-module'
 
 class MyDocument extends Document {
   static async getInitialProps (ctx) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
-  }
-
-  componentDidMount () {
-    TagManager.initialize({
-      gtmId: 'GTM-K4FPF86',
-    })
   }
 
   render () {
