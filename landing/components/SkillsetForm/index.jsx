@@ -3,7 +3,7 @@ import Input from '../Input'
 import Button from '../Button'
 import { REGISTRATION_ROUTE } from '../../constants/routes'
 import s from './SkillsetForm.scss'
-import { analytics } from '../../utils/analytics'
+import { analytics } from './utils/analytics'
 
 class SkillsetForm extends Component {
   state = {
