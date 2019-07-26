@@ -1,9 +1,9 @@
 import React from 'react'
-import App, { Container } from 'next/app'
 import TagManager from 'react-gtm-module'
+import App, { Container } from 'next/app'
 
 class MyApp extends App {
-  componentWillMount () {
+  componentDidMount () {
     TagManager.initialize({
       gtmId: 'GTM-K4FPF86',
     })
