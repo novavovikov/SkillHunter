@@ -138,7 +138,7 @@ class Resource extends Component<Props, State> {
         {resource.skills && (
           <div className={s.Resource__skills}>
             <div className={s.Resource__skillsTitle}>
-              This article will help to improve skills:
+              This resource will help to improve skills:
             </div>
 
             {resource.skills.map(({ id, name }) => (

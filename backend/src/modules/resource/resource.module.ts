@@ -8,7 +8,7 @@ import { ResourceService } from './resource.service'
   imports: [
     TypeOrmModule.forFeature([Resource]),
     HttpModule.register({
-      timeout: 5000,
+      timeout: 10000,
     }),
   ],
   controllers: [ResourceController],

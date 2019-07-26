@@ -24,7 +24,8 @@ export class SkillService {
   async like (field: string, value: string) {
     return await this.skillRepository.
       createQueryBuilder().
-      where(`LOWER(${field}) LIKE :${field}`,
+      where(`accepted = true`).
+      andWhere(`LOWER(${field}) LIKE :${field}`,
         {
           [field]: `${value.toLowerCase()}%`,
         },

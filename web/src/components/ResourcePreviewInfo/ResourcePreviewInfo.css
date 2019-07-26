@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  width: 100%;
 
   &__data {
     width: calc(100% - 58px);

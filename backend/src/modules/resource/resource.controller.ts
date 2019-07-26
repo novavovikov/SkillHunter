@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { FindOneOptions, In } from 'typeorm'
@@ -47,15 +47,19 @@ export class ResourceController {
   async setResource (
     @Body('link') link: string,
   ) {
-    let resource: Partial<Resource> = await this.resourceService.findOne({ link })
+    const foundResource: Resource = await this.resourceService.findOne({ link })
 
-    if (!resource) {
-      resource = await this.resourceService.getFromLink(link)
-
-      return this.resourceService.create(resource)
+    if (foundResource) {
+      return foundResource
     }
 
-    return resource
+    const receivedResource = await this.resourceService.getFromLink(link)
+
+    if (!receivedResource) {
+      throw new HttpException('Resource not found', HttpStatus.NOT_FOUND)
+    }
+
+    return this.resourceService.create(receivedResource)
   }
 
   @Post('book')
