@@ -4,22 +4,22 @@ import { Link } from 'react-router-dom'
 import { ResourcePreviewInfo, ResourcePreviewStatus } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
-import { ResourceStatusTypes, UserResourceType } from '../../types'
+import { EResourceStatus, IUserResource } from '../../types'
 import { Icon, Item, Menu, Status } from '../../UI'
 import { ShareMenu } from '../index'
 import * as s from './ResourcePreview.css'
 
 interface Props {
-  data: UserResourceType,
+  data: IUserResource,
   likeHandler: (data: ResourceLikeStatusSagaPayload) => void
-  updateHandler: (data: Partial<UserResourceType>) => void
-  removeHandler: (data: Partial<UserResourceType>) => void
+  updateHandler: (data: Partial<IUserResource>) => void
+  removeHandler: (data: Partial<IUserResource>) => void
 }
 
 class ResourcePreview extends React.Component<Props> {
   static defaultProps = {
-    updateHandler: (data: Partial<UserResourceType>) => {},
-    removeHandler: (data: Partial<UserResourceType>) => {},
+    updateHandler: (data: Partial<IUserResource>) => {},
+    removeHandler: (data: Partial<IUserResource>) => {},
   }
 
   handleStatus = (status: string) => {
@@ -72,15 +72,15 @@ class ResourcePreview extends React.Component<Props> {
               <ResourcePreviewStatus
                 status={data.status}
                 className={cn(s.ResourcePreview__status, {
-                  [s.ResourcePreview__status_backlog]: data.status === ResourceStatusTypes.Backlog,
-                  [s.ResourcePreview__status_plan]: data.status === ResourceStatusTypes.Plan,
-                  [s.ResourcePreview__status_done]: data.status === ResourceStatusTypes.Done,
+                  [s.ResourcePreview__status_backlog]: data.status === EResourceStatus.Backlog,
+                  [s.ResourcePreview__status_plan]: data.status === EResourceStatus.Plan,
+                  [s.ResourcePreview__status_done]: data.status === EResourceStatus.Done,
                 })}
                 {...props}
               />
             )}
           >
-            {Object.keys(ResourceStatusTypes).map(status => (
+            {Object.keys(EResourceStatus).map(status => (
               <Item
                 onClick={() => this.handleStatus(status)}
                 key={status}

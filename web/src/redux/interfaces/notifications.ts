@@ -1,9 +1,9 @@
-import { NotificationType } from '../../types'
+import { INotification } from '../../types'
 import { NotificaionActionTypes } from '../actionTypes/notifications'
 
 export interface AddNotification {
   type: NotificaionActionTypes.ADD_NOTIFICATION,
-  payload: NotificationType
+  payload: INotification
 }
 
 export interface RemoveNotification {

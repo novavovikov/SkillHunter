@@ -1,4 +1,4 @@
-import { UserResourceType } from '../../types'
+import { IUserResource } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
   AddResource,
@@ -26,7 +26,7 @@ export const addResourceSaga = (data: AddResourceSagaPayload): AddResourceSaga =
   type: ResourcesActionTypes.SAGA_ADD_RESOURCE,
   payload: data,
 })
-export const updateResourceSaga = (data: Partial<UserResourceType>): UpdateResourceSaga => ({
+export const updateResourceSaga = (data: Partial<IUserResource>): UpdateResourceSaga => ({
   type: ResourcesActionTypes.SAGA_UPDATE_RESOURCE,
   payload: data,
 })
@@ -36,7 +36,7 @@ export const changeResourceLikeStatusSaga = (data: ResourceLikeStatusSagaPayload
   payload: data,
 })
 
-export const removeResourceSaga = (data: Partial<UserResourceType>): RemoveResourceSaga => ({
+export const removeResourceSaga = (data: Partial<IUserResource>): RemoveResourceSaga => ({
   type: ResourcesActionTypes.SAGA_REMOVE_RESOURCE,
   payload: data,
 })
@@ -46,12 +46,12 @@ export const setResources = (data: any): SetResources => ({
   payload: data,
 })
 
-export const addResource = (data: UserResourceType): AddResource => ({
+export const addResource = (data: IUserResource): AddResource => ({
   type: ResourcesActionTypes.ADD_RESOURCE,
   payload: data,
 })
 
-export const updateResource = (data: UserResourceType): UpdateResource => ({
+export const updateResource = (data: IUserResource): UpdateResource => ({
   type: ResourcesActionTypes.UPDATE_RESOURCE,
   payload: data,
 })
@@ -61,7 +61,7 @@ export const changeResourceLikeStatus = (data: ResourceLikeStatusPayload): Chang
   payload: data,
 })
 
-export const removeResource = (data: Partial<UserResourceType>): RemoveResource => ({
+export const removeResource = (data: Partial<IUserResource>): RemoveResource => ({
   type: ResourcesActionTypes.REMOVE_RESOURCE,
   payload: data,
 })

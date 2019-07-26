@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { addResourceSaga } from '../../redux/actions/resources'
 import { AddResourceSagaPayload } from '../../redux/interfaces/resources'
-import { ResourceType } from '../../types'
+import { IResource } from '../../types'
 import BookForm from './BookForm'
 import LinkForm from './LinkForm'
 import * as s from './ResourceCreator.css'
@@ -70,7 +70,7 @@ class ResourceCreator extends React.Component<Props, State> {
     })
   }
 
-  createResource = (data: Partial<ResourceType>) => {
+  createResource = (data: Partial<IResource>) => {
     const { type } = this.state
     const { skillId, skillsetId, addResource, onClose } = this.props
 

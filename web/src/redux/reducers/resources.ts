@@ -1,10 +1,10 @@
 import { Reducer } from 'redux'
-import { UserResourceType } from '../../types'
+import { IUserResource } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import { ResourcesAction } from '../interfaces/resources'
 
 export interface ResourcesState {
-  [id: number]: UserResourceType[]
+  [id: number]: IUserResource[]
 }
 
 const initState = {}
@@ -23,7 +23,7 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
     case ResourcesActionTypes.UPDATE_RESOURCE:
       return {
         ...state,
-        [action.payload.userSkill.id]: state[action.payload.userSkill.id].map((resource: UserResourceType) => {
+        [action.payload.userSkill.id]: state[action.payload.userSkill.id].map((resource: IUserResource) => {
           if (resource.id === action.payload.id) {
             return {
               ...resource,
@@ -37,7 +37,7 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
     case ResourcesActionTypes.CHANGE_RESOURCE_LIKE_STATUS:
       return Object.keys(state).
         reduce((acc, key) => {
-          const resourcesList = state[key as any].map((userResource: UserResourceType) => {
+          const resourcesList = state[key as any].map((userResource: IUserResource) => {
             const { id, ...data } = action.payload
 
             if (userResource.resource.id === id) {

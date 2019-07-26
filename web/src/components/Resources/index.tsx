@@ -3,17 +3,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { changeResourceLikeStatusSaga, removeResourceSaga, updateResourceSaga } from '../../redux/actions/resources'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
-import { UserResourceType } from '../../types'
+import { IUserResource } from '../../types'
 import { IconButton, OnBoarding } from '../../UI'
 import { ResourcePreview } from '../index'
 import * as s from './Resources.css'
 
 interface Props {
-  data: UserResourceType[]
+  data: IUserResource[]
   openCreator: () => void
-  updateResource: (data: Partial<UserResourceType>) => void
+  updateResource: (data: Partial<IUserResource>) => void
   changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
-  removeResource: (data: Partial<UserResourceType>) => void
+  removeResource: (data: Partial<IUserResource>) => void
 }
 
 class Resources extends Component<Props> {
@@ -57,7 +57,7 @@ class Resources extends Component<Props> {
           )}
         </div>
 
-        {data.map((resource: UserResourceType) => (
+        {data.map((resource: IUserResource) => (
           <ResourcePreview
             key={resource.id}
             data={resource}

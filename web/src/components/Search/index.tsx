@@ -2,20 +2,20 @@ import React, { ChangeEvent, Component, createRef } from 'react'
 import { connect } from 'react-redux'
 import { API } from '../../constants/api'
 import { addNotification } from '../../redux/actions/notifications'
-import { NotificationType, UserResourceType } from '../../types'
+import { INotification, IUserResource } from '../../types'
 import { ajax } from '../../utils/ajax'
 import { Icon } from '../../UI'
 import { FoundResource, SearchResults } from '../index'
 import * as s from './Search.css'
 
 interface Props {
-  showNotification: (data: NotificationType) => void
+  showNotification: (data: INotification) => void
 }
 
 interface State {
   resultsVisibility: boolean
   inputValue: string
-  resources: UserResourceType[]
+  resources: IUserResource[]
 }
 
 class Search extends Component<Props, State> {
@@ -107,7 +107,7 @@ class Search extends Component<Props, State> {
           wrapNode={this.wrapRef.current}
           onClose={this.closeSearch}
         >
-          {resources.map((resource: UserResourceType) => (
+          {resources.map((resource: IUserResource) => (
             <FoundResource
               key={resource.id}
               showNotification={showNotification}

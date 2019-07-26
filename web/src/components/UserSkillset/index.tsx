@@ -19,7 +19,7 @@ interface Params {
   skillset: string
 }
 
-interface SkillsetType {
+interface ISkillset {
   id: number | null
   name: string
 }
@@ -30,7 +30,7 @@ interface Props extends RouteComponentProps<Params> {
 
 interface State {
   isOpen: boolean
-  skillSet: SkillsetType
+  skillSet: ISkillset
 }
 
 class UserSkillset extends React.Component<Props, State> {

@@ -1,16 +1,16 @@
 import copy from 'copy-to-clipboard'
 import React from 'react'
 import { connect } from 'react-redux'
-import { NotificationTypes } from '../../constants/notification'
+import { ENotifications } from '../../constants/notification'
 import { addNotification } from '../../redux/actions/notifications'
-import { NotificationType } from '../../types'
+import { INotification } from '../../types'
 import { Item, Menu, Icon } from '../../UI'
 import { getShareLink, SHARE_SITES } from '../../utils/share'
 import { urlNormalizer } from '../../utils/url'
 import s from './ShareMenu.css'
 
 interface Props {
-  showNotification: (data: NotificationType) => void
+  showNotification: (data: INotification) => void
   link: string
   text: string
   label?: string
@@ -65,7 +65,7 @@ class ShareMenu extends React.Component<Props> {
             copy(url)
             showNotification({
               message: 'Link copied',
-              type: NotificationTypes.success
+              type: ENotifications.success
             })
           }}
         >

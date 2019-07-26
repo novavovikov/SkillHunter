@@ -1,11 +1,11 @@
 import { Reducer } from 'redux'
-import { SkillType } from '../../types'
+import { ISkill } from '../../types'
 import { SkillsActionTypes } from '../actionTypes/skills'
 import { SkillsAction } from '../interfaces/skills'
 
-const initState: SkillType[] = []
+const initState: ISkill[] = []
 
-export const skills: Reducer<SkillType[], SkillsAction> = (state = initState, action) => {
+export const skills: Reducer<ISkill[], SkillsAction> = (state = initState, action) => {
   switch (action.type) {
     case SkillsActionTypes.SET_SKILLS_DATA:
       return action.payload

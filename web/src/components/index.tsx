@@ -1,3 +1,4 @@
+import Analytics from './Analytics'
 import Page from './Page'
 import Footer from './Footer'
 import ProgressBar from './ProgressBar'
@@ -37,6 +38,7 @@ import RemoveAccount from './RemoveAccount'
 import * as Steps from './Steps'
 
 export {
+  Analytics,
   Page,
   Footer,
   ProgressBar,

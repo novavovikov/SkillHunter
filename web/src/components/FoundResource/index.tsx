@@ -1,15 +1,15 @@
 import copy from 'copy-to-clipboard'
 import React, { FC } from 'react'
-import { NotificationTypes } from '../../constants/notification'
+import { ENotifications } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
-import { NotificationType, UserResourceType } from '../../types'
+import { INotification, IUserResource } from '../../types'
 import { urlNormalizer } from '../../utils/url'
 import * as s from './FoundResource.css'
 import { ResourcePreviewInfo } from '../index'
 
 interface Props {
-  showNotification: (data: NotificationType) => void
-  data: UserResourceType
+  showNotification: (data: INotification) => void
+  data: IUserResource
 }
 
 const FoundResource: FC<Props> = ({ data, showNotification }) => {
@@ -19,7 +19,7 @@ const FoundResource: FC<Props> = ({ data, showNotification }) => {
     copy(url)
     showNotification({
       message: 'Link copied',
-      type: NotificationTypes.success,
+      type: ENotifications.success,
     })
   }
 

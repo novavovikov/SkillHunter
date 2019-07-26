@@ -2,12 +2,12 @@ import React, { FC } from 'react'
 import { connect } from 'react-redux'
 import { removeNotification } from '../../redux/actions/notifications'
 import { RootState } from '../../redux/reducers'
-import { NotificationTypeWithId } from '../../types'
+import { INotificationWithId } from '../../types'
 import { Notification } from '../../UI'
 import * as s from './Notifications.css'
 
 interface Props {
-  notifications: NotificationTypeWithId[]
+  notifications: INotificationWithId[]
   hideNotification: (id: string) => void
 }
 

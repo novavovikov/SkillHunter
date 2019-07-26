@@ -3,19 +3,19 @@ import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { Page, SkillStep, SkillsetStep, Steps } from '../../components'
-import { NotificationTypes } from '../../constants/notification'
+import { ENotifications } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { addNotification } from '../../redux/actions/notifications'
 import { updateUserData } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
-import { NotificationType, SkillsetType } from '../../types'
+import { INotification, ISkillset } from '../../types'
 import { ajax } from '../../utils/ajax'
 
 interface Props extends RouteComponentProps {
   user: UserState
-  setSkillsets: (data: SkillsetType[]) => void,
-  showNotification: (data: NotificationType) => void
+  setSkillsets: (data: ISkillset[]) => void,
+  showNotification: (data: INotification) => void
 }
 
 interface State {
@@ -43,7 +43,7 @@ class Introduction extends React.Component<Props, State> {
     ajax.
       post('user/skillset', this.state).
       then(({ data }) => {
-        setSkillsets(data as SkillsetType[])
+        setSkillsets(data as ISkillset[])
         history.push(`${ROUTES.SKILLSET}/${this.state.skillset}`)
       }).
       catch(e => {
@@ -51,14 +51,14 @@ class Introduction extends React.Component<Props, State> {
           return (
             showNotification({
               message: e.response.data.message,
-              type: NotificationTypes.error,
+              type: ENotifications.error,
             })
           )
         }
 
         showNotification({
           message: 'System error. Try again.',
-          type: NotificationTypes.error,
+          type: ENotifications.error,
         })
       })
   }
@@ -91,7 +91,7 @@ export default compose(
   connect(
     ({ user }: RootState) => ({ user }),
     {
-      setSkillsets: (skillsets: SkillsetType[]) => updateUserData({ skillsets }),
+      setSkillsets: (skillsets: ISkillset[]) => updateUserData({ skillsets }),
       showNotification: addNotification,
     },
   ),

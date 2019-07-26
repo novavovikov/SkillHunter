@@ -1,26 +1,26 @@
-import { NotificationTypes } from '../constants/notification'
+import { ENotifications } from '../constants/notification'
 
-export enum ResourceStatusTypes {
+export enum EResourceStatus {
   Backlog = 'Backlog',
   Plan = 'Plan',
   Done = 'Done'
 }
 
-export interface SuggestionType {
+export interface ISuggestion {
   id: string,
   name: string
 }
 
-export interface NotificationType {
-  type?: NotificationTypes,
+export interface INotification {
+  type?: ENotifications,
   message: string
 }
 
-export interface NotificationTypeWithId extends NotificationType {
+export interface INotificationWithId extends INotification {
   id: string
 }
 
-export interface ResourceType {
+export interface IResource {
   author: string[] | number
   created: string
   id: number
@@ -28,24 +28,24 @@ export interface ResourceType {
   picture: string
   title: string
   userIdsLikes: number[],
-  skills?: SkillType[]
+  skills?: ISkill[]
 }
 
-export interface UserResourceType {
+export interface IUserResource {
   author: string[] | number
   id: number
   isLiked: boolean
   likes: number
-  resource: ResourceType
+  resource: IResource
   skillsetId: number
-  status: string | ResourceStatusTypes
+  status: string | EResourceStatus
   title: string
   type: string
-  userSkill: UserSkillType
+  userSkill: IUserSkill
   viewOnly: boolean
 }
 
-export interface SkillType {
+export interface ISkill {
   id: number
   name: string
   created: string
@@ -53,20 +53,20 @@ export interface SkillType {
   skillsetId: number
 }
 
-export interface UserSkillType {
+export interface IUserSkill {
   id: number
   skillsetId: number
-  skill: SkillType
+  skill: ISkill
 }
 
-export interface SkillsetType {
+export interface ISkillset {
   id: number
   name: string
   created: string
   accepted: boolean
 }
 
-export interface UserType {
+export interface IUser {
   id: number
   created: string
   email: string
@@ -74,5 +74,5 @@ export interface UserType {
   name: string
   picture: string
   role: string
-  skillsets: SkillsetType[]
+  skillsets: ISkillset[]
 }

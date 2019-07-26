@@ -2,14 +2,14 @@ import cn from 'classnames'
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import { UserResourceType } from '../../types'
+import { IUserResource } from '../../types'
 import faviconIcon from './icons/favicon.svg'
 import { getIconByType } from './iconType'
 import * as s from './ResourcePreviewInfo.css'
 
 interface Props {
   className?: string
-  data: UserResourceType
+  data: IUserResource
 }
 
 const ResourcePreviewInfo: FC<Props> = ({ className, data }) => {

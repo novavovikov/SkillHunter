@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 import { NOTIFICATION_MESSAGES_LIMIT, NOTIFICATION_MESSAGES_TIMEOUT } from '../../constants/notification'
-import { NotificationTypeWithId } from '../../types'
+import { INotificationWithId } from '../../types'
 import { generateHash } from '../../utils/hash'
 import { notificationTimer } from '../action-creators/notification'
 import { NotificaionActionTypes } from '../actionTypes/notifications'
@@ -13,7 +13,7 @@ interface Timer {
 
 export interface NotificationState {
   timers: Timer[],
-  data: NotificationTypeWithId[]
+  data: INotificationWithId[]
 }
 
 const initState: NotificationState = {

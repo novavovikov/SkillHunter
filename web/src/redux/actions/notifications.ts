@@ -1,8 +1,8 @@
-import { NotificationType } from '../../types'
+import { INotification } from '../../types'
 import { NotificaionActionTypes } from '../actionTypes/notifications'
 import { AddNotification, RemoveNotification } from '../interfaces/notifications'
 
-export const addNotification = (notification: NotificationType): AddNotification => ({
+export const addNotification = (notification: INotification): AddNotification => ({
   type: NotificaionActionTypes.ADD_NOTIFICATION,
   payload: notification,
 })

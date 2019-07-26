@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { Page, RemoveAccount } from '../../components'
 import { addNotification } from '../../redux/actions/notifications'
-import { NotificationType } from '../../types'
+import { INotification } from '../../types'
 
 interface Props {
-  showNotification: (data: NotificationType) => void
+  showNotification: (data: INotification) => void
 }
 
 const Settings: FC<Props> = ({ showNotification }) => {

@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { debounce } from 'debounce'
 import React, { ChangeEvent, Component, FormEvent } from 'react'
 import Scrollbar from 'react-custom-scrollbars'
-import { SuggestionType } from '../../types'
+import { ISuggestion } from '../../types'
 import { Button, Checkbox, Input } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { Hash } from '../../utils/hash'
@@ -16,8 +16,8 @@ interface Props {
 }
 
 interface State {
-  suggestions: SuggestionType[]
-  selected: SuggestionType[]
+  suggestions: ISuggestion[]
+  selected: ISuggestion[]
   inputValue: string
 }
 
@@ -39,7 +39,7 @@ class SkillsSearch extends Component<Props, State> {
     this.getSuggestions(value)
   }
 
-  setSuggestions = (suggestions: SuggestionType[]) => {
+  setSuggestions = (suggestions: ISuggestion[]) => {
     this.setState({ suggestions })
   }
 
@@ -59,7 +59,7 @@ class SkillsSearch extends Component<Props, State> {
     const { selected, suggestions, inputValue } = this.state
     const startArr = inputValue ? [{ id: -Hash.generateNumeric(inputValue), name: inputValue }] : []
 
-    return [...suggestions, ...selected].reduce((acc, suggest: SuggestionType) => {
+    return [...suggestions, ...selected].reduce((acc, suggest: ISuggestion) => {
       if (acc.find(({ name }) => name === suggest.name)) {
         return acc
       }
@@ -77,7 +77,7 @@ class SkillsSearch extends Component<Props, State> {
 
     this.setState({
       selected: checked
-        ? [...selected, checkedItem as SuggestionType]
+        ? [...selected, checkedItem as ISuggestion]
         : selected.filter(({ id }) => id !== checkedId),
     })
 
@@ -88,7 +88,7 @@ class SkillsSearch extends Component<Props, State> {
 
     this.setState({
       selected: checked
-        ? this.getSkillList() as SuggestionType[]
+        ? this.getSkillList() as ISuggestion[]
         : [],
     })
   }
@@ -146,7 +146,7 @@ class SkillsSearch extends Component<Props, State> {
             autoHeightMin={250}
             autoHeightMax={250}
           >
-            {skillList.map(({ id, name }: SuggestionType) => (
+            {skillList.map(({ id, name }: ISuggestion) => (
               <div
                 key={id}
                 className={s.SkillsSearch__row}
@@ -155,7 +155,7 @@ class SkillsSearch extends Component<Props, State> {
                   <Checkbox
                     value={id}
                     onChange={this.handleCheckbox}
-                    checked={!!selected.find((skill: SuggestionType) => skill.id === id)}
+                    checked={!!selected.find((skill: ISuggestion) => skill.id === id)}
                   />
                 </div>
                 <div className={s.SkillsSearch__content}>

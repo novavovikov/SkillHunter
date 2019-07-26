@@ -1,4 +1,4 @@
-import { NotificationTypes } from '../../constants/notification'
+import { ENotifications } from '../../constants/notification'
 import ac from '../actions'
 
 export const errorHandler = (place: string, error: any) => {
@@ -8,7 +8,7 @@ export const errorHandler = (place: string, error: any) => {
     return (
       ac.addNotification({
         message: error.response.data.message,
-        type: NotificationTypes.error,
+        type: ENotifications.error,
       })
     )
   }
@@ -16,7 +16,7 @@ export const errorHandler = (place: string, error: any) => {
   return (
     ac.addNotification({
       message: 'System error. Try again.',
-      type: NotificationTypes.error,
+      type: ENotifications.error,
     })
   )
 }

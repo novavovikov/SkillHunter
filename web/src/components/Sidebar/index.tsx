@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
-import { SkillsetType, UserType } from '../../types'
+import { ISkillset, IUser } from '../../types'
 import { Layout } from '../../UI'
 import { Nav, SkillCreator, UserSkillset } from '../index'
 
@@ -18,8 +18,8 @@ interface Props extends RouteComponentProps<Params> {
 }
 
 class Sidebar extends Component<Props> {
-  getSkillsetId = (skillset: string, userData: UserType) => {
-    const selectedSkillset = userData.skillsets.find(({ name }: SkillsetType) => name === skillset)
+  getSkillsetId = (skillset: string, userData: IUser) => {
+    const selectedSkillset = userData.skillsets.find(({ name }: ISkillset) => name === skillset)
 
     if (selectedSkillset) {
       return selectedSkillset.id

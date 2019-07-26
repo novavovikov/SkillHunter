@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { ResourceCreator, Resources } from '../../components'
 import { removeSkillsSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
-import { UserResourceType, UserSkillType } from '../../types'
+import { IUserResource, IUserSkill } from '../../types'
 import { H4, Icon, Item, Menu, OnBoarding } from '../../UI'
 import * as s from './UserSkill.css'
 
 interface Props {
-  data: UserSkillType
-  resources: UserResourceType[]
+  data: IUserSkill
+  resources: IUserResource[]
   removeSkill: (skillIds: number[]) => void
 }
 

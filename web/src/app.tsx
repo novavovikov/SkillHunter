@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { Notifications, ProgressBar } from './components'
+import { Notifications, ProgressBar, Analytics } from './components'
 import ReduxStore from './redux/store'
 import { Routes } from './routing'
 import { initAnalytics } from './utils/analytics'
@@ -18,6 +18,7 @@ class App extends Component {
         </Router>
         <Notifications/>
         <ProgressBar/>
+        <Analytics/>
       </ReduxStore>
     )
   }

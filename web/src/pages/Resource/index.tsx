@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { ResourceHeader, SignUpBlock } from '../../components'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
-import { ResourceStatusTypes, UserResourceType } from '../../types'
+import { EResourceStatus, IUserResource } from '../../types'
 import { H1, Icon } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import NotFound from '../NotFound'
@@ -19,7 +19,7 @@ interface Props extends RouteComponentProps<Params> {
 
 interface State {
   isLoading: boolean
-  userResource: UserResourceType | null
+  userResource: IUserResource | null
 }
 
 class Resource extends Component<Props, State> {
@@ -35,7 +35,7 @@ class Resource extends Component<Props, State> {
       return null
     }
 
-    const { resource }: UserResourceType = userResource
+    const { resource }: IUserResource = userResource
     return new URL(resource.link)
   }
 
@@ -47,7 +47,7 @@ class Resource extends Component<Props, State> {
       then(({ data }) => {
         this.setState({
           isLoading: false,
-          userResource: data as UserResourceType,
+          userResource: data as IUserResource,
         })
       }).
       catch(e => {
@@ -69,7 +69,7 @@ class Resource extends Component<Props, State> {
     }
   }
 
-  updateResource = (data: Partial<UserResourceType>) => {
+  updateResource = (data: Partial<IUserResource>) => {
     const { userResource } = this.state
 
     if (userResource) {
@@ -77,7 +77,7 @@ class Resource extends Component<Props, State> {
         userResource: {
           ...userResource as object,
           ...data,
-        } as UserResourceType,
+        } as IUserResource,
       })
     }
   }
@@ -86,7 +86,7 @@ class Resource extends Component<Props, State> {
     const { userResource }: State = this.state
 
     if (userResource) {
-      const { isLiked, resource }: UserResourceType = userResource
+      const { isLiked, resource }: IUserResource = userResource
 
       const { data } = await ajax({
         method: isLiked ? 'delete' : 'post',
@@ -97,7 +97,7 @@ class Resource extends Component<Props, State> {
     }
   }
 
-  changeStatus = async (status: ResourceStatusTypes | string) => {
+  changeStatus = async (status: EResourceStatus | string) => {
     const { userResource }: State = this.state
 
     if (userResource) {
@@ -124,7 +124,7 @@ class Resource extends Component<Props, State> {
       type,
       resource,
       viewOnly,
-    }: UserResourceType = userResource
+    }: IUserResource = userResource
 
     const url = this.url
 

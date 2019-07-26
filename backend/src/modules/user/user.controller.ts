@@ -56,13 +56,19 @@ export class UserController {
   @Put(':userId')
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  updateUserById (@Body() data: UserDto, @Param('userId') userId: number) {
-    return this.userService.update(userId, data)
+  updateUserById (
+    @Body() data: UserDto,
+    @Param('userId') userId: string
+  ) {
+    return this.userService.update(Number(userId), data)
   }
 
   @Put()
   @ApiUseTags('user')
-  updateUser (@Body() data: UserDto, @UserData() user) {
+  updateUser (
+    @Body() data: UserDto,
+    @UserData() user
+  ) {
     const updatedData: UserDto = {}
 
     if (data.picture) {
@@ -79,10 +85,6 @@ export class UserController {
 
     if (data.locale) {
       updatedData.locale = data.locale
-    }
-
-    if (data.role) {
-      updatedData.role = data.role
     }
 
     return this.userService.update(user.id, updatedData)

@@ -2,14 +2,14 @@ import cn from 'classnames'
 import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import { ResourceStatusTypes, UserResourceType } from '../../types'
+import { EResourceStatus, IUserResource } from '../../types'
 import { Icon, Item, Menu, Status } from '../../UI'
 import { ResourceStatus, ShareMenu } from '../index'
 import * as s from './ResourceHeader.css'
 
 interface Props {
-  data: UserResourceType
-  changeStatus: (status: ResourceStatusTypes | string) => void
+  data: IUserResource
+  changeStatus: (status: EResourceStatus | string) => void
   handleLike: () => void
   onRemove: () => void
 }
@@ -61,7 +61,7 @@ class ResourceHeader extends PureComponent<Props, State> {
               />
             )}
           >
-            {Object.keys(ResourceStatusTypes).map(status => (
+            {Object.keys(EResourceStatus).map(status => (
               <Item
                 key={status}
                 onClick={() => changeStatus(status)}

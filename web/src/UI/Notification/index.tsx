@@ -1,12 +1,12 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
 import { Icon } from '../index'
-import { NotificationTypes } from '../../constants/notification'
+import { ENotifications } from '../../constants/notification'
 import s from './Notification.css'
 
 interface Props {
   id: string
-  type?: NotificationTypes | string
+  type?: ENotifications | string
   message: string
   onClose: (id: string) => void
 }
@@ -53,9 +53,9 @@ class Notification extends Component<Props, State> {
         </button>
         <div
           className={cn(s.Notification__text, {
-            [s.Notification__text_error]: type === NotificationTypes.error,
-            [s.Notification__text_warning]: type === NotificationTypes.warning,
-            [s.Notification__text_success]: type === NotificationTypes.success,
+            [s.Notification__text_error]: type === ENotifications.error,
+            [s.Notification__text_warning]: type === ENotifications.warning,
+            [s.Notification__text_success]: type === ENotifications.success,
           })}
         >
           {message}

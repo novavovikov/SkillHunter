@@ -4,7 +4,7 @@ import SkillsetForm from '../SkillsetForm'
 import Container from '../Container'
 
 import s from './Banner.scss'
-import { REGISTRATION_ROUTE } from '../../constants/routes'
+import { APP_ROUTE } from '../../constants/routes'
 
 const Banner = () => {
   useEffect(() => {

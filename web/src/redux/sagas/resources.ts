@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { API } from '../../constants/api'
-import { NotificationTypes } from '../../constants/notification'
+import { ENotifications } from '../../constants/notification'
 import { ajax } from '../../utils/ajax'
 import { errorHandler } from '../utils/errorHandler'
 import ac from '../actions'
@@ -45,7 +45,7 @@ export function * addResourceSaga ({ payload }: AddResourceSaga) {
     yield put(ac.addResource(userResource))
     yield put(ac.addNotification({
       message: 'Material was added',
-      type: NotificationTypes.success,
+      type: ENotifications.success,
     }))
   } catch (error) {
     yield put(errorHandler('addResourceSaga: ', error))
@@ -84,7 +84,7 @@ export function * removeResourcesSaga ({ payload: { userSkill, id } }: RemoveRes
 
     yield put(ac.addNotification({
       message: 'Material was removed',
-      type: NotificationTypes.success,
+      type: ENotifications.success,
     }))
   } catch (error) {
     yield put(errorHandler('removeResourcesSaga: ', error))

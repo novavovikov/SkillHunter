@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Container from '../Container'
 import Button from '../Button'
-import { HOME_ROUTE, REGISTRATION_ROUTE } from '../../constants/routes'
+import { HOME_ROUTE, APP_ROUTE } from '../../constants/routes'
 
 import css from './Header.scss'
 
@@ -40,7 +40,7 @@ const Header = () => (
         </Link>
 
         <div>
-          <Link href={REGISTRATION_ROUTE}>
+          <Link href={APP_ROUTE}>
             <a>
               <Button
                 span
@@ -52,7 +52,7 @@ const Header = () => (
             </a>
           </Link>
 
-          <Link href={REGISTRATION_ROUTE}>
+          <Link href={APP_ROUTE}>
             <a>
               <Button span>
                 Sign up
