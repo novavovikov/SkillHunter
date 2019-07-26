@@ -4,6 +4,6 @@ export const analytics = (event) => {
   }
 
   return (
-    dataLayer.push(iAnalytics)
+    dataLayer.push(event)
   )
 }
