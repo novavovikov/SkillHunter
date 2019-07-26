@@ -26,6 +26,7 @@ import ResourceCreator from './ResourceCreator'
 import ResourceStatus from './ResourceStatus'
 import ResourcePreviewStatus from './ResourcePreviewStatus'
 import FoundResource from './FoundResource'
+import ResourceInfo from './ResourceInfo'
 import ResourcePreviewInfo from './ResourcePreviewInfo'
 import UserSkillset from './UserSkillset'
 import ResourceHeader from './ResourceHeader'
@@ -66,6 +67,7 @@ export {
   ResourceStatus,
   ResourcePreviewStatus,
   FoundResource,
+  ResourceInfo,
   ResourcePreviewInfo,
   UserSkillset,
   RemoveSkillset,

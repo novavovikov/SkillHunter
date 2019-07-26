@@ -11,47 +11,6 @@
     margin: 0 0 12px;
   }
 
-  &__info {
-    display: flex;
-    align-items: center;
-    margin: 0 0 40px;
-  }
-
-  &__infoItem {
-    position: relative;
-
-    &:after {
-      content: '∙';
-      display: inline-block;
-      vertical-align: bottom;
-      font-size: 24px;
-      margin: 0 10px;
-    }
-
-    &:last-child {
-      &:after {
-        display: none;
-      }
-    }
-  }
-
-  &__infoLink {
-    color: var(--color-dusty-gray);
-
-    &:hover {
-      color: var(--color-dodger-blue);
-    }
-  }
-
-  &__infoIcon {
-    display: inline-block;
-    vertical-align: middle;
-
-    path {
-      fill: #424242;
-    }
-  }
-
   &__skills {
     display: flex;
     flex-wrap: wrap;

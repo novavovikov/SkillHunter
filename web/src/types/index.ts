@@ -32,7 +32,7 @@ export interface IResource {
 }
 
 export interface IUserResource {
-  author: string[] | number
+  author: string | null
   id: number
   isLiked: boolean
   likes: number

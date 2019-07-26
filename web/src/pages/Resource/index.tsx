@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { ResourceHeader, SignUpBlock } from '../../components'
+import { ResourceHeader, ResourceInfo, SignUpBlock } from '../../components'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { EResourceStatus, IUserResource } from '../../types'
-import { H1, Icon } from '../../UI'
+import { H1 } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import NotFound from '../NotFound'
 import s from './Resource.css'
@@ -26,17 +26,6 @@ class Resource extends Component<Props, State> {
   state = {
     isLoading: true,
     userResource: null,
-  }
-
-  get url () {
-    const { userResource } = this.state
-
-    if (!userResource) {
-      return null
-    }
-
-    const { resource }: IUserResource = userResource
-    return new URL(resource.link)
   }
 
   componentDidMount () {
@@ -122,11 +111,10 @@ class Resource extends Component<Props, State> {
     const {
       title,
       type,
+      author,
       resource,
       viewOnly,
     }: IUserResource = userResource
-
-    const url = this.url
 
     return (
       <div className={s.Resource}>
@@ -141,29 +129,11 @@ class Resource extends Component<Props, State> {
           {title || resource.title || resource.link}
         </H1>
 
-        <div className={s.Resource__info}>
-          <div className={s.Resource__infoItem}>
-            {type}
-          </div>
-          {type !== 'book' && (
-            <div className={s.Resource__infoItem}>
-              See original
-              <Icon
-                type="arrow-right"
-                className={s.Resource__infoIcon}
-              />
-              {url && (
-                <a
-                  href={resource.link}
-                  className={s.Resource__infoLink}
-                  target="_blank"
-                >
-                  {url.hostname}
-                </a>
-              )}
-            </div>
-          )}
-        </div>
+        <ResourceInfo
+          type={type}
+          author={author}
+          link={resource.link}
+        />
 
         {resource.skills && (
           <div className={s.Resource__skills}>

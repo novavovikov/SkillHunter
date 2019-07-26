@@ -1,0 +1,48 @@
+@import "../../styles/variables.css";
+
+.ResourceInfo {
+  display: flex;
+  align-items: center;
+  margin: 0 0 40px;
+
+  &__item {
+    position: relative;
+
+    &:after {
+      content: '∙';
+      display: inline-block;
+      vertical-align: bottom;
+      font-size: 24px;
+      margin: 0 10px;
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+
+    &_upperCase {
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &__link {
+    color: var(--color-dusty-gray);
+
+    &:hover {
+      color: var(--color-dodger-blue);
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    vertical-align: middle;
+
+    path {
+      fill: #424242;
+    }
+  }
+}
