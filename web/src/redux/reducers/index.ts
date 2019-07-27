@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ISkill } from '../../types'
+import { ISkill, IUserSkill } from '../../types'
 import { loading, LoadingState } from './loading'
 import { notifications, NotificationState } from './notifications'
 import { resources, ResourcesState } from './resources'
@@ -9,7 +9,7 @@ import { user, UserState } from './user'
 export interface RootState {
   notifications: NotificationState
   user: UserState
-  skills: ISkill[]
+  skills: IUserSkill[]
   resources: ResourcesState
   loading: LoadingState
 }

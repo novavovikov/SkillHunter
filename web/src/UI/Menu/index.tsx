@@ -24,7 +24,7 @@ interface State {
 
 const getIconSize = (icon: string) => {
   if (icon === 'dots') {
-    return 'xl'
+    return '24'
   }
 
   return null

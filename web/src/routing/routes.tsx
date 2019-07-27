@@ -11,6 +11,7 @@ const Logout = React.lazy(() => import('../pages/Logout'))
 const Introduction = React.lazy(() => import('../pages/Introduction'))
 const Skillset = React.lazy(() => import('../pages/Skillset'))
 const Resource = React.lazy(() => import('../pages/Resource'))
+const Resources = React.lazy(() => import('../pages/Resources'))
 const Mock = React.lazy(() => import('../pages/Mock'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
@@ -55,8 +56,15 @@ const Routes: FC = () => {
         />
 
         <PrivateRoute
+          path={`${ROUTES.SKILLSET}/:skillset${ROUTES.SKILL}/:skillId`}
+          component={() => <Mock title="Resources list coming soon"/>}
+          exact
+        />
+
+        <PrivateRoute
           path={`${ROUTES.SKILLSET}/:skillset`}
           component={Skillset}
+          exact
         />
 
         <PrivateRoute
@@ -66,12 +74,12 @@ const Routes: FC = () => {
 
         <PrivateRoute
           path={`${ROUTES.EVALUATION}/:skillset`}
-          component={() => <Mock title="Evaluation сoming soon"/>}
+          component={() => <Mock title="Evaluation coming soon"/>}
         />
 
         <PrivateRoute
           path={`${ROUTES.PLAN}/:skillset`}
-          component={() => <Mock title="Plan сoming soon"/>}
+          component={() => <Mock title="Plan coming soon"/>}
         />
 
         <Route

@@ -9,7 +9,7 @@ import { getSkillsDataSaga } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
 import { ResourcesState } from '../../redux/reducers/resources'
 import { UserState } from '../../redux/reducers/user'
-import { ISkill } from '../../types'
+import { IUserSkill } from '../../types'
 import { Button } from '../../UI'
 import * as s from './Skillset.css'
 
@@ -20,7 +20,7 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
   user: UserState
   isLoading: boolean
-  skills: ISkill[]
+  skills: IUserSkill[]
   resources: ResourcesState
   getSkills: (skillsetId: number) => void
 }
@@ -79,7 +79,7 @@ class Skillset extends React.Component<Props> {
 
     return (
       <Page>
-        {!isLoading && skills.map((skill: ISkill) => (
+        {!isLoading && skills.map((skill) => (
           <UserSkill
             key={skill.id}
             data={skill}

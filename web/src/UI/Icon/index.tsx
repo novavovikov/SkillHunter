@@ -22,11 +22,13 @@ import twitterIcon from './icons/twitter-ico.svg?inline'
 import userIcon from './icons/user-ico.svg?inline'
 import vkIcon from './icons/vk-ico.svg?inline'
 
+type IconSize = 'free' | '18' | '24' | null
+
 interface Props {
   type: string
   className?: string
   active?: boolean
-  size?: string | null
+  size?: IconSize
 }
 
 const getIcon = (type: string) => {

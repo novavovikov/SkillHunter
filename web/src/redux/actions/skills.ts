@@ -1,4 +1,4 @@
-import { ISkill } from '../../types'
+import { ISkill, IUserSkill } from '../../types'
 import { SkillsActionTypes } from '../actionTypes/skills'
 import {
   AddSkills,
@@ -24,12 +24,12 @@ export const removeSkillsSaga = (skillIds: number[]): RemoveSkillsSaga => ({
   skillIds,
 })
 
-export const setSkillsData = (data: ISkill[]): SetSkillsData => ({
+export const setSkillsData = (data: IUserSkill[]): SetSkillsData => ({
   type: SkillsActionTypes.SET_SKILLS_DATA,
   payload: data,
 })
 
-export const addSkillToData = (data: ISkill[]): AddSkills => ({
+export const addSkillToData = (data: IUserSkill[]): AddSkills => ({
   type: SkillsActionTypes.ADD_SKILLS,
   payload: data,
 })

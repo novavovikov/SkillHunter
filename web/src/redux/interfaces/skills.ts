@@ -1,4 +1,4 @@
-import { ISkill } from '../../types'
+import { IUserSkill } from '../../types'
 import { SkillsActionTypes } from '../actionTypes/skills'
 
 export interface GetSkillsDataPayload {
@@ -20,12 +20,12 @@ export interface RemoveSkillsSaga {
 
 export interface SetSkillsData {
   type: SkillsActionTypes.SET_SKILLS_DATA
-  payload: ISkill[]
+  payload: IUserSkill[]
 }
 
 export interface AddSkills {
   type: SkillsActionTypes.ADD_SKILLS
-  payload: ISkill[]
+  payload: IUserSkill[]
 }
 
 export interface RemoveSkills {

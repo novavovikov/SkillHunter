@@ -3,8 +3,13 @@ import { IUserResource } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import { ResourcesAction } from '../interfaces/resources'
 
+export interface UserResourceState {
+  total: number,
+  data: IUserResource[]
+}
+
 export interface ResourcesState {
-  [id: number]: IUserResource[]
+  [id: number]: UserResourceState
 }
 
 const initState = {}
@@ -14,30 +19,38 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
     case ResourcesActionTypes.SET_RESOURCES:
       return action.payload
     case ResourcesActionTypes.ADD_RESOURCE:
-      const resourceList = state[action.payload.userSkill.id] || []
+      const resourceList = state[action.payload.userSkill.id]
 
       return {
         ...state,
-        [action.payload.userSkill.id]: [action.payload, ...resourceList],
+        [action.payload.userSkill.id]: {
+          total: resourceList.total + 1,
+          data: [action.payload, ...resourceList.data]
+        },
       }
     case ResourcesActionTypes.UPDATE_RESOURCE:
+      const userSkillId = action.payload.userSkill.id
+
       return {
         ...state,
-        [action.payload.userSkill.id]: state[action.payload.userSkill.id].map((resource: IUserResource) => {
-          if (resource.id === action.payload.id) {
-            return {
-              ...resource,
-              ...action.payload,
+        [userSkillId]: {
+          ...state[userSkillId],
+          data: state[userSkillId].data.map((resource: IUserResource) => {
+            if (resource.id === action.payload.id) {
+              return {
+                ...resource,
+                ...action.payload,
+              }
             }
-          }
 
-          return resource
-        }),
+            return resource
+          })
+        },
       }
     case ResourcesActionTypes.CHANGE_RESOURCE_LIKE_STATUS:
       return Object.keys(state).
-        reduce((acc, key) => {
-          const resourcesList = state[key as any].map((userResource: IUserResource) => {
+        reduce((acc, skillId: any) => {
+          const resourcesList = state[skillId].data.map((userResource: IUserResource) => {
             const { id, ...data } = action.payload
 
             if (userResource.resource.id === id) {
@@ -52,9 +65,12 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
 
           return {
             ...acc,
-            [key]: resourcesList,
+            [skillId]: {
+              ...acc[skillId],
+              data: resourcesList
+            },
           }
-        }, {})
+        }, {} as any)
     case ResourcesActionTypes.REMOVE_RESOURCE:
       const { userSkill, id: resourceId } = action.payload
 
@@ -64,7 +80,10 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
 
       return {
         ...state,
-        [userSkill.id]: state[userSkill.id].filter(({ id }) => id !== resourceId),
+        [userSkill.id]: {
+          total: state[userSkill.id].total - 1,
+          data: state[userSkill.id].data.filter(({ id }) => id !== resourceId)
+        }
       }
     default:
       return state

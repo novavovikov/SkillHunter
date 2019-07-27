@@ -60,4 +60,24 @@
   &__menu {
     margin: 3px 0 0 10px;
   }
+
+  &__link {
+    path {
+      fill: var(--color-tundora);
+    }
+
+    &:hover {
+      color: var(--color-dodger-blue);
+
+      path {
+        fill: var(--color-dodger-blue);
+      }
+    }
+
+    &_more {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 0 10px 35px;
+    }
+  }
 }

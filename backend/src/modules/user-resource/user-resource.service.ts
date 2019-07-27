@@ -93,36 +93,32 @@ export class UserResourceService {
   async getResourcesBulk (
     user: User,
     skillsetId: number,
-    skillsIds: number[],
+    userSkillIds: number[],
   ) {
-    const userResources = await this.userResourceRepository.find({
-      where: {
+    const result = {}
+
+    for (const userSkillId of userSkillIds) {
+      const where = {
         user,
         skillsetId,
-        skill: In(skillsIds),
-      },
-    })
+        userSkill: {
+          id: userSkillId
+        },
+      }
 
-    return userResources.reduce((acc, userResource) => {
+      const userResources: UserResource[] = await this.userResourceRepository.find({ where, take: 5 })
 
-      const userSkillId = userResource.userSkill.id
-      const resourceData = getUserResourceWithLikedField(
-        user.id,
-        userResource,
-      )
-
-      if (acc[userSkillId]) {
-        return {
-          ...acc,
-          [userSkillId]: [...acc[userSkillId], resourceData],
+      if (userResources.length) {
+        result[userSkillId] = {
+          total: await this.userResourceRepository.count(where),
+          data: userResources.map(userResource => getUserResourceWithLikedField(user.id, userResource))
         }
+      } else {
+        result[userSkillId] = { total: 0, data: [] }
       }
+    }
 
-      return {
-        ...acc,
-        [userSkillId]: [resourceData],
-      }
-    }, {})
+    return result
   }
 
   async remove (id: number) {
