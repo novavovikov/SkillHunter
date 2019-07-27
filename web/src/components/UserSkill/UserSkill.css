@@ -39,10 +39,6 @@
     }
   }
 
-  &__title {
-    margin: 0;
-  }
-
   &__switcher {
     display: inline-flex;
     padding: 0;
@@ -55,10 +51,6 @@
         fill: var(--color-dodger-blue);
       }
     }
-  }
-
-  &__menu {
-    margin: 3px 0 0 10px;
   }
 
   &__link {

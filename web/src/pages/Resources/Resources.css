@@ -1,0 +1,9 @@
+@import "../../styles/variables.css";
+
+.Resources {
+  position: relative;
+
+  &__header {
+    padding: 20px 0;
+  }
+}

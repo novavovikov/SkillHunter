@@ -6,9 +6,7 @@ interface CssExports {
   'UserSkill__empty': string;
   'UserSkill__link': string;
   'UserSkill__link_more': string;
-  'UserSkill__menu': string;
   'UserSkill__switcher': string;
-  'UserSkill__title': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

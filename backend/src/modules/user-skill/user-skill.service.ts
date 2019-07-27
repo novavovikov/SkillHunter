@@ -19,10 +19,6 @@ export class UserSkillService {
     })
   }
 
-  findByIds (ids: number[], options?: FindManyOptions<UserSkill>) {
-    return this.userSkillRepository.findByIds(ids, options)
-  }
-
   findById (id: number | string, options?: FindOneOptions<UserSkill>) {
     return this.userSkillRepository.findOne({
       where: {

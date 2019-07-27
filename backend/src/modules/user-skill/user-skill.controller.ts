@@ -28,6 +28,17 @@ export class UserSkillController {
     return this.userSkillService.getSkillsBySkillsetId(user.id, Number(skillsetId))
   }
 
+  @Get(':skillId/resources')
+  @ApiUseTags('user-skill')
+  getSkillResources (
+    @UserData() user,
+    @Param('skillId') skillId: string,
+  ) {
+    return this.userSkillService.findById(skillId, {
+      relations: ['userResources']
+    })
+  }
+
   @Post(':skillsetId')
   @ApiUseTags('user-skill')
   async adSkills (

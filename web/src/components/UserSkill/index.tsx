@@ -3,9 +3,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
-import { ResourceCreator, Resources } from '../../components'
+import { ResourceCreator, Resources, UserSkillHeader } from '../../components'
 import { ROUTES } from '../../constants/routing'
+import { addResourceSaga } from '../../redux/actions/resources'
 import { removeSkillsSaga } from '../../redux/actions/skills'
+import { AddResourceSagaPayload } from '../../redux/interfaces/resources'
 import { RootState } from '../../redux/reducers'
 import { UserResourceState } from '../../redux/reducers/resources'
 import { IUserSkill } from '../../types'
@@ -19,6 +21,7 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
   data: IUserSkill
   resources: UserResourceState
+  addResource: (data: AddResourceSagaPayload) => void
   removeSkill: (skillIds: number[]) => void
 }
 
@@ -51,6 +54,18 @@ class UserSkill extends React.Component<Props, State> {
     removeSkill([data.id])
   }
 
+  createResource = (data: any) => {
+    const { data: skillData, addResource } = this.props
+
+    addResource({
+      skillsetId: skillData.skillsetId,
+      skillId: skillData.id,
+      data,
+    })
+
+    this.toggleCreatorVisibility()
+  }
+
   render () {
     const { isOpen, creatorVisible } = this.state
     const {
@@ -64,7 +79,7 @@ class UserSkill extends React.Component<Props, State> {
     return (
       <>
         <div className={s.UserSkill}>
-          <div className={s.UserSkill__caption}>
+           <div className={s.UserSkill__caption}>
             <button
               className={s.UserSkill__switcher}
               onClick={this.toggleOpen}
@@ -75,31 +90,14 @@ class UserSkill extends React.Component<Props, State> {
               />
             </button>
 
-            <H4 className={s.UserSkill__title}>
-              {resources.total > resources.data.length
-                ? (
-                  <Link
-                    to={skillRoute}
-                    className={s.UserSkill__link}
-                  >
-                    {data.skill.name}
-                  </Link>
-                )
-                : data.skill.name
-              }
-            </H4>
-
-            <Menu
-              className={s.UserSkill__menu}
-              position="left"
-            >
-              <Item onClick={this.toggleCreatorVisibility}>
-                Add resource
-              </Item>
-              <Item onClick={this.removeSkill}>
-                Delete skill
-              </Item>
-            </Menu>
+            <UserSkillHeader
+              name={data.skill.name}
+              link={resources.total > resources.data.length && skillRoute}
+              menu={{
+                addResource: this.toggleCreatorVisibility,
+                removeSkill: this.removeSkill
+              }}
+            />
 
             {resources.total === 0 && !isOpen && (
               <OnBoarding
@@ -113,8 +111,7 @@ class UserSkill extends React.Component<Props, State> {
 
           {creatorVisible && (
             <ResourceCreator
-              skillsetId={data.skillsetId}
-              skillId={data.id}
+              onSubmit={this.createResource}
               onClose={this.toggleCreatorVisibility}
             />
           )}
@@ -151,6 +148,7 @@ export default compose<any>(
       resources: resources[data.id] || { total: 0, data: [] },
     }),
     {
+      addResource: addResourceSaga,
       removeSkill: removeSkillsSaga,
     },
   ),

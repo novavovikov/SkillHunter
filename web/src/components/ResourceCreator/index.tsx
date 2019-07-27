@@ -1,11 +1,6 @@
 import cn from 'classnames'
 import React, { createRef } from 'react'
 import { createPortal } from 'react-dom'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { addResourceSaga } from '../../redux/actions/resources'
-import { AddResourceSagaPayload } from '../../redux/interfaces/resources'
-import { IResource, IUserResource } from '../../types'
 import BookForm from './BookForm'
 import LinkForm from './LinkForm'
 import * as s from './ResourceCreator.css'
@@ -19,10 +14,8 @@ const LINK_TYPES = [
 
 interface Props {
   className?: string
-  skillsetId: number
-  skillId: number
   onClose: () => void
-  addResource: (data: AddResourceSagaPayload) => void
+  onSubmit: (data: any) => void
 }
 
 interface State {
@@ -72,18 +65,9 @@ class ResourceCreator extends React.Component<Props, State> {
 
   createResource = (data: any) => {
     const { type } = this.state
-    const { skillId, skillsetId, addResource, onClose } = this.props
+    const { onSubmit } = this.props
 
-    addResource({
-      skillsetId,
-      skillId,
-      data: {
-        ...data,
-        type,
-      },
-    })
-
-    onClose()
+    onSubmit({ ...data, type })
   }
 
   getFormPosition = () => {
@@ -136,11 +120,4 @@ class ResourceCreator extends React.Component<Props, State> {
   }
 }
 
-export default compose(
-  connect(
-    null,
-    {
-      addResource: addResourceSaga,
-    },
-  ),
-)(ResourceCreator)
+export default ResourceCreator

@@ -57,6 +57,7 @@ export interface IUserSkill {
   id: number
   skillsetId: number
   skill: ISkill
+  userResources?: IUserResource
 }
 
 export interface ISkillset {
