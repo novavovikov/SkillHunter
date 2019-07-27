@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ISkill, IUserSkill } from '../../types'
+import { IUserSkill } from '../../types'
 import { loading, LoadingState } from './loading'
 import { notifications, NotificationState } from './notifications'
 import { resources, ResourcesState } from './resources'

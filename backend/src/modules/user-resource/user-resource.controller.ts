@@ -58,12 +58,12 @@ export class UserResourceController {
   async getResourcesBulk (
     @UserData() user,
     @Param('skillsetId') skillsetId: string,
-    @Query('skillIds') skillsIds: string,
+    @Query('skillIds') skillIds: string,
   ) {
     return this.userResourceService.getResourcesBulk(
       user,
       Number(skillsetId),
-      skillsIds.split(',').map(Number),
+      skillIds.split(',').map(Number),
     )
   }
 

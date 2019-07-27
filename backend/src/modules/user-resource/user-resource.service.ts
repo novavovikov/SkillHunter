@@ -73,12 +73,14 @@ export class UserResourceService {
   ) {
 
     const resources = await this.userResourceRepository.find({
-      select: ['status'],
-      relations: ['resource'],
+      relations: ['resource', 'userSkill'],
       where: {
         userId,
         skillsetId,
         skillId,
+      },
+      order: {
+        id: 'DESC',
       },
     })
 
@@ -106,7 +108,13 @@ export class UserResourceService {
         },
       }
 
-      const userResources: UserResource[] = await this.userResourceRepository.find({ where, take: 5 })
+      const userResources: UserResource[] = await this.userResourceRepository.find({
+        where,
+        order: {
+          id: 'DESC',
+        },
+        take: 5
+      })
 
       if (userResources.length) {
         result[userSkillId] = {

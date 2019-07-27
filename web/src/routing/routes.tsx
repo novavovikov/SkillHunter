@@ -57,7 +57,7 @@ const Routes: FC = () => {
 
         <PrivateRoute
           path={`${ROUTES.SKILLSET}/:skillset${ROUTES.SKILL}/:skillId`}
-          component={() => <Mock title="Resources list coming soon"/>}
+          component={Resources}
           exact
         />
 

@@ -10,7 +10,7 @@ import * as s from './Resources.css'
 
 interface Props {
   data: IUserResource[]
-  openCreator: () => void
+  openCreator: () => void | null
   updateResource: (data: Partial<IUserResource>) => void
   changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
   removeResource: (data: Partial<IUserResource>) => void
