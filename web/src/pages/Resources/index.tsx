@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { Page, Resources, UserSkillHeader } from '../../components'
+import { Page, ResourceCreator, Resources, UserSkillHeader } from '../../components'
 import { IUserSkill } from '../../types'
 import { ajax } from '../../utils/ajax'
 import * as s from './Resources.css'
@@ -15,11 +15,19 @@ interface Props extends RouteComponentProps<Params> {
 
 interface State {
   skillData: IUserSkill | null
+  creatorVisible: boolean
 }
 
 class ResourcesPage extends Component<Props, State> {
   state = {
     skillData: null,
+    creatorVisible: false
+  }
+
+  toggleCreatorVisibility = () => {
+    this.setState({
+      creatorVisible: !this.state.creatorVisible,
+    })
   }
 
   componentDidMount (): void {
@@ -33,7 +41,7 @@ class ResourcesPage extends Component<Props, State> {
   }
 
   render () {
-    const { skillData } = this.state
+    const { skillData, creatorVisible } = this.state
 
     if (!skillData) {
       return null
@@ -57,9 +65,19 @@ class ResourcesPage extends Component<Props, State> {
           }}
         />
 
+        {creatorVisible && (
+          <ResourceCreator
+            onSubmit={this.toggleCreatorVisibility}
+            onClose={this.toggleCreatorVisibility}
+          />
+        )}
+
         <Resources
-          openCreator={() => null}
           data={userResources}
+          openCreator={this.toggleCreatorVisibility}
+          onChangeLikeStatus={() => undefined}
+          onUpdate={() => undefined}
+          onRemove={() => undefined}
         />
       </Page>
     )

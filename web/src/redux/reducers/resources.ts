@@ -66,7 +66,7 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
           return {
             ...acc,
             [skillId]: {
-              ...acc[skillId],
+              ...state[skillId],
               data: resourcesList
             },
           }

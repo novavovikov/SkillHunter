@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
+import { getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
@@ -30,13 +31,22 @@ export class UserSkillController {
 
   @Get(':skillId/resources')
   @ApiUseTags('user-skill')
-  getSkillResources (
+  async getSkillResources (
     @UserData() user,
     @Param('skillId') skillId: string,
   ) {
-    return this.userSkillService.findById(skillId, {
+    const userSkill = await this.userSkillService.findById(skillId, {
       relations: ['userResources']
     })
+
+    if (!userSkill) {
+      throw new HttpException('User skill not exist', HttpStatus.NOT_FOUND)
+    }
+
+    return {
+      ...userSkill,
+      userResources: userSkill.userResources.map(userResource => getUserResourceWithLikedField(user.id, userResource))
+    }
   }
 
   @Post(':skillsetId')

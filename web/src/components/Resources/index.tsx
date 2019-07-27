@@ -1,7 +1,5 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { changeResourceLikeStatusSaga, removeResourceSaga, updateResourceSaga } from '../../redux/actions/resources'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { IUserResource } from '../../types'
 import { IconButton, OnBoarding } from '../../UI'
@@ -10,10 +8,10 @@ import * as s from './Resources.css'
 
 interface Props {
   data: IUserResource[]
-  openCreator: () => void | null
-  updateResource: (data: Partial<IUserResource>) => void
-  changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
-  removeResource: (data: Partial<IUserResource>) => void
+  openCreator: () => void
+  onChangeLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
+  onUpdate: (data: Partial<IUserResource>) => void
+  onRemove: (data: Partial<IUserResource>) => void
 }
 
 class Resources extends Component<Props> {
@@ -21,9 +19,9 @@ class Resources extends Component<Props> {
     const {
       data,
       openCreator,
-      updateResource,
-      changeResourceLikeStatus,
-      removeResource,
+      onUpdate,
+      onChangeLikeStatus,
+      onRemove,
     } = this.props
 
     return (
@@ -61,9 +59,9 @@ class Resources extends Component<Props> {
           <ResourcePreview
             key={resource.id}
             data={resource}
-            updateHandler={updateResource}
-            likeHandler={changeResourceLikeStatus}
-            removeHandler={removeResource}
+            updateHandler={onUpdate}
+            likeHandler={onChangeLikeStatus}
+            removeHandler={onRemove}
           />
         ))}
       </div>
@@ -71,11 +69,4 @@ class Resources extends Component<Props> {
   }
 }
 
-export default connect(
-  null,
-  {
-    removeResource: removeResourceSaga,
-    updateResource: updateResourceSaga,
-    changeResourceLikeStatus: changeResourceLikeStatusSaga,
-  },
-)(Resources)
+export default Resources

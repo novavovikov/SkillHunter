@@ -5,12 +5,17 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import { ResourceCreator, Resources, UserSkillHeader } from '../../components'
 import { ROUTES } from '../../constants/routing'
-import { addResourceSaga } from '../../redux/actions/resources'
+import {
+  addResourceSaga,
+  changeResourceLikeStatusSaga,
+  removeResourceSaga,
+  updateResourceSaga,
+} from '../../redux/actions/resources'
 import { removeSkillsSaga } from '../../redux/actions/skills'
-import { AddResourceSagaPayload } from '../../redux/interfaces/resources'
+import { AddResourceSagaPayload, ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { RootState } from '../../redux/reducers'
 import { UserResourceState } from '../../redux/reducers/resources'
-import { IUserSkill } from '../../types'
+import { IUserResource, IUserSkill } from '../../types'
 import { H4, Icon, Item, Menu, OnBoarding } from '../../UI'
 import * as s from './UserSkill.css'
 
@@ -21,8 +26,11 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
   data: IUserSkill
   resources: UserResourceState
-  addResource: (data: AddResourceSagaPayload) => void
   removeSkill: (skillIds: number[]) => void
+  addResource: (data: AddResourceSagaPayload) => void
+  updateResource: (data: Partial<IUserResource>) => void
+  changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
+  removeResource: (data: Partial<IUserResource>) => void
 }
 
 interface State {
@@ -72,6 +80,9 @@ class UserSkill extends React.Component<Props, State> {
       data,
       resources,
       match,
+      changeResourceLikeStatus,
+      updateResource,
+      removeResource
     } = this.props
 
     const skillRoute = `${ROUTES.SKILLSET}/${match.params.skillset}${ROUTES.SKILL}/${data.id}`
@@ -118,8 +129,11 @@ class UserSkill extends React.Component<Props, State> {
 
           {isOpen && (
             <Resources
-              openCreator={this.toggleCreatorVisibility}
               data={resources.data}
+              openCreator={this.toggleCreatorVisibility}
+              onChangeLikeStatus={changeResourceLikeStatus}
+              onUpdate={updateResource}
+              onRemove={removeResource}
             />
           )}
         </div>
@@ -148,8 +162,11 @@ export default compose<any>(
       resources: resources[data.id] || { total: 0, data: [] },
     }),
     {
-      addResource: addResourceSaga,
       removeSkill: removeSkillsSaga,
+      addResource: addResourceSaga,
+      removeResource: removeResourceSaga,
+      updateResource: updateResourceSaga,
+      changeResourceLikeStatus: changeResourceLikeStatusSaga,
     },
   ),
 )(UserSkill)
