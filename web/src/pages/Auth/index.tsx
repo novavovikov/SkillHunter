@@ -9,6 +9,7 @@ import { getUserDataSaga } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { H2, H4, Logo, Tip } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import * as s from './Auth.css'
 
 interface Props {
@@ -27,6 +28,12 @@ class Auth extends React.Component<Props> {
     ) {
       getUser()
     }
+  }
+
+  handleButton = () => {
+    analytics({
+      event: 'click_authorize'
+    })
   }
 
   render () {
@@ -51,6 +58,7 @@ class Auth extends React.Component<Props> {
         <a
           className={cn(s.Auth__btn, s.Auth__btn_google)}
           href={`${API.BASE_URL}${API.AUTH_GOOGLE}`}
+          onClick={this.handleButton}
         >
           GOOGLE
         </a>
@@ -62,6 +70,7 @@ class Auth extends React.Component<Props> {
         <a
           className={cn(s.Auth__btn, s.Auth__btn_fb)}
           href={`${API.BASE_URL}${API.AUTH_FACEBOOK}`}
+          onClick={this.handleButton}
         >
           FACEBOOK
         </a>

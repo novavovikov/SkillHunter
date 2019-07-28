@@ -11,6 +11,7 @@ import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { INotification, ISkillset } from '../../types'
 import { ajax } from '../../utils/ajax'
+import { analytics } from '../../utils/analytics'
 
 interface Props extends RouteComponentProps {
   user: UserState
@@ -31,6 +32,11 @@ class Introduction extends React.Component<Props, State> {
 
   setSkillset = (skillset: string) => {
     this.setState({ skillset })
+    console.log(123, window.gtag)
+    analytics({
+      event: 'click_improve_btn',
+      skillset
+    })
   }
 
   setSkills = (skills: string[]) => {
