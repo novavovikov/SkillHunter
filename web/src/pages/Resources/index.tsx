@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
+import { Link } from 'react-router-dom'
 import { Page, ResourceCreator, Resources, UserSkillHeader } from '../../components'
-import { IUserSkill } from '../../types'
-import { ajax } from '../../utils/ajax'
+import { ROUTES } from '../../constants/routing'
+import { addResourceToUserSkillSaga, getUserSkillSaga } from '../../redux/actions/userSkill'
+import { AddResourceToUserSkillSagaPayload } from '../../redux/interfaces/userSkill'
+import { RootState } from '../../redux/reducers'
+import { UserSkillState } from '../../redux/reducers/userSkill'
+import { IUserResource } from '../../types'
+import { Icon } from '../../UI'
 import * as s from './Resources.css'
 
 interface Params {
@@ -11,17 +18,24 @@ interface Params {
 }
 
 interface Props extends RouteComponentProps<Params> {
+  userSkill: UserSkillState
+  getUserSkill: (userSkillId: number) => void
+  addResource: (data: AddResourceToUserSkillSagaPayload) => void
 }
 
 interface State {
-  skillData: IUserSkill | null
   creatorVisible: boolean
 }
 
 class ResourcesPage extends Component<Props, State> {
   state = {
-    skillData: null,
     creatorVisible: false
+  }
+
+  componentDidMount (): void {
+    const { match, getUserSkill } = this.props
+
+    getUserSkill(Number(match.params.skillId))
   }
 
   toggleCreatorVisibility = () => {
@@ -30,20 +44,29 @@ class ResourcesPage extends Component<Props, State> {
     })
   }
 
-  componentDidMount (): void {
-    const { match } = this.props
+  createResource = (data: IUserResource) => {
+    const { addResource, userSkill } = this.props
 
-    ajax.get(`user-skill/${match.params.skillId}/resources`).then(({ data }) => {
-      this.setState({
-        skillData: data,
+    if (userSkill) {
+      const { skillsetId, id} = userSkill
+
+      addResource({
+        skillId: id,
+        skillsetId,
+        data
       })
-    })
+    }
+
+    this.toggleCreatorVisibility()
   }
 
   render () {
-    const { skillData, creatorVisible } = this.state
+    const {
+      match,
+      userSkill,
+    } = this.props
 
-    if (!skillData) {
+    if (!userSkill) {
       return null
     }
 
@@ -52,36 +75,57 @@ class ResourcesPage extends Component<Props, State> {
       skill: {
         name,
       },
-    } = skillData
+    } = userSkill
+
+    const { creatorVisible } = this.state
 
     return (
       <Page>
-        <UserSkillHeader
-          className={s.Resources__header}
-          name={name}
-          menu={{
-            addResource: () => undefined,
-            removeSkill: () => undefined,
-          }}
-        />
+        <div className={s.Resources__header}>
+          <Link to={`${ROUTES.SKILLSET}/${match.params.skillset}`}>
+            <Icon
+              className={s.Resources__back}
+              type="arrow-left"
+              size="24"
+            />
+          </Link>
+
+          <UserSkillHeader
+            name={name}
+            menu={{
+              addResource: this.toggleCreatorVisibility,
+              removeSkill: () => undefined,
+            }}
+          />
+        </div>
 
         {creatorVisible && (
           <ResourceCreator
-            onSubmit={this.toggleCreatorVisibility}
+            onSubmit={this.createResource}
             onClose={this.toggleCreatorVisibility}
           />
         )}
 
-        <Resources
-          data={userResources}
-          openCreator={this.toggleCreatorVisibility}
-          onChangeLikeStatus={() => undefined}
-          onUpdate={() => undefined}
-          onRemove={() => undefined}
-        />
+        {userResources && (
+          <Resources
+            data={userResources}
+            openCreator={this.toggleCreatorVisibility}
+            onChangeLikeStatus={() => undefined}
+            onUpdate={() => undefined}
+            onRemove={() => undefined}
+          />
+        )}
       </Page>
     )
   }
 }
 
-export default ResourcesPage
+export default connect(
+  ({ userSkill }: RootState) => ({
+    userSkill,
+  }),
+  {
+    getUserSkill: getUserSkillSaga,
+    addResource: addResourceToUserSkillSaga,
+  },
+)(ResourcesPage)

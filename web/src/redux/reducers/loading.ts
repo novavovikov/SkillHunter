@@ -8,7 +8,9 @@ export interface LoadingState {
 
 const initState = {
   resources: false,
-  skill: false
+  addResource: false,
+  skill: false,
+  userSkill: false
 }
 
 export const loading: Reducer<LoadingState, LoadingAction> = (state = initState, action) => {

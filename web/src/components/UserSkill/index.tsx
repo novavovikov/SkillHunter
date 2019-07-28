@@ -16,7 +16,7 @@ import { AddResourceSagaPayload, ResourceLikeStatusSagaPayload } from '../../red
 import { RootState } from '../../redux/reducers'
 import { UserResourceState } from '../../redux/reducers/resources'
 import { IUserResource, IUserSkill } from '../../types'
-import { H4, Icon, Item, Menu, OnBoarding } from '../../UI'
+import { Icon, OnBoarding } from '../../UI'
 import * as s from './UserSkill.css'
 
 interface Params {

@@ -7,12 +7,6 @@ export interface AddResourceSagaPayload {
   data: Partial<IUserResource>
 }
 
-export interface ResourceSagaPayload {
-  skillId: number
-  resourceId: number
-  data: Partial<IUserResource>
-}
-
 export interface ResourceLikeStatusSagaPayload {
   resourceId: number
   isLiked: boolean
@@ -22,11 +16,6 @@ export interface ResourceLikeStatusPayload {
   id: number
   isLiked: boolean
   likes: number
-}
-
-export interface ResourcePayload {
-  skillId: number
-  resourceId: number
 }
 
 export interface GetResourcesSaga {

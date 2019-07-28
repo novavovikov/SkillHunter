@@ -5,11 +5,13 @@ import { notifications, NotificationState } from './notifications'
 import { resources, ResourcesState } from './resources'
 import { skills } from './skills'
 import { user, UserState } from './user'
+import { userSkill, UserSkillState } from './userSkill'
 
 export interface RootState {
   notifications: NotificationState
   user: UserState
   skills: IUserSkill[]
+  userSkill: UserSkillState
   resources: ResourcesState
   loading: LoadingState
 }
@@ -18,6 +20,7 @@ export default () => {
   return combineReducers<RootState>({
     notifications,
     user,
+    userSkill,
     skills,
     resources,
     loading,

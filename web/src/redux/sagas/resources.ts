@@ -28,6 +28,8 @@ export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) 
 }
 
 export function * addResourceSaga ({ payload }: AddResourceSaga) {
+  yield put(ac.addLoading('addResource'))
+
   try {
     const { data } = payload
 
@@ -50,6 +52,8 @@ export function * addResourceSaga ({ payload }: AddResourceSaga) {
   } catch (error) {
     yield put(errorHandler('addResourceSaga: ', error))
   }
+
+  yield put(ac.removeLoading('addResource'))
 }
 
 export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {

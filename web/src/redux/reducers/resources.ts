@@ -19,13 +19,13 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
     case ResourcesActionTypes.SET_RESOURCES:
       return action.payload
     case ResourcesActionTypes.ADD_RESOURCE:
-      const resourceList = state[action.payload.userSkill.id]
+      const resourceData = state[action.payload.userSkill.id]
 
       return {
         ...state,
         [action.payload.userSkill.id]: {
-          total: resourceList.total + 1,
-          data: [action.payload, ...resourceList.data].slice(0, 5)
+          total: resourceData.total + 1,
+          data: [action.payload, ...resourceData.data].slice(0, 5)
         },
       }
     case ResourcesActionTypes.UPDATE_RESOURCE:

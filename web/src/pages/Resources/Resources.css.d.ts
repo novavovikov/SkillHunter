@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'Resources': string;
+  'Resources__back': string;
   'Resources__header': string;
 }
 declare var cssExports: CssExports;
