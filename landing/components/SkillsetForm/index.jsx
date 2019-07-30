@@ -18,10 +18,12 @@ class SkillsetForm extends Component {
 
   submitForm = (e) => {
     e.preventDefault()
+    const { inputValue } = this.state
     window.location.href = APP_ROUTE
 
     analytics({
-      event: 'landing_submit_form_skillset'
+      event: 'click_improve_btn',
+      input_skillset: inputValue
     })
   }
 

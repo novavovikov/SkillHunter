@@ -4,6 +4,7 @@ import Button from '../Button'
 import { HOME_ROUTE, APP_ROUTE } from '../../constants/routes'
 
 import css from './Header.scss'
+import { analytics } from '../SkillsetForm/utils/analytics'
 
 const Header = () => (
   <header className={css.Header}>
@@ -46,6 +47,7 @@ const Header = () => (
                 span
                 className={css.Header__btn}
                 theme="transparent"
+                onClick={() =>  analytics({ event: 'click_signin_btn' })}
               >
                 Sign in
               </Button>
@@ -54,7 +56,10 @@ const Header = () => (
 
           <Link href={APP_ROUTE}>
             <a>
-              <Button span>
+              <Button
+                span
+                onClick={() =>  analytics({ event: 'click_signup_btn' })}
+              >
                 Sign up
               </Button>
             </a>

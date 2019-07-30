@@ -18,8 +18,8 @@ class ResourcePreviewInfo extends Component<Props> {
     const { data } = this.props
 
     analytics({
-      event: 'click_source_url',
-      source_title: data.resource.link
+      event: 'click_source_name',
+      source_url: data.title || data.resource.title || data.resource.link
     })
   }
 
@@ -27,8 +27,8 @@ class ResourcePreviewInfo extends Component<Props> {
     const { data } = this.props
 
     analytics({
-      event: 'click_source_name',
-      source_url: data.title || data.resource.title || data.resource.link
+      event: 'click_source_url',
+      source_title: data.resource.link
     })
   }
 

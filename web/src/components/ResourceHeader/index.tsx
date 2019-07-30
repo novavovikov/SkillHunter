@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
 import { EResourceStatus, IUserResource } from '../../types'
 import { Icon, Item, Menu, Status } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import { ResourceStatus, ShareMenu } from '../index'
 import * as s from './ResourceHeader.css'
 
@@ -35,6 +36,12 @@ class ResourceHeader extends PureComponent<Props, State> {
     this.setState({ fixedClass: window.scrollY > 0 })
   }
 
+  handleBack = () => {
+    analytics({
+      event: 'click_back'
+    })
+  }
+
   render () {
     const { fixedClass } = this.state
     const { data, changeStatus, onRemove, handleLike } = this.props
@@ -47,6 +54,7 @@ class ResourceHeader extends PureComponent<Props, State> {
         <Link
           to={ROUTES.SKILLSET}
           className={s.ResourceHeader__back}
+          onClick={this.handleBack}
         >
           <Icon type="arrow-left"/>
           Back

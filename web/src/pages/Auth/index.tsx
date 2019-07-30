@@ -30,12 +30,6 @@ class Auth extends React.Component<Props> {
     }
   }
 
-  handleButton = () => {
-    analytics({
-      event: 'click_authorize'
-    })
-  }
-
   render () {
     const { user } = this.props
 
@@ -58,7 +52,12 @@ class Auth extends React.Component<Props> {
         <a
           className={cn(s.Auth__btn, s.Auth__btn_google)}
           href={`${API.BASE_URL}${API.AUTH_GOOGLE}`}
-          onClick={this.handleButton}
+          onClick={() => {
+            analytics({
+              event: 'click_authorize',
+              auth_system: 'google'
+            })
+          }}
         >
           GOOGLE
         </a>
@@ -70,7 +69,12 @@ class Auth extends React.Component<Props> {
         <a
           className={cn(s.Auth__btn, s.Auth__btn_fb)}
           href={`${API.BASE_URL}${API.AUTH_FACEBOOK}`}
-          onClick={this.handleButton}
+          onClick={() => {
+            analytics({
+              event: 'click_authorize',
+              auth_system: 'facebook'
+            })
+          }}
         >
           FACEBOOK
         </a>

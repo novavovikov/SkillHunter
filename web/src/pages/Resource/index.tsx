@@ -7,6 +7,7 @@ import { ROUTES } from '../../constants/routing'
 import { EResourceStatus, IUserResource } from '../../types'
 import { H1 } from '../../UI'
 import { ajax } from '../../utils/ajax'
+import { analytics } from '../../utils/analytics'
 import NotFound from '../NotFound'
 import s from './Resource.css'
 
@@ -51,10 +52,17 @@ class Resource extends Component<Props, State> {
 
     if (userResource) {
       const { history } = this.props
-      const { id } = userResource
+      const { id, title, resource }: IUserResource = userResource
 
       await ajax.delete(`${API.USER_RESOURCE}/${id}`)
       history.push(ROUTES.SKILLSET)
+
+      analytics({
+        event: 'click_delete_source',
+        source_title: title ||
+          resource.title ||
+          resource.link,
+      })
     }
   }
 
@@ -75,7 +83,7 @@ class Resource extends Component<Props, State> {
     const { userResource }: State = this.state
 
     if (userResource) {
-      const { isLiked, resource }: IUserResource = userResource
+      const { isLiked, resource, title }: IUserResource = userResource
 
       const { data } = await ajax({
         method: isLiked ? 'delete' : 'post',
@@ -83,6 +91,13 @@ class Resource extends Component<Props, State> {
       })
 
       this.updateResource(data)
+
+      analytics({
+        event: !isLiked ? 'liked_source' : 'unliked_source',
+        source_title: title ||
+          resource.title ||
+          resource.link,
+      })
     }
   }
 
@@ -94,6 +109,26 @@ class Resource extends Component<Props, State> {
 
       const { data } = await ajax.put(`${API.USER_RESOURCE}/${id}`, { status })
       this.updateResource(data)
+
+      analytics({
+        event: 'click_status',
+        source_status: status,
+      })
+    }
+  }
+
+  handleWatch = () => {
+    const { userResource } = this.state
+
+    if (userResource) {
+      const { resource, title }: IUserResource = userResource
+
+      analytics({
+        event: 'click_watch_source',
+        source_title: title ||
+          resource.title ||
+          resource.link,
+      })
     }
   }
 
@@ -160,6 +195,7 @@ class Resource extends Component<Props, State> {
                 className={s.Resource__watch}
                 href={resource.link}
                 target="_blank"
+                onClick={this.handleWatch}
               >
                 Watch
                 <div className={s.Resource__watchLabel}>

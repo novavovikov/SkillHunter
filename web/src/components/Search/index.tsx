@@ -5,6 +5,7 @@ import { addNotification } from '../../redux/actions/notifications'
 import { INotification, IUserResource } from '../../types'
 import { ajax } from '../../utils/ajax'
 import { Icon } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import { FoundResource, SearchResults } from '../index'
 import * as s from './Search.css'
 
@@ -51,6 +52,10 @@ class Search extends Component<Props, State> {
         resultsVisibility: true
       })
     }
+
+    analytics({
+      event: 'click_search_input'
+    })
   }
 
   findResources = (query: string) => {
@@ -73,6 +78,16 @@ class Search extends Component<Props, State> {
   render () {
     const { resources, inputValue, resultsVisibility } = this.state
     const { showNotification } = this.props
+
+    const isOpen = inputValue !== '' && resultsVisibility
+    const isEmpty = inputValue !== '' && !resources.length
+
+    if (isEmpty) {
+      analytics({
+        event: 'not_found',
+        search_value: inputValue
+      })
+    }
 
     return (
       <div
@@ -102,8 +117,8 @@ class Search extends Component<Props, State> {
         )}
 
         <SearchResults
-          isOpen={inputValue !== '' && resultsVisibility}
-          isEmpty={inputValue !== '' && !resources.length}
+          isOpen={isOpen}
+          isEmpty={isEmpty}
           wrapNode={this.wrapRef.current}
           onClose={this.closeSearch}
         >
