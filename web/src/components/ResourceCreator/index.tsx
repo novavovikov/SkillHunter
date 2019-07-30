@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import React, { createRef } from 'react'
 import { createPortal } from 'react-dom'
+import { analytics } from '../../utils/analytics'
 import BookForm from './BookForm'
 import LinkForm from './LinkForm'
 import * as s from './ResourceCreator.css'
@@ -61,6 +62,11 @@ class ResourceCreator extends React.Component<Props, State> {
       typeModalVisibility: false,
       type,
     })
+
+    analytics({
+      event: 'click_type_of_source',
+      source_type: type
+    })
   }
 
   createResource = (data: any) => {
@@ -68,6 +74,12 @@ class ResourceCreator extends React.Component<Props, State> {
     const { onSubmit } = this.props
 
     onSubmit({ ...data, type })
+
+    analytics({
+      event: 'source_added',
+      type,
+      ...data
+    })
   }
 
   getFormPosition = () => {

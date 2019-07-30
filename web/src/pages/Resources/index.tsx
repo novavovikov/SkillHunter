@@ -10,6 +10,7 @@ import { RootState } from '../../redux/reducers'
 import { UserSkillState } from '../../redux/reducers/userSkill'
 import { IUserResource } from '../../types'
 import { Icon } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import * as s from './Resources.css'
 
 interface Params {
@@ -42,6 +43,12 @@ class ResourcesPage extends Component<Props, State> {
     this.setState({
       creatorVisible: !this.state.creatorVisible,
     })
+
+    if (!this.state.creatorVisible) {
+      analytics({
+        event: 'click_add_source'
+      })
+    }
   }
 
   createResource = (data: IUserResource) => {

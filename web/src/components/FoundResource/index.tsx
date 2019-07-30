@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { ENotifications } from '../../constants/notification'
 import { ROUTES } from '../../constants/routing'
 import { INotification, IUserResource } from '../../types'
+import { analytics } from '../../utils/analytics'
 import { urlNormalizer } from '../../utils/url'
 import * as s from './FoundResource.css'
 import { ResourcePreviewInfo } from '../index'
@@ -20,6 +21,11 @@ const FoundResource: FC<Props> = ({ data, showNotification }) => {
     showNotification({
       message: 'Link copied',
       type: ENotifications.success,
+    })
+
+    analytics({
+      event: 'copy_link',
+      source_url: url
     })
   }
 

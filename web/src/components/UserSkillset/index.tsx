@@ -7,6 +7,7 @@ import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
 import { Animation, Icon, Popup } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import { RemoveSkillset, SkillsetCreator } from '../index'
 import * as s from './UserSkillset.css'
 
@@ -49,10 +50,27 @@ class UserSkillset extends React.Component<Props, State> {
     })
   }
 
-  toggleList = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
+  handleSkillset = (skillset: string) => {
+    this.closeList()
+
+    analytics({
+      event: 'click_other_skillset',
+      skillset_name: skillset
     })
+  }
+
+  toggleList = () => {
+    const { isOpen } = this.state
+
+    this.setState({
+      isOpen: !isOpen,
+    })
+
+    if (!isOpen) {
+      analytics({
+        event: 'click_skillset_dropdown'
+      })
+    }
   }
 
   openRemovePopup = (id: number, name: string) => {
@@ -109,7 +127,7 @@ class UserSkillset extends React.Component<Props, State> {
                     to={`${ROUTES.SKILLSET}/${name}`}
                     className={s.UserSkillset__link}
                     activeClassName={s.UserSkillset__link_active}
-                    onClick={this.closeList}
+                    onClick={() => this.handleSkillset(name)}
                   >
                     {name}
                   </NavLink>

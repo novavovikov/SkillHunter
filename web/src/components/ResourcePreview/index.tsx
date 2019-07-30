@@ -6,6 +6,7 @@ import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { EResourceStatus, IUserResource } from '../../types'
 import { Icon, Item, Menu, Status } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import { ShareMenu } from '../index'
 import * as s from './ResourcePreview.css'
 
@@ -33,6 +34,11 @@ class ResourcePreview extends React.Component<Props> {
       userSkill,
       status,
     })
+
+    analytics({
+      event: 'click_status',
+      source_status: status
+    })
   }
 
   handleLike = () => {
@@ -42,6 +48,11 @@ class ResourcePreview extends React.Component<Props> {
       resourceId: data.resource.id,
       isLiked: !data.isLiked,
     })
+
+    analytics({
+      event: data.isLiked ? 'click_unlike' : 'click_like',
+      source_title: data.title || data.resource.title || data.resource.link
+    })
   }
 
   handleRemove = () => {
@@ -49,11 +60,27 @@ class ResourcePreview extends React.Component<Props> {
       removeHandler,
       data: {
         id,
-        userSkill
+        userSkill,
+        title,
+        resource
       },
     } = this.props
 
     removeHandler({ id, userSkill })
+
+    analytics({
+      event: 'click_delete_source',
+      source_title: title || resource.title || resource.link
+    })
+  }
+
+  handleMore = () => {
+    const { data } = this.props
+
+    analytics({
+      event: 'click_source_more',
+      source_title: data.title || data.resource.title || data.resource.link
+    })
   }
 
   render () {
@@ -95,6 +122,7 @@ class ResourcePreview extends React.Component<Props> {
           <Link
             to={`${ROUTES.RESOURCE}/${data.id}`}
             className={s.ResourcePreview__control}
+            onClick={this.handleMore}
           >
             More
             <Icon

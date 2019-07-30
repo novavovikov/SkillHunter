@@ -32,9 +32,10 @@ class Introduction extends React.Component<Props, State> {
 
   setSkillset = (skillset: string) => {
     this.setState({ skillset })
+
     analytics({
       event: 'click_improve_btn',
-      skillset
+      input_skillset: skillset
     })
   }
 

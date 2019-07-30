@@ -5,6 +5,7 @@ import { compose } from 'redux'
 import { withUser } from '../../providers/User'
 import { removeUserSkillsetSaga } from '../../redux/actions/user'
 import { SimpleButton } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import * as s from './RemoveSkillset.css'
 
 interface Props {
@@ -17,6 +18,10 @@ const RemoveSkillset: FC<Props> = ({ skillSetId, removeUserSkillset, onClose, ch
   const deleteSkillset = () => {
     removeUserSkillset(skillSetId)
     onClose()
+
+    analytics({
+      event: 'click_delete_skillset'
+    })
   }
 
   return (

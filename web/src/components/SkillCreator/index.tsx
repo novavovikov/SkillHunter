@@ -6,6 +6,7 @@ import { SkillsSuggestion } from '../../components'
 import { CREATOR_SKILL_QUERY } from '../../constants/routing'
 import { addSkillsSaga } from '../../redux/actions/skills'
 import { IconButton, Popup } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import * as s from './SkillCreator.css'
 
 interface Props extends RouteComponentProps {
@@ -26,6 +27,10 @@ class SkillCreator extends Component<Props> {
 
     this.props.history.push({
       search: queryParams.toString()
+    })
+
+    analytics({
+      event: 'click_add_skill'
     })
   }
 

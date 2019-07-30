@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import React, { ChangeEvent, Component, createRef, InputHTMLAttributes } from 'react'
+import { analytics } from '../../utils/analytics'
 import { Icon } from '../index'
 import * as s from './Input.css'
 
@@ -21,6 +22,11 @@ class Input extends Component<InputProps> {
       }
 
       onChange(event as ChangeEvent<HTMLInputElement>)
+
+      analytics({
+        event: 'click_reset'
+      })
+
       current.focus()
     }
   }

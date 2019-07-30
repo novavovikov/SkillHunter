@@ -11,6 +11,7 @@ import { ResourcesState } from '../../redux/reducers/resources'
 import { UserState } from '../../redux/reducers/user'
 import { IUserSkill } from '../../types'
 import { Button } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import * as s from './Skillset.css'
 
 interface Params {
@@ -63,6 +64,10 @@ class Skillset extends React.Component<Props> {
 
     this.props.history.push({
       search: queryParams.toString(),
+    })
+
+    analytics({
+      event: 'click_add_skill'
     })
   }
 

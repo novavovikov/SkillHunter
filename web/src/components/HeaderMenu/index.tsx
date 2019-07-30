@@ -7,6 +7,7 @@ import { ROUTES } from '../../constants/routing'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { Animation, Icon } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import * as s from './HeaderMenu.css'
 
 const MENU = [
@@ -44,13 +45,25 @@ class HeaderMenu extends React.Component<Props, State> {
   }
 
   handleButton = () => {
+    const { isOpen } = this.state
+
     this.setState({
-      isOpen: !this.state.isOpen,
+      isOpen: !isOpen
     })
+
+    if (!isOpen) {
+      analytics({
+        event: 'click_user_menu'
+      })
+    }
   }
 
   handleMenuLink = () => {
     this.closeMenu()
+
+    analytics({
+      event: 'click_logout'
+    })
   }
 
   render () {

@@ -1,10 +1,17 @@
 import { ENotifications } from '../../constants/notification'
+import { analytics } from '../../utils/analytics'
 import ac from '../actions'
 
 export const errorHandler = (place: string, error: any) => {
   console.warn(`${place}: ${error}`)
 
+
   if (error.response && error.response.status < 500) {
+    analytics({
+      event: 'error_notification',
+      error_message: error.response.data.message
+    })
+
     return (
       ac.addNotification({
         message: error.response.data.message,
@@ -12,6 +19,11 @@ export const errorHandler = (place: string, error: any) => {
       })
     )
   }
+
+  analytics({
+    event: 'error_notification',
+    error_message: 'System error. Try again.'
+  })
 
   return (
     ac.addNotification({

@@ -5,6 +5,7 @@ import Scrollbar from 'react-custom-scrollbars'
 import { ISuggestion } from '../../types'
 import { Button, Checkbox, Input } from '../../UI'
 import { ajax } from '../../utils/ajax'
+import { analytics } from '../../utils/analytics'
 import { Hash } from '../../utils/hash'
 import * as s from './SkillsSearch.css'
 
@@ -81,6 +82,12 @@ class SkillsSearch extends Component<Props, State> {
         : selected.filter(({ id }) => id !== checkedId),
     })
 
+    if (checked) {
+      analytics({
+        event: 'click_checkbox_skill',
+        input_skill: checkedItem && checkedItem.name
+      })
+    }
   }
 
   selectedAll = (e: ChangeEvent<HTMLInputElement>) => {
@@ -95,15 +102,36 @@ class SkillsSearch extends Component<Props, State> {
 
   submitForm = (e: FormEvent) => {
     e.preventDefault()
-    const { onSubmit } = this.props
+    const { onSubmit, theme } = this.props
     const skills = this.state.selected.map(({ name }) => name)
 
     onSubmit(skills)
+
+    analytics({
+      event: theme === 'step' ? 'click_next' : 'click_choose'
+    })
+
+    for (const skill of skills) {
+      analytics({
+        event: 'skill_added',
+        skill_name: skill
+      })
+    }
+  }
+
+  onCancel = () => {
+    const { onCancel, theme } = this.props
+
+    onCancel()
+
+    analytics({
+      event: theme === 'step' ? 'click_back' : 'click_cancel',
+    })
   }
 
   render () {
     const { selected, inputValue } = this.state
-    const { theme, onCancel } = this.props
+    const { theme } = this.props
 
     const skillList = this.getSkillList()
 
@@ -172,7 +200,7 @@ class SkillsSearch extends Component<Props, State> {
           <Button
             theme="transparent"
             type="button"
-            onClick={onCancel}
+            onClick={this.onCancel}
             className={s.SkillsSearch__btn}
           >
             {theme === 'step'

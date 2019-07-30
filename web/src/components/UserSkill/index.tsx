@@ -17,6 +17,7 @@ import { RootState } from '../../redux/reducers'
 import { UserResourceState } from '../../redux/reducers/resources'
 import { IUserResource, IUserSkill } from '../../types'
 import { Icon, OnBoarding } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import * as s from './UserSkill.css'
 
 interface Params {
@@ -48,6 +49,12 @@ class UserSkill extends React.Component<Props, State> {
     this.setState({
       creatorVisible: !this.state.creatorVisible,
     })
+
+    if (!this.state.creatorVisible) {
+      analytics({
+        event: 'click_add_source'
+      })
+    }
   }
 
   toggleOpen = () => {
@@ -60,6 +67,11 @@ class UserSkill extends React.Component<Props, State> {
     const { data, removeSkill } = this.props
 
     removeSkill([data.id])
+
+    analytics({
+      event: 'click_delete_skill',
+      skill_name: data.skill.name
+    })
   }
 
   createResource = (data: any) => {

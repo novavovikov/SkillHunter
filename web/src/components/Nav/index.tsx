@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+import React, { Component, FC } from 'react'
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
+import { analytics } from '../../utils/analytics'
 import * as s from './Nav.css'
 
 const CONTROLS = [
@@ -25,23 +26,33 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
 }
 
-const Nav: FC<Props> = ({ match }) => {
-  const postfix = match.params.skillset ? `/${match.params.skillset}` : ''
+class Nav extends Component<Props> {
+  handleLink = (label: string) => {
+    analytics({
+      event: (`click_${label}`).toLowerCase()
+    })
+  }
 
-  return (
-    <nav className={s.Nav}>
-      {CONTROLS.map(({ label, to }) => (
-        <NavLink
-          key={to}
-          to={`${to}${postfix}`}
-          className={s.Nav__item}
-          activeClassName={s.Nav__item_active}
-        >
-          {label}
-        </NavLink>
-      ))}
-    </nav>
-  )
+  render () {
+    const { match } = this.props
+    const postfix = match.params.skillset ? `/${match.params.skillset}` : ''
+
+    return (
+      <nav className={s.Nav}>
+        {CONTROLS.map(({ label, to }) => (
+          <NavLink
+            key={to}
+            to={`${to}${postfix}`}
+            className={s.Nav__item}
+            activeClassName={s.Nav__item_active}
+            onClick={() => this.handleLink(label)}
+          >
+            {label}
+          </NavLink>
+        ))}
+      </nav>
+    )
+  }
 }
 
 export default withRouter(Nav)

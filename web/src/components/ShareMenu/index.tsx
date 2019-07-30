@@ -5,6 +5,7 @@ import { ENotifications } from '../../constants/notification'
 import { addNotification } from '../../redux/actions/notifications'
 import { INotification } from '../../types'
 import { Item, Menu, Icon } from '../../UI'
+import { analytics } from '../../utils/analytics'
 import { getShareLink, SHARE_SITES } from '../../utils/share'
 import { urlNormalizer } from '../../utils/url'
 import s from './ShareMenu.css'
@@ -48,6 +49,11 @@ class ShareMenu extends React.Component<Props> {
     const { text } = this.props
     const link = getShareLink(system, { url, text })
 
+    analytics({
+      event: 'click_share',
+      share_system: system
+    })
+
     window.open(link, 'popup', 'width=600,height=600')
   }
 
@@ -66,6 +72,10 @@ class ShareMenu extends React.Component<Props> {
             showNotification({
               message: 'Link copied',
               type: ENotifications.success
+            })
+            analytics({
+              event: 'copy_link',
+              source_url: url
             })
           }}
         >
