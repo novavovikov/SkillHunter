@@ -7,7 +7,8 @@ import * as s from './SkillsetCreator.css'
 class SkillsetCreator extends Component {
   handleAdd = () => {
     analytics({
-      event: 'click_add_skillset'
+      event: 'click_add_skillset',
+      category: 'skillset'
     })
   }
 

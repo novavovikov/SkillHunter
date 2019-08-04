@@ -29,7 +29,8 @@ interface Props extends RouteComponentProps<Params> {
 class Nav extends Component<Props> {
   handleLink = (label: string) => {
     analytics({
-      event: (`click_${label}`).toLowerCase()
+      event: (`click_${label}`).toLowerCase(),
+      category: 'left_menu'
     })
   }
 

@@ -55,7 +55,8 @@ class Auth extends React.Component<Props> {
           onClick={() => {
             analytics({
               event: 'click_authorize',
-              auth_system: 'google'
+              auth_system: 'google',
+              category: 'registration'
             })
           }}
         >
@@ -72,7 +73,8 @@ class Auth extends React.Component<Props> {
           onClick={() => {
             analytics({
               event: 'click_authorize',
-              auth_system: 'facebook'
+              auth_system: 'facebook',
+              category: 'registration'
             })
           }}
         >

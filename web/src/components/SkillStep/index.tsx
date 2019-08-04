@@ -28,6 +28,7 @@ class SkillStep extends React.Component<Props> {
         </H2>
 
         <SkillsSuggestion
+          eventCategory="introduction_2"
           theme="step"
           onSubmit={onSubmit}
           onCancel={this.onCancel}

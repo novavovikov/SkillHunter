@@ -67,7 +67,8 @@ class Skillset extends React.Component<Props> {
     })
 
     analytics({
-      event: 'click_add_skill'
+      event: 'click_add_skill',
+      category: 'skillset'
     })
   }
 

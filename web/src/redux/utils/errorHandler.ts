@@ -9,7 +9,8 @@ export const errorHandler = (place: string, error: any) => {
   if (error.response && error.response.status < 500) {
     analytics({
       event: 'error_notification',
-      error_message: error.response.data.message
+      error_message: error.response.data.message,
+      category: 'error'
     })
 
     return (
@@ -22,7 +23,8 @@ export const errorHandler = (place: string, error: any) => {
 
   analytics({
     event: 'error_notification',
-    error_message: 'System error. Try again.'
+    error_message: 'System error. Try again.',
+    category: 'error'
   })
 
   return (

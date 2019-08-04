@@ -65,7 +65,8 @@ class ResourceCreator extends React.Component<Props, State> {
 
     analytics({
       event: 'click_type_of_source',
-      source_type: type
+      source_type: type,
+      category: 'skillset'
     })
   }
 
@@ -77,6 +78,7 @@ class ResourceCreator extends React.Component<Props, State> {
 
     analytics({
       event: 'source_added',
+      category: 'skillset',
       type,
       ...data
     })

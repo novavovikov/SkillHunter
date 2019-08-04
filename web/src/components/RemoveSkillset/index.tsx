@@ -20,7 +20,8 @@ const RemoveSkillset: FC<Props> = ({ skillSetId, removeUserSkillset, onClose, ch
     onClose()
 
     analytics({
-      event: 'click_delete_skillset'
+      event: 'click_delete_skillset',
+      category: 'skillset'
     })
   }
 

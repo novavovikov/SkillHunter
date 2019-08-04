@@ -59,6 +59,7 @@ class Resources extends Component<Props> {
           <ResourcePreview
             key={resource.id}
             data={resource}
+            eventCategory="skillset"
             updateHandler={onUpdate}
             likeHandler={onChangeLikeStatus}
             removeHandler={onRemove}

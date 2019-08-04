@@ -23,7 +23,8 @@ class SkillsetForm extends Component {
 
     analytics({
       event: 'click_improve_btn',
-      input_skillset: inputValue
+      input_skillset: inputValue,
+      category: 'landing'
     })
   }
 

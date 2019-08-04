@@ -57,6 +57,7 @@ class SkillsetStep extends React.Component<Props, State> {
             onChange: this.setInputValue,
             placeholder: 'Enter your skillset (speciality, profession or hobby)',
             autoFocus: true,
+            eventCategory: 'introduction_1'
           }}
         />
 

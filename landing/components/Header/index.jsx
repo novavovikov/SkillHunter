@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Container from '../Container'
 import Button from '../Button'
-import { HOME_ROUTE, APP_ROUTE } from '../../constants/routes'
+import { APP_ROUTE, HOME_ROUTE } from '../../constants/routes'
 
 import css from './Header.scss'
 import { analytics } from '../SkillsetForm/utils/analytics'
@@ -47,7 +47,12 @@ const Header = () => (
                 span
                 className={css.Header__btn}
                 theme="transparent"
-                onClick={() =>  analytics({ event: 'click_signin_btn' })}
+                onClick={() => analytics(
+                  {
+                    event: 'click_signin_btn',
+                    category: 'landing',
+                  },
+                )}
               >
                 Sign in
               </Button>
@@ -58,7 +63,12 @@ const Header = () => (
             <a>
               <Button
                 span
-                onClick={() =>  analytics({ event: 'click_signup_btn' })}
+                onClick={() => analytics(
+                  {
+                    event: 'click_signup_btn',
+                    category: 'landing'
+                  },
+                )}
               >
                 Sign up
               </Button>

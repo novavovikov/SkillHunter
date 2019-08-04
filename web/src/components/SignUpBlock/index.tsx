@@ -9,7 +9,8 @@ import * as s from './SignUpBlock.css'
 class SignUpBlock extends Component {
   handleLink = () => {
     analytics({
-      event: 'click_improve_btn'
+      event: 'click_improve_btn',
+      category: 'source_page'
     })
   }
 

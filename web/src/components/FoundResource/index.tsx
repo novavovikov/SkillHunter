@@ -25,13 +25,15 @@ const FoundResource: FC<Props> = ({ data, showNotification }) => {
 
     analytics({
       event: 'copy_link',
-      source_url: url
+      source_url: url,
+      category: 'search'
     })
   }
 
   return (
     <div className={s.FoundResource}>
       <ResourcePreviewInfo
+        eventCategory="search"
         className={s.FoundResource__content}
         data={data}
       />

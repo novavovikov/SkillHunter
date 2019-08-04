@@ -34,6 +34,11 @@ class Search extends Component<Props, State> {
       resources: [],
       resultsVisibility: false
     })
+
+    analytics({
+      event: 'click_reset',
+      category: 'search'
+    })
   }
 
   onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +59,8 @@ class Search extends Component<Props, State> {
     }
 
     analytics({
-      event: 'click_search_input'
+      event: 'click_search_input',
+      category: 'search'
     })
   }
 
@@ -85,7 +91,8 @@ class Search extends Component<Props, State> {
     if (isEmpty) {
       analytics({
         event: 'not_found',
-        search_value: inputValue
+        search_value: inputValue,
+        category: 'search'
       })
     }
 

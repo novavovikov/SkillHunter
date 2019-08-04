@@ -46,7 +46,8 @@ class ResourcesPage extends Component<Props, State> {
 
     if (!this.state.creatorVisible) {
       analytics({
-        event: 'click_add_source'
+        event: 'click_add_source',
+        category: 'skillset'
       })
     }
   }

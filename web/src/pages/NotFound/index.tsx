@@ -8,7 +8,8 @@ import * as s from './NotFound.css'
 class NotFound extends Component {
   componentDidMount (): void {
     analytics({
-      event: '404'
+      event: '404',
+      category: 'error'
     })
   }
 

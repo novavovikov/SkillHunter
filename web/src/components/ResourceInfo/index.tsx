@@ -16,7 +16,8 @@ class ResourceInfo extends Component<Props> {
 
     analytics({
       event: 'click_see_original_link',
-      source_url: link
+      source_url: link,
+      category: 'source_page'
     })
   }
 

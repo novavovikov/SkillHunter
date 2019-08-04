@@ -55,7 +55,8 @@ class UserSkillset extends React.Component<Props, State> {
 
     analytics({
       event: 'click_other_skillset',
-      skillset_name: skillset
+      skillset_name: skillset,
+      category: 'skillset'
     })
   }
 
@@ -68,7 +69,8 @@ class UserSkillset extends React.Component<Props, State> {
 
     if (!isOpen) {
       analytics({
-        event: 'click_skillset_dropdown'
+        event: 'click_skillset_dropdown',
+        category: 'skillset'
       })
     }
   }

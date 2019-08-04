@@ -6,14 +6,15 @@ import * as s from './Input.css'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   classNameField?: string
-  theme?: 'closed'
+  theme?: 'closed',
+  eventCategory?: string
 }
 
 class Input extends Component<InputProps> {
   inputRef = createRef<HTMLInputElement>()
 
   clearField = () => {
-    const { onChange } = this.props
+    const { onChange, eventCategory } = this.props
     const { current } = this.inputRef
 
     if (onChange && current) {
@@ -24,7 +25,8 @@ class Input extends Component<InputProps> {
       onChange(event as ChangeEvent<HTMLInputElement>)
 
       analytics({
-        event: 'click_reset'
+        event: 'click_reset',
+        category: eventCategory
       })
 
       current.focus()

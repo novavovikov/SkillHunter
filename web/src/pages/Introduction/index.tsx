@@ -35,7 +35,8 @@ class Introduction extends React.Component<Props, State> {
 
     analytics({
       event: 'click_improve_btn',
-      input_skillset: skillset
+      input_skillset: skillset,
+      category: 'introduction_1'
     })
   }
 

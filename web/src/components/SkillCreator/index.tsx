@@ -30,7 +30,8 @@ class SkillCreator extends Component<Props> {
     })
 
     analytics({
-      event: 'click_add_skill'
+      event: 'click_add_skill',
+      category: 'skillset'
     })
   }
 
@@ -75,6 +76,7 @@ class SkillCreator extends Component<Props> {
           onClose={this.closePopup}
         >
           <SkillsSuggestion
+            eventCategory="skillset"
             onSubmit={this.addSkills}
             onCancel={this.closePopup}
           />

@@ -6,14 +6,13 @@ import * as s from './SkillsSuggestion.css'
 
 interface Props {
   theme?: 'step'
+  eventCategory: string
   onSubmit: (skills: string[]) => void
   onCancel: () => void
 }
 
 class SkillsSuggestion extends Component<Props> {
   render () {
-    const { onSubmit, onCancel, theme } = this.props
-
     return (
       <div className={cn(s.SkillsSuggestion)}>
         <div className={s.SkillsSuggestion__header}>
@@ -26,11 +25,7 @@ class SkillsSuggestion extends Component<Props> {
         </div>
 
         <div className={s.SkillsSuggestion__body}>
-          <SkillsSearch
-            theme={theme}
-            onSubmit={onSubmit}
-            onCancel={onCancel}
-          />
+          <SkillsSearch {...this.props}/>
         </div>
       </div>
     )

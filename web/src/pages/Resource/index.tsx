@@ -62,6 +62,7 @@ class Resource extends Component<Props, State> {
         source_title: title ||
           resource.title ||
           resource.link,
+        category: 'source_page',
       })
     }
   }
@@ -97,6 +98,7 @@ class Resource extends Component<Props, State> {
         source_title: title ||
           resource.title ||
           resource.link,
+        category: 'source_page',
       })
     }
   }
@@ -113,6 +115,7 @@ class Resource extends Component<Props, State> {
       analytics({
         event: 'click_status',
         source_status: status,
+        category: 'source_page',
       })
     }
   }
@@ -128,6 +131,7 @@ class Resource extends Component<Props, State> {
         source_title: title ||
           resource.title ||
           resource.link,
+        category: 'source_page',
       })
     }
   }

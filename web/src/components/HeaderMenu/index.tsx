@@ -53,7 +53,8 @@ class HeaderMenu extends React.Component<Props, State> {
 
     if (!isOpen) {
       analytics({
-        event: 'click_user_menu'
+        event: 'click_user_menu',
+        category: 'user_menu'
       })
     }
   }
@@ -62,7 +63,8 @@ class HeaderMenu extends React.Component<Props, State> {
     this.closeMenu()
 
     analytics({
-      event: 'click_logout'
+      event: 'click_logout',
+      category: 'user_menu'
     })
   }
 

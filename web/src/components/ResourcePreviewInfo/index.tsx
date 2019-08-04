@@ -9,26 +9,29 @@ import { getIconByType } from './iconType'
 import * as s from './ResourcePreviewInfo.css'
 
 interface Props {
+  eventCategory: string
   className?: string
   data: IUserResource
 }
 
 class ResourcePreviewInfo extends Component<Props> {
   handleTitle = () => {
-    const { data } = this.props
+    const { data, eventCategory } = this.props
 
     analytics({
       event: 'click_source_name',
-      source_url: data.title || data.resource.title || data.resource.link
+      source_url: data.title || data.resource.title || data.resource.link,
+      category: eventCategory
     })
   }
 
   handleLink = () => {
-    const { data } = this.props
+    const { data, eventCategory } = this.props
 
     analytics({
       event: 'click_source_url',
-      source_title: data.resource.link
+      source_title: data.resource.link,
+      category: eventCategory
     })
   }
 

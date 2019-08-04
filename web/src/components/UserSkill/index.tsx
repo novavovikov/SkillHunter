@@ -52,7 +52,8 @@ class UserSkill extends React.Component<Props, State> {
 
     if (!this.state.creatorVisible) {
       analytics({
-        event: 'click_add_source'
+        event: 'click_add_source',
+        category: 'skillset'
       })
     }
   }
@@ -70,7 +71,8 @@ class UserSkill extends React.Component<Props, State> {
 
     analytics({
       event: 'click_delete_skill',
-      skill_name: data.skill.name
+      skill_name: data.skill.name,
+      category: 'skillset'
     })
   }
 

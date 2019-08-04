@@ -11,6 +11,7 @@ import * as s from './SkillsSearch.css'
 
 interface Props {
   theme?: 'step'
+  eventCategory: string
   onSubmit: (skills: string[]) => void
   onCancel: () => void
   debounce?: number
@@ -70,6 +71,7 @@ class SkillsSearch extends Component<Props, State> {
   }
 
   handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    const { eventCategory } = this.props
     const { selected } = this.state
     const { value, checked } = e.target
     const checkedId = Number(value)
@@ -85,7 +87,8 @@ class SkillsSearch extends Component<Props, State> {
     if (checked) {
       analytics({
         event: 'click_checkbox_skill',
-        input_skill: checkedItem && checkedItem.name
+        input_skill: checkedItem && checkedItem.name,
+        category: eventCategory
       })
     }
   }
@@ -102,36 +105,39 @@ class SkillsSearch extends Component<Props, State> {
 
   submitForm = (e: FormEvent) => {
     e.preventDefault()
-    const { onSubmit, theme } = this.props
+    const { onSubmit, theme, eventCategory } = this.props
     const skills = this.state.selected.map(({ name }) => name)
 
     onSubmit(skills)
 
     analytics({
-      event: theme === 'step' ? 'click_next' : 'click_choose'
+      event: theme === 'step' ? 'click_next' : 'click_choose',
+      category: eventCategory
     })
 
     for (const skill of skills) {
       analytics({
         event: 'skill_added',
-        skill_name: skill
+        skill_name: skill,
+        category: eventCategory
       })
     }
   }
 
   onCancel = () => {
-    const { onCancel, theme } = this.props
+    const { onCancel, theme, eventCategory } = this.props
 
     onCancel()
 
     analytics({
       event: theme === 'step' ? 'click_back' : 'click_cancel',
+      category: eventCategory
     })
   }
 
   render () {
     const { selected, inputValue } = this.state
-    const { theme } = this.props
+    const { theme, eventCategory } = this.props
 
     const skillList = this.getSkillList()
 
@@ -161,6 +167,7 @@ class SkillsSearch extends Component<Props, State> {
                 placeholder="Type in for search or added new skill"
                 value={inputValue}
                 onChange={this.handleInput}
+                eventCategory={eventCategory}
                 autoFocus
               />
             </div>

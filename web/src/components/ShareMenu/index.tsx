@@ -11,6 +11,7 @@ import { urlNormalizer } from '../../utils/url'
 import s from './ShareMenu.css'
 
 interface Props {
+  eventCategory: string
   showNotification: (data: INotification) => void
   link: string
   text: string
@@ -46,19 +47,20 @@ const SHARE_LINKS = [
 
 class ShareMenu extends React.Component<Props> {
   handleShare = (system: SHARE_SITES, url: string) => {
-    const { text } = this.props
+    const { text, eventCategory } = this.props
     const link = getShareLink(system, { url, text })
 
     analytics({
       event: 'click_share',
-      share_system: system
+      share_system: system,
+      category: eventCategory
     })
 
     window.open(link, 'popup', 'width=600,height=600')
   }
 
   render () {
-    const { link, label, showNotification } = this.props
+    const { link, label, showNotification, eventCategory } = this.props
     const url = urlNormalizer(`${window.location.origin}${link}`)
 
     return (
@@ -75,7 +77,8 @@ class ShareMenu extends React.Component<Props> {
             })
             analytics({
               event: 'copy_link',
-              source_url: url
+              source_url: url,
+              category: eventCategory
             })
           }}
         >

@@ -38,6 +38,7 @@ class Share extends React.Component<Props, State> {
         {resources.map((resource: IUserResource) => (
           <ResourcePreview
             key={resource.id}
+            eventCategory="share"
             data={resource}
             likeHandler={changeResourceLikeStatus}
           />

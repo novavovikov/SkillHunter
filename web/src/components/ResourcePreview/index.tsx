@@ -11,6 +11,7 @@ import { ShareMenu } from '../index'
 import * as s from './ResourcePreview.css'
 
 interface Props {
+  eventCategory: string
   data: IUserResource,
   likeHandler: (data: ResourceLikeStatusSagaPayload) => void
   updateHandler: (data: Partial<IUserResource>) => void
@@ -25,6 +26,7 @@ class ResourcePreview extends React.Component<Props> {
 
   handleStatus = (status: string) => {
     const {
+      eventCategory,
       updateHandler,
       data: { id, userSkill },
     } = this.props
@@ -37,12 +39,13 @@ class ResourcePreview extends React.Component<Props> {
 
     analytics({
       event: 'click_status',
-      source_status: status
+      source_status: status,
+      category: eventCategory
     })
   }
 
   handleLike = () => {
-    const { data, likeHandler } = this.props
+    const { data, likeHandler, eventCategory } = this.props
 
     likeHandler({
       resourceId: data.resource.id,
@@ -51,7 +54,8 @@ class ResourcePreview extends React.Component<Props> {
 
     analytics({
       event: data.isLiked ? 'click_unlike' : 'click_like',
-      source_title: data.title || data.resource.title || data.resource.link
+      source_title: data.title || data.resource.title || data.resource.link,
+      category: eventCategory
     })
   }
 
@@ -64,22 +68,25 @@ class ResourcePreview extends React.Component<Props> {
         title,
         resource
       },
+      eventCategory
     } = this.props
 
     removeHandler({ id, userSkill })
 
     analytics({
       event: 'click_delete_source',
-      source_title: title || resource.title || resource.link
+      source_title: title || resource.title || resource.link,
+      category: eventCategory
     })
   }
 
   handleMore = () => {
-    const { data } = this.props
+    const { data, eventCategory } = this.props
 
     analytics({
       event: 'click_source_more',
-      source_title: data.title || data.resource.title || data.resource.link
+      source_title: data.title || data.resource.title || data.resource.link,
+      category: eventCategory
     })
   }
 
@@ -89,7 +96,10 @@ class ResourcePreview extends React.Component<Props> {
     return (
       <div className={s.ResourcePreview}>
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_info)}>
-          <ResourcePreviewInfo data={data}/>
+          <ResourcePreviewInfo
+            eventCategory="skillset"
+            data={data}
+          />
         </div>
 
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_status)}>
@@ -135,6 +145,7 @@ class ResourcePreview extends React.Component<Props> {
             <ShareMenu
               link={`${ROUTES.RESOURCE}/${data.id}`}
               text={data.title}
+              eventCategory="skillset"
             />
           </div>
           <button

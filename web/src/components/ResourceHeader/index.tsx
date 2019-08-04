@@ -38,7 +38,8 @@ class ResourceHeader extends PureComponent<Props, State> {
 
   handleBack = () => {
     analytics({
-      event: 'click_back'
+      event: 'click_back',
+      category: 'source_page'
     })
   }
 
@@ -98,6 +99,7 @@ class ResourceHeader extends PureComponent<Props, State> {
             link={`${ROUTES.RESOURCE}/${data.id}`}
             text={data.title}
             label="Share"
+            eventCategory="source_page"
           />
         </div>
         {!data.viewOnly && (
