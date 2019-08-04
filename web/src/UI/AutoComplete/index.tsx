@@ -1,16 +1,16 @@
 import cn from 'classnames'
 import { debounce } from 'debounce'
-import React, { ChangeEvent, InputHTMLAttributes } from 'react'
+import React, { ChangeEvent } from 'react'
 import withClickOutside from 'react-click-outside'
 import Scrollbar from 'react-custom-scrollbars'
 import { ISuggestion } from '../../types'
 import { ajax } from '../../utils/ajax'
-import Input from '../Input'
+import Input, { InputProps } from '../Input'
 import * as s from './AutoComplete.css'
 
 interface Props {
   className?: string
-  input: InputHTMLAttributes<HTMLInputElement>
+  input: InputProps
   debounce?: number
 }
 

@@ -7,7 +7,7 @@ import * as s from './Input.css'
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   classNameField?: string
   theme?: 'closed',
-  eventCategory?: string
+  eventCategory: string
 }
 
 class Input extends Component<InputProps> {
