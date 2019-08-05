@@ -1,6 +1,6 @@
 :root {
-  @custom-media --xl (max-width: 1360px);
-  @custom-media --lg (max-width: 1024px);
+  @custom-media --xl (max-width: 1280px);
+  @custom-media --lg (max-width: 960px);
   @custom-media --sm (max-width: 760px);
   @custom-media --xs (max-width: 540px);
 
@@ -38,8 +38,14 @@
 
   --ff-roboto: 'Roboto', sans-serif;
 
-  --z-filter: 10;
-  --z-filter-switcher: 9;
+  --z-popup: 50;
+  --z-header: 20;
+  --z-sidebar: 22;
+  --z-sidebar-switcher: 21;
+  --z-menu: 10;
+  --z-notification: 10;
+
+  --z-overlay: -1;
 
   --font-xs: {
     font-size: 10px;

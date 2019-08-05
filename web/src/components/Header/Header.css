@@ -5,7 +5,7 @@
   align-items: center;
   height: 80px;
   padding: 15px 20px;
-  z-index: 20;
+  z-index: var(--z-header);
 
   &__logo {
     flex: 250px 0 0;

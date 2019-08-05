@@ -5,7 +5,6 @@ interface CssExports {
   'ResourceHeader__back': string;
   'ResourceHeader__item': string;
   'ResourceHeader__label': string;
-  'ResourceHeader_fixed': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

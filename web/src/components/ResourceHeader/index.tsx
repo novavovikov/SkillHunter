@@ -15,27 +15,7 @@ interface Props {
   onRemove: () => void
 }
 
-interface State {
-  fixedClass: boolean
-}
-
-class ResourceHeader extends PureComponent<Props, State> {
-  state = {
-    fixedClass: false,
-  }
-
-  componentDidMount (): void {
-    window.addEventListener('scroll', this.checkWindowPosition)
-  }
-
-  componentWillUnmount (): void {
-    window.removeEventListener('scroll', this.checkWindowPosition)
-  }
-
-  checkWindowPosition = () => {
-    this.setState({ fixedClass: window.scrollY > 0 })
-  }
-
+class ResourceHeader extends PureComponent<Props> {
   handleBack = () => {
     analytics({
       event: 'click_back',
@@ -44,13 +24,10 @@ class ResourceHeader extends PureComponent<Props, State> {
   }
 
   render () {
-    const { fixedClass } = this.state
     const { data, changeStatus, onRemove, handleLike } = this.props
 
     return (
-      <header className={cn(s.ResourceHeader, {
-        [s.ResourceHeader_fixed]: fixedClass,
-      })}>
+      <header className={s.ResourceHeader}>
 
         <Link
           to={ROUTES.SKILLSET}

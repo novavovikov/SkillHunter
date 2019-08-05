@@ -15,12 +15,17 @@
     position: sticky;
     top: 0;
     flex: 250px 0 0;
-    width: 250px;
     padding: 17px 20px;
 
-    @media(--xs) {
+    @media(--xl) {
+      flex-basis: 220px;
+    }
+
+    @media(--lg) {
       position: fixed;
-      left: -250px;
+      width: 220px;
+      left: -220px;
+      z-index: var(--z-sidebar);
     }
   }
 

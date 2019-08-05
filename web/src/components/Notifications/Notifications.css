@@ -7,7 +7,7 @@
   max-width: 300px;
   bottom: 20px;
   right: 40px;
-  z-index: 10;
+  z-index: var(--z-notification);
 
   &:not(:empty) {
     min-height: 70px;

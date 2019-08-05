@@ -8,20 +8,20 @@
     position: fixed;
     width: 40px;
     height: 40px;
-    z-index: 10;
     right: 20px;
     bottom: 20px;
+    z-index: var(--z-sidebar-switcher);
 
-    @media(--xs) {
+    @media(--lg) {
       display: block;
     }
   }
 
   &__sidebar {
-    @media(--xs) {
+    @media(--lg) {
       background: #fff;
-      z-index: 20;
       height: 100%;
+      z-index: var(--z-sidebar);
       transition: var(--transition-fast);
 
       &_opened {
@@ -33,7 +33,11 @@
   &_withSidebar {
     width: calc(100% - 250px);
 
-    @media(--xs) {
+    @media(--xl) {
+      width: calc(100% - 220px);
+    }
+
+    @media(--lg) {
       width: 100%;
     }
   }

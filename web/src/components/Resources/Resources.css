@@ -24,15 +24,15 @@
     color: var(--color-dusty-gray);
 
     &_info {
-      width: calc(730/1105*100%);
+      width: calc(100% - 340px);
     }
 
     &_status {
-      width: calc(170/1105*100%);
+      width: 150px;
     }
 
     &_actions {
-      width: calc(205/1105*100%);
+      width: 190px;
     }
 
     &_full {
