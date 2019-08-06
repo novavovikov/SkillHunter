@@ -41,6 +41,7 @@ services:
       - landing:/app/out
       - static:/app/src/static
     environment:
+      - NODE_ENV=prod
       - DOMAIN=skillhunter.io
       - PORT=4000
       - GOOGLE_CLIENT_ID=71152846727-1i6m8nnkch3morlj2o5fq0jfug55piu9.apps.googleusercontent.com

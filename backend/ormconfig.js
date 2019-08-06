@@ -5,7 +5,7 @@ module.exports = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  ssl: true,
+  ssl: process.env.NODE_ENV === 'prod',
   migrationsTableName: 'typeorm_migrations',
   migrations: [
     'src/migrations/*.ts'
