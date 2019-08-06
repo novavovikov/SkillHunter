@@ -40,6 +40,7 @@ class Input extends Component<InputProps> {
       theme,
       value,
       disabled,
+      eventCategory,
       ...rest
     } = this.props
 
