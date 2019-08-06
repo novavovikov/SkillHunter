@@ -18,12 +18,13 @@ export class ResourceController {
   @Get()
   @ApiUseTags('resource')
   getResources (
-    @Query('ids') ids: string,
+    @Query('ids') ids?: string,
   ) {
     const query: FindOneOptions<Resource> = {}
-    const resourceIds = ids.split(',')
 
-    if (resourceIds) {
+    if (ids) {
+      const resourceIds = ids.split(',')
+
       query.where = {
         id: In(resourceIds),
       }

@@ -6,16 +6,16 @@ const fileLoaderWithOptions = {
   }
 }
 
-module.exports = {
+module.exports = () => ({
   rules: [
     {
       test: /\.tsx?$/,
-      loader: 'awesome-typescript-loader'
+      loader: 'awesome-typescript-loader',
     },
     {
       test: /\.js$/,
       enforce: 'pre',
-      loader: 'source-map-loader'
+      loader: 'source-map-loader',
     },
     {
       test: /\.css$/,
@@ -29,7 +29,7 @@ module.exports = {
             modules: {
               localIdentName: '[local]--[hash:base64:5]',
             },
-          }
+          },
         },
         {
           loader: 'postcss-loader',
@@ -53,16 +53,16 @@ module.exports = {
       oneOf: [
         {
           resourceQuery: /inline/,
-          use: 'svg-inline-loader'
+          use: 'svg-inline-loader',
         },
         {
-          use: fileLoaderWithOptions
+          use: fileLoaderWithOptions,
         },
       ],
     },
     {
       test: /\.(gif|png|jpe?g|ico)$/i,
-      use: fileLoaderWithOptions
+      use: fileLoaderWithOptions,
     },
   ],
-}
+})

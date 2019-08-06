@@ -9,10 +9,10 @@ import { SuggestsService } from './suggests.service'
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([Skillset, Skill]),
     HttpModule.register({
       timeout: 1500,
     }),
-    TypeOrmModule.forFeature([Skillset, Skill]),
   ],
   controllers: [SuggestsController],
   providers: [

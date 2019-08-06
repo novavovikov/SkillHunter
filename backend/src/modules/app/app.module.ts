@@ -4,6 +4,7 @@ import config from '../../../ormconfig'
 import { AuthModule } from '../auth/auth.module'
 import { ResourceModule } from '../resource/resource.module'
 import { SkillModule } from '../skill/skill.module'
+import { SkillsetModule } from '../skillset/skillset.module'
 import { SubscribeModule } from '../subscribe/subscribe.module'
 import { SuggestsModule } from '../suggests/suggests.module'
 import { UserResourceModule } from '../user-resource/user-resource.module'
@@ -20,6 +21,7 @@ import { AppService } from './app.service'
     AuthModule,
     SuggestsModule,
     UserModule,
+    SkillsetModule,
     UserSkillModule,
     UserResourceModule,
     SkillModule,

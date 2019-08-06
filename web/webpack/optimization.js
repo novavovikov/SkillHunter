@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = () => ({
   splitChunks: {
     chunks: 'async',
     minSize: 30000,
@@ -10,15 +10,15 @@ module.exports = {
     cacheGroups: {
       vendors: {
         test: /[\\/]node_modules[\\/]/,
-        priority: -10
+        priority: -10,
       },
 
       default: {
         minChunks: 2,
         priority: -20,
-        reuseExistingChunk: true
-      }
-    }
+        reuseExistingChunk: true,
+      },
+    },
   },
-  runtimeChunk: true
-}
+  runtimeChunk: true,
+})
