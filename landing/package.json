@@ -31,7 +31,7 @@
     "classnames": "^2.2.6",
     "express": "^4.16.4",
     "http-proxy-middleware": "^0.19.1",
-    "next": "^8.0.4",
+    "next": "^9.0.3",
     "next-images": "^1.1.1",
     "node-sass": "^4.11.0",
     "postcss-apply": "^0.12.0",

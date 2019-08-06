@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common'
+import { HttpModule, Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { SkillsetModule } from '../skillset/skillset.module'
-import { SkillsetService } from '../skillset/skillset.service'
-import { ResourceModule } from '../resource/resource.module'
+import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
-import { SkillModule } from '../skill/skill.module'
+import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
-import { UserSkillModule } from '../user-skill/user-skill.module'
+import { Skillset } from '../skillset/skillset.entity'
+import { SkillsetService } from '../skillset/skillset.service'
+import { UserSkill } from '../user-skill/user-skill.entity'
 import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserResourceController } from './user-resource.controller'
 import { UserResource } from './user-resource.entity'
@@ -16,11 +16,14 @@ import { UserResourceService } from './user-resource.service'
   imports: [
     TypeOrmModule.forFeature([
       UserResource,
+      UserSkill,
+      Skillset,
+      Skill,
+      Resource,
     ]),
-    UserSkillModule,
-    SkillsetModule,
-    SkillModule,
-    ResourceModule,
+    HttpModule.register({
+      timeout: 10000,
+    }),
   ],
   controllers: [UserResourceController],
   providers: [

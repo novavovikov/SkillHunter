@@ -1,8 +1,9 @@
 import { HttpModule, Module } from '@nestjs/common'
-import { SkillsetModule } from '../skillset/skillset.module'
-import { SkillsetService } from '../skillset/skillset.service'
-import { SkillModule } from '../skill/skill.module'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
+import { Skillset } from '../skillset/skillset.entity'
+import { SkillsetService } from '../skillset/skillset.service'
 import { SuggestsController } from './suggests.controller'
 import { SuggestsService } from './suggests.service'
 
@@ -11,8 +12,7 @@ import { SuggestsService } from './suggests.service'
     HttpModule.register({
       timeout: 1500,
     }),
-    SkillModule,
-    SkillsetModule
+    TypeOrmModule.forFeature([Skillset, Skill]),
   ],
   controllers: [SuggestsController],
   providers: [
