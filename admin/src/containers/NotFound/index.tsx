@@ -1,11 +1,9 @@
 import React from 'react'
 
 const NotFound: React.FC = () => {
-  return (
-    <div>
-      NotFound Page
-    </div>
-  )
+  window.location.replace('https://app.skillhunter.io/404')
+
+  return null
 }
 
 export default NotFound

@@ -68,7 +68,7 @@ class Resource extends Component<Props, State> {
   }
 
   updateResource = (data: Partial<IUserResource>) => {
-    const { userResource } = this.state
+    const { userResource }:State = this.state
 
     if (userResource) {
       this.setState({
@@ -121,7 +121,7 @@ class Resource extends Component<Props, State> {
   }
 
   handleWatch = () => {
-    const { userResource } = this.state
+    const { userResource }: State = this.state
 
     if (userResource) {
       const { resource, title }: IUserResource = userResource
@@ -137,7 +137,7 @@ class Resource extends Component<Props, State> {
   }
 
   render () {
-    const { isLoading, userResource } = this.state
+    const { isLoading, userResource }: State = this.state
 
     if (isLoading) {
       return null

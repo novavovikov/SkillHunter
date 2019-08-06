@@ -4,24 +4,17 @@ import Page from '../components/Page'
 import Error from '../components/Error'
 
 class ErrorPage extends React.Component {
+  static getInitialProps({ res, err }) {
+    const statusCode = res ? res.statusCode : err ? err.statusCode : null;
+    return { statusCode };
+  }
+
   static defaultProps = {
     statusCode: 404,
   }
 
   static propTypes = {
     statusCode: PropTypes.number,
-  }
-
-  static getInitialProps({ res, err }) {
-    let statusCode = null
-    if (res) {
-      ({ statusCode } = res)
-    } else if (err) {
-      ({ statusCode } = err)
-    }
-    return {
-      statusCode,
-    }
   }
 
   render() {

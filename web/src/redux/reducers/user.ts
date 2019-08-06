@@ -13,7 +13,7 @@ const initState = {
   data: null,
 }
 
-export const user: Reducer<UserState, UserAction> = (state = initState, action) => {
+export const user: Reducer<UserState, UserAction> = (state: UserState = initState, action) => {
   switch (action.type) {
     case UserActionTypes.SET_USER_DATA:
       return {
