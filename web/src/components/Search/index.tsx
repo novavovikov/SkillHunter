@@ -100,6 +100,8 @@ class Search extends Component<Props, State> {
 
     this.setState({
       searchVisibility: !searchVisibility,
+      resultsVisibility: false,
+      inputValue: ''
     })
 
     if (!searchVisibility && inputNode) {
