@@ -5,6 +5,7 @@ interface CssExports {
   'Page__sidebar': string;
   'Page__sidebar_opened': string;
   'Page__switcher': string;
+  'Page__switcher_active': string;
   'Page_withSidebar': string;
 }
 declare var cssExports: CssExports;

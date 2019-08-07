@@ -40,7 +40,9 @@ class Page extends Component<Props, State> {
           {sidebar && (
             <>
               <button
-                className={s.Page__switcher}
+                className={cn(s.Page__switcher, {
+                  [s.Page__switcher_active]: sidebarVisibility
+                })}
                 onClick={() => this.setState({ sidebarVisibility: !sidebarVisibility })}
               />
               <Sidebar className={cn(s.Page__sidebar, {
