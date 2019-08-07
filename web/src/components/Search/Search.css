@@ -1,20 +1,51 @@
 @import "../../styles/variables.css";
 
 .Search {
-  position: relative;
-  width: 100%;
-  max-width: 478px;
+  width: 478px;
 
-  &:before {
-    content: '';
-    display: block;
+  @media(--xs) {
     position: absolute;
-    left: 6px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 21px 20px;
+    z-index: 1;
+    transform: translate(0, -100%);
+    transition: var(--transition);
+
+    &_opened {
+      transform: translate(0);
+    }
+  }
+
+  &__form {
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      width: 24px;
+      height: 24px;
+      background: url("./icons/search.svg") no-repeat center/contain;
+      margin-top: -12px;
+    }
+  }
+
+  &__switcher {
+    display: none;
     top: 50%;
-    width: 24px;
-    height: 24px;
-    background: url("./icons/search.svg") no-repeat center/contain;
-    margin-top: -12px;
+    width: 38px;
+    height: 38px;
+    border: 2px solid var(--color-silver);
+    background: url("./icons/search.svg") no-repeat center/20px 20px;
+    border-radius: 50%;
+
+    @media(--xs) {
+      display: block;
+    }
   }
 
   &__input {

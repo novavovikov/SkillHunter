@@ -6,6 +6,10 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
 
+  @media(--md) {
+    padding: 0 15px;
+  }
+
   &__header {
     display: flex;
     align-items: center;
@@ -25,14 +29,26 @@
 
     &_info {
       width: calc(100% - 340px);
+
+      @media(--md) {
+        width: 100%;
+      }
     }
 
     &_status {
       width: 150px;
+
+      @media(--md) {
+        display: none;
+      }
     }
 
     &_actions {
       width: 190px;
+
+      @media(--md) {
+        display: none;
+      }
     }
 
     &_full {

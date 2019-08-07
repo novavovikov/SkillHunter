@@ -3,7 +3,10 @@
 interface CssExports {
   'Search': string;
   'Search__clear': string;
+  'Search__form': string;
   'Search__input': string;
+  'Search__switcher': string;
+  'Search_opened': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

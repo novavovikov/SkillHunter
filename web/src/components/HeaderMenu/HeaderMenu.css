@@ -5,6 +5,10 @@
   @apply --font-m;
   margin: 0 0 0 34px;
 
+  @media(--xs) {
+    margin-left: 20px;
+  }
+
   &__info {
     position: relative;
     display: flex;

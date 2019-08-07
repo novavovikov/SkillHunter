@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
 import cn from 'classnames'
+import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import logoPath from './icons/logo.svg'
+import logo from './icons/logo.svg?inline'
 import * as s from './Logo.css'
 
 interface Props {
@@ -13,12 +13,8 @@ const Logo: FC<Props> = ({ className }) => {
     <Link
       to={'/'}
       className={cn(s.Logo, className)}
-    >
-      <img
-        src={logoPath}
-        alt=""
-      />
-    </Link>
+      dangerouslySetInnerHTML={{ __html: logo }}
+    />
   )
 }
 

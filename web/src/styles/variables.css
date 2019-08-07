@@ -1,7 +1,7 @@
 :root {
   @custom-media --xl (max-width: 1280px);
   @custom-media --lg (max-width: 960px);
-  @custom-media --sm (max-width: 760px);
+  @custom-media --md (max-width: 760px);
   @custom-media --xs (max-width: 540px);
 
   --transition-fast: .3s;
@@ -69,7 +69,11 @@
 
   --font-xl: {
     font-size: 18px;
-    line-height: 21px;
+    line-height: calc(21/18);
+
+    @media(--md) {
+      font-size: 16px;
+    }
   };
 
   --title: {
@@ -79,17 +83,29 @@
 
   --h1: {
     font-size: 36px;
-    line-height: 42px;
+    line-height: calc(42/36);
+
+    @media(--md) {
+      font-size: 24px;
+    }
   };
 
   --h2: {
     font-size: 32px;
-    line-height: 38px;
+    line-height: calc(38/32);
+
+    @media(--md) {
+      font-size: 22px;
+    }
   };
 
   --h3: {
     font-size: 22px;
-    line-height: 26px;
+    line-height: calc(26/22);
+
+    @media(--md) {
+      font-size: 18px;
+    }
   };
 
   --link {

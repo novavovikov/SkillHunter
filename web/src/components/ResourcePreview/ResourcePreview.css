@@ -2,6 +2,7 @@
 
 .ResourcePreview {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding: 15px 0;
   border-bottom: 1px solid var(--color-gallery);
@@ -23,6 +24,10 @@
 
     &_info {
       width: calc(100% - 340px);
+
+      @media(--md) {
+        width: 100%;
+      }
     }
 
     &_status {
