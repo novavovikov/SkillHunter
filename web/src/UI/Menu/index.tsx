@@ -1,8 +1,7 @@
 import cn from 'classnames'
 import React, { createRef, FC } from 'react'
-import withClickOutside from 'react-click-outside'
 import { createPortal } from 'react-dom'
-import { Animation, Icon } from '../index'
+import { Animation, Icon, OutsideClickWrapper } from '../index'
 import { getElementOffset } from './helpers'
 import * as s from './Menu.css'
 
@@ -35,10 +34,6 @@ class Menu extends React.Component<Props, State> {
 
   state = {
     isOpen: false,
-  }
-
-  handleClickOutside () {
-    this.hideMenu()
   }
 
   toggleMenu = () => {
@@ -88,7 +83,7 @@ class Menu extends React.Component<Props, State> {
     const IconName: string = icon || 'dots'
 
     return (
-      <>
+      <OutsideClickWrapper handler={this.hideMenu}>
         <div
           className={cn(s.Menu, className)}
           ref={this.menuRef}
@@ -127,9 +122,9 @@ class Menu extends React.Component<Props, State> {
           ),
           document.body,
         )}
-      </>
+      </OutsideClickWrapper>
     )
   }
 }
 
-export default withClickOutside(Menu)
+export default Menu

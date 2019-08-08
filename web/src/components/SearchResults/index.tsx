@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import withClickOutside from 'react-click-outside'
 import Scrollbar from 'react-custom-scrollbars'
+import { getClosestNode } from '../../utils/closest'
+import { OutsideClickWrapper } from '../../UI'
 import * as s from './SearchResults.css'
 
 interface Props {
@@ -11,20 +12,10 @@ interface Props {
 }
 
 class SearchResults extends Component<Props> {
-  getClosestNode = (elem: any, node: any) => {
-    for (; elem && elem !== document; elem = elem.parentNode) {
-      if (elem === node) {
-        return elem
-      }
-    }
-
-    return null
-  }
-
-  handleClickOutside = (e: any) => {
+  handleClose = (e: MouseEvent) => {
     const { wrapNode, onClose } = this.props
 
-    if (!this.getClosestNode(e.target, wrapNode)) {
+    if (!getClosestNode(e.target, wrapNode)) {
       onClose()
     }
   }
@@ -37,7 +28,10 @@ class SearchResults extends Component<Props> {
     }
 
     return (
-      <div className={s.SearchResults}>
+      <OutsideClickWrapper
+        className={s.SearchResults}
+        handler={this.handleClose}
+      >
         {isEmpty
           ? (
             <div className={s.SearchResults__empty}>
@@ -57,9 +51,9 @@ class SearchResults extends Component<Props> {
             </Scrollbar>
           )
         }
-      </div>
+      </OutsideClickWrapper>
     )
   }
 }
 
-export default withClickOutside(SearchResults)
+export default SearchResults

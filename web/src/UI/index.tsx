@@ -1,4 +1,5 @@
 import * as Animation from './Animation'
+import OutsideClickWrapper from './OutsideClickWrapper'
 import * as Layout from './Layout'
 import Popup from './Popup'
 import Icon from './Icon'
@@ -24,6 +25,7 @@ import Tip from './Tip'
 
 export {
   Animation,
+  OutsideClickWrapper,
   Layout,
   Popup,
   Icon,

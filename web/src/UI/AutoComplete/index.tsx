@@ -1,10 +1,10 @@
 import cn from 'classnames'
 import { debounce } from 'debounce'
 import React, { ChangeEvent } from 'react'
-import withClickOutside from 'react-click-outside'
 import Scrollbar from 'react-custom-scrollbars'
 import { ISuggestion } from '../../types'
 import { ajax } from '../../utils/ajax'
+import { OutsideClickWrapper } from '../index'
 import Input, { InputProps } from '../Input'
 import * as s from './AutoComplete.css'
 
@@ -27,12 +27,12 @@ class AutoComplete extends React.Component<Props, State> {
     suggestions: [],
   }
 
-  handleClickOutside () {
-    this.setSuggestions([])
-  }
-
   setSuggestions = (suggestions: ISuggestion[]) => {
     this.setState({ suggestions })
+  }
+
+  deleteSuggestions = () => {
+    this.setSuggestions([])
   }
 
   getSuggestions = debounce((text?: string) => {
@@ -43,14 +43,14 @@ class AutoComplete extends React.Component<Props, State> {
         this.setSuggestions(data)
       }).
       catch(e => {
-        this.setSuggestions([])
+        this.deleteSuggestions()
       })
   }, this.props.debounce)
 
   handleSuggestion = (e: any) => {
     const { input } = this.props
 
-    this.setSuggestions([])
+    this.deleteSuggestions()
 
     if (typeof input.onChange === 'function') {
       input.onChange(e as ChangeEvent<HTMLInputElement>)
@@ -102,7 +102,10 @@ class AutoComplete extends React.Component<Props, State> {
     const suggestions = this.getSuggestionsList()
 
     return (
-      <div className={cn(s.AutoComplete, className)}>
+      <OutsideClickWrapper
+        className={cn(s.AutoComplete, className)}
+        handler={this.deleteSuggestions}
+      >
         <Input
           {...input}
           theme="closed"
@@ -130,9 +133,9 @@ class AutoComplete extends React.Component<Props, State> {
             </Scrollbar>
           </div>
         )}
-      </div>
+      </OutsideClickWrapper>
     )
   }
 }
 
-export default withClickOutside(AutoComplete)
+export default AutoComplete

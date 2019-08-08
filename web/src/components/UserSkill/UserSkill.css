@@ -5,6 +5,10 @@
   background: #fff;
   margin: 0 0 10px;
 
+  @media(--xs) {
+    margin-bottom: 25px;
+  }
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -22,6 +26,10 @@
     min-height: 68px;
     background: var(--color-desert-storm);
     z-index: 8;
+
+    @media(--xs) {
+      min-height: 0;
+    }
   }
 
   &__caption:hover &__empty {

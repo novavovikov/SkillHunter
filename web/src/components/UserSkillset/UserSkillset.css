@@ -51,7 +51,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 100%;
+    min-width: 210px;
     max-width: 240px;
     @apply --font-m;
     background: #fff;

@@ -1,11 +1,10 @@
 import cn from 'classnames'
 import React, { ChangeEvent, Component, createRef } from 'react'
-import withClickOutside from 'react-click-outside'
 import { connect } from 'react-redux'
 import { API } from '../../constants/api'
 import { addNotification } from '../../redux/actions/notifications'
 import { INotification, IUserResource } from '../../types'
-import { Icon } from '../../UI'
+import { Icon, OutsideClickWrapper } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 import { FoundResource, SearchResults } from '../index'
@@ -31,14 +30,6 @@ class Search extends Component<Props, State> {
     resultsVisibility: false,
     inputValue: '',
     resources: [],
-  }
-
-  handleClickOutside () {
-    const { searchVisibility } = this.state
-
-    if (searchVisibility) {
-      this.toggleSearchVisibility()
-    }
   }
 
   clearResourcesState = () => {
@@ -125,7 +116,10 @@ class Search extends Component<Props, State> {
     }
 
     return (
-      <div>
+      <OutsideClickWrapper
+        handler={this.toggleSearchVisibility}
+        disabled={!searchVisibility}
+      >
         <button
           className={s.Search__switcher}
           onClick={this.toggleSearchVisibility}
@@ -177,7 +171,7 @@ class Search extends Component<Props, State> {
             </SearchResults>
           </div>
         </div>
-      </div>
+      </OutsideClickWrapper>
     )
   }
 }
@@ -185,4 +179,4 @@ export default connect(
   null, {
     showNotification: addNotification,
   },
-)(withClickOutside(Search))
+)(Search)

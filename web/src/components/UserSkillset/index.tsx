@@ -1,12 +1,11 @@
 import React from 'react'
-import withClickOutside from 'react-click-outside'
 import Scrollbar from 'react-custom-scrollbars'
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
-import { Animation, Icon, Popup } from '../../UI'
+import { Animation, Icon, OutsideClickWrapper, Popup } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import { RemoveSkillset, SkillsetCreator } from '../index'
 import * as s from './UserSkillset.css'
@@ -38,10 +37,6 @@ class UserSkillset extends React.Component<Props, State> {
   state = {
     isOpen: false,
     skillSet: skillSetInitialState,
-  }
-
-  handleClickOutside () {
-    this.closeList()
   }
 
   closeList = () => {
@@ -98,7 +93,10 @@ class UserSkillset extends React.Component<Props, State> {
     const { isOpen, skillSet } = this.state
 
     return (
-      <div className={s.UserSkillset}>
+      <OutsideClickWrapper
+        className={s.UserSkillset}
+        handler={this.closeList}
+      >
         <button
           className={s.UserSkillset__selected}
           onClick={this.toggleList}
@@ -166,7 +164,7 @@ class UserSkillset extends React.Component<Props, State> {
             {skillSet.name}
           </RemoveSkillset>
         </Popup>
-      </div>
+      </OutsideClickWrapper>
     )
   }
 }
@@ -174,4 +172,4 @@ class UserSkillset extends React.Component<Props, State> {
 export default compose(
   withUser,
   withRouter,
-)(withClickOutside(UserSkillset))
+)(UserSkillset)

@@ -1,12 +1,11 @@
 import React from 'react'
-import withClickOutside from 'react-click-outside'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
-import { Animation, Icon } from '../../UI'
+import { Animation, Icon, OutsideClickWrapper } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './HeaderMenu.css'
 
@@ -32,10 +31,6 @@ interface State {
 class HeaderMenu extends React.Component<Props, State> {
   state = {
     isOpen: false,
-  }
-
-  handleClickOutside () {
-    this.closeMenu()
   }
 
   closeMenu = () => {
@@ -77,7 +72,10 @@ class HeaderMenu extends React.Component<Props, State> {
     }
 
     return (
-      <div className={s.HeaderMenu}>
+      <OutsideClickWrapper
+        className={s.HeaderMenu}
+        handler={this.closeMenu}
+      >
         <button
           className={s.HeaderMenu__info}
           onClick={this.handleButton}
@@ -111,7 +109,7 @@ class HeaderMenu extends React.Component<Props, State> {
             ))}
           </div>
         </Animation.Dropdown>
-      </div>
+      </OutsideClickWrapper>
     )
   }
 }
@@ -120,4 +118,4 @@ export default compose(
   connect(
     ({ user }: RootState) => ({ user }),
   ),
-)(withClickOutside(HeaderMenu))
+)(HeaderMenu)
