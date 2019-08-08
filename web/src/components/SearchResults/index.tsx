@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Scrollbar from 'react-custom-scrollbars'
-import { getClosestNode } from '../../utils/closest'
 import { OutsideClickWrapper } from '../../UI'
 import * as s from './SearchResults.css'
 
@@ -14,8 +13,9 @@ interface Props {
 class SearchResults extends Component<Props> {
   handleClose = (e: MouseEvent) => {
     const { wrapNode, onClose } = this.props
+    const isContainNode = wrapNode && wrapNode.contains(e.target as any)
 
-    if (!getClosestNode(e.target, wrapNode)) {
+    if (!isContainNode) {
       onClose()
     }
   }

@@ -1,5 +1,4 @@
 import React, { Component, createRef } from 'react'
-import { getClosestNode } from '../../utils/closest'
 
 interface Props {
   handler: (e: MouseEvent) => void
@@ -24,9 +23,10 @@ class OutsideClickWrapper extends Component<Props> {
 
   outsideHandler = (e: MouseEvent) => {
     const { handler, disabled } = this.props
-    const closestNode = getClosestNode(e.target, this.wrapperRef.current)
+    const { current: wrapperNode } = this.wrapperRef
+    const isContainNode = wrapperNode && wrapperNode.contains(e.target as any)
 
-    if (!closestNode && !disabled) {
+    if (!isContainNode && !disabled) {
       handler(e)
     }
   }
