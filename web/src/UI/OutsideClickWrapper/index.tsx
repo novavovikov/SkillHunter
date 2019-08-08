@@ -14,11 +14,11 @@ class OutsideClickWrapper extends Component<Props> {
   wrapperRef = createRef<HTMLDivElement>()
 
   componentDidMount (): void {
-    window.addEventListener('click', this.outsideHandler)
+    document.body.addEventListener('click', this.outsideHandler)
   }
 
   componentWillUnmount (): void {
-    window.removeEventListener('click', this.outsideHandler)
+    document.body.removeEventListener('click', this.outsideHandler)
   }
 
   outsideHandler = (e: MouseEvent) => {
