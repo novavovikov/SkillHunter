@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react'
 
 interface Props {
-  handler: (e: MouseEvent) => void
+  handler: (e: MouseEvent | TouchEvent) => void
   disabled: boolean
   className?: string
 }
@@ -35,7 +35,7 @@ class OutsideClickWrapper extends Component<Props> {
     const isContainNode = wrapperNode && wrapperNode.contains(e.target as any)
 
     if (!isContainNode && !disabled) {
-      handler(e as MouseEvent)
+      handler(e)
     }
   }
 
