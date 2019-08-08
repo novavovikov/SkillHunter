@@ -35,7 +35,7 @@ class OutsideClickWrapper extends Component<Props> {
     const isContainNode = wrapperNode && wrapperNode.contains(e.target as any)
 
     if (!isContainNode && !disabled) {
-      handler(e)
+      handler(e as MouseEvent)
     }
   }
 
