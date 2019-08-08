@@ -14,14 +14,22 @@ class OutsideClickWrapper extends Component<Props> {
   wrapperRef = createRef<HTMLDivElement>()
 
   componentDidMount (): void {
-    document.body.addEventListener('click', this.outsideHandler)
+    if ('ontouchstart' in window) {
+      document.body.addEventListener('touchstart', this.outsideHandler)
+    } else {
+      document.body.addEventListener('click', this.outsideHandler)
+    }
   }
 
   componentWillUnmount (): void {
-    document.body.removeEventListener('click', this.outsideHandler)
+    if ('ontouchstart' in window) {
+      document.body.removeEventListener('click', this.outsideHandler)
+    } else {
+      document.body.removeEventListener('click', this.outsideHandler)
+    }
   }
 
-  outsideHandler = (e: MouseEvent) => {
+  outsideHandler = (e: MouseEvent | TouchEvent) => {
     const { handler, disabled } = this.props
     const { current: wrapperNode } = this.wrapperRef
     const isContainNode = wrapperNode && wrapperNode.contains(e.target as any)
