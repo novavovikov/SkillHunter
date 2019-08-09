@@ -11,6 +11,10 @@
 
   &__logo {
     margin: 0 auto 135px;
+
+    @media(--xs) {
+      margin-bottom: 60px;
+    }
   }
 
   &__title {
@@ -75,6 +79,7 @@
   }
 
   &__security {
+    text-align: left;
     margin: 0 0 30px;
   }
 

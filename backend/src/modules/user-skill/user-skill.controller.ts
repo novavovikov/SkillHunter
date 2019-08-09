@@ -26,7 +26,7 @@ export class UserSkillController {
     @UserData() user,
     @Param('skillsetId') skillsetId: string,
   ) {
-    return this.userSkillService.getSkillsBySkillsetId(user.id, Number(skillsetId))
+    return this.userSkillService.getSkillsBySkillsetId(user, Number(skillsetId))
   }
 
   @Get(':skillId/resources')

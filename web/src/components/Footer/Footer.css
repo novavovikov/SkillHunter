@@ -5,15 +5,23 @@
   align-items: center;
   justify-content: space-between;
 
-  @media --md {
+  @media(--xs) {
+    flex-direction: column;
+  }
 
-  };
+  &__copyright {
+    @media(--xs) {
+      margin: 15px 0 0;
+      order: 2;
+    }
+  }
 
   &__link {
+    padding: 0 20px;
+
     &:after {
       content: '|';
       color: var(--color-alto);
-      margin: 0 20px;
     }
 
     &:last-child {

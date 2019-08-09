@@ -9,9 +9,4 @@
   svg {
     height: 100%;
   }
-
-  @media(--xs) {
-    width: 34px;
-    margin: 0 15px 0 0;
-  }
 }

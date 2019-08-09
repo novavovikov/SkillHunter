@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'Footer': string;
+  'Footer__copyright': string;
   'Footer__link': string;
 }
 declare var cssExports: CssExports;

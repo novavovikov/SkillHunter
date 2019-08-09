@@ -29,12 +29,12 @@ export class UserSkillService {
   }
 
   getSkillsBySkillsetId (
-    userId: number,
+    user: User,
     skillsetId: number,
   ) {
     return this.userSkillRepository.find({
       where: {
-        userId,
+        user,
         skillsetId,
       },
       order: {

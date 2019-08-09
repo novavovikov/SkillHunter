@@ -54,7 +54,11 @@
 
   --font-s: {
     font-size: 12px;
-    line-height: 14px;
+    line-height: calc(14/12);
+
+    @media (--md) {
+      font-size: 10px;
+    }
   };
 
   --font-m: {

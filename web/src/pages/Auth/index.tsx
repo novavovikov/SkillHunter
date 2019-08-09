@@ -83,7 +83,7 @@ class Auth extends React.Component<Props> {
 
         <div className={s.Auth__terms}>
           By registering, you agree with our<br/>
-          <a href={'https://skillhunter.io/tos/'} target={'_blank'} className={s.Auth__link}>Terms of
+          <a href={'https://skillhunter.io/tos'} target={'_blank'} className={s.Auth__link}>Terms of
             Service</a> and <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'}
                                target={'_blank'}
                                className={s.Auth__link}>Privacy
