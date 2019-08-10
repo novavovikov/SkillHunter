@@ -12,6 +12,11 @@ export interface ResourcesState {
   [id: number]: UserResourceState
 }
 
+const INITIAL_RESOURCE_DATA = {
+  total: 0,
+  data: []
+}
+
 const initState = {}
 
 export const resources: Reducer<ResourcesState, ResourcesAction> = (state = initState, action) => {
@@ -19,7 +24,7 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
     case ResourcesActionTypes.SET_RESOURCES:
       return action.payload
     case ResourcesActionTypes.ADD_RESOURCE:
-      const resourceData = state[action.payload.userSkill.id]
+      const resourceData = state[action.payload.userSkill.id] || INITIAL_RESOURCE_DATA
 
       return {
         ...state,

@@ -5,10 +5,10 @@ interface Event {
 }
 
 export const initAnalytics = () => {
-  const { env } = process as any
+  const { NODE_ENV } = process.env as any
   window.dataLayer = window.dataLayer || []
 
-  if (env === 'production') {
+  if (NODE_ENV === 'production') {
     TagManager.initialize({
       gtmId: 'GTM-K4FPF86',
     })
