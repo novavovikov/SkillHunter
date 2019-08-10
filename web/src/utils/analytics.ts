@@ -5,7 +5,7 @@ interface Event {
 }
 
 export const initAnalytics = () => {
-  const { NODE_ENV } = process.env as any
+  const { NODE_ENV } = process.env
   window.dataLayer = window.dataLayer || []
 
   if (NODE_ENV === 'production') {

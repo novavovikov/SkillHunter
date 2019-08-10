@@ -20,7 +20,11 @@ declare module '*.json' {
 
 declare interface Window {
   dataLayer: any[],
-  adsbygoogle: any,
+  process: {
+    env: {
+      NODE_ENV: 'production' | 'development'
+    }
+  },
   amplitude: {
     getInstance: () => {
       logEvent: (category: string, data: any) => void

@@ -1,9 +1,13 @@
-export const analytics = (event) => {
+export const analytics = (analyticEvent) => {
   if (!dataLayer) {
     return null
   }
 
-  return (
-    dataLayer.push(event)
-  )
+  dataLayer.push(analyticEvent)
+
+  if (amplitude) {
+    const { event, ...rest } = analyticEvent
+
+    amplitude.getInstance().logEvent(event, rest)
+  }
 }
