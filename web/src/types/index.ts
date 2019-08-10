@@ -77,3 +77,31 @@ export interface IUser {
   role: string
   skillsets: ISkillset[]
 }
+
+export type IconSize = 'free' | '18' | '24' | null
+
+export enum IconTypes {
+  user,
+  bin,
+  heart,
+  heartFilled,
+  share,
+  dots,
+
+  arrowUp,
+  arrowDown,
+  arrowLeft,
+  arrowRight,
+
+  close,
+  add,
+  remove,
+  copy,
+
+  facebook,
+  twitter,
+  linkedin,
+  reddit,
+  telegram,
+  vk
+}

@@ -10,17 +10,32 @@
   }
 
   &__copyright {
-    @media(--xs) {
+    @media (--xs) {
       margin: 15px 0 0;
       order: 2;
     }
   }
 
+  &__copyrightText {
+    margin: 0 20px 0 0;
+
+    @media (--md) {
+      margin-right: 10px;
+    }
+  }
+
   &__link {
+    position: relative;
     padding: 0 20px;
+
+    @media (--md) {
+      padding: 0 10px;
+    }
 
     &:after {
       content: '|';
+      position: absolute;
+      right: 0;
       color: var(--color-alto);
     }
 

@@ -1,7 +1,8 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
-import { Icon } from '../index'
 import { ENotifications } from '../../constants/notification'
+import { IconTypes } from '../../types'
+import { Icon } from '../index'
 import s from './Notification.css'
 
 interface Props {
@@ -47,7 +48,7 @@ class Notification extends Component<Props, State> {
           onClick={this.onClose}
         >
           <Icon
-            type="close"
+            type={IconTypes.close}
             size="24"
           />
         </button>

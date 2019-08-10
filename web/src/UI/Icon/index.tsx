@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import React, { FC } from 'react'
+import { IconSize, IconTypes } from '../../types'
 import * as s from './Icon.css'
 import addIcon from './icons/add-ico.svg?inline'
 import arrowDownIcon from './icons/arrow-down-ico.svg?inline'
@@ -22,59 +23,57 @@ import twitterIcon from './icons/twitter-ico.svg?inline'
 import userIcon from './icons/user-ico.svg?inline'
 import vkIcon from './icons/vk-ico.svg?inline'
 
-type IconSize = 'free' | '18' | '24' | null
-
 interface Props {
-  type: string
+  type: IconTypes
   className?: string
   active?: boolean
   size?: IconSize
 }
 
-const getIcon = (type: string) => {
+const getIcon = (type: IconTypes) => {
   switch (type) {
-    case 'user':
+    case IconTypes.user:
       return userIcon
-    case 'bin':
+    case IconTypes.bin:
       return binIcon
-    case 'heart':
+    case IconTypes.heart:
       return heartIcon
-    case 'heart-filled':
+    case IconTypes.heartFilled:
       return heartFilledIcon
-    case 'share':
+    case IconTypes.share:
       return shareIcon
-    case 'dots':
+    case IconTypes.dots:
       return dotsIcon
 
-    case 'arrow-up':
+    case IconTypes.arrowUp:
       return arrowUpIcon
-    case 'arrow-down':
+    case IconTypes.arrowDown:
       return arrowDownIcon
-    case 'arrow-left':
+    case IconTypes.arrowLeft:
       return arrowLeftIcon
-    case 'arrow-right':
+    case IconTypes.arrowRight:
       return arrowRightIcon
 
-    case 'close':
+    case IconTypes.close:
       return closeIcon
-    case 'add':
+    case IconTypes.add:
       return addIcon
-    case 'remove':
+    case IconTypes.remove:
       return removeIcon
-    case 'copy':
+    case IconTypes.copy:
       return copyIcon
 
-    case 'facebook':
+    case IconTypes.facebook:
       return facebookIcon
-    case 'twitter':
+    case IconTypes.twitter:
       return twitterIcon
-    case 'linkedin':
+    case IconTypes.linkedin:
       return linkedinIcon
-    case 'reddit':
+    case IconTypes.reddit:
       return redditIcon
-    case 'telegram':
+    case IconTypes.telegram:
       return telegramIcon
-    case 'vk':
+    case IconTypes.vk:
       return vkIcon
     default:
       return null

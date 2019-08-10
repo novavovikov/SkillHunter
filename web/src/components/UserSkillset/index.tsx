@@ -5,6 +5,7 @@ import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
+import { IconTypes } from '../../types'
 import { Animation, Icon, OutsideClickWrapper, Popup } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import { RemoveSkillset, SkillsetCreator } from '../index'
@@ -102,12 +103,12 @@ class UserSkillset extends React.Component<Props, State> {
           onClick={this.toggleList}
         >
           <Icon
-            type="user"
+            type={IconTypes.user}
             className={s.UserSkillset__userIcon}
           />
           {match.params.skillset}
           <Icon
-            type={isOpen ? 'arrow-up' : 'arrow-down'}
+            type={isOpen ? IconTypes.arrowUp : IconTypes.arrowDown}
             className={s.UserSkillset__selectedArrow}
           />
         </button>
@@ -137,7 +138,7 @@ class UserSkillset extends React.Component<Props, State> {
                       className={s.UserSkillset__remove}
                       onClick={() => this.openRemovePopup(id, name)}
                     >
-                      <Icon type="bin"/>
+                      <Icon type={IconTypes.bin}/>
                     </button>
                   )}
                 </div>

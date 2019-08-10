@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
-import { Layout } from '../../UI'
+import { IconTypes } from '../../types'
+import { Icon, Layout } from '../../UI'
 import { Footer, Header, Sidebar } from '../index'
 import * as s from './Page.css'
 
@@ -44,7 +45,12 @@ class Page extends Component<Props, State> {
                   [s.Page__switcher_active]: sidebarVisibility
                 })}
                 onClick={() => this.setState({ sidebarVisibility: !sidebarVisibility })}
-              />
+              >
+                <Icon
+                  type={IconTypes.dots}
+                  size="24"
+                />
+              </button>
               <Sidebar className={cn(s.Page__sidebar, {
                 [s.Page__sidebar_opened]: sidebarVisibility,
               })}/>

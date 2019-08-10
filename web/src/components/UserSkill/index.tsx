@@ -15,7 +15,7 @@ import { removeSkillsSaga } from '../../redux/actions/skills'
 import { AddResourceSagaPayload, ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { RootState } from '../../redux/reducers'
 import { UserResourceState } from '../../redux/reducers/resources'
-import { IUserResource, IUserSkill } from '../../types'
+import { IconTypes, IUserResource, IUserSkill } from '../../types'
 import { Icon, OnBoarding } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './UserSkill.css'
@@ -110,7 +110,7 @@ class UserSkill extends React.Component<Props, State> {
               onClick={this.toggleOpen}
             >
               <Icon
-                type={isOpen ? 'arrow-up' : 'arrow-down'}
+                type={isOpen ? IconTypes.arrowUp : IconTypes.arrowDown}
                 size="24"
               />
             </button>
@@ -127,7 +127,7 @@ class UserSkill extends React.Component<Props, State> {
             {resources.total === 0 && !isOpen && (
               <OnBoarding
                 className={s.UserSkill__empty}
-                icon="arrow-down"
+                icon={IconTypes.arrowDown}
               >
                 Expand list and add source
               </OnBoarding>
@@ -159,7 +159,7 @@ class UserSkill extends React.Component<Props, State> {
           >
             See all
             <Icon
-              type="arrow-right"
+              type={IconTypes.arrowRight}
               size="18"
             />
           </Link>

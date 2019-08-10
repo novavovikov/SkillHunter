@@ -3,7 +3,7 @@
 .Search {
   width: 478px;
 
-  @media(--xs) {
+  @media(--lg) {
     position: absolute;
     top: 0;
     left: 0;
@@ -42,7 +42,7 @@
     border: none;
     background: url("./icons/search.svg") no-repeat center/32px 32px;
 
-    @media(--xs) {
+    @media(--lg) {
       display: block;
     }
   }

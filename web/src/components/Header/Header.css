@@ -10,7 +10,7 @@
   &__logo {
     flex: 250px 0 0;
 
-    @media(--xs) {
+    @media(--lg) {
       flex: auto;
     }
   }

@@ -3,6 +3,7 @@
 interface CssExports {
   'Footer': string;
   'Footer__copyright': string;
+  'Footer__copyrightText': string;
   'Footer__link': string;
 }
 declare var cssExports: CssExports;

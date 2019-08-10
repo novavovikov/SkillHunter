@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import React, { createRef, FC } from 'react'
 import { createPortal } from 'react-dom'
+import { IconTypes } from '../../types'
 import { Animation, Icon, OutsideClickWrapper } from '../index'
 import { getElementOffset } from './helpers'
 import * as s from './Menu.css'
@@ -11,7 +12,7 @@ interface ComponentProps {
 
 interface Props {
   className?: string
-  icon?: string
+  icon?: IconTypes
   label?: string
   Component?: FC<ComponentProps>
   position?: 'left'
@@ -21,8 +22,8 @@ interface State {
   isOpen: boolean
 }
 
-const getIconSize = (icon: string) => {
-  if (icon === 'dots') {
+const getIconSize = (iconType: IconTypes) => {
+  if (iconType === IconTypes.dots) {
     return '24'
   }
 
@@ -80,7 +81,7 @@ class Menu extends React.Component<Props, State> {
       children,
     } = this.props
 
-    const IconName: string = icon || 'dots'
+    const iconType: IconTypes = icon || IconTypes.dots
 
     return (
       <OutsideClickWrapper handler={this.hideMenu}>
@@ -94,8 +95,8 @@ class Menu extends React.Component<Props, State> {
             : (
               <button className={cn(s.Menu__button, s.Menu__button_withLabel)}>
                 <Icon
-                  type={IconName}
-                  size={getIconSize(IconName)}
+                  type={iconType}
+                  size={getIconSize(iconType)}
                   active={isOpen}
                 />
                 {label && (

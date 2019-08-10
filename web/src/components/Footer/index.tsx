@@ -22,7 +22,9 @@ const Footer: FC = () => {
     <Layout.Footer>
       <div className={s.Footer}>
         <div className={s.Footer__copyright}>
-          © 2019 SkillHunter | <a href="mailto:help@skillhunter.io" className={s.Footer__link}>help@skillhunter.io</a>
+          <span className={s.Footer__copyrightText}>© 2019 SkillHunter</span> | <a
+          href="mailto:help@skillhunter.io"
+          className={s.Footer__link}>help@skillhunter.io</a>
         </div>
 
         <div>

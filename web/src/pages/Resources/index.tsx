@@ -8,7 +8,7 @@ import { addResourceToUserSkillSaga, getUserSkillSaga } from '../../redux/action
 import { AddResourceToUserSkillSagaPayload } from '../../redux/interfaces/userSkill'
 import { RootState } from '../../redux/reducers'
 import { UserSkillState } from '../../redux/reducers/userSkill'
-import { IUserResource } from '../../types'
+import { IconTypes, IUserResource } from '../../types'
 import { Icon } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './Resources.css'
@@ -93,7 +93,7 @@ class ResourcesPage extends Component<Props, State> {
           <Link to={`${ROUTES.SKILLSET}/${match.params.skillset}`}>
             <Icon
               className={s.Resources__back}
-              type="arrow-left"
+              type={IconTypes.arrowLeft}
               size="24"
             />
           </Link>

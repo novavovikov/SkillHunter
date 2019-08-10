@@ -1,8 +1,7 @@
-import cn from 'classnames'
 import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import { EResourceStatus, IUserResource } from '../../types'
+import { EResourceStatus, IconTypes, IUserResource } from '../../types'
 import { Icon, Item, Menu, Status } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import { ResourceStatus, ShareMenu } from '../index'
@@ -34,7 +33,7 @@ class ResourceHeader extends PureComponent<Props> {
           className={s.ResourceHeader__back}
           onClick={this.handleBack}
         >
-          <Icon type="arrow-left"/>
+          <Icon type={IconTypes.arrowLeft}/>
           Back
         </Link>
 
@@ -63,7 +62,7 @@ class ResourceHeader extends PureComponent<Props> {
           onClick={handleLike}
         >
             <Icon
-              type={data.isLiked ? 'heart-filled' : 'heart'}
+              type={data.isLiked ? IconTypes.heartFilled : IconTypes.heart}
               active={data.isLiked}
             />
           <span className={s.ResourceHeader__label}>

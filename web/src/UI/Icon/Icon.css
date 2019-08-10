@@ -1,17 +1,10 @@
 @import "../../styles/variables.css";
 
 .Icon {
-  position: relative;
   display: inline-block;
   width: 16px;
   height: 16px;
   transition: var(--transition-fast);
-  z-index: 0;
-
-  svg {
-    position: relative;
-    z-index: -1;
-  }
 
   &_active {
     path {

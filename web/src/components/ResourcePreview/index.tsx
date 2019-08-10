@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { ResourcePreviewInfo, ResourcePreviewStatus } from '../../components'
 import { ROUTES } from '../../constants/routing'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
-import { EResourceStatus, IUserResource } from '../../types'
+import { EResourceStatus, IconTypes, IUserResource } from '../../types'
 import { Icon, Item, Menu, Status } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import { ShareMenu } from '../index'
@@ -136,7 +136,7 @@ class ResourcePreview extends React.Component<Props> {
           >
             More
             <Icon
-              type="arrow-right"
+              type={IconTypes.arrowRight}
               size="18"
             />
           </Link>
@@ -154,7 +154,7 @@ class ResourcePreview extends React.Component<Props> {
           >
             <span className={s.ResourcePreview__likes}>{data.likes}</span>
             <Icon
-              type={data.isLiked ? 'heart-filled' : 'heart'}
+              type={data.isLiked ? IconTypes.heartFilled : IconTypes.heart}
               active={data.isLiked}
             />
           </button>

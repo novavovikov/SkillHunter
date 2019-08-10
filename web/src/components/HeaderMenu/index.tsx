@@ -5,6 +5,7 @@ import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
+import { IconTypes } from '../../types'
 import { Animation, Icon, OutsideClickWrapper } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './HeaderMenu.css'
@@ -90,7 +91,7 @@ class HeaderMenu extends React.Component<Props, State> {
           </span>
 
           <Icon
-            type={isOpen ? 'arrow-up' : 'arrow-down'}
+            type={isOpen ? IconTypes.arrowUp : IconTypes.arrowDown}
             size="24"
           />
         </button>

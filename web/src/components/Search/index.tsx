@@ -3,7 +3,7 @@ import React, { ChangeEvent, Component, createRef } from 'react'
 import { connect } from 'react-redux'
 import { API } from '../../constants/api'
 import { addNotification } from '../../redux/actions/notifications'
-import { INotification, IUserResource } from '../../types'
+import { IconTypes, INotification, IUserResource } from '../../types'
 import { Icon, OutsideClickWrapper } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
@@ -149,7 +149,7 @@ class Search extends Component<Props, State> {
                 type="button"
               >
                 <Icon
-                  type="remove"
+                  type={IconTypes.remove}
                   size="18"
                 />
               </button>

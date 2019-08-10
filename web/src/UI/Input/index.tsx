@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import React, { ChangeEvent, Component, createRef, InputHTMLAttributes } from 'react'
+import { IconTypes } from '../../types'
 import { analytics } from '../../utils/analytics'
 import { Icon } from '../index'
 import * as s from './Input.css'
@@ -68,7 +69,7 @@ class Input extends Component<InputProps> {
             type="button"
           >
             <Icon
-              type="remove"
+              type={IconTypes.remove}
               size="18"
             />
           </button>

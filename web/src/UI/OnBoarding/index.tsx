@@ -1,11 +1,12 @@
 import cn from 'classnames'
 import React, { FC } from 'react'
+import { IconTypes } from '../../types'
 import { Icon } from '../index'
 import * as s from './OnBoarding.css'
 
 interface Props {
   className?: string
-  icon?: string
+  icon?: IconTypes
 }
 
 const OnBoarding: FC<Props> = ({ className, icon, children }) => {

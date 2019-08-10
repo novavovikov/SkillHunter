@@ -7,6 +7,10 @@
   padding: 15px 0;
   border-bottom: 1px solid var(--color-gallery);
 
+  @media (--xs) {
+    justify-content: space-between;
+  }
+
   &:last-child {
     border-bottom: none;
   }
@@ -28,16 +32,33 @@
       @media(--md) {
         width: 100%;
       }
+
+      @media (--xs) {
+        margin: 0 0 15px;
+      }
     }
 
     &_status {
       width: 150px;
+
+      @media (--xs) {
+        width: auto;
+      }
     }
 
     &_actions {
       width: 190px;
       visibility: hidden;
       opacity: 0;
+
+      @media (--md) {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      @media (--xs) {
+        width: auto;
+      }
     }
   }
 
@@ -59,6 +80,10 @@
     border: none;
     background: none;
     padding: 5px 20px;
+
+    @media (--xs) {
+      @apply --font-m;
+    }
 
     &:before {
       content: '';
@@ -110,6 +135,10 @@
     margin: 0 20px 0 0;
     color: var(--color-dusty-gray);
     transition: var(--transition-fast);
+
+    @media (--xs) {
+      margin-right: 10px;
+    }
 
     &:last-child {
       margin-right: 0;
