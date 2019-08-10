@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Brackets, FindOneOptions, In, Repository } from 'typeorm'
+import { Brackets, FindManyOptions, FindOneOptions, In, Repository } from 'typeorm'
 import { getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Resource } from '../resource/resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
@@ -13,6 +13,13 @@ export class UserResourceService {
     @InjectRepository(UserResource)
     private userResourceRepository: Repository<UserResource>,
   ) {}
+
+  find (criteria: any, options?: FindManyOptions<UserResource>) {
+    return this.userResourceRepository.find({
+      where: criteria,
+      ...options,
+    })
+  }
 
   async findById (
     resourceId: string | number,

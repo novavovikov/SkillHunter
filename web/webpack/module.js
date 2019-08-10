@@ -6,7 +6,7 @@ const fileLoaderWithOptions = {
   }
 }
 
-module.exports = () => ({
+module.exports = (env) => ({
   rules: [
     {
       test: /\.tsx?$/,
@@ -27,7 +27,9 @@ module.exports = () => ({
           loader: 'css-loader',
           options: {
             modules: {
-              localIdentName: '[local]--[hash:base64:5]',
+              localIdentName: env === 'development'
+                ? '[local]--[hash:base64:3]'
+                : '[hash:base64:7]',
             },
           },
         },

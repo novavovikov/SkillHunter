@@ -11,10 +11,11 @@ export const MENU = [
   {
     label: 'Dashboard',
     to: ROUTES.HOME,
+    exact: true
   },
   {
     label: 'Subscribers',
-    to: ROUTES.SUBSCRIBERS,
+    to: ROUTES.SUBSCRIBERS
   },
   {
     label: 'Users',

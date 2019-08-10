@@ -4,13 +4,14 @@ import { FeatureController, Layout } from '../components'
 import { RoleType } from '../constants/role-type'
 import { ROUTES } from '../constants/routing'
 
-import NotFound from '../containers/NotFound'
-import Dashboard from '../containers/Dashboard'
-import Users from '../containers/Users'
-import Subscribers from '../containers/Subscribers'
-import Professions from '../containers/Professions'
-import Skills from '../containers/Skills'
-import Resources from '../containers/Resources'
+import NotFound from '../pages/NotFound'
+import Dashboard from '../pages/Dashboard'
+import Users from '../pages/Users'
+import User from '../pages/User'
+import Subscribers from '../pages/Subscribers'
+import Professions from '../pages/Professions'
+import Skills from '../pages/Skills'
+import Resources from '../pages/Resources'
 
 const Routes: React.FC = () => {
   return (
@@ -29,6 +30,12 @@ const Routes: React.FC = () => {
           <Route
             path={ROUTES.USERS}
             component={Users}
+            exact
+          />
+
+          <Route
+            path={`${ROUTES.USERS}/:userId`}
+            component={User}
             exact
           />
 

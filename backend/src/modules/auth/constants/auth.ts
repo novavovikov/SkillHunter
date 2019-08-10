@@ -9,7 +9,7 @@ export const AUTH_COOKIE_OPTIONS = {
 }
 
 export const JWT_STRATEGY = {
-  secretOrKey: 'db9ab144efb9b4b2db5b1daeb4900999',
+  secretOrKey: '0KPQsdC40LnQutCwINC80LDQutCw0YDQvtC9',
   expiresIn: '30d',
 }
 

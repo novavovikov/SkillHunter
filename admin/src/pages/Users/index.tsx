@@ -1,15 +1,17 @@
 import React from 'react'
-import { Table } from '../../components'
+import { Table, Link } from '../../components'
+import { ROUTES } from '../../constants/routing'
 import { user } from '../../redux/reducers/user'
+import { iUser } from '../../types'
 import { ajax } from '../../utils/ajax'
 
 const Users: React.FC = () => {
-  const [users, setUsers] = React.useState([])
+  const [users, setUsers] = React.useState<iUser[]>([])
 
   React.useEffect(() => {
     ajax.
       get('user').
-      then(({ data }: any) => {
+      then(({ data }) => {
         setUsers(data)
       }).catch(err => console.warn('Users', err))
   }, [])
@@ -28,7 +30,7 @@ const Users: React.FC = () => {
         </Table.Tr>
       </Table.Head>
       <Table.Body>
-        {users.map((user: any) => (
+        {users.map((user) => (
           <Table.Tr
             key={user.id}
           >
@@ -36,7 +38,11 @@ const Users: React.FC = () => {
               {user.id}
             </Table.Td>
             <Table.Td>
-              {user.name}
+              <Link
+                to={`${ROUTES.USERS}/${user.id}`}
+              >
+                {user.name}
+              </Link>
             </Table.Td>
             <Table.Td>
               {user.email}

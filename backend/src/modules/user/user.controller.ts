@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
+import { In } from 'typeorm'
 import { Roles } from '../../common/decorators/roles.decorator'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
@@ -13,6 +14,7 @@ import { SkillsetService } from '../skillset/skillset.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
 import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserDto } from './user.dto'
+import { User } from './user.entity'
 import { UserService } from './user.service'
 
 @Controller('user')
@@ -36,21 +38,37 @@ export class UserController {
 
   @Get('me')
   @ApiUseTags('user')
-  getCurrentUser (@UserData() user) {
-    return this.userService.findById(user.id, {
-      select: [
-        'id',
-        'created',
-        'role',
-        'email',
-        'picture',
-        'name',
-        'locale',
-      ],
-      relations: [
-        'skillsets',
-      ],
+  getCurrentUser (@UserData() user: User) {
+    const { facebookId, googleId, ...userData } = user
+
+    return userData
+  }
+
+  @Get(':userId')
+  @Roles([RoleType.Admin])
+  @ApiUseTags('admin')
+  async getUsersDataById (
+    @Param('userId') userId: string,
+  ) {
+    const user = await this.userService.findById(userId)
+    const skills = await this.userSkillService.find({
+      user,
+      skillsetId: In(user.skillsets.map(({ id }) => id)),
+    }, {
+      relations: ['userResources']
     })
+
+    return {
+      ...user,
+      skillsets: user.skillsets.map((skillset) => {
+        const userSkills = skills.filter(({ skillsetId }) => skillsetId === skillset.id)
+
+        return {
+          ...skillset,
+          userSkills,
+        }
+      }),
+    }
   }
 
   @Put(':userId')

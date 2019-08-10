@@ -22,11 +22,11 @@ const Layout: React.FC = ({ children }) => {
       <div className={cn(s.Layout__sidebar, {
         [s.Layout__sidebar_opened]: isOpen
       })}>
-        {MENU.map(({ label, to }, index) => (
+        {MENU.map(({ label, to, exact }, index) => (
           <MenuItem
             key={index}
             to={to}
-            exact
+            exact={exact}
           >
             {label}
           </MenuItem>
