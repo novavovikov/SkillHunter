@@ -17,8 +17,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: calc(38 / 32)em;
+    height: calc(38 / 32)em;
     background: var(--color-dodger-blue);
     color: #fff;
     font-weight: 300;
