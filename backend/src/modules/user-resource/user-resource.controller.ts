@@ -16,6 +16,7 @@ import { ApiUseTags } from '@nestjs/swagger'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { UserGuard } from '../../common/guards/user.guard'
+import { HttpMessageType } from '../../constants/exception'
 import { excludeFieldsFromObject, getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
@@ -85,7 +86,11 @@ export class UserResourceController {
     })
 
     if (!userResource) {
-      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException({
+        message: 'Resource not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     if (user) {
@@ -129,31 +134,51 @@ export class UserResourceController {
     })
 
     if (!userSkill) {
-      throw new HttpException('User skill not found', HttpStatus.NOT_FOUND)
+      throw new HttpException({
+        message: 'User skill not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     const createdResource = userSkill.userResources.find(({ resource }) => resource.id === Number(resourceId))
 
     if (createdResource) {
-      throw new HttpException('Resource already exist in skill', HttpStatus.BAD_REQUEST)
+      throw new HttpException({
+        message: 'Resource already exist in skill',
+        type: HttpMessageType.warning,
+        statusCode: HttpStatus.BAD_REQUEST
+      }, HttpStatus.BAD_REQUEST)
     }
 
     const resource: Resource = await this.resourceService.findById(resourceId)
 
     if (!resource) {
-      throw new HttpException('Resource not found', HttpStatus.NOT_FOUND)
+      throw new HttpException({
+        message: 'Resource not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     const skillset: Skillset = await this.skillsetService.findById(skillsetId)
 
     if (!skillset) {
-      throw new HttpException('Skillset not found', HttpStatus.NOT_FOUND)
+      throw new HttpException({
+        message: 'Skillset not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     const resourceSkillRelation = await this.skillService.addResourceToSkill(userSkill.skill.id, resource)
 
     if (!resourceSkillRelation) {
-      throw new HttpException('Skill not found', HttpStatus.NOT_FOUND)
+      throw new HttpException({
+        message: 'Skill not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     return this.userResourceService.addResource(

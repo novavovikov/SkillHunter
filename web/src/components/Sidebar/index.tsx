@@ -33,14 +33,14 @@ class Sidebar extends Component<Props> {
 
     return (
       <Layout.Aside className={className}>
-        {user.data && (
+        {user && (
           <>
             <UserSkillset/>
             <Nav/>
             <SkillCreator
               skillsetId={this.getSkillsetId(
                 match.params.skillset,
-                user.data,
+                user,
               )}
             />
           </>

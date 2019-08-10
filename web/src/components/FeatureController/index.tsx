@@ -18,11 +18,11 @@ const FeatureController: FC<any> = (
     ...otherProps
   },
 ) => {
-  if (!user.data) {
+  if (!user) {
     return null
   }
 
-  if (roles.includes(user.data.role)) {
+  if (roles.includes(user.role)) {
     return React.Children.only(
       React.cloneElement(
         children,

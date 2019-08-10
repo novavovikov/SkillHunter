@@ -3,14 +3,21 @@ import { LoadingActionTypes } from '../actionTypes/loading'
 import { LoadingAction } from '../interfaces/loading'
 
 export interface LoadingState {
-  [key: string]: boolean
+  user: boolean
+  userSkillset: boolean
+  userSkill: boolean
+  resources: boolean
+  skill: boolean
+  addResource: boolean
 }
 
 const initState = {
+  user: false,
+  userSkillset: false,
+  userSkill: false,
   resources: false,
-  addResource: false,
   skill: false,
-  userSkill: false
+  addResource: false
 }
 
 export const loading: Reducer<LoadingState, LoadingAction> = (state = initState, action) => {

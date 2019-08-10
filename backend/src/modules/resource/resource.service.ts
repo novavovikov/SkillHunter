@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { JSDOM, VirtualConsole } from 'jsdom'
 import { map } from 'rxjs/operators'
 import { FindOneOptions, Repository } from 'typeorm'
+import { HttpMessageType } from '../../constants/exception'
 import { Favicon } from '../../utils/favicon'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
@@ -101,7 +102,11 @@ export class ResourceService {
     })
 
     if (!resource) {
-      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException({
+        message: 'Resource not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.BAD_REQUEST
+      }, HttpStatus.BAD_REQUEST)
     }
 
     if (resource.usersLikes.find(({ id }) => id === user.id)) {
@@ -129,7 +134,11 @@ export class ResourceService {
     })
 
     if (!resource) {
-      throw new HttpException('Resource not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException({
+        message: 'Resource not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     resource.usersLikes = resource.usersLikes.filter(({ id }) => id !== user.id)

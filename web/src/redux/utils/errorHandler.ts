@@ -5,18 +5,19 @@ import ac from '../actions'
 export const errorHandler = (place: string, error: any) => {
   console.warn(`${place}: ${error}`)
 
-
   if (error.response && error.response.status < 500) {
+    const { message, type } = error.response.data
+
     analytics({
       event: 'error_notification',
-      error_message: error.response.data.message,
-      category: 'error'
+      error_message: message,
+      category: type || 'error'
     })
 
     return (
       ac.addNotification({
-        message: error.response.data.message,
-        type: ENotifications.error,
+        message,
+        type: type || ENotifications.error,
       })
     )
   }

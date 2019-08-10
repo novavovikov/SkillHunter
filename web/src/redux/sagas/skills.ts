@@ -2,10 +2,10 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { API } from '../../constants/api'
 import { ISkill } from '../../types'
 import { ajax } from '../../utils/ajax'
-import { errorHandler } from '../utils/errorHandler'
 import ac from '../actions'
 import { SkillsActionTypes } from '../actionTypes/skills'
 import { AddSkillsSaga, GetSkillsDataPayload, RemoveSkillsSaga } from '../interfaces/skills'
+import { errorHandler } from '../utils/errorHandler'
 
 export function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
   yield put(ac.addLoading('skill'))
@@ -18,7 +18,7 @@ export function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
 
     yield put(ac.setSkillsData(data))
   } catch (error) {
-    yield put(ac.setUserData([]))
+    yield put(ac.setSkillsData([]))
     yield put(errorHandler('getSkillsDataSaga: ', error))
   }
 
@@ -53,7 +53,7 @@ export function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
   yield put(ac.removeLoading('skill'))
 }
 
-export function * watchGetSkillsData () {
+export function * watcSkillsData () {
   yield takeEvery(SkillsActionTypes.SAGA_GET_SKILLS, getSkillsDataSaga)
   yield takeEvery(SkillsActionTypes.SAGA_ADD_SKILLS, addSkillsSaga)
   yield takeEvery(SkillsActionTypes.SAGA_REMOVE_SKILLS, removeSkillsSaga)

@@ -4,6 +4,7 @@ import { ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
+import { HttpMessageType } from '../../constants/exception'
 import { getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
@@ -40,7 +41,11 @@ export class UserSkillController {
     })
 
     if (!userSkill) {
-      throw new HttpException('User skill not exist', HttpStatus.NOT_FOUND)
+      throw new HttpException({
+        message: 'User skill does not exist',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     return {

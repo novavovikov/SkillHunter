@@ -1,7 +1,15 @@
 import { UserActionTypes } from '../actionTypes/user'
+import { UserState } from '../reducers/user'
 
 export interface GetUserDataSaga {
   type: UserActionTypes.SAGA_GET_USER
+}
+
+export interface AddUserSkillsetSaga {
+  type: UserActionTypes.SAGA_ADD_USER_SKILLSET,
+  skillset: string,
+  skills: string[],
+  callback?: () => void
 }
 
 export interface RemoveUserSkillsetSaga {
@@ -9,15 +17,9 @@ export interface RemoveUserSkillsetSaga {
   skillsetId: number
 }
 
-
 export interface SetUserData {
   type: UserActionTypes.SET_USER_DATA,
-  payload: any
-}
-
-export interface SetUserLoadingStatus {
-  type: UserActionTypes.SET_USER_LOADING_STATUS,
-  payload: boolean
+  payload: UserState
 }
 
 export interface UpdateUserData {
@@ -32,8 +34,8 @@ export interface RemoveUserSkillset {
 
 export type UserAction =
   GetUserDataSaga |
+  AddUserSkillsetSaga |
   RemoveUserSkillsetSaga |
   SetUserData |
-  SetUserLoadingStatus |
   UpdateUserData |
   RemoveUserSkillset

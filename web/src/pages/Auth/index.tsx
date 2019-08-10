@@ -24,7 +24,7 @@ class Auth extends React.Component<Props> {
 
     if (
       token &&
-      !user.data
+      !user
     ) {
       getUser()
     }
@@ -33,7 +33,7 @@ class Auth extends React.Component<Props> {
   render () {
     const { user } = this.props
 
-    if (user.data) {
+    if (user) {
       return <Redirect to={ROUTES.HOME}/>
     }
 

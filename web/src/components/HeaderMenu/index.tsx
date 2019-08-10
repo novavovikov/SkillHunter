@@ -68,7 +68,7 @@ class HeaderMenu extends React.Component<Props, State> {
     const { isOpen } = this.state
     const { user } = this.props
 
-    if (!user.data) {
+    if (!user) {
       return null
     }
 
@@ -82,9 +82,9 @@ class HeaderMenu extends React.Component<Props, State> {
           onClick={this.handleButton}
         >
           <span className={s.HeaderMenu__avatar}>
-            {user.data.picture && (
+            {user.picture && (
               <img
-                src={user.data.picture}
+                src={user.picture}
                 alt=""
               />
             )}

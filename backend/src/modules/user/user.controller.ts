@@ -5,6 +5,7 @@ import { In } from 'typeorm'
 import { Roles } from '../../common/decorators/roles.decorator'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
+import { HttpMessageType } from '../../constants/exception'
 import { RoleType } from '../../constants/role-type'
 import { unique } from '../../utils/unique'
 import { Skill } from '../skill/skill.entity'
@@ -141,7 +142,11 @@ export class UserController {
     @UserData() user,
   ) {
     if (user.skillsets.find(({ name }) => name === skillset)) {
-      throw new HttpException('Skillset already exists', HttpStatus.BAD_REQUEST)
+      throw new HttpException({
+        message: 'Skillset already exists',
+        type: HttpMessageType.warning,
+        statusCode: HttpStatus.BAD_REQUEST
+      }, HttpStatus.BAD_REQUEST)
     }
 
     const foundSkillset = await this.skillsetService.findByName(skillset, {
@@ -149,7 +154,11 @@ export class UserController {
     })
 
     if (!foundSkillset) {
-      throw new HttpException('Skillset not exist', HttpStatus.NOT_FOUND)
+      throw new HttpException({
+        message: 'Skillset does not exist',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     const skillList: Skill[] = await this.skillService.getSkillList(skills)

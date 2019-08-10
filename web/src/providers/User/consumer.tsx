@@ -15,7 +15,7 @@ export const withUser = (WrappedComponent: React.ComponentType) => {
 
       if (
         cookies.get('authToken') &&
-        !user.data
+        !user
       ) {
         getUser()
       }
@@ -28,7 +28,7 @@ export const withUser = (WrappedComponent: React.ComponentType) => {
 
       const { user } = this.props
 
-      if (user.data) {
+      if (user) {
         return <WrappedComponent {...this.props}/>
       }
 

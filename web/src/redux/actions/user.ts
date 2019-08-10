@@ -1,16 +1,25 @@
 import cookies from 'js-cookie'
+import { IUser } from '../../types'
 import { UserActionTypes } from '../actionTypes/user'
 import {
+  AddUserSkillsetSaga,
   GetUserDataSaga,
   RemoveUserSkillset,
   RemoveUserSkillsetSaga,
   SetUserData,
-  SetUserLoadingStatus,
   UpdateUserData,
 } from '../interfaces/user'
+import { UserState } from '../reducers/user'
 
 export const getUserDataSaga = (): GetUserDataSaga => ({
   type: UserActionTypes.SAGA_GET_USER,
+})
+
+export const addUserSkillsetSaga = (skillset: string, skills: string[], callback?: () => void): AddUserSkillsetSaga => ({
+  type: UserActionTypes.SAGA_ADD_USER_SKILLSET,
+  skillset,
+  skills,
+  callback
 })
 
 export const removeUserSkillsetSaga = (skillsetId: number): RemoveUserSkillsetSaga => ({
@@ -29,19 +38,14 @@ export const logoutUser = (): SetUserData => {
   }
 }
 
-export const setUserData = (data: any): SetUserData => ({
+export const setUserData = (data: UserState): SetUserData => ({
   type: UserActionTypes.SET_USER_DATA,
   payload: data,
 })
 
-export const updateUserData = (data: any): UpdateUserData => ({
+export const updateUserData = (data: Partial<IUser>): UpdateUserData => ({
   type: UserActionTypes.UPDATE_USER_DATA,
   payload: data,
-})
-
-export const setUserLoadingStatus = (status: boolean): SetUserLoadingStatus => ({
-  type: UserActionTypes.SET_USER_LOADING_STATUS,
-  payload: status,
 })
 
 export const removeUserSkillset = (skillsetId: number): RemoveUserSkillset => ({

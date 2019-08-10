@@ -1,6 +1,5 @@
 import React from 'react'
 import { AutoComplete, Button, H2 } from '../../UI'
-import { ajax } from '../../utils/ajax'
 import * as s from './SkillsetStep.css'
 
 interface State {
@@ -28,11 +27,6 @@ class SkillsetStep extends React.Component<Props, State> {
     const { setStep, onSubmit } = this.props
 
     if (setStep) {
-      ajax.post('skillset', {
-        skillsets: [{
-          name: this.state.inputValue
-        }]
-      })
       onSubmit(this.state.inputValue)
       setStep('Skills')
     }

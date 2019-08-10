@@ -13,7 +13,7 @@ interface Props {
 class ProgressBar extends Component<Props> {
   render () {
     const { loading } = this.props
-    const isLoading = Object.keys(loading).some((key: string) => loading[key])
+    const isLoading = Object.values(loading).some((value: boolean) => value)
 
     return (
       <CSSTransition

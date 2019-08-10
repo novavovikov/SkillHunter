@@ -2,21 +2,19 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { Page, SkillStep, SkillsetStep, Steps } from '../../components'
-import { ENotifications } from '../../constants/notification'
+import { Page, SkillsetStep, SkillStep, Steps } from '../../components'
 import { ROUTES } from '../../constants/routing'
-import { addNotification } from '../../redux/actions/notifications'
-import { updateUserData } from '../../redux/actions/user'
+import { addSkillsetSaga } from '../../redux/actions/skillset'
+import { addUserSkillsetSaga } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
-import { INotification, ISkillset } from '../../types'
-import { ajax } from '../../utils/ajax'
+import { ISkillset } from '../../types'
 import { analytics } from '../../utils/analytics'
 
 interface Props extends RouteComponentProps {
   user: UserState
-  setSkillsets: (data: ISkillset[]) => void,
-  showNotification: (data: INotification) => void
+  addSkillset: (data: [Partial<ISkillset>]) => void,
+  addUserSkillset: (skillset: string, skills: string[], callback?: () => void) => void
 }
 
 interface State {
@@ -31,7 +29,10 @@ class Introduction extends React.Component<Props, State> {
   }
 
   setSkillset = (skillset: string) => {
+    const { addSkillset } = this.props
     this.setState({ skillset })
+
+    addSkillset([{ name: skillset }])
 
     analytics({
       event: 'click_improve_btn',
@@ -45,29 +46,10 @@ class Introduction extends React.Component<Props, State> {
   }
 
   onSubmit = () => {
-    const { history, setSkillsets, showNotification } = this.props
+    const { skills, skillset } = this.state
+    const { history, addUserSkillset } = this.props
 
-    ajax.
-      post('user/skillset', this.state).
-      then(({ data }) => {
-        setSkillsets(data as ISkillset[])
-        history.push(`${ROUTES.SKILLSET}/${this.state.skillset}`)
-      }).
-      catch(e => {
-        if (e.response && e.response.status < 500) {
-          return (
-            showNotification({
-              message: e.response.data.message,
-              type: ENotifications.error,
-            })
-          )
-        }
-
-        showNotification({
-          message: 'System error. Try again.',
-          type: ENotifications.error,
-        })
-      })
+    addUserSkillset(skillset, skills, () => history.push(`${ROUTES.SKILLSET}/${skillset}`))
   }
 
   render () {
@@ -98,8 +80,8 @@ export default compose(
   connect(
     ({ user }: RootState) => ({ user }),
     {
-      setSkillsets: (skillsets: ISkillset[]) => updateUserData({ skillsets }),
-      showNotification: addNotification,
+      addSkillset: addSkillsetSaga,
+      addUserSkillset: addUserSkillsetSaga,
     },
   ),
 )(Introduction)

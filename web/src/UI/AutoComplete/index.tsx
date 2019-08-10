@@ -23,11 +23,21 @@ class AutoComplete extends React.Component<Props, State> {
     debounce: 200,
   }
 
+  isUnmounted: boolean = false
+
   state = {
     suggestions: [],
   }
 
+  componentWillUnmount (): void {
+    this.isUnmounted = true
+  }
+
   setSuggestions = (suggestions: ISuggestion[]) => {
+    if (this.isUnmounted) {
+      return
+    }
+
     this.setState({ suggestions })
   }
 

@@ -87,7 +87,7 @@ class UserSkillset extends React.Component<Props, State> {
   render () {
     const { user, match } = this.props
 
-    if (!user.data) {
+    if (!user) {
       return null
     }
 
@@ -119,7 +119,7 @@ class UserSkillset extends React.Component<Props, State> {
               autoHeight
               autoHeightMax={150}
             >
-              {user.data.skillsets.map(({ id, name }) => (
+              {user.skillsets.map(({ id, name }) => (
                 <div
                   key={id}
                   className={s.UserSkillset__item}

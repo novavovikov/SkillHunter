@@ -3,10 +3,11 @@ import { API } from '../../constants/api'
 import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { UserActionTypes } from '../actionTypes/user'
-import { RemoveUserSkillsetSaga } from '../interfaces/user'
+import { AddUserSkillsetSaga, RemoveUserSkillsetSaga } from '../interfaces/user'
+import { errorHandler } from '../utils/errorHandler'
 
 export function * getUserDataSaga () {
-  yield put(ac.setUserLoadingStatus(true))
+  yield put(ac.addLoading('user'))
 
   try {
     const { data } = yield call(ajax, API.ME)
@@ -16,19 +17,39 @@ export function * getUserDataSaga () {
     yield put(ac.setUserData(null))
   }
 
-  yield put(ac.setUserLoadingStatus(false))
+  yield put(ac.removeLoading('user'))
+}
+
+export function * addUserSkillset ({ skillset, skills, callback }: AddUserSkillsetSaga) {
+  yield put(ac.addLoading('userSkillset'))
+
+  try {
+    const { data: skillsets } = yield call(ajax.post, API.USER_SKILLSET, { skillset, skills })
+
+    yield put(ac.updateUserData({ skillsets }))
+
+    if (callback) {
+      yield callback()
+    }
+  } catch (error) {
+    yield put(errorHandler('addUserSkillset: ', error))
+  }
+
+  yield put(ac.removeLoading('userSkillset'))
 }
 
 export function * removeUserSkillset ({ skillsetId }: RemoveUserSkillsetSaga) {
   try {
-    yield call(ajax.delete, `${API.SKILLSET}/${skillsetId}`)
+    yield call(ajax.delete, `${API.USER_SKILLSET}/${skillsetId}`)
 
     yield put(ac.removeUserSkillset(skillsetId))
   } catch (error) {
+    yield put(errorHandler('removeUserSkillset: ', error))
   }
 }
 
 export function * watchUserData () {
   yield takeEvery(UserActionTypes.SAGA_GET_USER, getUserDataSaga)
+  yield takeEvery(UserActionTypes.SAGA_ADD_USER_SKILLSET, addUserSkillset)
   yield takeEvery(UserActionTypes.SAGA_REMOVE_USER_SKILLSET, removeUserSkillset)
 }

@@ -5,6 +5,7 @@ import { FindOneOptions, In } from 'typeorm'
 import { Roles } from '../../common/decorators/roles.decorator'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
+import { HttpMessageType } from '../../constants/exception'
 import { RoleType } from '../../constants/role-type'
 import { Resource } from './resource.entity'
 import { ResourceService } from './resource.service'
@@ -57,7 +58,11 @@ export class ResourceController {
     const receivedResource = await this.resourceService.getFromLink(link)
 
     if (!receivedResource) {
-      throw new HttpException('Resource not found', HttpStatus.NOT_FOUND)
+      throw new HttpException({
+        message: 'Resource not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
     }
 
     return this.resourceService.create(receivedResource)

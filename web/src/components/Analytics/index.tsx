@@ -39,6 +39,6 @@ class Analytics extends Component<Props> {
 
 export default connect(
   ({ user }: RootState) => ({
-    userData: user.data,
+    userData: user,
   }),
 )(Analytics)

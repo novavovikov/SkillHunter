@@ -12,11 +12,7 @@ class PrivateRoute extends React.Component<Props> {
   render () {
     const { user, ...rest } = this.props
 
-    if (user.isLoading) {
-      return null
-    }
-
-    if (user.data) {
+    if (user) {
       return <Route {...rest}/>
     }
 

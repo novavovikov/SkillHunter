@@ -40,11 +40,11 @@ class Skillset extends React.Component<Props> {
   getSkillsetId = () => {
     const { user, match } = this.props
 
-    if (!user.data) {
+    if (!user) {
       return
     }
 
-    const skillset: any = user.data.skillsets.find(({ name }) => name === match.params.skillset) || {}
+    const skillset: any = user.skillsets.find(({ name }) => name === match.params.skillset) || {}
 
     return skillset.id
   }
@@ -116,7 +116,7 @@ export default compose(
   withRouter,
   connect(
     ({ skills, loading }: RootState) => ({
-      isLoading: loading.resources || loading.skill,
+      isLoading: loading.resources || loading.skill || loading.userSkillset,
       skills,
     }),
     {
