@@ -20,5 +20,10 @@ declare module '*.json' {
 
 declare interface Window {
   dataLayer: any[],
-  adsbygoogle: any
+  adsbygoogle: any,
+  amplitude: {
+    getInstance: () => {
+      logEvent: (category: string, data: any) => void
+    }
+  }
 }

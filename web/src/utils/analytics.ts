@@ -15,6 +15,12 @@ export const initAnalytics = () => {
   }
 }
 
-export const analytics = (event: Required<Event> & any) => {
-  window.dataLayer.push(event)
+export const analytics = (analyticEvent: Required<Event> & any) => {
+  window.dataLayer.push(analyticEvent)
+
+  if (window.amplitude) {
+    const { event, ...rest } = analyticEvent
+
+    window.amplitude.getInstance().logEvent(event, rest)
+  }
 }

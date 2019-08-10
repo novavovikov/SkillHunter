@@ -3,7 +3,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = env => {
-  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', JSON.stringify(env))
   return [
     new CopyWebpackPlugin([
       {
