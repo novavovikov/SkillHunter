@@ -43,7 +43,7 @@ class User extends Component<Props, State> {
         </h2>
 
         <h4>
-          Skillsets:
+          Skillsets: {!skillsets.length && 'List is empty'}
         </h4>
 
         {skillsets.map((skillset) => (
@@ -51,13 +51,13 @@ class User extends Component<Props, State> {
             <li>
               <h3>{skillset.name}</h3>
 
-              <h4>userSkills:</h4>
+              <h4>userSkills: {!skillset.userSkills.length && 'List is empty'}</h4>
               <ul>
                 {skillset.userSkills.map(({ id, skill, userResources }) => (
                   <li key={id}>
                     <h3>{skill.name}</h3>
 
-                    <h4>userResources:</h4>
+                    <h4>userResources: {!userResources.length && 'List is empty'}</h4>
                     <ul>
                       {userResources.map(({ id, title, resource }) => (
                         <li key={id}>

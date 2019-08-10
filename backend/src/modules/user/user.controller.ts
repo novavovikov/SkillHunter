@@ -51,9 +51,15 @@ export class UserController {
     @Param('userId') userId: string,
   ) {
     const user = await this.userService.findById(userId)
+    const skillsetIds = user.skillsets.map(({ id }) => id)
+
+    if (!skillsetIds.length) {
+      return user
+    }
+
     const skills = await this.userSkillService.find({
       user,
-      skillsetId: In(user.skillsets.map(({ id }) => id)),
+      skillsetId: In(skillsetIds),
     }, {
       relations: ['userResources']
     })
