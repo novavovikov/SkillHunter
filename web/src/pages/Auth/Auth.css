@@ -9,6 +9,10 @@
   text-align: center;
   padding: 80px 20px 20px;
 
+  @media(--md) {
+    padding-top: 40px;
+  }
+
   &__logo {
     margin: 0 auto 135px;
 

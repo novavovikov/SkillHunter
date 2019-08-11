@@ -78,7 +78,7 @@ export interface IUser {
   skillsets: ISkillset[]
 }
 
-export type IconSize = 'free' | '18' | '24' | null
+export type IconSizes = 'free' | '18' | '24' | null
 
 export enum IconTypes {
   user,

@@ -13,6 +13,11 @@
     transform: translate(0, -100%);
     transition: var(--transition);
 
+    @media(--md) {
+      padding-top: 11px;
+      padding-bottom: 11px;
+    }
+
     &_opened {
       transform: translate(0);
     }
@@ -37,13 +42,18 @@
   &__switcher {
     display: none;
     top: 50%;
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
     border: none;
     background: url("./icons/search.svg") no-repeat center/32px 32px;
 
     @media(--lg) {
       display: block;
+    }
+
+    @media(--md) {
+      width: 32px;
+      height: 32px;
     }
   }
 

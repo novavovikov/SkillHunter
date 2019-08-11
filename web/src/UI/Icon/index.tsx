@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import React, { FC } from 'react'
-import { IconSize, IconTypes } from '../../types'
+import { IconSizes, IconTypes } from '../../types'
 import * as s from './Icon.css'
 import addIcon from './icons/add-ico.svg?inline'
 import arrowDownIcon from './icons/arrow-down-ico.svg?inline'
@@ -27,7 +27,7 @@ interface Props {
   type: IconTypes
   className?: string
   active?: boolean
-  size?: IconSize
+  size?: IconSizes
 }
 
 const getIcon = (type: IconTypes) => {

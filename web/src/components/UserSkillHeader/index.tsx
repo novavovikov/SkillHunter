@@ -40,6 +40,7 @@ const UserSkillHeader: FC<Props> = (props) => {
 
       <Menu
         className={s.UserSkillHeader__menu}
+        size="24"
         position="left"
       >
         <Item onClick={menu.addResource}>

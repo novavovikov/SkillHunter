@@ -2,9 +2,14 @@
 
 .Logo {
   display: inline-block;
-  width: 128px;
-  height: 25px;
+  font-size: 10px;
+  width: 12.8em;
+  height: 2.5em;
   overflow: hidden;
+
+  @media(--xs) {
+    font-size: 9px;
+  }
 
   svg {
     height: 100%;

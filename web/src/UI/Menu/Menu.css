@@ -45,5 +45,9 @@
 
   &__label {
     margin: 10px 0 0;
+
+    &_24 {
+      margin-top: 2px;
+    }
   }
 }

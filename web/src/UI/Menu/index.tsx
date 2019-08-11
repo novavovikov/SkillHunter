@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import React, { createRef, FC } from 'react'
 import { createPortal } from 'react-dom'
-import { IconTypes } from '../../types'
+import { IconSizes, IconTypes } from '../../types'
 import { Animation, Icon, OutsideClickWrapper } from '../index'
 import { getElementOffset } from './helpers'
 import * as s from './Menu.css'
@@ -12,7 +12,8 @@ interface ComponentProps {
 
 interface Props {
   className?: string
-  icon?: IconTypes
+  icon: IconTypes
+  size: IconSizes,
   label?: string
   Component?: FC<ComponentProps>
   position?: 'left'
@@ -22,15 +23,12 @@ interface State {
   isOpen: boolean
 }
 
-const getIconSize = (iconType: IconTypes) => {
-  if (iconType === IconTypes.dots) {
-    return '24'
+class Menu extends React.Component<Props, State> {
+  static defaultProps = {
+    icon: IconTypes.dots,
+    size: '16'
   }
 
-  return null
-}
-
-class Menu extends React.Component<Props, State> {
   menuRef = createRef<HTMLDivElement>()
 
   state = {
@@ -77,6 +75,7 @@ class Menu extends React.Component<Props, State> {
       Component,
       className,
       icon,
+      size,
       label,
       children,
     } = this.props
@@ -98,11 +97,13 @@ class Menu extends React.Component<Props, State> {
               <button className={cn(s.Menu__button, s.Menu__button_withLabel)}>
                 <Icon
                   type={iconType}
-                  size={getIconSize(iconType)}
+                  size={size}
                   active={isOpen}
                 />
                 {label && (
-                  <span className={s.Menu__label}>
+                  <span className={cn(s.Menu__label, {
+                    [s.Menu__label_24]: size === '24'
+                  })}>
                     {label}
                   </span>
                 )}

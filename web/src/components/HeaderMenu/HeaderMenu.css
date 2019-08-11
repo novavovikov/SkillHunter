@@ -30,6 +30,11 @@
       height: 100%;
       object-fit: cover;
     }
+
+    @media(--md) {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   &__name {

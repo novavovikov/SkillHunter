@@ -39,6 +39,7 @@ class ResourceHeader extends PureComponent<Props> {
 
         <div className={s.ResourceHeader__item}>
           <Menu
+            size="24"
             Component={(props) => (
               <ResourceStatus
                 status={data.status}
@@ -80,7 +81,7 @@ class ResourceHeader extends PureComponent<Props> {
         </div>
         {!data.viewOnly && (
           <div className={s.ResourceHeader__item}>
-            <Menu label="More">
+            <Menu size="24" label="More">
               <Item onClick={onRemove}>
                 Delete
               </Item>

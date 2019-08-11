@@ -12,6 +12,10 @@
   margin: 0 auto;
   overflow: hidden;
 
+  @media(--md) {
+    padding-top: 60px;
+  }
+
   &__aside {
     position: sticky;
     top: 0;

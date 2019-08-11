@@ -105,6 +105,7 @@ class ResourcePreview extends React.Component<Props> {
         <div className={cn(s.ResourcePreview__col, s.ResourcePreview__col_status)}>
           <Menu
             position="left"
+            size="24"
             Component={(props) => (
               <ResourcePreviewStatus
                 status={data.status}
@@ -159,7 +160,10 @@ class ResourcePreview extends React.Component<Props> {
             />
           </button>
 
-            <Menu className={s.ResourcePreview__menu}>
+          <Menu
+            className={s.ResourcePreview__menu}
+            size="24"
+          >
               <Item onClick={this.handleRemove}>
                 Delete
               </Item>
