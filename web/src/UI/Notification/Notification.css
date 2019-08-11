@@ -86,7 +86,7 @@
 
 @keyframes showNotification {
   from {
-    transform: translate(100%);
+    transform: translate(-100%);
   }
 
   to {

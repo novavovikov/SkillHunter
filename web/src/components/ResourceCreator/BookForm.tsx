@@ -48,12 +48,27 @@ class BookForm extends React.Component<Props, State> {
     })
   }
 
+  getTooltipText = (title: string, author: string) => {
+    if (!title) {
+      return 'Insert name of book'
+    }
+
+    if (!author) {
+      return 'Insert author'
+    }
+
+    return 'Press enter'
+  }
+
   render () {
     const { author, title, disabled } = this.state
     const isDisabled = !author || !title || disabled
 
     return (
-      <form onSubmit={this.submitForm}>
+      <form
+        className={s.ResourceCreator__form}
+        onSubmit={this.submitForm}
+      >
         <div className={s.ResourceCreator__field}>
           <div className={s.ResourceCreator__row}>
             <input
@@ -77,7 +92,7 @@ class BookForm extends React.Component<Props, State> {
           </div>
 
           <div className={s.ResourceCreator__desc}>
-            Insert author
+            {this.getTooltipText(title, author)}
           </div>
         </div>
 

@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'ResourceCreator': string;
+  'ResourceCreator__content': string;
   'ResourceCreator__control': string;
   'ResourceCreator__control_active': string;
   'ResourceCreator__controls': string;

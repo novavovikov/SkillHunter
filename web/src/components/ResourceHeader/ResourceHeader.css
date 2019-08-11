@@ -1,8 +1,7 @@
 @import "../../styles/variables.css";
 
 .ResourceHeader {
-  position: sticky;
-  top: 0;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -24,6 +23,11 @@
 
     &:hover {
       color: var(--color-dodger-blue);
+    }
+
+    @media (--xs) {
+      width: 50px;
+      height: 50px;
     }
   }
 

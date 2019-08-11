@@ -22,7 +22,7 @@
     background: rgba(0, 0, 0, .6);
   }
 
-  &__form {
+  &__content {
     position: absolute;
     left: 0;
     top: 0;
@@ -34,12 +34,28 @@
     animation: ShowForm var(--transition-fast) forwards;
     transform-origin: left top;
     z-index: 2;
+
+    @media (--xs) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  &__form {
+    @media (--xs) {
+      width: 250px;
+    }
   }
 
   &__field {
     display: inline-block;
     vertical-align: top;
     margin: 0 15px 0 0;
+
+    @media (--xs) {
+      display: block;
+      margin: 0 0 15px;
+    }
   }
 
   &__row {
@@ -56,6 +72,11 @@
 
     &:focus {
       border-color: var(--color-blue-ribbon);
+    }
+
+    @media (--xs) {
+      width: 100%;
+      margin-right: 0;
     }
   }
 
@@ -88,6 +109,11 @@
     &:last-child {
       border-right-width: 1px;
       border-radius: 0 3px 3px 0;
+    }
+
+    @media (--xs) {
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
     &_active {

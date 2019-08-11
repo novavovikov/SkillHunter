@@ -114,7 +114,7 @@ class ResourceCreator extends React.Component<Props, State> {
                 onClick={onClose}
               />
               <div
-                className={s.ResourceCreator__form}
+                className={s.ResourceCreator__content}
                 style={formPosition}
               >
                 {typeModalVisibility && <TypeForm onSubmit={this.setType}/>}

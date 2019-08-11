@@ -54,7 +54,10 @@ class LinkForm extends React.Component<Props, State> {
     const url = getUrl(inputValue)
 
     return (
-      <form onSubmit={this.submitForm}>
+      <form
+        className={s.ResourceCreator__form}
+        onSubmit={this.submitForm}
+      >
         <div className={s.ResourceCreator__field}>
           <input
             type="text"
