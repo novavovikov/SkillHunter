@@ -9,7 +9,7 @@ const ACCEPTANCE = [
     value: true,
   },
   {
-    label: 'blocked',
+    label: 'pending',
     value: false,
   },
 ]
