@@ -3,7 +3,7 @@
 .ResourceInfo {
   display: flex;
   align-items: center;
-  margin: 0 0 40px;
+  margin: 0 0 calc(40 / 16)em;
 
   &__item {
     position: relative;

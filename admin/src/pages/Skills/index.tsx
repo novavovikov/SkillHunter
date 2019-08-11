@@ -71,7 +71,7 @@ class Skills extends Component<{}, State> {
         skills: skills.filter(({ id }) => id !== skillId)
       })
     } catch (e) {
-      alert('Skill have user relations')
+      alert('Skill has user relation')
     }
   }
 
