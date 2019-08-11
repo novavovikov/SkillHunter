@@ -84,9 +84,11 @@ class Menu extends React.Component<Props, State> {
     const iconType: IconTypes = icon || IconTypes.dots
 
     return (
-      <OutsideClickWrapper handler={this.hideMenu}>
+      <OutsideClickWrapper
+        className={cn(s.Menu, className)}
+        handler={this.hideMenu}
+      >
         <div
-          className={cn(s.Menu, className)}
           ref={this.menuRef}
           onClick={this.toggleMenu}
         >

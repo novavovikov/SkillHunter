@@ -31,6 +31,7 @@
 
       @media(--md) {
         width: 100%;
+        padding-right: 0;
       }
 
       @media (--xs) {
@@ -71,6 +72,10 @@
 
   &:hover &__status {
     @apply --font-m;
+
+    @media (--xs) {
+      font-size: 0;
+    }
   }
 
   &__status {
@@ -79,11 +84,8 @@
     color: var(--color-gray);
     border: none;
     background: none;
+    min-height: 26px;
     padding: 5px 20px;
-
-    @media (--xs) {
-      @apply --font-m;
-    }
 
     &:before {
       content: '';

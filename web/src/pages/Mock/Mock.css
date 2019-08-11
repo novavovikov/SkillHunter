@@ -16,7 +16,17 @@
       top: -5px;
       width: 37px;
       height: 37px;
-      background: url("./icons/sleep.svg") no-repeat center;
+      background: url("./icons/sleep.svg") no-repeat center/contain;
+    }
+
+    @media (--xs) {
+      margin-bottom: 25px;
+      padding-left: 40px;
+
+      &:before {
+        width: 28px;
+        height: 28px;
+      }
     }
   }
 
@@ -24,6 +34,10 @@
     @apply --font-xl;
     color: var(--color-dusty-gray);
     font-weight: 300;
-    margin: 0 0 80px;
+    margin: 0 0 calc(80/18)em;
+
+    @media (--xs) {
+      margin-bottom: 40px;
+    }
   }
 }

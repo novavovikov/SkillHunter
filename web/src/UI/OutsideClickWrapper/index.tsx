@@ -15,14 +15,14 @@ class OutsideClickWrapper extends Component<Props> {
 
   componentDidMount (): void {
     if ('ontouchstart' in window) {
-      document.body.addEventListener('touchstart', this.outsideHandler)
+      document.body.addEventListener('touchend', this.outsideHandler)
     } else {
       document.body.addEventListener('click', this.outsideHandler)
     }
   }
 
   componentWillUnmount (): void {
-    if ('ontouchstart' in window) {
+    if ('ontouchend' in window) {
       document.body.removeEventListener('click', this.outsideHandler)
     } else {
       document.body.removeEventListener('click', this.outsideHandler)

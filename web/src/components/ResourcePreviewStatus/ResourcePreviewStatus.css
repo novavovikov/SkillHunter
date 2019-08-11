@@ -19,7 +19,7 @@
   &:after {
     content: '';
     position: absolute;
-    right: 5px;
+    right: 3px;
     top: 50%;
     width: 10px;
     height: 6px;
