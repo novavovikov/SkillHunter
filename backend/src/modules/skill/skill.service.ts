@@ -42,8 +42,8 @@ export class SkillService {
       })
   }
 
-  async findById (id: number | string, options?: FindOneOptions<Skill>) {
-    return await this.skillRepository.findOne({
+  findById (id: number | string, options?: FindOneOptions<Skill>) {
+    return this.skillRepository.findOne({
       where: {
         id: Number(id),
       },
@@ -51,8 +51,21 @@ export class SkillService {
     })
   }
 
-  async findByIds (skills: number[]) {
-    return await this.skillRepository.findByIds(skills)
+  findByIds (skills: number[]) {
+    return this.skillRepository.findByIds(skills)
+  }
+
+  async update (
+    id: number,
+    data: Partial<SkillDto>
+  ) {
+    await this.skillRepository.update({ id }, data)
+
+    return this.skillRepository.findOne({ id })
+  }
+
+  delete (id: number) {
+    return this.skillRepository.delete({ id })
   }
 
   async setSkills (skills: SkillDto[]) {

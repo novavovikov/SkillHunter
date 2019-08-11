@@ -1,14 +1,8 @@
 import cn from 'classnames'
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import * as s from './Button.css'
 
-interface Props {
-  className?: string,
-  onClick?: () => void
-  disabled?: boolean
-}
-
-const Button: React.FC<Props> = (
+const Button: React.FC<ButtonHTMLAttributes<HTMLElement>> = (
   {
     children,
     className,

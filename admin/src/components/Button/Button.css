@@ -3,8 +3,8 @@
 .Button {
   font-weight: bold;
   font-size: 14px;
-  line-height: 20px;
-  padding: 10px 15px;
+  line-height: 16px;
+  padding: 5px 10px;
   border: 2px solid var(--dark);
   background: none;
   transition: var(--transition-fast);
