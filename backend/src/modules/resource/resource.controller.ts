@@ -43,6 +43,17 @@ export class ResourceController {
     return this.resourceService.findAll()
   }
 
+  @Get(':resourceId/content')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiUseTags('resource')
+  async getResourceContent (
+    @Param('resourceId') resourceId: string
+  ) {
+    const resource = await this.resourceService.findById(Number(resourceId))
+
+    return this.resourceService.getContentByLink(resource.link)
+  }
+
   @Post('article|media|course')
   @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')

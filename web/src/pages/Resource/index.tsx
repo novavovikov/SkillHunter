@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { ResourceHeader, ResourceInfo, SignUpBlock } from '../../components'
+import { ResourceContent, ResourceHeader, ResourceInfo, SignUpBlock } from '../../components'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { EResourceStatus, IUserResource } from '../../types'
@@ -15,8 +15,7 @@ interface Params {
   userResourceId: string
 }
 
-interface Props extends RouteComponentProps<Params> {
-}
+type Props = RouteComponentProps<Params>
 
 interface State {
   isLoading: boolean
@@ -29,22 +28,22 @@ class Resource extends Component<Props, State> {
     userResource: null,
   }
 
-  componentDidMount () {
+  async componentDidMount () {
     const { match } = this.props
     const { userResourceId } = match.params
 
-    ajax.get(`user-resource/${userResourceId}/content`).
-      then(({ data }) => {
-        this.setState({
-          isLoading: false,
-          userResource: data as IUserResource,
-        })
-      }).
-      catch(e => {
-        this.setState({
-          isLoading: false,
-        })
+    try {
+      const { data: userResource }: { data: IUserResource } = await ajax.get(`user-resource/${userResourceId}/content`)
+
+      this.setState({
+        isLoading: false,
+        userResource,
       })
+    } catch (e) {
+      this.setState({
+        isLoading: false,
+      })
+    }
   }
 
   removeResource = async () => {
@@ -190,6 +189,8 @@ class Resource extends Component<Props, State> {
             ))}
           </div>
         )}
+
+        <ResourceContent resourceId={resource.id}/>
 
         <div className={s.Resource__footer}>
           {viewOnly

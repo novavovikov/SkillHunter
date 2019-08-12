@@ -8,6 +8,8 @@ import { Favicon } from '../../utils/favicon'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
 
+const extractor = require('unfluff')
+
 @Injectable()
 export class ResourceService {
   constructor (
@@ -38,6 +40,8 @@ export class ResourceService {
         pipe(map(({ data }) => data)).
         toPromise().
         then(async resp => {
+          const data = extractor(resp, 'en')
+
           const virtualConsole = new VirtualConsole()
           const dom = new JSDOM(resp, {
             virtualConsole,
@@ -53,6 +57,22 @@ export class ResourceService {
             picture,
             title: title && title.text,
           }
+        }).
+        catch(err => {
+          return null
+        })
+    } catch (err) {
+      return null
+    }
+  }
+
+  async getContentByLink (link: string) {
+    try {
+      return await this.http.get(link).
+        pipe(map(({ data }) => data)).
+        toPromise().
+        then(async resp => {
+          return extractor(resp, 'en')
         }).
         catch(err => {
           return null

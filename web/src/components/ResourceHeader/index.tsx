@@ -15,6 +15,10 @@ interface Props {
 }
 
 class ResourceHeader extends PureComponent<Props> {
+  componentDidMount () {
+
+  }
+
   handleBack = () => {
     analytics({
       event: 'click_back',
@@ -27,7 +31,6 @@ class ResourceHeader extends PureComponent<Props> {
 
     return (
       <header className={s.ResourceHeader}>
-
         <Link
           to={ROUTES.SKILLSET}
           className={s.ResourceHeader__back}

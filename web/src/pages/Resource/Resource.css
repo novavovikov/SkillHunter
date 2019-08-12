@@ -15,7 +15,6 @@
     display: flex;
     flex-wrap: wrap;
     @apply --font-xl;
-    margin: 0 0 calc(120 / 16)em;
   }
 
   &__skillsTitle {
@@ -49,6 +48,7 @@
 
   &__footer {
     text-align: center;
+    margin: calc(120 / 16)em 0 0;
   }
 
   &__watch {

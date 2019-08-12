@@ -1,0 +1,21 @@
+@import "../../styles/variables.css";
+
+.ResourceContent {
+  margin: 60px 0 0;
+
+  &__img {
+    max-width: 100%;
+  }
+
+  &__date {
+    margin: 20px 0;
+    @apply --font-m;
+    color: var(--color-dusty-gray);
+  }
+
+  &__text {
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: justify;
+  }
+}

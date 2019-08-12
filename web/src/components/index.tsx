@@ -6,6 +6,7 @@ import Notifications from './Notifications'
 import Filters from './Filters'
 import FeatureController from './FeatureController'
 import Header from './Header'
+import ResourceContent from './ResourceContent'
 import Sidebar from './Sidebar'
 import Faq from './Faq'
 import HeaderMenu from './HeaderMenu'
@@ -66,6 +67,7 @@ export {
   Resources,
   ResourcePreview,
   ResourceCreator,
+  ResourceContent,
   ResourceStatus,
   ResourcePreviewStatus,
   FoundResource,
