@@ -40,8 +40,6 @@ export class ResourceService {
         pipe(map(({ data }) => data)).
         toPromise().
         then(async resp => {
-          const data = extractor(resp, 'en')
-
           const virtualConsole = new VirtualConsole()
           const dom = new JSDOM(resp, {
             virtualConsole,
@@ -72,7 +70,14 @@ export class ResourceService {
         pipe(map(({ data }) => data)).
         toPromise().
         then(async resp => {
-          return extractor(resp, 'en')
+          const data = extractor.lazy(resp, 'en')
+          return {
+            title: data.title() || data.softTitle(),
+            date: data.date(),
+            image: data.image(),
+            text: data.text() || data.description(),
+            canonicalLink: link
+          }
         }).
         catch(err => {
           return null
@@ -139,7 +144,7 @@ export class ResourceService {
 
     resource.usersLikes = [...resource.usersLikes, user]
 
-    this.resourceRepository.save(resource)
+    await this.resourceRepository.save(resource)
 
     return {
       id: resourceId,
