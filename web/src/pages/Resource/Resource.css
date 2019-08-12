@@ -48,7 +48,7 @@
 
   &__footer {
     text-align: center;
-    margin: calc(120 / 16)em 0 0;
+    margin: calc(80 / 16)em 0 0;
   }
 
   &__watch {
