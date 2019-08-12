@@ -10,14 +10,10 @@ class MyApp extends App {
   }
 
   componentDidMount () {
-    if (
-      window.location.pathname.includes(AGREEMENT_ROUTE) ||
-      window.location.pathname.includes(COOKIE_ROUTE)
-    ) {
-      return
-    }
-
-    if (cookies.get('authToken')) {
+    if ((
+      !window.location.pathname.includes(AGREEMENT_ROUTE) ||
+      !window.location.pathname.includes(COOKIE_ROUTE)
+    ) && cookies.get('authToken')) {
       return window.location.href = APP_ROUTE
     }
 
