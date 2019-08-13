@@ -44,7 +44,6 @@ export class ResourceController {
   }
 
   @Get(':resourceId/content')
-  @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
   async getResourceContent (
     @Param('resourceId') resourceId: string
