@@ -26,6 +26,20 @@ class Page extends Component<Props, State> {
     sidebarVisibility: false,
   }
 
+  toggleSidebar = () => {
+    const { sidebarVisibility } = this.state
+
+    this.setState({
+      sidebarVisibility: !sidebarVisibility,
+    })
+  }
+
+  closeSidebar = () => {
+    this.setState({
+      sidebarVisibility: false
+    })
+  }
+
   render () {
     const { children, sidebar, search, userMenu } = this.props
     const { sidebarVisibility } = this.state
@@ -44,16 +58,19 @@ class Page extends Component<Props, State> {
                 className={cn(s.Page__switcher, {
                   [s.Page__switcher_active]: sidebarVisibility
                 })}
-                onClick={() => this.setState({ sidebarVisibility: !sidebarVisibility })}
+                onClick={this.toggleSidebar}
               >
                 <Icon
                   type={IconTypes.dots}
                   size="24"
                 />
               </button>
-              <Sidebar className={cn(s.Page__sidebar, {
-                [s.Page__sidebar_opened]: sidebarVisibility,
-              })}/>
+              <Sidebar
+                className={cn(s.Page__sidebar, {
+                  [s.Page__sidebar_opened]: sidebarVisibility,
+                })}
+                onClose={this.closeSidebar}
+              />
             </>
           )}
 

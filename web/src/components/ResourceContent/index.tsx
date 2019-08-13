@@ -54,14 +54,16 @@ class ResourceContent extends Component<Props, State> {
   }
 
   getFormattedDate = (date: string) => {
+    if (isNaN(Date.parse(date))) {
+      return date
+    }
+
     const dateObj = new Date(date)
-    const options = {
+    return dateObj.toLocaleDateString('en', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-    }
-
-    return dateObj.toLocaleDateString('en', options)
+    })
   }
 
   getImageUrl = (url: string) => {

@@ -15,6 +15,7 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
   className?: string
   user: UserState
+  onClose: () => void
 }
 
 class Sidebar extends Component<Props> {
@@ -29,13 +30,13 @@ class Sidebar extends Component<Props> {
   }
 
   render () {
-    const { user, match, className } = this.props
+    const { user, match, className, onClose } = this.props
 
     return (
       <Layout.Aside className={className}>
         {user && (
           <>
-            <UserSkillset/>
+            <UserSkillset onChange={onClose}/>
             <Nav/>
             <SkillCreator
               skillsetId={this.getSkillsetId(

@@ -26,6 +26,8 @@
 
   &__skillsItem {
     position: relative;
+    display: flex;
+    align-items: center;
 
     &:first-letter {
       text-transform: uppercase;

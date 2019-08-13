@@ -32,9 +32,6 @@
       @media(--md) {
         width: 100%;
         padding-right: 0;
-      }
-
-      @media (--xs) {
         margin: 0 0 15px;
       }
     }

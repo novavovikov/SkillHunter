@@ -78,6 +78,10 @@
       display: inline-flex;
       align-items: center;
       margin: 0 0 10px 35px;
+
+      @media(--md) {
+        margin-left: 15px;
+      }
     }
   }
 }

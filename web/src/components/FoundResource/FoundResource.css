@@ -12,6 +12,11 @@
 
   &__content {
     width: calc(100% - 80px);
+
+    @media(--xs) {
+      align-items: flex-start;
+      width: calc(100% - 32px);
+    }
   }
 
   &:hover &__link {
@@ -31,6 +36,18 @@
 
     &:hover {
      color: var(--color-dodger-blue);
+    }
+
+    @media(--lg) {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media(--xs) {
+      font-size: 0;
+      width: 32px;
+      height: 32px;
+      background: url("./icons/copy.svg") no-repeat center/16px 16px;
     }
   }
 }

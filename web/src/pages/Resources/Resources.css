@@ -1,7 +1,7 @@
 @import "../../styles/variables.css";
 
 .Resources {
-  position: relative;
+  padding: 0 0 calc(40 / 16)em;
 
   &__header {
     display: flex;

@@ -12,6 +12,10 @@
 
   &__content {
     padding: 20px;
+
+    @media (--md) {
+      padding: 15px;
+    }
   }
 
   &__empty {

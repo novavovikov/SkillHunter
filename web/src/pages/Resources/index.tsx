@@ -89,40 +89,42 @@ class ResourcesPage extends Component<Props, State> {
 
     return (
       <Page>
-        <div className={s.Resources__header}>
-          <Link to={`${ROUTES.SKILLSET}/${match.params.skillset}`}>
-            <Icon
-              className={s.Resources__back}
-              type={IconTypes.arrowLeft}
-              size="24"
+        <div className={s.Resources}>
+          <div className={s.Resources__header}>
+            <Link to={`${ROUTES.SKILLSET}/${match.params.skillset}`}>
+              <Icon
+                className={s.Resources__back}
+                type={IconTypes.arrowLeft}
+                size="24"
+              />
+            </Link>
+
+            <UserSkillHeader
+              name={name}
+              menu={{
+                addResource: this.toggleCreatorVisibility,
+                removeSkill: () => undefined,
+              }}
             />
-          </Link>
+          </div>
 
-          <UserSkillHeader
-            name={name}
-            menu={{
-              addResource: this.toggleCreatorVisibility,
-              removeSkill: () => undefined,
-            }}
-          />
+          {creatorVisible && (
+            <ResourceCreator
+              onSubmit={this.createResource}
+              onClose={this.toggleCreatorVisibility}
+            />
+          )}
+
+          {userResources && (
+            <Resources
+              data={userResources}
+              openCreator={this.toggleCreatorVisibility}
+              onChangeLikeStatus={() => undefined}
+              onUpdate={() => undefined}
+              onRemove={() => undefined}
+            />
+          )}
         </div>
-
-        {creatorVisible && (
-          <ResourceCreator
-            onSubmit={this.createResource}
-            onClose={this.toggleCreatorVisibility}
-          />
-        )}
-
-        {userResources && (
-          <Resources
-            data={userResources}
-            openCreator={this.toggleCreatorVisibility}
-            onChangeLikeStatus={() => undefined}
-            onUpdate={() => undefined}
-            onRemove={() => undefined}
-          />
-        )}
       </Page>
     )
   }

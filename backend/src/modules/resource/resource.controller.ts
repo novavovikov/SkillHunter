@@ -5,8 +5,10 @@ import { FindOneOptions, In } from 'typeorm'
 import { Roles } from '../../common/decorators/roles.decorator'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
+import { UserGuard } from '../../common/guards/user.guard'
 import { HttpMessageType } from '../../constants/exception'
 import { RoleType } from '../../constants/role-type'
+import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
 import { ResourceService } from './resource.service'
 
@@ -45,8 +47,10 @@ export class ResourceController {
 
   @Get(':resourceId/content')
   @ApiUseTags('resource')
+  @UseGuards(UserGuard)
   async getResourceContent (
-    @Param('resourceId') resourceId: string
+    @Param('resourceId') resourceId: string,
+    @UserData() user: User
   ) {
     const resource = await this.resourceService.findById(Number(resourceId))
 

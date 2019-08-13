@@ -21,6 +21,8 @@ export const analytics = (analyticEvent: Required<Event> & any) => {
   if (window.amplitude) {
     const { event, ...rest } = analyticEvent
 
+    console.log(window.amplitude.getInstance().Identify)
+
     window.amplitude.getInstance().logEvent(event, rest)
   }
 }

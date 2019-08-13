@@ -49,7 +49,8 @@
   }
 
   &__source {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     @apply --font-s;
     color: var(--color-dusty-gray);
     margin: 5px 0 0;

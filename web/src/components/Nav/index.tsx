@@ -23,10 +23,7 @@ interface Params {
   skillset: string
 }
 
-interface Props extends RouteComponentProps<Params> {
-}
-
-class Nav extends Component<Props> {
+class Nav extends Component<RouteComponentProps<Params>> {
   handleLink = (label: string) => {
     analytics({
       event: (`click_${label}`).toLowerCase(),

@@ -27,6 +27,7 @@ interface ISkillset {
 
 interface Props extends RouteComponentProps<Params> {
   user: UserState
+  onChange?: () => void
 }
 
 interface State {
@@ -47,13 +48,19 @@ class UserSkillset extends React.Component<Props, State> {
   }
 
   handleSkillset = (skillset: string) => {
-    this.closeList()
+    const { onChange } = this.props
 
     analytics({
       event: 'click_other_skillset',
       skillset_name: skillset,
       category: 'skillset'
     })
+
+    this.closeList()
+
+    if (typeof onChange === 'function') {
+      onChange()
+    }
   }
 
   toggleList = () => {

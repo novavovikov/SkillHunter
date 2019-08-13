@@ -95,6 +95,11 @@
         fill: var(--color-dusty-gray);
       }
     }
+
+    @media(--lg) {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 
   &__link {

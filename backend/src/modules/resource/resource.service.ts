@@ -64,13 +64,13 @@ export class ResourceService {
     }
   }
 
-  async getContentByLink (link: string) {
+  async getContentByLink (link: string, locale: string = 'en') {
     try {
       return await this.http.get(link).
         pipe(map(({ data }) => data)).
         toPromise().
         then(async resp => {
-          const data = extractor.lazy(resp, 'en')
+          const data = extractor.lazy(resp, locale)
           return {
             title: data.title() || data.softTitle(),
             date: data.date(),
