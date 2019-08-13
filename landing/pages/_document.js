@@ -29,11 +29,11 @@ class MyDocument extends Document {
           />
           <meta
             name="keywords"
-            content="Skill Hunter самообучения саморазвитие курсы обучение развитие"
+            content="Skill Hunter education development courses book share knowledge"
           />
           <meta
             name="description"
-            content="Платформа для развития профессиональных и личных навыков"
+            content="The platform for developing professional and personal skills"
           />
           <meta
             name="author"
@@ -45,7 +45,7 @@ class MyDocument extends Document {
           />
           <meta
             property="og:title"
-            content="Платформа для развития профессиональных и личных навыков"
+            content="The platform for developing professional and personal skills"
           />
           <meta
             property="og:description"
