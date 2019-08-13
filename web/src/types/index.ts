@@ -1,9 +1,19 @@
+import articleIcon from '../components/ResourcePreviewInfo/icons/article.svg'
+import bookIcon from '../components/ResourcePreviewInfo/icons/book.svg'
+import mediaIcon from '../components/ResourcePreviewInfo/icons/media.svg'
 import { ENotifications } from '../constants/notification'
 
 export enum EResourceStatus {
   Backlog = 'Backlog',
   Plan = 'Plan',
   Done = 'Done'
+}
+
+export enum EResourceTypes {
+  Article = 'article',
+  Media = 'media',
+  Book = 'book',
+  Course = 'course',
 }
 
 export interface ISuggestion {
@@ -40,7 +50,7 @@ export interface IUserResource {
   skillsetId: number
   status: string | EResourceStatus
   title: string
-  type: string
+  type: EResourceTypes
   userSkill: IUserSkill
   viewOnly: boolean
 }

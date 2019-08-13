@@ -18,6 +18,34 @@ declare module '*.json' {
   export = value
 }
 
+declare module 'unfluff' {
+  interface Data {
+    text: string,
+    href: string
+  }
+
+  const value: {
+    lazy: (html: any, locale: string) => {
+      title: () => string
+      softTitle: () => string
+      date: () => string
+      copyright: () => string
+      author: () => string[]
+      publisher: () => string
+      text: () => string
+      image: () => string
+      tags: () => string[]
+      videos: () => Data[]
+      canonicalLink: () => string
+      lang: () => string
+      description: () => string
+      favicon: () => string
+      links: () => Data[]
+    }
+  }
+  export = value
+}
+
 declare interface Window {
   dataLayer: any[],
   process: {

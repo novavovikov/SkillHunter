@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { ResourceContent, ResourceHeader, ResourceInfo, SignUpBlock } from '../../components'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
-import { EResourceStatus, IUserResource } from '../../types'
+import { EResourceStatus, EResourceTypes, IUserResource } from '../../types'
 import { H1 } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
@@ -190,7 +190,9 @@ class Resource extends Component<Props, State> {
           </div>
         )}
 
-        <ResourceContent resourceId={resource.id}/>
+        {type !== EResourceTypes.Book && (
+          <ResourceContent resourceId={resource.id}/>
+        )}
 
         <div className={s.Resource__footer}>
           {viewOnly

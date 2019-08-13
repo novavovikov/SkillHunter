@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
-import { IconTypes } from '../../types'
+import { EResourceTypes, IconTypes } from '../../types'
 import { Icon } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import s from './ResourceInfo.css'
@@ -38,7 +38,7 @@ class ResourceInfo extends Component<Props> {
           </div>
         )}
 
-        {type !== 'book' && (
+        {type !== EResourceTypes.Book && (
           <div className={s.ResourceInfo__item}>
             See original
             <Icon

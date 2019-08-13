@@ -7,6 +7,7 @@ import { HttpMessageType } from '../../constants/exception'
 import { Favicon } from '../../utils/favicon'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
+import extractor from 'unfluff'
 
 const extractor = require('unfluff')
 
@@ -71,11 +72,12 @@ export class ResourceService {
         toPromise().
         then(async resp => {
           const data = extractor.lazy(resp, locale)
+
           return {
             title: data.title() || data.softTitle(),
             date: data.date(),
             image: data.image(),
-            text: data.text() || data.description(),
+            text: data.description() || data.text(),
             canonicalLink: link
           }
         }).

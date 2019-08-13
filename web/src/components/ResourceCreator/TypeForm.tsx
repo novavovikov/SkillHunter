@@ -1,21 +1,22 @@
 import React from 'react'
+import { EResourceTypes } from '../../types'
 import * as s from './ResourceCreator.css'
 
 const TYPES = [
   {
-    value: 'article',
+    value: EResourceTypes.Article,
     label: 'Article',
   },
   {
-    value: 'media',
+    value: EResourceTypes.Media,
     label: 'Media',
   },
   {
-    value: 'book',
+    value: EResourceTypes.Book,
     label: 'Book',
   },
   {
-    value: 'course',
+    value: EResourceTypes.Course,
     label: 'Course',
   },
 ]

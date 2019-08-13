@@ -1,17 +1,18 @@
+import { EResourceTypes } from '../../types'
 import articleIcon from './icons/article.svg'
 import bookIcon from './icons/book.svg'
 import courseIcon from './icons/course.svg'
 import mediaIcon from './icons/media.svg'
 
-export const getIconByType = (type: string) => {
+export const getIconByType = (type: EResourceTypes) => {
   switch (type) {
-    case 'article':
+    case EResourceTypes.Article:
       return articleIcon
-    case 'media':
+    case EResourceTypes.Media:
       return mediaIcon
-    case 'book':
+    case EResourceTypes.Book:
       return bookIcon
-    case 'course':
+    case EResourceTypes.Course:
       return courseIcon
     default:
       return articleIcon

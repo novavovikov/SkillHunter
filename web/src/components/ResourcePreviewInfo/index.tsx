@@ -1,8 +1,8 @@
 import cn from 'classnames'
-import React, { Component, FC } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
-import { IUserResource } from '../../types'
+import { EResourceTypes, IUserResource } from '../../types'
 import { analytics } from '../../utils/analytics'
 import faviconIcon from './icons/favicon.svg'
 import { getIconByType } from './iconType'
@@ -54,7 +54,7 @@ class ResourcePreviewInfo extends Component<Props> {
             {data.title || data.resource.title || data.resource.link}
           </Link>
 
-          {data.type !== 'book' && (
+          {data.type !== EResourceTypes.Book && (
             <a
               href={data.resource.link}
               className={cn(s.ResourcePreviewInfo__source, s.ResourcePreviewInfo__source_site)}
@@ -71,7 +71,7 @@ class ResourcePreviewInfo extends Component<Props> {
             </a>
           )}
 
-          {data.type === 'book' && (
+          {data.type === EResourceTypes.Book && (
             <div className={s.ResourcePreviewInfo__source}>
               {data.author}
             </div>

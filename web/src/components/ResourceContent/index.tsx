@@ -86,7 +86,7 @@ class ResourceContent extends Component<Props, State> {
   render () {
     const { resourceContent, isLoading }: State = this.state
 
-    if (!resourceContent && isLoading) {
+    if (isLoading) {
       return (
         <div className={cn(s.ResourceContent, s.ResourceContent_loader)}>
           <Loader size="s"/>
