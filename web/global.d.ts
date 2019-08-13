@@ -27,7 +27,8 @@ declare interface Window {
   },
   amplitude: {
     getInstance: () => {
-      Identify: () => void,
+      setUserId: (userId: string) => void,
+      setUserProperties: (properties: any) => void,
       logEvent: (category: string, data: any) => void
     }
   }

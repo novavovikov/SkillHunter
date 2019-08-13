@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { PAGE_VIEW_EVENT } from '../../constants/analytics'
 import { RootState } from '../../redux/reducers'
 import { IUser } from '../../types'
 import { analytics } from '../../utils/analytics'
@@ -24,8 +25,9 @@ class Analytics extends Component<Props> {
 
     if (userData) {
       analytics({
-        event: 'page view',
+        event: PAGE_VIEW_EVENT,
         userId: userData.id,
+        userName: userData.name,
         locale: userData.locale,
         role: userData.role
       })

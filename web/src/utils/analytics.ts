@@ -1,7 +1,10 @@
 import TagManager from 'react-gtm-module'
+import { PAGE_VIEW_EVENT } from '../constants/analytics'
 
 interface Event {
   event: string
+  userId?: number
+  [key: string]: string | number | undefined
 }
 
 export const initAnalytics = () => {
@@ -15,14 +18,22 @@ export const initAnalytics = () => {
   }
 }
 
-export const analytics = (analyticEvent: Required<Event> & any) => {
+export const analytics = (analyticEvent: Event) => {
   window.dataLayer.push(analyticEvent)
 
-  if (window.amplitude) {
-    const { event, ...rest } = analyticEvent
+  if (!window.amplitude) {
+    return null
+  }
 
-    console.log(window.amplitude.getInstance().Identify)
+  const amplitude =  window.amplitude.getInstance()
+  const { event, ...properties } = analyticEvent
 
-    window.amplitude.getInstance().logEvent(event, rest)
+  if (event === PAGE_VIEW_EVENT && properties.userId) {
+    const { userId, ...otherProperties } = properties
+
+    amplitude.setUserId(String(userId))
+    amplitude.setUserProperties(otherProperties)
+  } else {
+    amplitude.logEvent(event, properties)
   }
 }

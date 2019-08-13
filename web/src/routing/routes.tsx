@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route, RouteComponentProps, Switch, withRouter } from 'react-router'
+import { PAGE_VIEW_EVENT } from '../constants/analytics'
 import { ROUTES } from '../constants/routing'
 import { analytics } from '../utils/analytics'
 import PrivateRoute from './privateRoute'
@@ -20,7 +21,7 @@ class Routes extends Component<RouteComponentProps> {
   componentDidMount (): void {
     this.props.history.listen(() => {
       analytics({
-        event: 'page view',
+        event: PAGE_VIEW_EVENT,
         page_url: window.location.href
       })
     })
