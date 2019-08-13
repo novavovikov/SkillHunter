@@ -6,6 +6,7 @@ interface CssExports {
   'Loader__line__orange': string;
   'Loader__line_blue': string;
   'Loader__line_green': string;
+  'Loader_s': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

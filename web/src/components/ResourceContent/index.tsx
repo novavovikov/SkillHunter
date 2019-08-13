@@ -1,4 +1,6 @@
+import cn from 'classnames'
 import React, { Component } from 'react'
+import { Loader } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { getUrl, urlNormalizer, validateUrl } from '../../utils/url'
 import * as s from './ResourceContent.css'
@@ -25,11 +27,13 @@ interface Props {
 }
 
 interface State {
+  isLoading: boolean
   resourceContent: any
 }
 
 class ResourceContent extends Component<Props, State> {
   state = {
+    isLoading: true,
     resourceContent: null,
   }
 
@@ -40,9 +44,11 @@ class ResourceContent extends Component<Props, State> {
       const { data } = await ajax.get(`resource/${resourceId}/content`)
 
       this.setState({
+        isLoading: false,
         resourceContent: data as IResourceContent,
       })
     } catch (e) {
+      this.setState({ isLoading: false })
       console.warn(e)
     }
   }
@@ -76,10 +82,14 @@ class ResourceContent extends Component<Props, State> {
   }
 
   render () {
-    const { resourceContent }: State = this.state
+    const { resourceContent, isLoading }: State = this.state
 
-    if (!resourceContent) {
-      return null
+    if (!resourceContent && isLoading) {
+      return (
+        <div className={cn(s.ResourceContent, s.ResourceContent_loader)}>
+          <Loader size="s"/>
+        </div>
+      )
     }
 
     return (
@@ -88,7 +98,7 @@ class ResourceContent extends Component<Props, State> {
           <img
             className={s.ResourceContent__img}
             src={this.getImageUrl(resourceContent.image)}
-            alt={resourceContent.title || resourceContent.softTitle}
+            alt={resourceContent.title}
           />
         )}
 
@@ -99,7 +109,7 @@ class ResourceContent extends Component<Props, State> {
         )}
 
         <div className={s.ResourceContent__text}>
-          {resourceContent.text || resourceContent.description}
+          {resourceContent.text}
         </div>
       </div>
     )

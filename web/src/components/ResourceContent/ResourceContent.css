@@ -3,6 +3,12 @@
 .ResourceContent {
   margin: 40px 0 0;
 
+  &_loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__img {
     max-width: 100%;
   }
@@ -17,6 +23,6 @@
     margin: 15px 0 0;
     font-size: 18px;
     line-height: 1.5;
-    text-align: justify;
+    white-space: pre-line;
   }
 }
