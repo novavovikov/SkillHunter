@@ -111,7 +111,7 @@ export class ResourceService {
   async findAll (options?: FindOneOptions<Resource>) {
     return this.resourceRepository.find({
       order: {
-        id: 'ASC',
+        id: 'DESC',
       },
       ...options,
     })

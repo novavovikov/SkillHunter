@@ -3,17 +3,6 @@ import { Button, Table } from '../../components'
 import { ISkill } from '../../types'
 import { ajax } from '../../utils/ajax'
 
-const ACCEPTANCE = [
-  {
-    label: 'accepted',
-    value: true,
-  },
-  {
-    label: 'pending',
-    value: false,
-  },
-]
-
 interface State {
   skills: ISkill[]
 }
@@ -28,23 +17,10 @@ class Skills extends Component<{}, State> {
     this.setState({ skills })
   }
 
-  getAcceptanceValue = (accepted: boolean) => {
-    const selectedItem = ACCEPTANCE.find(({ value }) => value === accepted)
+  handleAcceptance = async (e: ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = e.target
 
-    if (selectedItem) {
-      return selectedItem.label
-    }
-
-    return ACCEPTANCE[0].label
-  }
-
-  handleAcceptance = async (e: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target
-    const skillId = e.target.getAttribute('data-skill-id')
-    const selectedItem = ACCEPTANCE.find(({ label }) => label === value)
-
-    if (selectedItem) {
-      const { data } = await ajax.put(`skill/${skillId}`, { accepted: selectedItem.value })
+      const { data } = await ajax.put(`skill/${value}`, { accepted: checked })
       const { skills }: State = this.state
 
       this.setState({
@@ -56,7 +32,6 @@ class Skills extends Component<{}, State> {
           return skill
         }),
       })
-    }
   }
 
   handleRemove = async (e: any) => {
@@ -102,20 +77,15 @@ class Skills extends Component<{}, State> {
                 {skill.created}
               </Table.Td>
               <Table.Td>
-                <select
-                  value={this.getAcceptanceValue(skill.accepted)}
-                  onChange={this.handleAcceptance}
-                  data-skill-id={skill.id}
-                >
-                  {ACCEPTANCE.map(({ label }) => (
-                    <option
-                      key={label}
-                      value={label}
-                    >
-                      {label}
-                    </option>
-                  ))}
-                </select>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={skill.accepted}
+                    onChange={this.handleAcceptance}
+                    value={skill.id}
+                  />
+                  <span>accepted</span>
+                </label>
               </Table.Td>
               <Table.Td>
                 <Button

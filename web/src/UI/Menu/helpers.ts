@@ -1,6 +1,6 @@
 interface ElementOffsetPositionOptions {
   offsetY: number
-  position?: 'left'
+  position?: 'left' | undefined
 }
 
 export class ElementOffsetPosition {

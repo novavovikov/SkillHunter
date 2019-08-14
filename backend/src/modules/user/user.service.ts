@@ -16,7 +16,7 @@ export class UserService {
   findAll () {
     return this.userRepository.find({
       order: {
-        id: 'ASC',
+        id: 'DESC',
       },
     })
   }

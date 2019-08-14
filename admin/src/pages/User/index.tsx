@@ -25,6 +25,14 @@ class User extends Component<Props, State> {
     this.setState({ userData })
   }
 
+  getLink = (resourceId: number) => {
+    const origin = window.location.hostname
+      ? 'http://localhost:3000'
+      : 'app.skillhunter.io'
+
+    return `${origin}/resource/${resourceId}`
+  }
+
   render () {
     const { userData }: State = this.state
 
@@ -32,14 +40,14 @@ class User extends Component<Props, State> {
       return 'Загрузка'
     }
 
-    const { id, name, skillsets }: iUser = userData
+    const { id: userId, name, skillsets }: iUser = userData
 
     return (
       <div style={{
         padding: '40px'
       }}>
         <h2>
-          {name || id} {name && `(${id})`}
+          {name || userId} {name && `(${userId})`}
         </h2>
 
         <h4>
@@ -53,16 +61,16 @@ class User extends Component<Props, State> {
 
               <h4>userSkills: {!skillset.userSkills.length && 'List is empty'}</h4>
               <ul>
-                {skillset.userSkills.map(({ id, skill, userResources }) => (
-                  <li key={id}>
+                {skillset.userSkills.map(({ id: userSkillId, skill, userResources }) => (
+                  <li key={userSkillId}>
                     <h3>{skill.name}</h3>
 
                     <h4>userResources: {!userResources.length && 'List is empty'}</h4>
                     <ul>
-                      {userResources.map(({ id, title, resource }) => (
-                        <li key={id}>
+                      {userResources.map(({ id: resourceId, title, resource }) => (
+                        <li key={resourceId}>
                           <a
-                            href={resource.link}
+                            href={this.getLink(resourceId)}
                             target="_blank"
                           >
                             {title || resource.title || resource.link}

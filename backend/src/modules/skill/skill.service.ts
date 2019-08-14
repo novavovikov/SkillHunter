@@ -16,7 +16,7 @@ export class SkillService {
   findAll () {
     return this.skillRepository.find({
       order: {
-        id: 'ASC',
+        id: 'DESC',
       },
     })
   }
