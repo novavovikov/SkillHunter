@@ -1,25 +1,63 @@
-const getOffsetY = (rect: ClientRect) => {
-  const top =  window.scrollY + rect.top + rect.height
-
-  return { top: `${top}px` }
+interface ElementOffsetPositionOptions {
+  offsetY: number
+  position?: 'left'
 }
 
-const getOffsetX = (rect: ClientRect, position?: 'left') => {
-  if (position === 'left') {
-    return { left: `${rect.left}px` }
+export class ElementOffsetPosition {
+  wrap: HTMLElement
+  element: HTMLElement
+  options: ElementOffsetPositionOptions = {
+    offsetY: 0,
   }
 
-  return { right: `${document.body.scrollWidth - rect.left - rect.width}px` }
-}
+  constructor (
+    wrap: HTMLElement,
+    element: HTMLElement,
+    options?: ElementOffsetPositionOptions,
+  ) {
+    this.wrap = wrap
+    this.element = element
 
-export const getElementOffset = (
-  wrap: HTMLElement,
-  element: HTMLElement,
-  position?: 'left'
-) => {
-  const rect = wrap.getBoundingClientRect()
-  const offsetX = getOffsetX(rect, position)
-  const offsetY = getOffsetY(rect)
+    if (options) {
+      this.options = options
+    }
+  }
 
-  return { ...offsetX, ...offsetY }
+  getOffsetX = (
+    wrapRect: ClientRect,
+    elRect: ClientRect,
+  ) => {
+    if (this.options.position === 'left') {
+      return { left: `${wrapRect.left}px` }
+    }
+
+    return { right: `${document.body.scrollWidth - wrapRect.left - wrapRect.width}px` }
+  }
+
+  getOffsetY = (
+    wrapRect: ClientRect,
+    elRect: ClientRect,
+  ) => {
+    const { offsetY } = this.options
+    const wrapTopPosition = window.scrollY + wrapRect.top
+    const wrapBottomPosition = wrapTopPosition + wrapRect.height + offsetY
+
+    const isBellowBottom = wrapBottomPosition + elRect.height > document.body.offsetHeight
+
+    if (isBellowBottom) {
+      return { top: `${wrapTopPosition - elRect.height - offsetY}px` }
+    }
+
+    return { top: `${wrapBottomPosition}px` }
+  }
+
+  getElementOffset = () => {
+    const wrapRect = this.wrap.getBoundingClientRect()
+    const elRect = this.element.getBoundingClientRect()
+
+    return {
+      ...this.getOffsetX(wrapRect, elRect),
+      ...this.getOffsetY(wrapRect, elRect),
+    }
+  }
 }

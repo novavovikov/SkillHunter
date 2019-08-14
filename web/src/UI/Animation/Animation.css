@@ -4,24 +4,22 @@
   position: relative;
 
   &__enter {
-    margin-top: 20px;
     opacity: 0;
+    will-change: opacity;
 
     &_active {
-      margin-top: 10px;
       opacity: 1;
-      transition: opacity var(--transition-fast), margin-top var(--transition-fast);
+      transition: opacity var(--transition-fast);
     }
   }
 
   &__exit {
     opacity: 1;
-    margin-top: 10px;
+    will-change: opacity;
 
     &_active {
-      margin-top: 20px;
       opacity: 0;
-      transition: opacity var(--transition-fast), margin-top var(--transition-fast);
+      transition: opacity var(--transition-fast);
     }
   }
 }

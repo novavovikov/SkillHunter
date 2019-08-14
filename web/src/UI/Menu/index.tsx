@@ -3,7 +3,7 @@ import React, { createRef, FC } from 'react'
 import { createPortal } from 'react-dom'
 import { IconSizes, IconTypes } from '../../types'
 import { Animation, Icon, OutsideClickWrapper } from '../index'
-import { getElementOffset } from './helpers'
+import { ElementOffsetPosition } from './helpers'
 import * as s from './Menu.css'
 
 interface ComponentProps {
@@ -55,9 +55,16 @@ class Menu extends React.Component<Props, State> {
     }
 
     const { position } = this.props
-    const styles = getElementOffset(current, element, position)
+    const elementOffsetPosition = new ElementOffsetPosition(
+      current,
+      element,
+      {
+        position,
+        offsetY: 10,
+      },
+    )
 
-    Object.assign(element.style, styles)
+    Object.assign(element.style, elementOffsetPosition.getElementOffset())
   }
 
   onEnterList = (el: HTMLElement) => {
