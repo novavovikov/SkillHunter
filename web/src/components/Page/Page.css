@@ -10,8 +10,8 @@
     position: fixed;
     width: 40px;
     height: 40px;
-    right: 20px;
-    bottom: 20px;
+    right: 60px;
+    bottom: 15px;
     border: none;
     background: none;
     z-index: var(--z-sidebar-switcher);
