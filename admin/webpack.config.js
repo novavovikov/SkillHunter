@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = env => ({
   entry: './src/index.tsx',
   output: {
     path: __dirname + '/dist/',
@@ -9,8 +9,8 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
-  optimization: require('./webpack/optimization'),
-  module: require('./webpack/module'),
-  plugins: require('./webpack/plugins'),
-  devServer: require('./webpack/devServer'),
-}
+  optimization: require('./webpack/optimization')(env),
+  module: require('./webpack/module')(env),
+  plugins: require('./webpack/plugins')(env),
+  devServer: require('./webpack/devServer')(env),
+})

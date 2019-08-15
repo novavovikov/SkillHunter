@@ -27,6 +27,6 @@
   "types": ["node"],
   "include": [
     "./global.d.ts",
-    "./frontend/src/**/*"
+    "./src/**/*"
   ]
 }

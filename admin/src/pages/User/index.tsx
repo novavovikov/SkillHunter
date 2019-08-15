@@ -26,9 +26,9 @@ class User extends Component<Props, State> {
   }
 
   getLink = (resourceId: number) => {
-    const origin = window.location.hostname
+    const origin = process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'app.skillhunter.io'
+      : 'https://app.skillhunter.io'
 
     return `${origin}/resource/${resourceId}`
   }

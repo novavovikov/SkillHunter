@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = () => ({
   stats: 'errors-only',
   hot: true,
   historyApiFallback: true,
@@ -7,4 +7,4 @@ module.exports = {
   proxy: {
     '/api': 'http://backend:4000',
   },
-}
+})

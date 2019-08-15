@@ -1,13 +1,21 @@
-module.exports = {
+const fileLoaderWithOptions = {
+  loader: 'file-loader',
+  options: {
+    outputPath: 'static/',
+    name: '[name].[ext]'
+  }
+}
+
+module.exports = (env) => ({
   rules: [
     {
       test: /\.tsx?$/,
-      loader: 'awesome-typescript-loader'
+      loader: 'awesome-typescript-loader',
     },
     {
       test: /\.js$/,
       enforce: 'pre',
-      loader: 'source-map-loader'
+      loader: 'source-map-loader',
     },
     {
       test: /\.css$/,
@@ -19,9 +27,11 @@ module.exports = {
           loader: 'css-loader',
           options: {
             modules: {
-              localIdentName: '[local]--[hash:base64:5]',
-            }
-          }
+              localIdentName: env === 'development'
+                ? '[local]--[hash:base64:3]'
+                : '[hash:base64:7]',
+            },
+          },
         },
         {
           loader: 'postcss-loader',
@@ -42,19 +52,19 @@ module.exports = {
     },
     {
       test: /\.svg$/,
-      loader: 'svg-inline-loader'
+      oneOf: [
+        {
+          resourceQuery: /inline/,
+          use: 'svg-inline-loader',
+        },
+        {
+          use: fileLoaderWithOptions,
+        },
+      ],
     },
     {
       test: /\.(gif|png|jpe?g|ico)$/i,
-      loader: [
-        {
-          loader: 'file-loader',
-          options: {
-            outputPath: 'static/',
-            name: '[name].[ext]'
-          }
-        }
-      ]
-    }
+      use: fileLoaderWithOptions,
+    },
   ],
-}
+})
