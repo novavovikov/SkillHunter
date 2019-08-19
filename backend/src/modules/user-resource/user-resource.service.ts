@@ -67,10 +67,11 @@ export class UserResourceService {
   }
 
   updateResource (
+    user: User,
     id: number,
     data: Partial<UserResource>,
   ) {
-    return this.userResourceRepository.update(id, data)
+    return this.userResourceRepository.update({ id, user }, data)
   }
 
   async getResourcesBySkillId (

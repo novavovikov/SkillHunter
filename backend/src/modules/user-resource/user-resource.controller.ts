@@ -81,7 +81,7 @@ export class UserResourceController {
         leftJoinAndSelect: {
           'resource': 'userResource.resource',
           'skills': 'resource.skills',
-        },
+        }
       },
     })
 
@@ -200,11 +200,12 @@ export class UserResourceController {
   ) {
     const id = Number(resourceId)
     const { status } = data
-    await this.userResourceService.updateResource(id, { status })
+
+    await this.userResourceService.updateResource(user, id, { status })
 
     return {
       id,
-      ...data,
+      ...data
     }
   }
 

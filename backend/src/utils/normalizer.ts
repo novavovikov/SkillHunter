@@ -13,7 +13,7 @@ export const getUserResourceWithLikedField = (
 
   return {
     ...userResource,
-    viewOnly: false,
+    viewOnly: userResource.ownerUserId !== userId,
     isLiked: userIdsLikes ? userIdsLikes.includes(userId) : false,
   }
 }
