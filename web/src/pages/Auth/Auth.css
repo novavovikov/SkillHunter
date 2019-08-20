@@ -74,17 +74,25 @@
 
   &__footer {
     margin: auto auto 0;
+
+    @media(--xs) {
+      max-width: 300px;
+    }
   }
 
   &__terms {
     line-height: 20px;
     color: var(--color-dusty-gray);
-    margin: 35px 0 60px;
+    margin: 35px auto 60px;
   }
 
   &__security {
     text-align: left;
-    margin: 0 0 30px;
+    margin: 0 auto 30px;
+
+    @media(--md) {
+      max-width: 280px;
+    }
   }
 
   &__description {

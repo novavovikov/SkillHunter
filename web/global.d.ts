@@ -46,6 +46,10 @@ declare module 'unfluff' {
   export = value
 }
 
+declare interface Navigator {
+  share: any
+}
+
 declare interface Window {
   dataLayer: any[],
   process: {
