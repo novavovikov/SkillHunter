@@ -40,26 +40,28 @@ class ResourceHeader extends PureComponent<Props> {
           Back
         </Link>
 
-        <div className={s.ResourceHeader__item}>
-          <Menu
-            size="24"
-            Component={(props) => (
-              <ResourceStatus
-                status={data.status}
-                {...props}
-              />
-            )}
-          >
-            {Object.keys(EResourceStatus).map(status => (
-              <Item
-                key={status}
-                onClick={() => changeStatus(status)}
-              >
-                <Status value={status}/>
-              </Item>
-            ))}
-          </Menu>
-        </div>
+        {!data.viewOnly && (
+          <div className={s.ResourceHeader__item}>
+            <Menu
+              size="24"
+              Component={(props) => (
+                <ResourceStatus
+                  status={data.status}
+                  {...props}
+                />
+              )}
+            >
+              {Object.keys(EResourceStatus).map(status => (
+                <Item
+                  key={status}
+                  onClick={() => changeStatus(status)}
+                >
+                  <Status value={status}/>
+                </Item>
+              ))}
+            </Menu>
+          </div>
+        )}
 
         <button
           className={s.ResourceHeader__item}
