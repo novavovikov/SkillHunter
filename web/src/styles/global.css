@@ -53,4 +53,8 @@
     max-height: 100%;
     overflow-x: hidden;
   }
+
+  #atlwdg-trigger {
+    z-index: 10;
+  }
 }
