@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { H2 } from '../../UI'
 import { SkillsSuggestion } from '../index'
 import * as s from './SkillStep.css'
 
 interface Props extends RouteComponentProps {
-  setStep?: (id: string) => void,
-  onSubmit: (skills: string[]) => void,
+  skillset: string
+  setStep?: (id: string) => void
+  onSubmit: (skills: string[]) => void
 }
 
-class SkillStep extends React.Component<Props> {
+class SkillStep extends Component<Props> {
   onCancel = () => {
     const { setStep } = this.props
 
@@ -19,7 +20,7 @@ class SkillStep extends React.Component<Props> {
   }
 
   render () {
-    const { onSubmit } = this.props
+    const { onSubmit, skillset } = this.props
 
     return (
       <div className={s.SkillStep}>
@@ -30,6 +31,7 @@ class SkillStep extends React.Component<Props> {
         <SkillsSuggestion
           eventCategory="introduction_2"
           theme="step"
+          skillset={skillset}
           onSubmit={onSubmit}
           onCancel={this.onCancel}
         />

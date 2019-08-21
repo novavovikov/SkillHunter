@@ -75,6 +75,7 @@ export interface ISkillset {
   name: string
   created: string
   accepted: boolean
+  skills: ISkill
 }
 
 export interface IUser {

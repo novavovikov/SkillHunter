@@ -9,7 +9,11 @@ import { IconButton, Popup } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './SkillCreator.css'
 
-interface Props extends RouteComponentProps {
+interface Params {
+  skillset: string
+}
+
+interface Props extends RouteComponentProps<Params> {
   skillsetId: number | null
   addSkills: (skillsetId: number, skills: string[]) => void
 }
@@ -60,6 +64,7 @@ class SkillCreator extends Component<Props> {
   }
 
   render () {
+    const { match } = this.props
     const isOpen = this.getOpenedStatus()
 
     return (
@@ -77,6 +82,7 @@ class SkillCreator extends Component<Props> {
         >
           <SkillsSuggestion
             eventCategory="skillset"
+            skillset={match.params.skillset}
             onSubmit={this.addSkills}
             onCancel={this.closePopup}
           />

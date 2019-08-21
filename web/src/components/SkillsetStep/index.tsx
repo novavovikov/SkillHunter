@@ -1,25 +1,20 @@
-import React from 'react'
+import React, { ChangeEvent, Component } from 'react'
 import { AutoComplete, Button, H2 } from '../../UI'
 import * as s from './SkillsetStep.css'
 
-interface State {
-  inputValue: string
-}
-
 interface Props {
-  setStep?: (id: string) => void,
-  onSubmit: (skillset: string) => void
+  skillset: string
+  onChange: (skillset: string) => void
+  setStep?: (id: string) => void
+  onSubmit: () => void
 }
 
-class SkillsetStep extends React.Component<Props, State> {
-  state = {
-    inputValue: '',
-  }
+class SkillsetStep extends Component<Props> {
+  setInputValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const { onChange } = this.props
+    const { value } = e.target
 
-  setInputValue = (e: any) => {
-    this.setState({
-      inputValue: e.target.value,
-    })
+    onChange(value)
   }
 
   onSubmit = (e: any) => {
@@ -27,13 +22,13 @@ class SkillsetStep extends React.Component<Props, State> {
     const { setStep, onSubmit } = this.props
 
     if (setStep) {
-      onSubmit(this.state.inputValue)
+      onSubmit()
       setStep('Skills')
     }
   }
 
   render () {
-    const { inputValue } = this.state
+    const { skillset } = this.props
 
     return (
       <form
@@ -47,7 +42,7 @@ class SkillsetStep extends React.Component<Props, State> {
         <AutoComplete
           className={s.SkillsetStep__input}
           input={{
-            value: inputValue,
+            value: skillset,
             onChange: this.setInputValue,
             placeholder: 'Enter your skillset (speciality, profession or hobby)',
             autoFocus: true,
@@ -56,7 +51,7 @@ class SkillsetStep extends React.Component<Props, State> {
         />
 
         <Button
-          disabled={!inputValue}
+          disabled={!skillset}
           theme="large"
         >
           Improve

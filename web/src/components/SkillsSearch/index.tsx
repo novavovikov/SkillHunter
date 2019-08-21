@@ -2,22 +2,20 @@ import cn from 'classnames'
 import { debounce } from 'debounce'
 import React, { ChangeEvent, Component, FormEvent } from 'react'
 import Scrollbar from 'react-custom-scrollbars'
-import { ISuggestion } from '../../types'
+import { ISkill, ISuggestion } from '../../types'
 import { Button, Checkbox, Input } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 import { Hash } from '../../utils/hash'
+import { SkillsSuggestionProps } from '../SkillsSuggestion'
 import * as s from './SkillsSearch.css'
 
-interface Props {
-  theme?: 'step'
-  eventCategory: string
-  onSubmit: (skills: string[]) => void
-  onCancel: () => void
+interface Props extends SkillsSuggestionProps{
   debounce?: number
 }
 
 interface State {
+  recommendations: ISkill[]
   suggestions: ISuggestion[]
   selected: ISuggestion[]
   inputValue: string
@@ -29,9 +27,16 @@ class SkillsSearch extends Component<Props, State> {
   }
 
   state = {
+    recommendations: [],
     suggestions: [],
     selected: [],
     inputValue: '',
+  }
+
+  componentDidMount (): void {
+    const { skillset } = this.props
+
+    ajax.get(`skillset/recommendation/skills/${skillset}`)
   }
 
   handleInput = (e: any) => {

@@ -164,7 +164,7 @@ export class UserController {
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
     foundSkillset.skills = unique([...foundSkillset.skills, ...skillList])
 
-    const updatedUser = await this.userService.addSkillset(user.id, foundSkillset)
+    const updatedUser = await this.userService.addSkillset(user, foundSkillset)
     await this.userSkillService.addSkills(
       user.id,
       foundSkillset.id,

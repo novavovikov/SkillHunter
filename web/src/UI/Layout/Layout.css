@@ -19,7 +19,7 @@
   &__aside {
     position: sticky;
     top: 0;
-    flex: 250px 0 0;
+    flex: 260px 0 0;
     padding: 17px 20px;
 
     @media(--xl) {
@@ -36,7 +36,6 @@
 
   &__main {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
   }

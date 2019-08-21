@@ -76,13 +76,12 @@ export class UserService {
     return this.userRepository.findOne({ id, facebookId })
   }
 
-  async addSkillset (userId: number | string, skillset: Skillset) {
-    const user = await this.findById(userId, {
-      relations: ['skillsets'],
-    })
-
+  addSkillset (
+    user: User,
+    skillset: Skillset
+  ) {
     user.skillsets = unique([...user.skillsets, skillset])
-    return await this.userRepository.save(user)
+    return this.userRepository.save(user)
   }
 
   async removeSkillset (userId: number, skillsetId: number) {

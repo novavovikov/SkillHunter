@@ -56,6 +56,10 @@ export class SkillsetService {
       getMany()
   }
 
+  save (skillset: Skillset) {
+    return this.skillsetRepository.save(skillset)
+  }
+
   async setSkillsets (skillsets: SkillsetDto[]) {
     if (!skillsets.length) {
       return []

@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
 import cn from 'classnames'
+import React, { Component } from 'react'
 import { H4 } from '../../UI'
 import { SkillsSearch } from '../index'
 import * as s from './SkillsSuggestion.css'
 
-interface Props {
-  theme?: 'step'
+export interface SkillsSuggestionProps {
   eventCategory: string
+  skillset: string
+  theme?: 'step'
   onSubmit: (skills: string[]) => void
   onCancel: () => void
 }
 
-class SkillsSuggestion extends Component<Props> {
+class SkillsSuggestion extends Component<SkillsSuggestionProps> {
   render () {
     return (
       <div className={cn(s.SkillsSuggestion)}>

@@ -6,8 +6,10 @@ import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { HttpMessageType } from '../../constants/exception'
 import { getUserResourceWithLikedField } from '../../utils/normalizer'
+import { unique } from '../../utils/unique'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
+import { SkillsetService } from '../skillset/skillset.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
 import { UserSkillService } from './user-skill.service'
 
@@ -18,6 +20,7 @@ export class UserSkillController {
   constructor (
     private userSkillService: UserSkillService,
     private userResourceService: UserResourceService,
+    private skillsetService: SkillsetService,
     private skillService: SkillService,
   ) {}
 
@@ -69,6 +72,21 @@ export class UserSkillController {
     })
 
     const newSkills = skillList.filter(({ id }: Skill) => !createdSkills.find(({ skill }) => id === skill.id))
+
+    const foundSkillset = await this.skillsetService.findById(skillsetId, {
+      relations: ['skills'],
+    })
+
+    if (!foundSkillset) {
+      throw new HttpException({
+        message: 'Skillset does not exist',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND,
+      }, HttpStatus.NOT_FOUND)
+    }
+
+    foundSkillset.skills = unique([...foundSkillset.skills, ...newSkills])
+    await this.skillsetService.save(foundSkillset)
 
     if (newSkills.length) {
       return await this.userSkillService.addSkills(

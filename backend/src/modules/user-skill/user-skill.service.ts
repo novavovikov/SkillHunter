@@ -12,14 +12,20 @@ export class UserSkillService {
     private userSkillRepository: Repository<UserSkill>,
   ) {}
 
-  find (criteria: any, options?: FindManyOptions<UserSkill>) {
+  find (
+    criteria: any,
+    options?: FindManyOptions<UserSkill>,
+  ) {
     return this.userSkillRepository.find({
       where: criteria,
       ...options,
     })
   }
 
-  findById (id: number | string, options?: FindOneOptions<UserSkill>) {
+  findById (
+    id: number | string,
+    options?: FindOneOptions<UserSkill>,
+  ) {
     return this.userSkillRepository.findOne({
       where: {
         id: Number(id),

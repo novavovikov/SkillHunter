@@ -16,7 +16,7 @@ export class Skillset {
   @Column({ default: false })
   accepted: boolean
 
-  @ManyToMany(() => Skill, (skill: Skill) => skill.skillsets)
+  @ManyToMany(() => Skill, (skill: Skill) => skill.skillsets, { cascade: true })
   @JoinTable({ name: 'skillset_skills' })
   skills: Skill[]
 

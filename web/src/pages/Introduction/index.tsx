@@ -29,8 +29,12 @@ class Introduction extends React.Component<Props, State> {
   }
 
   setSkillset = (skillset: string) => {
-    const { addSkillset } = this.props
     this.setState({ skillset })
+  }
+
+  submitSkillset = () => {
+    const { skillset }: State = this.state
+    const { addSkillset } = this.props
 
     addSkillset([{ name: skillset }])
 
@@ -41,7 +45,7 @@ class Introduction extends React.Component<Props, State> {
     })
   }
 
-  setSkills = (skills: string[]) => {
+  submitSkills = (skills: string[]) => {
     this.setState({ skills }, this.onSubmit)
   }
 
@@ -53,6 +57,8 @@ class Introduction extends React.Component<Props, State> {
   }
 
   render () {
+    const { skillset } = this.state
+
     return (
       <Page
         sidebar={false}
@@ -64,10 +70,17 @@ class Introduction extends React.Component<Props, State> {
           steps={['Skillset', 'Skills']}
         >
           <Steps.Content id={'Skillset'}>
-            <SkillsetStep onSubmit={this.setSkillset}/>
+            <SkillsetStep
+              skillset={skillset}
+              onChange={this.setSkillset}
+              onSubmit={this.submitSkillset}
+            />
           </Steps.Content>
           <Steps.Content id={'Skills'}>
-            <SkillStep onSubmit={this.setSkills}/>
+            <SkillStep
+              skillset={skillset}
+              onSubmit={this.submitSkills}
+            />
           </Steps.Content>
         </Steps.Wrap>
       </Page>

@@ -4,6 +4,14 @@ export enum EResourceStatus {
   Done = 'Done'
 }
 
+export interface ISkill {
+  id: number
+  name: string
+  created: string
+  accepted: boolean
+  skillsetId: number
+}
+
 export interface IResource {
   author: string[] | number
   created: string
@@ -29,14 +37,6 @@ export interface IUserResource {
   viewOnly: boolean
 }
 
-export interface ISkill {
-  id: number
-  name: string
-  created: string
-  accepted: boolean
-  skillsetId: number
-}
-
 export interface IUserSkill {
   id: number
   skillsetId: number
@@ -48,7 +48,7 @@ export interface iSkillset {
   id: number
   created: string
   name: string
-  accepted: boolean,
+  accepted: boolean
   userSkills: IUserSkill[]
 }
 
