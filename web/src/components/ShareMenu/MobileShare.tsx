@@ -13,6 +13,7 @@ class MobileShare extends Component<ShareProps> {
 
     navigator.share({
       title: text,
+      text,
       url
     })
   }
