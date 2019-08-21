@@ -51,7 +51,7 @@ export class SkillsetController {
     return skillset.skills.reduce((acc, skill) => {
       if (
         !skill.accepted ||
-        userSkills.find(({ id }) => skill.id)
+        userSkills.find((userSkill) => skill.id === userSkill.skill.id)
       ) {
         return acc
       }
