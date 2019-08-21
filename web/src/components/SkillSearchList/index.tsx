@@ -32,9 +32,8 @@ class SkillSearchList extends Component<Props> {
 
         <Scrollbar
           autoHeight
-          autoHide
-          autoHeightMin={0}
-          autoHeightMax={200}
+          autoHeightMin={150}
+          autoHeightMax={150}
         >
           {skills.map(({ id, name }: ISuggestion) => (
             <label
