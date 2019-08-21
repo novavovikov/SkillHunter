@@ -201,7 +201,6 @@ class SkillsSearch extends Component<Props, State> {
 
         <div className={s.SkillsSearch__body}>
           <SkillSearchList
-            title="Add as new skill"
             skills={suggestedSkills}
             selectedSkills={selectedSkills}
             onChange={this.handleCheckbox}

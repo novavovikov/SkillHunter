@@ -5,7 +5,7 @@ import { Checkbox } from '../../UI'
 import * as s from './SkillSearchList.css'
 
 interface Props {
-  title: string
+  title?: string
   skills: ISuggestion[]
   selectedSkills: ISuggestion[]
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -26,13 +26,15 @@ class SkillSearchList extends Component<Props> {
 
     return (
       <div className={s.SkillSearchList}>
-        <h5 className={s.SkillSearchList__title}>
-          {title}
-        </h5>
+        {title && (
+          <h5 className={s.SkillSearchList__title}>
+            {title}
+          </h5>
+        )}
 
         <Scrollbar
           autoHeight
-          autoHeightMin={150}
+          autoHeightMin={0}
           autoHeightMax={150}
         >
           {skills.map(({ id, name }: ISuggestion) => (
