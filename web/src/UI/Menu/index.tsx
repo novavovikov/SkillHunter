@@ -101,7 +101,15 @@ class Menu extends React.Component<Props, State> {
           {Component
             ? <Component isOpen={isOpen}/>
             : (
-              <button className={cn(s.Menu__button, s.Menu__button_withLabel)}>
+              <button
+                className={cn(
+                  s.Menu__button,
+                  s.Menu__button_withLabel,
+                  {
+                    [s.Menu__button_active]: isOpen,
+                  },
+                )}
+              >
                 <Icon
                   type={iconType}
                   size={size}
@@ -109,7 +117,7 @@ class Menu extends React.Component<Props, State> {
                 />
                 {label && (
                   <span className={cn(s.Menu__label, {
-                    [s.Menu__label_24]: size === '24'
+                    [s.Menu__label_24]: size === '24',
                   })}>
                     {label}
                   </span>
@@ -121,15 +129,25 @@ class Menu extends React.Component<Props, State> {
 
         {createPortal(
           (
-            <Animation.Dropdown
-              in={isOpen}
-              onEnter={this.onEnterList}
-              onExit={this.onExitList}
-            >
-              <div className={s.Menu__list}>
-                {children}
-              </div>
-            </Animation.Dropdown>
+            <>
+              {isOpen && (
+                <div
+                  className={cn(s.Menu__overlay, {
+                    [s.Menu__overlay_active]: isOpen,
+                  })}
+                  onClick={this.hideMenu}
+                />
+              )}
+              <Animation.Dropdown
+                in={isOpen}
+                onEnter={this.onEnterList}
+                onExit={this.onExitList}
+              >
+                <div className={s.Menu__list}>
+                  {children}
+                </div>
+              </Animation.Dropdown>
+            </>
           ),
           document.body,
         )}

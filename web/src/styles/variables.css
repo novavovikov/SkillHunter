@@ -42,10 +42,24 @@
   --z-header: 20;
   --z-sidebar: 22;
   --z-sidebar-switcher: 21;
-  --z-menu: 10;
   --z-notification: 10;
-
   --z-overlay: -1;
+
+  --z-menu: {
+    z-index: 10;
+
+    @media (--md) {
+      z-index: 40;
+    }
+  };
+
+  --z-menu-overlay: {
+    z-index: 9;
+
+    @media (--md) {
+      z-index: 39;
+    }
+  };
 
   --font-xs: {
     font-size: 10px;

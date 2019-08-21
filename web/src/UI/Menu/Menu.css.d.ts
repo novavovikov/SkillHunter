@@ -3,10 +3,14 @@
 interface CssExports {
   'Menu': string;
   'Menu__button': string;
+  'Menu__button_active': string;
   'Menu__button_withLabel': string;
   'Menu__label': string;
   'Menu__label_24': string;
   'Menu__list': string;
+  'Menu__overlay': string;
+  'Menu__overlay_active': string;
+  'ShowMenu': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;
