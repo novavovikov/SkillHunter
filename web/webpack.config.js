@@ -9,6 +9,7 @@ module.exports = env => ({
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
+  mode: env,
   optimization: require('./webpack/optimization')(env),
   module: require('./webpack/module')(env),
   plugins: require('./webpack/plugins')(env),
