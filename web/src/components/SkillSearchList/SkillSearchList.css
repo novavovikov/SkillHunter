@@ -1,0 +1,36 @@
+@import "../../styles/variables.css";
+
+.SkillSearchList {
+  margin: 0 0 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__title {
+    @apply --font-xs;
+    font-weight: normal;
+    color: var(--color-dusty-gray);
+    text-transform: uppercase;
+    margin: 0 0 5px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    width: 65px;
+  }
+
+  &__content {
+    flex: 1 1 100%;
+    overflow: hidden;
+  }
+}

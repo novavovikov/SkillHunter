@@ -4,7 +4,7 @@ import { PAGE_VIEW_EVENT } from '../constants/analytics'
 interface Event {
   event: string
   userId?: number
-  [key: string]: string | number | undefined
+  [key: string]: any
 }
 
 export const initAnalytics = () => {

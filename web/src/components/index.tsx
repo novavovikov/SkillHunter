@@ -20,6 +20,7 @@ import SkillsetCreator from './SkillsetCreator'
 import SkillCreator from './SkillCreator'
 import SkillsSuggestion from './SkillsSuggestion'
 import SkillsSearch from './SkillsSearch'
+import SkillSearchList from './SkillSearchList'
 import UserSkill from './UserSkill'
 import UserSkillHeader from './UserSkillHeader'
 import Resources from './Resources'
@@ -62,6 +63,7 @@ export {
   SkillCreator,
   SkillsSuggestion,
   SkillsSearch,
+  SkillSearchList,
   UserSkill,
   UserSkillHeader,
   Resources,

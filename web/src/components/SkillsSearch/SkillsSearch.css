@@ -22,17 +22,14 @@
     display: flex;
     align-items: center;
     width: 65px;
-
-    &_header {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      overflow: hidden;
-      animation: ShowCheckbox var(--transition) forwards;
-      transform-origin: left;
-      z-index: 3;
-    }
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    animation: ShowCheckbox var(--transition) forwards;
+    transform-origin: left;
+    z-index: 3;
   }
 
   &__content {
@@ -42,13 +39,7 @@
 
   &__body {
     padding: 0 20px;
-  }
-
-  &__row {
-    display: flex;
-    align-items: center;
-    min-height: 38px;
-    padding: 10px 0;
+    min-height: 200px;
   }
 
   &__btn {

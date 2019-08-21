@@ -1,12 +1,12 @@
 import cn from 'classnames'
 import { debounce } from 'debounce'
 import React, { ChangeEvent, Component, FormEvent } from 'react'
-import Scrollbar from 'react-custom-scrollbars'
-import { ISkill, ISuggestion } from '../../types'
+import { ISuggestion } from '../../types'
 import { Button, Checkbox, Input } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 import { Hash } from '../../utils/hash'
+import { SkillSearchList } from '../index'
 import { SkillsSuggestionProps } from '../SkillsSuggestion'
 import * as s from './SkillsSearch.css'
 
@@ -15,9 +15,9 @@ interface Props extends SkillsSuggestionProps{
 }
 
 interface State {
-  recommendations: ISkill[]
+  recommendedSkills: ISuggestion[]
   suggestions: ISuggestion[]
-  selected: ISuggestion[]
+  selectedSkills: ISuggestion[]
   inputValue: string
 }
 
@@ -27,16 +27,22 @@ class SkillsSearch extends Component<Props, State> {
   }
 
   state = {
-    recommendations: [],
+    recommendedSkills: [],
     suggestions: [],
-    selected: [],
+    selectedSkills: [],
     inputValue: '',
   }
 
   componentDidMount (): void {
     const { skillset } = this.props
 
-    ajax.get(`skillset/recommendation/skills/${skillset}`)
+    ajax.
+      get(`skillset/recommendation/skills/${skillset}`).
+      then(({ data }) => {
+        this.setState({
+          recommendedSkills: data,
+        })
+      })
   }
 
   handleInput = (e: any) => {
@@ -62,14 +68,24 @@ class SkillsSearch extends Component<Props, State> {
       })
   }, this.props.debounce)
 
-  getSkillList = () => {
-    const { selected, suggestions, inputValue } = this.state
-    const value = inputValue.trim()
+  getSuggestedSkill = () => {
+    const {
+      selectedSkills,
+      suggestions,
+      recommendedSkills,
+      inputValue,
+    } = this.state
 
+    const value = inputValue.trim()
     const startArr = value ? [{ id: -Hash.generateNumeric(value), name: value }] : []
 
-    return [...suggestions, ...selected].reduce((acc, suggest: ISuggestion) => {
-      if (acc.find(({ name }) => name === suggest.name)) {
+    return [...suggestions, ...selectedSkills].reduce((acc, suggest: ISuggestion) => {
+      const recommendedItem = recommendedSkills.find(({ name }) => name === suggest.name)
+
+      if (
+        recommendedItem ||
+        acc.find(({ name }) => name === suggest.name)
+      ) {
         return acc
       }
 
@@ -79,16 +95,18 @@ class SkillsSearch extends Component<Props, State> {
 
   handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const { eventCategory } = this.props
-    const { selected } = this.state
+    const { selectedSkills, recommendedSkills } = this.state
     const { value, checked } = e.target
+
     const checkedId = Number(value)
-    const skillList = this.getSkillList()
-    const checkedItem = skillList.find(({ id }) => id === checkedId)
+    const suggestedSkills = this.getSuggestedSkill()
+    const checkedItem = suggestedSkills.find(({ id }) => id === checkedId) ||
+      recommendedSkills.find(({ id }) => id === checkedId)
 
     this.setState({
-      selected: checked
-        ? [...selected, checkedItem as ISuggestion]
-        : selected.filter(({ id }) => id !== checkedId),
+      selectedSkills: checked
+        ? [...selectedSkills, checkedItem as ISuggestion]
+        : selectedSkills.filter(({ id }) => id !== checkedId),
     })
 
     if (checked) {
@@ -100,12 +118,13 @@ class SkillsSearch extends Component<Props, State> {
     }
   }
 
-  selectedAll = (e: ChangeEvent<HTMLInputElement>) => {
+  selectedSkillsAll = (e: ChangeEvent<HTMLInputElement>) => {
+    const { recommendedSkills } = this.state
     const { checked } = e.target
 
     this.setState({
-      selected: checked
-        ? this.getSkillList() as ISuggestion[]
+      selectedSkills: checked
+        ? [...this.getSuggestedSkill() as ISuggestion[], ...recommendedSkills]
         : [],
     })
   }
@@ -113,7 +132,7 @@ class SkillsSearch extends Component<Props, State> {
   submitForm = (e: FormEvent) => {
     e.preventDefault()
     const { onSubmit, theme, eventCategory } = this.props
-    const skills = this.state.selected.map(({ name }) => name)
+    const skills = this.state.selectedSkills.map(({ name }) => name)
 
     onSubmit(skills)
 
@@ -122,13 +141,11 @@ class SkillsSearch extends Component<Props, State> {
       category: eventCategory
     })
 
-    for (const skill of skills) {
-      analytics({
-        event: 'skill_added',
-        skill_name: skill,
-        category: eventCategory
-      })
-    }
+    analytics({
+      event: 'skill_added',
+      skill_name: skills,
+      category: eventCategory,
+    })
   }
 
   onCancel = () => {
@@ -143,10 +160,11 @@ class SkillsSearch extends Component<Props, State> {
   }
 
   render () {
-    const { selected, inputValue } = this.state
+    const { selectedSkills, inputValue, recommendedSkills } = this.state
     const { theme, eventCategory } = this.props
 
-    const skillList = this.getSkillList()
+    const suggestedSkills = this.getSuggestedSkill() as ISuggestion[]
+    const skillsCount = suggestedSkills.length + recommendedSkills.length
 
     return (
       <form
@@ -155,11 +173,11 @@ class SkillsSearch extends Component<Props, State> {
       >
         <div className={s.SkillsSearch__header}>
           <div className={s.SkillsSearch__field}>
-            {skillList.length > 0 && (
-              <div className={cn(s.SkillsSearch__checkbox, s.SkillsSearch__checkbox_header)}>
+            {skillsCount > 0 && (
+              <div className={s.SkillsSearch__checkbox}>
                 <Checkbox
-                  checked={skillList.length === selected.length}
-                  onChange={this.selectedAll}
+                  checked={skillsCount === selectedSkills.length}
+                  onChange={this.selectedSkillsAll}
                 >
                   All
                 </Checkbox>
@@ -168,7 +186,7 @@ class SkillsSearch extends Component<Props, State> {
             <div className={s.SkillsSearch__content}>
               <Input
                 classNameField={cn({
-                  [s.SkillsSearch__input]: skillList.length
+                  [s.SkillsSearch__input]: skillsCount > 0,
                 })}
                 type="text"
                 placeholder="Type in for search or added new skill"
@@ -182,30 +200,19 @@ class SkillsSearch extends Component<Props, State> {
         </div>
 
         <div className={s.SkillsSearch__body}>
-          <Scrollbar
-            autoHeight
-            autoHide
-            autoHeightMin={250}
-            autoHeightMax={250}
-          >
-            {skillList.map(({ id, name }: ISuggestion) => (
-              <div
-                key={id}
-                className={s.SkillsSearch__row}
-              >
-                <div className={s.SkillsSearch__checkbox}>
-                  <Checkbox
-                    value={id}
-                    onChange={this.handleCheckbox}
-                    checked={!!selected.find((skill: ISuggestion) => skill.id === id)}
-                  />
-                </div>
-                <div className={s.SkillsSearch__content}>
-                  {name}
-                </div>
-              </div>
-            ))}
-          </Scrollbar>
+          <SkillSearchList
+            title="Add as new skill"
+            skills={suggestedSkills}
+            selectedSkills={selectedSkills}
+            onChange={this.handleCheckbox}
+          />
+
+          <SkillSearchList
+            title="Recommended"
+            skills={recommendedSkills}
+            selectedSkills={selectedSkills}
+            onChange={this.handleCheckbox}
+          />
         </div>
 
         <div className={cn(s.SkillsSearch__footer, {
@@ -224,7 +231,7 @@ class SkillsSearch extends Component<Props, State> {
           </Button>
           <Button
             className={s.SkillsSearch__btn}
-            disabled={!selected.length}
+            disabled={!selectedSkills.length}
           >
             {theme === 'step'
               ? 'Next'
