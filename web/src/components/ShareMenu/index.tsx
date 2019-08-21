@@ -11,6 +11,7 @@ export interface ShareProps {
 }
 
 const ShareMenu: FC<ShareProps> = (props) => {
+  console.log(props)
   if (navigator.share && isMobile) {
     return <MobileShare {...props}/>
   }

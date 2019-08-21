@@ -10,10 +10,10 @@ class MobileShare extends Component<ShareProps> {
   handleMenu = () => {
     const { link, text } = this.props
     const url = urlNormalizer(`${window.location.origin}${link}`)
+    const shareOptions = { url }
 
     navigator.share({
-      title: text,
-      text,
+      title: text || '',
       url
     })
   }

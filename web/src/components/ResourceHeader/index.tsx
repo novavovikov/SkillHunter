@@ -15,10 +15,6 @@ interface Props {
 }
 
 class ResourceHeader extends PureComponent<Props> {
-  componentDidMount () {
-
-  }
-
   handleBack = () => {
     analytics({
       event: 'click_back',
@@ -79,7 +75,7 @@ class ResourceHeader extends PureComponent<Props> {
         <div className={s.ResourceHeader__item}>
           <ShareMenu
             link={`${ROUTES.RESOURCE}/${data.id}`}
-            text={data.title}
+            text={data.title || data.resource.title}
             label="Share"
             eventCategory="source_page"
           />
