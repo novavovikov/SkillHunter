@@ -47,7 +47,7 @@
     box-shadow: var(--shadow);
     @apply --z-menu;
 
-    @media (--md) {
+    @media (--lg) {
       position: fixed;
       top: auto !important;
       bottom: 0 !important;
@@ -58,7 +58,7 @@
   }
 
   &__overlay {
-    @media (--md) {
+    @media (--lg) {
       position: fixed;
       left: 0;
       bottom: 0;

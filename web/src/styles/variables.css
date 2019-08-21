@@ -48,7 +48,7 @@
   --z-menu: {
     z-index: 10;
 
-    @media (--md) {
+    @media (--lg) {
       z-index: 40;
     }
   };
@@ -56,7 +56,7 @@
   --z-menu-overlay: {
     z-index: 9;
 
-    @media (--md) {
+    @media (--lg) {
       z-index: 39;
     }
   };
