@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { IResource } from '../../types'
+import favicon from './icons/favicon.svg'
 import * as s from './RecommendedResource.css'
 
 interface Props {
@@ -17,7 +18,6 @@ class RecommendedResource extends Component<Props> {
   render () {
     const {
       title,
-      author,
       link,
       picture,
     } = this.props.data
@@ -36,13 +36,15 @@ class RecommendedResource extends Component<Props> {
           href={link}
           target="_blank"
         >
-          {title}
+          {title || title}
 
           <div className={s.RecommendedResource__source}>
             <div className={s.RecommendedResource__favicon}>
-              <img src={picture} alt=""/>
+              <img
+                src={picture || favicon}
+                alt=""
+              />
             </div>
-
             {url.hostname}
           </div>
         </a>

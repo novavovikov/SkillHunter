@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
 import { EResourceTypes, IUserResource } from '../../types'
 import { analytics } from '../../utils/analytics'
-import faviconIcon from './icons/favicon.svg'
+import favicon from './icons/favicon.svg'
 import { getIconByType } from './iconType'
 import * as s from './ResourcePreviewInfo.css'
 
@@ -63,7 +63,7 @@ class ResourcePreviewInfo extends Component<Props> {
             >
               <div className={s.ResourcePreviewInfo__favicon}>
                 <img
-                  src={data.resource.picture || faviconIcon}
+                  src={data.resource.picture || favicon}
                   alt=""
                 />
               </div>
