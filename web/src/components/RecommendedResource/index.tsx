@@ -36,7 +36,7 @@ class RecommendedResource extends Component<Props> {
           href={link}
           target="_blank"
         >
-          {title || title}
+          {title || link}
 
           <div className={s.RecommendedResource__source}>
             <div className={s.RecommendedResource__favicon}>
