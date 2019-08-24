@@ -4,6 +4,10 @@
   padding: 20px 35px 10px;
   background: var(--color-gallery);
 
+  @media(--md) {
+    padding: 15px;
+  }
+
   &__title {
     @apply --font-xs;
     font-weight: bold;
