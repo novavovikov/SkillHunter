@@ -6,7 +6,7 @@ import { UserActionTypes } from '../actionTypes/user'
 import { AddUserSkillsetSaga, RemoveUserSkillsetSaga } from '../interfaces/user'
 import { errorHandler } from '../utils/errorHandler'
 
-export function * getUserDataSaga () {
+function * getUserDataSaga () {
   yield put(ac.addLoading('user'))
 
   try {
@@ -20,7 +20,7 @@ export function * getUserDataSaga () {
   yield put(ac.removeLoading('user'))
 }
 
-export function * addUserSkillset ({ skillset, skills, callback }: AddUserSkillsetSaga) {
+function * addUserSkillset ({ skillset, skills, callback }: AddUserSkillsetSaga) {
   yield put(ac.addLoading('userSkillset'))
 
   try {
@@ -38,7 +38,7 @@ export function * addUserSkillset ({ skillset, skills, callback }: AddUserSkills
   yield put(ac.removeLoading('userSkillset'))
 }
 
-export function * removeUserSkillset ({ skillsetId }: RemoveUserSkillsetSaga) {
+function * removeUserSkillset ({ skillsetId }: RemoveUserSkillsetSaga) {
   try {
     yield call(ajax.delete, `${API.USER_SKILLSET}/${skillsetId}`)
 

@@ -9,7 +9,7 @@ export interface UserResourceState {
 }
 
 export interface ResourcesState {
-  [id: number]: UserResourceState
+  [id: string]: UserResourceState
 }
 
 const INITIAL_RESOURCE_DATA = {

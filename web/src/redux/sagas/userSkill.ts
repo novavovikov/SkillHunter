@@ -7,7 +7,7 @@ import { UserSkillActionTypes } from '../actionTypes/userSkill'
 import { AddResourceToUserSkillSaga, GetUserSkillSaga } from '../interfaces/userSkill'
 import { errorHandler } from '../utils/errorHandler'
 
-export function * getUserSkillSaga ({ skillId }: GetUserSkillSaga) {
+function * getUserSkillSaga ({ skillId }: GetUserSkillSaga) {
   yield put(ac.addLoading('userSkill'))
 
   try {
@@ -21,7 +21,7 @@ export function * getUserSkillSaga ({ skillId }: GetUserSkillSaga) {
   yield put(ac.removeLoading('userSkill'))
 }
 
-export function * addResourceToUserSkillSaga ({ payload }: AddResourceToUserSkillSaga) {
+function * addResourceToUserSkillSaga ({ payload }: AddResourceToUserSkillSaga) {
   try {
     const { data } = payload
     const { data: resource } = yield call(ajax.post, `${API.RESOURCE}/${data.type}`, data)

@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'Resources': string;
+  'Resources__body': string;
   'Resources__col': string;
   'Resources__col_actions': string;
   'Resources__col_full': string;

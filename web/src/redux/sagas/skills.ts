@@ -7,7 +7,7 @@ import { SkillsActionTypes } from '../actionTypes/skills'
 import { AddSkillsSaga, GetSkillsDataPayload, RemoveSkillsSaga } from '../interfaces/skills'
 import { errorHandler } from '../utils/errorHandler'
 
-export function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
+function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
   yield put(ac.addLoading('skill'))
 
   try {
@@ -25,7 +25,7 @@ export function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
   yield put(ac.removeLoading('skill'))
 }
 
-export function * addSkillsSaga ({ skillsetId, skills }: AddSkillsSaga) {
+function * addSkillsSaga ({ skillsetId, skills }: AddSkillsSaga) {
   yield put(ac.addLoading('skill'))
 
   try {
@@ -39,7 +39,7 @@ export function * addSkillsSaga ({ skillsetId, skills }: AddSkillsSaga) {
   yield put(ac.removeLoading('skill'))
 }
 
-export function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
+function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
   yield put(ac.addLoading('skill'))
 
   try {
@@ -53,7 +53,7 @@ export function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
   yield put(ac.removeLoading('skill'))
 }
 
-export function * watcSkillsData () {
+export function * watchSkillsData () {
   yield takeEvery(SkillsActionTypes.SAGA_GET_SKILLS, getSkillsDataSaga)
   yield takeEvery(SkillsActionTypes.SAGA_ADD_SKILLS, addSkillsSaga)
   yield takeEvery(SkillsActionTypes.SAGA_REMOVE_SKILLS, removeSkillsSaga)

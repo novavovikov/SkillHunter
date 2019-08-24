@@ -37,7 +37,7 @@ class ResourcePreviewInfo extends Component<Props> {
 
   render () {
     const { data, className } = this.props
-    const url: any = (link: string) => new URL(link)
+    const url = (link: string) => new URL(link)
 
     return (
       <div className={cn(s.ResourcePreviewInfo, className)}>
@@ -58,8 +58,8 @@ class ResourcePreviewInfo extends Component<Props> {
             <a
               href={data.resource.link}
               className={cn(s.ResourcePreviewInfo__source, s.ResourcePreviewInfo__source_site)}
-              target="_blank"
               onClick={this.handleLink}
+              target="_blank"
             >
               <div className={s.ResourcePreviewInfo__favicon}>
                 <img

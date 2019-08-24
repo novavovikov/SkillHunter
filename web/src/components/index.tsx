@@ -25,6 +25,8 @@ import UserSkill from './UserSkill'
 import UserSkillHeader from './UserSkillHeader'
 import Resources from './Resources'
 import ResourcePreview from './ResourcePreview'
+import RecommendedResources from './RecommendedResources'
+import RecommendedResource from './RecommendedResource'
 import ResourceCreator from './ResourceCreator'
 import ResourceStatus from './ResourceStatus'
 import ResourcePreviewStatus from './ResourcePreviewStatus'
@@ -68,6 +70,8 @@ export {
   UserSkillHeader,
   Resources,
   ResourcePreview,
+  RecommendedResources,
+  RecommendedResource,
   ResourceCreator,
   ResourceContent,
   ResourceStatus,

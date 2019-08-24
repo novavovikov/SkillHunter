@@ -1,8 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { API } from '../../constants/api'
 import { ENotifications } from '../../constants/notification'
+import { EResourceTypes } from '../../types'
 import { ajax } from '../../utils/ajax'
-import { errorHandler } from '../utils/errorHandler'
 import ac from '../actions'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 import {
@@ -12,14 +12,19 @@ import {
   RemoveResourceSaga,
   UpdateResourceSaga,
 } from '../interfaces/resources'
+import { errorHandler } from '../utils/errorHandler'
 
-export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) {
+function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) {
   yield put(ac.addLoading('resources'))
 
   try {
-    const { data } = yield call(ajax, `${API.USER_RESOURCE}/${skillsetId}?skillIds=${skillIds}`)
+    const { data: resources } = yield call(ajax.get, `${API.USER_RESOURCE}/${skillsetId}?skillIds=${skillIds}`)
+    const { data: recommendedResources } = yield call(
+      ajax.get, `${API.USER_SKILL}/recommendation/resources?skillIds=${skillIds}`,
+    )
 
-    yield put(ac.setResources(data))
+    yield put(ac.setRecommendedResources(recommendedResources))
+    yield put(ac.setResources(resources))
   } catch (error) {
     yield put(errorHandler('getResourcesSaga: ', error))
   }
@@ -27,13 +32,14 @@ export function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) 
   yield put(ac.removeLoading('resources'))
 }
 
-export function * addResourceSaga ({ payload }: AddResourceSaga) {
+function * addResourceSaga ({ payload }: AddResourceSaga) {
   yield put(ac.addLoading('addResource'))
 
   try {
     const { data } = payload
+    const type = data.type || EResourceTypes.Article
 
-    const { data: resource } = yield call(ajax.post, `${API.RESOURCE}/${data.type}`, data)
+    const { data: resource } = yield call(ajax.post, `${API.RESOURCE}/${type}`, data)
 
     if (!resource) {
       throw new Error('Resource in not defined')
@@ -45,6 +51,10 @@ export function * addResourceSaga ({ payload }: AddResourceSaga) {
     })
 
     yield put(ac.addResource(userResource))
+    yield put(ac.removeFromRecommendedResources({
+      resourceId: resource.id,
+      skillId: payload.skillId
+    }))
     yield put(ac.addNotification({
       message: 'Material was added',
       type: ENotifications.success,
@@ -56,7 +66,7 @@ export function * addResourceSaga ({ payload }: AddResourceSaga) {
   yield put(ac.removeLoading('addResource'))
 }
 
-export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
+function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
   try {
     const { id, ...otherProps } = payload
     const { data } = yield call(ajax.put, `${API.USER_RESOURCE}/${id}`, otherProps)
@@ -67,7 +77,7 @@ export function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
   }
 }
 
-export function * changeResourceLikeStatusSaga ({ payload }: ChangeResourceLikeStatusSaga) {
+function * changeResourceLikeStatusSaga ({ payload }: ChangeResourceLikeStatusSaga) {
   try {
     const { data } = yield call(
       payload.isLiked ? ajax.post : ajax.delete,
@@ -80,7 +90,7 @@ export function * changeResourceLikeStatusSaga ({ payload }: ChangeResourceLikeS
   }
 }
 
-export function * removeResourcesSaga ({ payload: { userSkill, id } }: RemoveResourceSaga) {
+function * removeResourcesSaga ({ payload: { userSkill, id } }: RemoveResourceSaga) {
   try {
     yield call(ajax.delete, `${API.USER_RESOURCE}/${id}`)
 

@@ -11,6 +11,7 @@ import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
 import { SkillsetService } from '../skillset/skillset.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
+import { User } from '../user/user.entity'
 import { UserSkillService } from './user-skill.service'
 
 @Controller('user-skill')
@@ -23,6 +24,57 @@ export class UserSkillController {
     private skillsetService: SkillsetService,
     private skillService: SkillService,
   ) {}
+
+  @Get('recommendation/resources')
+  @ApiUseTags('skill')
+  async getRecommendationsResources (
+    @Query('skillIds') skillIds: string,
+    @UserData() user: User,
+  ) {
+    if (!skillIds) {
+      return []
+    }
+
+    const ids = skillIds.split(',').map(Number)
+
+    const userSkills = await this.userSkillService.find({
+      id: In(ids),
+    }, {
+      join: {
+        alias: 'userSkill',
+        leftJoinAndSelect: {
+          'skill': 'userSkill.skill',
+          'resources': 'skill.resources',
+        },
+      },
+    })
+
+    const userResources = await this.userResourceService.find({
+      user,
+    }, {
+      where: {
+        userSkill: {
+          id: In(ids),
+        },
+      },
+    })
+
+    return userSkills.reduce((acc, userSkill) => {
+      const { resources } = userSkill.skill
+
+      const recommendations = resources.filter((resource) => (
+        !resource.author &&
+        !userResources.some(userResource => (
+          userResource.userSkill.id === userSkill.id && userResource.resource.id === resource.id
+        ))
+      ))
+
+      return {
+        ...acc,
+        [userSkill.id]: recommendations.splice(0, 3),
+      }
+    }, {})
+  }
 
   @Get(':skillsetId')
   @ApiUseTags('user-skill')

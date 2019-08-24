@@ -9,6 +9,10 @@
   overflow: hidden;
   transform-origin: left;
 
+  @media(--md) {
+    height: 2px;
+  }
+
   &__enter {
     width: 0;
 

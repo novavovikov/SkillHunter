@@ -1,0 +1,14 @@
+@import "../../styles/variables.css";
+
+.RecommendedResources {
+  padding: 20px 35px 10px;
+  background: var(--color-gallery);
+
+  &__title {
+    @apply --font-xs;
+    font-weight: bold;
+    color: var(--color-dusty-gray);
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+}

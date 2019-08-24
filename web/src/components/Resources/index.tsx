@@ -1,14 +1,16 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
 import { ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
-import { IUserResource } from '../../types'
+import { IResource, IUserResource } from '../../types'
 import { IconButton, OnBoarding } from '../../UI'
-import { ResourcePreview } from '../index'
+import { RecommendedResources, ResourcePreview } from '../index'
 import * as s from './Resources.css'
 
 interface Props {
   data: IUserResource[]
+  recommendations: IResource[]
   openCreator: () => void
+  createResource: (data: Partial<IUserResource>) => void
   onChangeLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
   onUpdate: (data: Partial<IUserResource>) => void
   onRemove: (data: Partial<IUserResource>) => void
@@ -18,7 +20,9 @@ class Resources extends Component<Props> {
   render () {
     const {
       data,
+      recommendations,
       openCreator,
+      createResource,
       onUpdate,
       onChangeLikeStatus,
       onRemove,
@@ -55,16 +59,25 @@ class Resources extends Component<Props> {
           )}
         </div>
 
-        {data.map((resource: IUserResource) => (
-          <ResourcePreview
-            key={resource.id}
-            data={resource}
-            eventCategory="skillset"
-            updateHandler={onUpdate}
-            likeHandler={onChangeLikeStatus}
-            removeHandler={onRemove}
+        <div className={s.Resources__body}>
+          {data.map((resource: IUserResource) => (
+            <ResourcePreview
+              key={resource.id}
+              data={resource}
+              eventCategory="skillset"
+              updateHandler={onUpdate}
+              likeHandler={onChangeLikeStatus}
+              removeHandler={onRemove}
+            />
+          ))}
+        </div>
+
+        {recommendations.length > 0 && (
+          <RecommendedResources
+            data={recommendations}
+            addResource={createResource}
           />
-        ))}
+        )}
       </div>
     )
   }

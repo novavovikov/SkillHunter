@@ -1,0 +1,57 @@
+@import "../../styles/variables.css";
+
+.RecommendedResource {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 0;
+
+  &:hover &__add {
+    background: var(--color-dodger-blue);
+  }
+
+  &__add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--color-alto);
+    border-radius: var(--radius);
+    font-weight: normal;
+    border: none;
+    padding: 0;
+    margin: 0 12px 0 0;
+
+    &:before {
+      content: '+';
+      font-size: 18px;
+      color: #fff;
+    }
+  }
+
+  &__info {
+    width: calc(100% - 32px);
+    transition: var(--transition);
+
+    &:hover {
+      color: var(--color-dodger-blue);
+    }
+  }
+
+  &__source {
+    color: var(--color-dusty-gray);
+    @apply --font-s;
+    padding: 5px 0 0;
+  }
+
+  &__favicon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    margin: 0 10px 0 0;
+
+    img {
+      width: 100%;
+    }
+  }
+}

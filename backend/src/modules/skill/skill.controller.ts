@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Put, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
+import { In } from 'typeorm'
 import { Roles } from '../../common/decorators/roles.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { RoleType } from '../../constants/role-type'
@@ -24,7 +25,9 @@ export class SkillController {
 
   @Get(':skillId')
   @ApiUseTags('skill')
-  getSkill (@Param('skillId') skillId: string) {
+  getSkill (
+    @Param('skillId') skillId: string,
+  ) {
     return this.skillService.findById(skillId)
   }
 

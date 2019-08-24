@@ -15,7 +15,7 @@ import { removeSkillsSaga } from '../../redux/actions/skills'
 import { AddResourceSagaPayload, ResourceLikeStatusSagaPayload } from '../../redux/interfaces/resources'
 import { RootState } from '../../redux/reducers'
 import { UserResourceState } from '../../redux/reducers/resources'
-import { IconTypes, IUserResource, IUserSkill } from '../../types'
+import { IconTypes, IResource, IUserResource, IUserSkill } from '../../types'
 import { Icon, OnBoarding } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './UserSkill.css'
@@ -27,6 +27,7 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
   data: IUserSkill
   resources: UserResourceState
+  recommendedResources: IResource[]
   removeSkill: (skillIds: number[]) => void
   addResource: (data: AddResourceSagaPayload) => void
   updateResource: (data: Partial<IUserResource>) => void
@@ -41,7 +42,7 @@ interface State {
 
 class UserSkill extends React.Component<Props, State> {
   state = {
-    isOpen: this.props.resources.total !== 0,
+    isOpen: this.props.resources.total !== 0 || this.props.recommendedResources.length > 0,
     creatorVisible: false,
   }
 
@@ -76,7 +77,7 @@ class UserSkill extends React.Component<Props, State> {
     })
   }
 
-  createResource = (data: any) => {
+  createResource = (data: Partial<IUserResource>) => {
     const { data: skillData, addResource } = this.props
 
     addResource({
@@ -84,8 +85,6 @@ class UserSkill extends React.Component<Props, State> {
       skillId: skillData.id,
       data,
     })
-
-    this.toggleCreatorVisibility()
   }
 
   render () {
@@ -93,6 +92,7 @@ class UserSkill extends React.Component<Props, State> {
     const {
       data,
       resources,
+      recommendedResources,
       match,
       changeResourceLikeStatus,
       updateResource,
@@ -144,7 +144,9 @@ class UserSkill extends React.Component<Props, State> {
           {isOpen && (
             <Resources
               data={resources.data}
+              recommendations={recommendedResources}
               openCreator={this.toggleCreatorVisibility}
+              createResource={this.createResource}
               onChangeLikeStatus={changeResourceLikeStatus}
               onUpdate={updateResource}
               onRemove={removeResource}
@@ -172,8 +174,9 @@ class UserSkill extends React.Component<Props, State> {
 export default compose<any>(
   withRouter,
   connect(
-    ({ resources }: RootState, { data }: any) => ({
+    ({ resources, recommendedResources }: RootState, { data }: Props) => ({
       resources: resources[data.id] || { total: 0, data: [] },
+      recommendedResources: recommendedResources[data.id] || [],
     }),
     {
       removeSkill: removeSkillsSaga,

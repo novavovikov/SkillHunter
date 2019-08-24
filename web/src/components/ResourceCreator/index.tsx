@@ -72,9 +72,10 @@ class ResourceCreator extends React.Component<Props, State> {
 
   createResource = (data: any) => {
     const { type } = this.state
-    const { onSubmit } = this.props
+    const { onSubmit, onClose } = this.props
 
     onSubmit({ ...data, type })
+    onClose()
 
     analytics({
       event: 'source_added',

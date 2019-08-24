@@ -64,8 +64,6 @@ class ResourcesPage extends Component<Props, State> {
         data
       })
     }
-
-    this.toggleCreatorVisibility()
   }
 
   render () {
@@ -118,7 +116,9 @@ class ResourcesPage extends Component<Props, State> {
           {userResources && (
             <Resources
               data={userResources}
+              recommendations={[]}
               openCreator={this.toggleCreatorVisibility}
+              createResource={this.createResource}
               onChangeLikeStatus={() => undefined}
               onUpdate={() => undefined}
               onRemove={() => undefined}

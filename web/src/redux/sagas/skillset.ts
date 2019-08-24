@@ -5,7 +5,7 @@ import { SkillsetActionTypes } from '../actionTypes/skillset'
 import { AddSkillsetSaga } from '../interfaces/skillset'
 import { errorHandler } from '../utils/errorHandler'
 
-export function * addSkillset ({ skillsets }: AddSkillsetSaga) {
+function * addSkillset ({ skillsets }: AddSkillsetSaga) {
   try {
     yield call(ajax.post, API.SKILLSET, { skillsets })
   } catch (error) {
