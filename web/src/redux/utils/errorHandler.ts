@@ -5,6 +5,10 @@ import ac from '../actions'
 export const errorHandler = (place: string, error: any) => {
   console.warn(`${place}: ${error}`)
 
+  if (window.navigator.vibrate) {
+    window.navigator.vibrate([200, 200])
+  }
+
   if (error.response && error.response.status < 500) {
     const { message, type } = error.response.data
 
