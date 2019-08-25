@@ -6,7 +6,7 @@ export const errorHandler = (place: string, error: any) => {
   console.warn(`${place}: ${error}`)
 
   if (window.navigator.vibrate) {
-    window.navigator.vibrate([200, 200])
+    window.navigator.vibrate(200)
   }
 
   if (error.response && error.response.status < 500) {
