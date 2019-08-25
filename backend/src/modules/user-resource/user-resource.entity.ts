@@ -38,7 +38,7 @@ export class UserResource {
   likes: number
   @AfterLoad()
   getLikes () {
-    if (this.resource) {
+    if (this.resource && this.resource.userIdsLikes) {
       this.likes = this.resource.userIdsLikes.length
     }
   }
