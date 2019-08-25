@@ -7,6 +7,7 @@ import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { UserGuard } from '../../common/guards/user.guard'
 import { HttpMessageType } from '../../constants/exception'
+import { RESOURCES_BLACK_LIST } from '../../constants/resources'
 import { RoleType } from '../../constants/role-type'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
@@ -63,6 +64,18 @@ export class ResourceController {
   async setResource (
     @Body('link') link: string,
   ) {
+    const url = new URL(link)
+
+    for (const domain of RESOURCES_BLACK_LIST) {
+      if (url.hostname.includes(domain)) {
+        throw new HttpException({
+          message: 'The resource is in the black list',
+          type: HttpMessageType.warning,
+          statusCode: HttpStatus.BAD_REQUEST
+        }, HttpStatus.BAD_REQUEST)
+      }
+    }
+
     const foundResource: Resource = await this.resourceService.findOne({ link })
 
     if (foundResource) {
