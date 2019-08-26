@@ -195,22 +195,21 @@ class Resource extends Component<Props, State> {
         )}
 
         <div className={s.Resource__footer}>
-          {viewOnly
-            ? <SignUpBlock/>
-            : (
-              <a
-                className={s.Resource__watch}
-                href={resource.link}
-                target="_blank"
-                onClick={this.handleWatch}
-              >
-                Watch
-                <div className={s.Resource__watchLabel}>
-                  source
-                </div>
-              </a>
-            )
-          }
+          {viewOnly &&  <SignUpBlock/>}
+
+          {!viewOnly && type !== EResourceTypes.Book && (
+            <a
+              className={s.Resource__watch}
+              href={resource.link}
+              target="_blank"
+              onClick={this.handleWatch}
+            >
+              Watch
+              <div className={s.Resource__watchLabel}>
+                source
+              </div>
+            </a>
+          )}
         </div>
       </div>
     )
