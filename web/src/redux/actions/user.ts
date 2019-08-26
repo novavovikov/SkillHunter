@@ -2,7 +2,7 @@ import cookies from 'js-cookie'
 import { IUser } from '../../types'
 import { UserActionTypes } from '../actionTypes/user'
 import {
-  AddUserSkillsetSaga,
+  AddUserSkillsetSaga, CopyUserSkillsetSaga,
   GetUserDataSaga,
   RemoveUserSkillset,
   RemoveUserSkillsetSaga,
@@ -20,6 +20,12 @@ export const addUserSkillsetSaga = (skillset: string, skills: string[], callback
   skillset,
   skills,
   callback
+})
+
+export const copyUserSkillsetSaga = (source: string, target: string): CopyUserSkillsetSaga => ({
+  type: UserActionTypes.SAGA_COPY_USER_SKILLSET,
+  source,
+  target,
 })
 
 export const removeUserSkillsetSaga = (skillsetId: number): RemoveUserSkillsetSaga => ({

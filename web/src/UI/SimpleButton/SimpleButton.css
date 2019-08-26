@@ -19,7 +19,7 @@
 
   &:disabled {
     cursor: default;
-    background: #BDBDBD;
-    box-shadow: none;
+    background: var(--color-alto);
+    border-color: transparent;
   }
 }

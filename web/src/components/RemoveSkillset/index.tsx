@@ -1,22 +1,26 @@
-import React, { FC } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { compose } from 'redux'
 import { withUser } from '../../providers/User'
 import { removeUserSkillsetSaga } from '../../redux/actions/user'
-import { SimpleButton } from '../../UI'
+import { ISkillset } from '../../types'
+import { Popup, SimpleButton } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './RemoveSkillset.css'
 
 interface Props {
-  skillSetId: number
-  removeUserSkillset: (skillSetId: number) => void
+  isOpen: boolean
+  skillset: ISkillset
+  removeUserSkillset: (skillsetId: number) => void
   onClose: () => void
 }
 
-const RemoveSkillset: FC<Props> = ({ skillSetId, removeUserSkillset, onClose, children }) => {
-  const deleteSkillset = () => {
-    removeUserSkillset(skillSetId)
+class RemoveSkillset extends Component<Props> {
+  deleteSkillset = () => {
+    const { skillset, removeUserSkillset, onClose } = this.props
+
+    removeUserSkillset(skillset.id)
     onClose()
 
     analytics({
@@ -25,27 +29,40 @@ const RemoveSkillset: FC<Props> = ({ skillSetId, removeUserSkillset, onClose, ch
     })
   }
 
-  return (
-    <div className={s.RemoveSkillset}>
-      <div className={s.RemoveSkillset__content}>
-        {children}
-      </div>
+  render () {
+    const { isOpen, skillset, onClose } = this.props
 
-      <SimpleButton
-        className={s.RemoveSkillset__button}
-        onClick={onClose}
+    return (
+      <Popup
+        isOpen={isOpen}
+        onClose={onClose}
       >
-        Cancel
-      </SimpleButton>
+        <div className={s.RemoveSkillset}>
+          <div className={s.RemoveSkillset__content}>
+            <h5 className={s.RemoveSkillset__title}>
+              Delete skillset?
+            </h5>
 
-      <SimpleButton
-        className={s.RemoveSkillset__button}
-        onClick={deleteSkillset}
-      >
-        Delete
-      </SimpleButton>
-    </div>
-  )
+            {skillset.name}
+          </div>
+
+          <SimpleButton
+            className={s.RemoveSkillset__button}
+            onClick={onClose}
+          >
+            Cancel
+          </SimpleButton>
+
+          <SimpleButton
+            className={s.RemoveSkillset__button}
+            onClick={this.deleteSkillset}
+          >
+            Delete
+          </SimpleButton>
+        </div>
+      </Popup>
+    )
+  }
 }
 
 export default compose(

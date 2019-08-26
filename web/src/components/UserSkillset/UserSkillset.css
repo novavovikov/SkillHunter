@@ -40,13 +40,6 @@
     }
   }
 
-  &__title {
-    @apply --font-xl;
-    font-weight: normal;
-    color: var(--color-dusty-gray);
-    margin: 0 0 20px;
-  }
-
   &__list {
     position: absolute;
     top: 100%;
@@ -71,19 +64,18 @@
     padding: 20px 15px 15px;
   }
 
-  &__item:hover &__remove {
+  &__item:hover &__control {
     opacity: 1;
     visibility: visible;
   }
 
-  &__remove {
+  &__control {
     position: absolute;
     border: none;
     background: none;
     padding: 0;
     width: 20px;
     height: 20px;
-    right: 0;
     top: 50%;
     margin-top: -10px;
     opacity: 0;
@@ -99,6 +91,14 @@
     @media(--lg) {
       visibility: visible;
       opacity: 1;
+    }
+
+    &_remove {
+      right: 0;
+    }
+
+    &_copy {
+      right: 20px;
     }
   }
 

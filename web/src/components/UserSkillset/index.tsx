@@ -1,14 +1,14 @@
+import cn from 'classnames'
 import React from 'react'
 import Scrollbar from 'react-custom-scrollbars'
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
-import { UserState } from '../../redux/reducers/user'
-import { IconTypes } from '../../types'
-import { Animation, Icon, OutsideClickWrapper, Popup } from '../../UI'
+import { EUserRoles, IconTypes, IUser } from '../../types'
+import { Animation, Icon, OutsideClickWrapper } from '../../UI'
 import { analytics } from '../../utils/analytics'
-import { RemoveSkillset, SkillsetCreator } from '../index'
+import { CopySkillset, RemoveSkillset, SkillsetCreator } from '../index'
 import * as s from './UserSkillset.css'
 
 const skillSetInitialState = {
@@ -26,19 +26,21 @@ interface ISkillset {
 }
 
 interface Props extends RouteComponentProps<Params> {
-  user: UserState
+  user: IUser
   onChange?: () => void
 }
 
 interface State {
   isOpen: boolean
-  skillSet: ISkillset
+  deletedSkillset: ISkillset
+  copiedSkillset: ISkillset
 }
 
 class UserSkillset extends React.Component<Props, State> {
   state = {
     isOpen: false,
-    skillSet: skillSetInitialState,
+    deletedSkillset: skillSetInitialState,
+    copiedSkillset: skillSetInitialState,
   }
 
   closeList = () => {
@@ -81,13 +83,26 @@ class UserSkillset extends React.Component<Props, State> {
   openRemovePopup = (id: number, name: string) => {
     this.setState({
       isOpen: false,
-      skillSet: { id, name },
+      deletedSkillset: { id, name },
+    })
+  }
+
+  openCopyPopup = (id: number, name: string) => {
+    this.setState({
+      isOpen: false,
+      copiedSkillset: { id, name },
     })
   }
 
   closeRemovePopup = () => {
     this.setState({
-      skillSet: skillSetInitialState,
+      deletedSkillset: skillSetInitialState,
+    })
+  }
+
+  closeCopyPopup = () => {
+    this.setState({
+      copiedSkillset: skillSetInitialState,
     })
   }
 
@@ -98,7 +113,7 @@ class UserSkillset extends React.Component<Props, State> {
       return null
     }
 
-    const { isOpen, skillSet } = this.state
+    const { isOpen, deletedSkillset, copiedSkillset } = this.state
 
     return (
       <OutsideClickWrapper
@@ -142,10 +157,19 @@ class UserSkillset extends React.Component<Props, State> {
 
                   {match.params.skillset !== name && (
                     <button
-                      className={s.UserSkillset__remove}
+                      className={cn(s.UserSkillset__control, s.UserSkillset__control_remove)}
                       onClick={() => this.openRemovePopup(id, name)}
                     >
                       <Icon type={IconTypes.bin}/>
+                    </button>
+                  )}
+
+                  {user.role === EUserRoles.Admin && (
+                    <button
+                      className={cn(s.UserSkillset__control, s.UserSkillset__control_copy)}
+                      onClick={() => this.openCopyPopup(id, name)}
+                    >
+                      <Icon type={IconTypes.copy}/>
                     </button>
                   )}
                 </div>
@@ -158,20 +182,16 @@ class UserSkillset extends React.Component<Props, State> {
           </div>
         </Animation.Dropdown>
 
-        <Popup
-          isOpen={!!skillSet.id}
+        <RemoveSkillset
+          isOpen={!!deletedSkillset.id}
+          skillset={deletedSkillset}
           onClose={this.closeRemovePopup}
-        >
-          <RemoveSkillset
-            skillSetId={skillSet.id}
-            onClose={this.closeRemovePopup}
-          >
-            <h5 className={s.UserSkillset__title}>
-              Delete skillset?
-            </h5>
-            {skillSet.name}
-          </RemoveSkillset>
-        </Popup>
+        />
+        <CopySkillset
+          isOpen={!!copiedSkillset.id}
+          source={copiedSkillset}
+          onClose={this.closeCopyPopup}
+        />
       </OutsideClickWrapper>
     )
   }

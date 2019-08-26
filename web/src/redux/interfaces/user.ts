@@ -12,6 +12,12 @@ export interface AddUserSkillsetSaga {
   callback?: () => void
 }
 
+export interface CopyUserSkillsetSaga {
+  type: UserActionTypes.SAGA_COPY_USER_SKILLSET,
+  source: string,
+  target: string,
+}
+
 export interface RemoveUserSkillsetSaga {
   type: UserActionTypes.SAGA_REMOVE_USER_SKILLSET,
   skillsetId: number
@@ -35,6 +41,7 @@ export interface RemoveUserSkillset {
 export type UserAction =
   GetUserDataSaga |
   AddUserSkillsetSaga |
+  CopyUserSkillsetSaga |
   RemoveUserSkillsetSaga |
   SetUserData |
   UpdateUserData |

@@ -36,6 +36,7 @@ import ResourcePreviewInfo from './ResourcePreviewInfo'
 import UserSkillset from './UserSkillset'
 import ResourceHeader from './ResourceHeader'
 import RemoveSkillset from './RemoveSkillset'
+import CopySkillset from './CopySkillset'
 import Tabs from './Tabs'
 import Nav from './Nav'
 import SignUpBlock from './SignUpBlock'
@@ -81,6 +82,7 @@ export {
   ResourcePreviewInfo,
   UserSkillset,
   RemoveSkillset,
+  CopySkillset,
   ResourceHeader,
   Tabs,
   Nav,

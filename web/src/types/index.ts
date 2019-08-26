@@ -16,6 +16,11 @@ export enum EResourceTypes {
   Course = 'course',
 }
 
+export enum EUserRoles {
+  Admin = 'ADMIN',
+  User = 'USER',
+}
+
 export interface ISuggestion {
   id: string,
   name: string
@@ -85,7 +90,7 @@ export interface IUser {
   locale: string
   name: string
   picture: string
-  role: string
+  role: EUserRoles
   skillsets: ISkillset[]
 }
 

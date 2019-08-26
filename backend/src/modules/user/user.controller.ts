@@ -136,7 +136,7 @@ export class UserController {
 
   @Post('skillset')
   @ApiUseTags('user')
-  async addInfo (
+  async addSkillset (
     @Body('skillset') skillset: string,
     @Body('skills') skills: string[],
     @UserData() user,
@@ -169,6 +169,58 @@ export class UserController {
       user.id,
       foundSkillset.id,
       skillList,
+    )
+
+    return updatedUser.skillsets
+  }
+
+  @Post('skillset/copy')
+  @Roles([RoleType.Admin])
+  @ApiUseTags('user')
+  async copySkillset (
+    @Body('source') source: string,
+    @Body('target') target: string,
+    @UserData() user,
+  ) {
+    if (user.skillsets.find(({ name }) => name === target)) {
+      throw new HttpException({
+        message: 'Skillset already exists',
+        type: HttpMessageType.warning,
+        statusCode: HttpStatus.BAD_REQUEST,
+      }, HttpStatus.BAD_REQUEST)
+    }
+
+    const sourceSkillset = await this.skillsetService.findByName(source, {
+      relations: ['skills'],
+    })
+
+    if (!sourceSkillset) {
+      throw new HttpException({
+        message: 'Skillset does not exist',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND,
+      }, HttpStatus.NOT_FOUND)
+    }
+
+    const targetSkillsets = await this.skillsetService.setSkillsets([
+      {
+        name: target,
+        accepted: true,
+      },
+    ])
+
+    const targetSkillset = {
+      ...targetSkillsets[0],
+      skills: sourceSkillset.skills
+    }
+
+    await this.skillsetService.save(targetSkillset)
+
+    const updatedUser = await this.userService.addSkillset(user, targetSkillset)
+    await this.userSkillService.addSkills(
+      user.id,
+      targetSkillset.id,
+      targetSkillset.skills,
     )
 
     return updatedUser.skillsets

@@ -6,6 +6,7 @@ export const API = {
 
   ME: 'user/me',
   USER_SKILLSET: 'user/skillset',
+  USER_SKILLSET_COPY: 'user/skillset/copy',
   USER_SKILL: 'user-skill',
   USER_RESOURCE: 'user-resource',
 

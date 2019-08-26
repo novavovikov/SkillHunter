@@ -79,8 +79,11 @@ export class SkillsetService {
     return []
   }
 
-  async setSkills (userId: number | string, skills: Skill[]) {
-    const user = await this.findById(userId, {
+  async setSkills (
+    skillsetId: number | string,
+    skills: Skill[]
+  ) {
+    const user = await this.findById(skillsetId, {
       relations: ['skills'],
     })
 

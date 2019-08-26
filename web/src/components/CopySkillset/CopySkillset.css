@@ -1,6 +1,6 @@
 @import "../../styles/variables.css";
 
-.RemoveSkillset {
+.CopySkillset {
   width: 250px;
   padding: 30px;
   text-align: center;
@@ -9,13 +9,6 @@
   box-shadow: var(--shadow);
 
   &__content {
-    margin: 0 0 50px;
-  }
-
-  &__title {
-    @apply --font-xl;
-    font-weight: normal;
-    color: var(--color-dusty-gray);
     margin: 0 0 20px;
   }
 
