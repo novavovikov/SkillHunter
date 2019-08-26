@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, FormEvent } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { compose } from 'redux'
@@ -17,7 +17,8 @@ interface Props {
 }
 
 class RemoveSkillset extends Component<Props> {
-  deleteSkillset = () => {
+  submitForm = (e: FormEvent) => {
+    e.preventDefault()
     const { skillset, removeUserSkillset, onClose } = this.props
 
     removeUserSkillset(skillset.id)
@@ -37,7 +38,10 @@ class RemoveSkillset extends Component<Props> {
         isOpen={isOpen}
         onClose={onClose}
       >
-        <div className={s.RemoveSkillset}>
+        <form
+          className={s.RemoveSkillset}
+          onSubmit={this.submitForm}
+        >
           <div className={s.RemoveSkillset__content}>
             <h5 className={s.RemoveSkillset__title}>
               Delete skillset?
@@ -47,19 +51,17 @@ class RemoveSkillset extends Component<Props> {
           </div>
 
           <SimpleButton
+            type="button"
             className={s.RemoveSkillset__button}
             onClick={onClose}
           >
             Cancel
           </SimpleButton>
 
-          <SimpleButton
-            className={s.RemoveSkillset__button}
-            onClick={this.deleteSkillset}
-          >
+          <SimpleButton className={s.RemoveSkillset__button}>
             Delete
           </SimpleButton>
-        </div>
+        </form>
       </Popup>
     )
   }

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component } from 'react'
+import React, { ChangeEvent, Component, FormEvent } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { compose } from 'redux'
@@ -25,16 +25,12 @@ class CopySkillset extends Component<Props, State> {
     inputValue: ''
   }
 
-  copySkillset = () => {
-    const { inputValue } = this.state
-    const { copyUserSkillset, onClose, source } = this.props
+  closePopup = () => {
+    const { onClose } = this.props
 
-    copyUserSkillset(source.name, inputValue.trim())
     onClose()
-
-    analytics({
-      event: 'click_copy_skillset',
-      category: 'skillset',
+    this.setState({
+      inputValue: ''
     })
   }
 
@@ -44,40 +40,59 @@ class CopySkillset extends Component<Props, State> {
     })
   }
 
+  submitForm = (e: FormEvent) => {
+    e.preventDefault()
+
+    const { inputValue } = this.state
+    const { copyUserSkillset, onClose, source } = this.props
+
+    copyUserSkillset(source.name, inputValue.trim())
+    this.closePopup()
+
+    analytics({
+      event: 'click_copy_skillset',
+      category: 'skillset',
+    })
+  }
+
   render () {
     const { inputValue } = this.state
-    const { isOpen, onClose } = this.props
+    const { isOpen } = this.props
 
     return (
       <Popup
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={this.closePopup}
       >
-        <div className={s.CopySkillset}>
+        <form
+          className={s.CopySkillset}
+          onSubmit={this.submitForm}
+        >
           <div className={s.CopySkillset__content}>
             <Input
               eventCategory="skillset"
               value={inputValue}
               onChange={this.onChangeInput}
               placeholder="Enter new skillset"
+              autoFocus
             />
           </div>
 
           <SimpleButton
+            type="button"
             className={s.CopySkillset__button}
-            onClick={onClose}
+            onClick={this.closePopup}
           >
             Cancel
           </SimpleButton>
 
           <SimpleButton
             className={s.CopySkillset__button}
-            onClick={this.copySkillset}
             disabled={!inputValue.trim()}
           >
             Copy
           </SimpleButton>
-        </div>
+        </form>
       </Popup>
     )
   }

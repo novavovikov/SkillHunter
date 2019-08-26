@@ -202,18 +202,18 @@ export class UserController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    const targetSkillsets = await this.skillsetService.setSkillsets([
-      {
-        name: target,
-        accepted: true,
-      },
-    ])
+    let targetSkillset = await this.skillsetService.findByName(target)
 
-    const targetSkillset = {
-      ...targetSkillsets[0],
-      skills: sourceSkillset.skills
+    if (!targetSkillset) {
+      [targetSkillset] = await this.skillsetService.setSkillsets([
+        {
+          name: target,
+          accepted: true,
+        },
+      ])
     }
 
+    targetSkillset.skills = sourceSkillset.skills
     await this.skillsetService.save(targetSkillset)
 
     const updatedUser = await this.userService.addSkillset(user, targetSkillset)

@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { API } from '../../constants/api'
+import { ENotifications } from '../../constants/notification'
 import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { UserActionTypes } from '../actionTypes/user'
@@ -43,6 +44,10 @@ function * copyUserSkillset ({ source, target }: CopyUserSkillsetSaga) {
     const { data: skillsets } = yield call(ajax.post, API.USER_SKILLSET_COPY, { source, target })
 
     yield put(ac.updateUserData({ skillsets }))
+    yield put(ac.addNotification({
+      message: 'Skillset was copied',
+      type: ENotifications.success,
+    }))
   } catch (error) {
     yield put(errorHandler('copyUserSkillset: ', error))
   }
