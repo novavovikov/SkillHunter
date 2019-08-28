@@ -151,7 +151,7 @@ class Resource extends Component<Props, State> {
       type,
       author,
       resource,
-      viewOnly,
+      isAuthorized,
     }: IUserResource = userResource
 
     return (
@@ -191,26 +191,27 @@ class Resource extends Component<Props, State> {
         )}
 
         {type !== EResourceTypes.Book && (
-          <>
-            <ResourceContent resourceId={resource.id}/>
-
-            <div className={s.Resource__footer}>
-              <a
-                className={s.Resource__watch}
-                href={resource.link}
-                target="_blank"
-                onClick={this.handleWatch}
-              >
-                Watch
-                <div className={s.Resource__watchLabel}>
-                  source
-                </div>
-              </a>
-            </div>
-          </>
+          <ResourceContent resourceId={resource.id}/>
         )}
 
-        {viewOnly && (
+        <div className={s.Resource__footer}>
+          <a
+            className={s.Resource__watch}
+            href={type === EResourceTypes.Book
+              ? `https://www.google.com/search?q=${author} ${title}`
+              : resource.link
+            }
+            target="_blank"
+            onClick={this.handleWatch}
+          >
+            Watch
+            <div className={s.Resource__watchLabel}>
+              source
+            </div>
+          </a>
+        </div>
+
+        {!isAuthorized && (
           <div className={s.Resource__footer}>
             <SignUpBlock/>
           </div>

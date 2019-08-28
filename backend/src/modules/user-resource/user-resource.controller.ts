@@ -100,7 +100,8 @@ export class UserResourceController {
     const userResourceViewOnly = excludeFieldsFromObject(['status'], userResource)
     return {
       ...userResourceViewOnly,
-      viewOnly: true
+      viewOnly: true,
+      isAuthorized: false
     }
   }
 

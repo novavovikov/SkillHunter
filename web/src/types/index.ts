@@ -58,6 +58,7 @@ export interface IUserResource {
   type: EResourceTypes
   userSkill: IUserSkill
   viewOnly: boolean
+  isAuthorized: boolean
 }
 
 export interface ISkill {
