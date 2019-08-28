@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common'
+import { Body, Controller, Get, Post, Req, Session } from '@nestjs/common'
 import { AppService } from './app.service'
 
 @Controller()
@@ -8,5 +8,13 @@ export class AppController {
   @Get()
   getOk(): string {
     return this.appService.getOk()
+  }
+
+  @Post('registration')
+  registration (
+    @Body('skillset') skillset: string,
+    @Session() session,
+  ) {
+    session.skillset = skillset
   }
 }

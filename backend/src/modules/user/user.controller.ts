@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Session,
+  UseGuards,
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
@@ -140,6 +152,7 @@ export class UserController {
     @Body('skillset') skillset: string,
     @Body('skills') skills: string[],
     @UserData() user,
+    @Session() session
   ) {
     if (user.skillsets.find(({ name }) => name === skillset)) {
       throw new HttpException({
@@ -170,6 +183,8 @@ export class UserController {
       foundSkillset.id,
       skillList,
     )
+
+    session.destroy()
 
     return updatedUser.skillsets
   }

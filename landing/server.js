@@ -3,7 +3,7 @@ const next = require('next')
 
 const dev = process.env.NODE_ENV !== 'production'
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3010
 const app = next({ dev })
 
 const handle = app.getRequestHandler();
@@ -16,7 +16,7 @@ const handle = app.getRequestHandler();
     const proxyMiddleware = require('http-proxy-middleware')
 
     server.use(proxyMiddleware('/api', {
-      target: 'http://backend.sh.local:4000/api',
+      target: 'http://localhost:4000/api',
       pathRewrite: { '^/api': '/' },
       changeOrigin: true
     }))

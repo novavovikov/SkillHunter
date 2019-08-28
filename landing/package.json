@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "predev": "npm run build",
-    "dev": "next",
+    "dev": "NODE_ENV=development node server.js",
     "build": "next build",
     "start": "next start",
     "export": "next export"
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/novavovikov/SkillHunter#readme",
   "dependencies": {
+    "axios": "^0.19.0",
     "js-cookie": "^2.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

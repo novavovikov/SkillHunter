@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Session, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
@@ -60,6 +60,14 @@ export class SkillsetController {
     }, [])
   }
 
+  @Get('landing')
+  @ApiUseTags('skillset')
+  getSkillsetFromLanding (
+    @Session() session
+  ) {
+    return session.skillset
+  }
+
   @Get(':skillsetId')
   @ApiUseTags('skillset')
   getUser (
@@ -77,12 +85,11 @@ export class SkillsetController {
   }
 
   @Post(':skillsetId/skills')
+  @ApiUseTags('skillset')
   @ApiImplicitBody({
     name: 'skill ids',
     type: [Number],
   })
-
-  @ApiUseTags('skillset')
   async setSkills (
     @Body() skills,
     @Param('skillsetId') skillsetId: string,

@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { Page, SkillsetStep, SkillStep, Steps } from '../../components'
+import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { addSkillsetSaga } from '../../redux/actions/skillset'
 import { addUserSkillsetSaga } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { ISkillset } from '../../types'
+import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 
 interface Props extends RouteComponentProps {
@@ -26,6 +28,15 @@ class Introduction extends React.Component<Props, State> {
   state = {
     skillset: '',
     skills: [],
+  }
+
+  componentDidMount (): void {
+    ajax.get(`${API.SKILLSET}/landing`).
+      then(({ data }) => {
+        this.setState({
+          skillset: data || ''
+        })
+    })
   }
 
   setSkillset = (skillset: string) => {

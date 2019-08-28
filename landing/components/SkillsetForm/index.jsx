@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { Component } from 'react'
 import Input from '../Input'
 import Button from '../Button'
@@ -19,13 +20,18 @@ class SkillsetForm extends Component {
   submitForm = (e) => {
     e.preventDefault()
     const { inputValue } = this.state
-    window.location.href = APP_ROUTE
+
+    axios.post('/api/registration', {
+      skillset: inputValue
+    })
 
     analytics({
       event: 'click_improve_btn',
       input_skillset: inputValue,
       category: 'landing'
     })
+
+    window.location.href = APP_ROUTE
   }
 
   render () {
