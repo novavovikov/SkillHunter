@@ -7,6 +7,7 @@ import { SkillModule } from '../skill/skill.module'
 import { SkillsetModule } from '../skillset/skillset.module'
 import { SubscribeModule } from '../subscribe/subscribe.module'
 import { SuggestsModule } from '../suggests/suggests.module'
+import { TelegramModule } from '../telegram/telegram.module'
 import { UserResourceModule } from '../user-resource/user-resource.module'
 import { UserSkillModule } from '../user-skill/user-skill.module'
 import { UserModule } from '../user/user.module'
@@ -26,6 +27,7 @@ import { AppService } from './app.service'
     UserResourceModule,
     SkillModule,
     ResourceModule,
+    TelegramModule,
   ],
   controllers: [AppController],
   providers: [AppService],

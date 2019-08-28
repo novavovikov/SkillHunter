@@ -1,0 +1,1 @@
+export const TELEGRAM_BOT_ID = '718396767:AAGha-b2mIDH9TmVb1OZNebu23jmv6Xu8Zo'
