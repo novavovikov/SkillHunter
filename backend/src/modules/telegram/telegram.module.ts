@@ -1,8 +1,12 @@
-import { Module } from '@nestjs/common'
+import { HttpModule, Module } from '@nestjs/common'
 import { TelegramController } from './telegram.controller'
 import { TelegramService } from './telegram.service'
 
-@Module({
+@Module({imports: [
+    HttpModule.register({
+      timeout: 6000,
+    }),
+  ],
   controllers: [TelegramController],
   providers: [TelegramService],
 })
