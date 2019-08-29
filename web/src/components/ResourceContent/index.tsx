@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Loader } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { getUrl, urlNormalizer, validateUrl } from '../../utils/url'
+import { getVideoURL } from '../../utils/video'
 import * as s from './ResourceContent.css'
 
 interface IResourceContent {
@@ -94,15 +95,14 @@ class ResourceContent extends Component<Props, State> {
       )
     }
 
-    const url = getUrl(resourceContent.canonicalLink)
-    const videoId = url && url.host.includes('youtube.com') && new URLSearchParams(url.search).get('v')
+    const videoUrl = getVideoURL(resourceContent.canonicalLink)
 
     return (
       <div className={s.ResourceContent}>
-        {videoId && (
+        {videoUrl && (
           <div className={s.ResourceContent__video}>
             <iframe
-              src={`https://www.youtube.com/embed/${videoId}`}
+              src={videoUrl}
               frameBorder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -110,7 +110,7 @@ class ResourceContent extends Component<Props, State> {
           </div>
         )}
 
-        {!videoId && resourceContent.image && (
+        {!videoUrl && resourceContent.image && (
           <img
             className={s.ResourceContent__img}
             src={this.getImageUrl(resourceContent.image)}
