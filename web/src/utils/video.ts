@@ -1,6 +1,6 @@
 import { getUrl } from './url'
 
-export const getVideoURL = (link: string) => {
+export const getVideoURL = (link: string): string | null => {
   const url = getUrl(link)
 
   if (!url) {
