@@ -94,9 +94,23 @@ class ResourceContent extends Component<Props, State> {
       )
     }
 
+    const url = getUrl(resourceContent.canonicalLink)
+    const videoId = url && url.host.includes('youtube.com') && new URLSearchParams(url.search).get('v')
+
     return (
       <div className={s.ResourceContent}>
-        {resourceContent.image && (
+        {videoId && (
+          <div className={s.ResourceContent__video}>
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        )}
+
+        {!videoId && resourceContent.image && (
           <img
             className={s.ResourceContent__img}
             src={this.getImageUrl(resourceContent.image)}

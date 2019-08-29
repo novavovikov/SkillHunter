@@ -5,6 +5,7 @@ interface CssExports {
   'ResourceContent__date': string;
   'ResourceContent__img': string;
   'ResourceContent__text': string;
+  'ResourceContent__video': string;
   'ResourceContent_loader': string;
 }
 declare var cssExports: CssExports;
