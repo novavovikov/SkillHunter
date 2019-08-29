@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
@@ -35,6 +36,9 @@ class Share extends React.Component<Props, State> {
 
     return (
       <Page>
+        <Helmet>
+          <title>My Title</title>
+        </Helmet>
         {resources.map((resource: IUserResource) => (
           <ResourcePreview
             key={resource.id}
