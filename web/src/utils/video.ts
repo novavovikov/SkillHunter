@@ -22,7 +22,7 @@ export const getVideoURL = (link: string): string | null => {
     return `//coub.com/embed/${videoId}`
   }
 
-  if (url.host.includes('ted.com')) {
+  if (url.host.includes('ted.com') && url.pathname.includes('talks')) {
     return `//embed.ted.com${url.pathname}`
   }
 
