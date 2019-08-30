@@ -38,6 +38,18 @@ class Share extends React.Component<Props, State> {
       <Page>
         <Helmet>
           <title>My Title</title>
+          <meta
+            name="description"
+            content="My Description"
+          />
+          <meta
+            property="og:title"
+            content="My Title"
+          />
+          <meta
+            property="og:description"
+            content="My Description"
+          />
         </Helmet>
         {resources.map((resource: IUserResource) => (
           <ResourcePreview
