@@ -1,3 +1,5 @@
 {
-  "name": "SkillHunter"
+  "name": "SkillHunter",
+  "short_name": "SkillHunter",
+  "display": "standalone"
 }
