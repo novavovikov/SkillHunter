@@ -9,8 +9,9 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": ".",
-  "background_color": "#5086EC",
-  "scope": "/maps/",
-  "theme_color": "#F8F8F7"
+  "background_color": "#F8F8F7",
+  "theme_color": "#F8F8F7",
+  "scope": "/",
+  "start_url": "/",
+  "orientation": "portrait-primary"
 }
