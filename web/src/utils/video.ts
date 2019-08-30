@@ -23,7 +23,7 @@ export const getVideoURL = (link: string): string | null => {
   }
 
   if (url.host.includes('ted.com')) {
-    return `//embed.ted.com/${url.pathname}`
+    return `//embed.ted.com${url.pathname}`
   }
 
   return null
