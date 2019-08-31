@@ -47,9 +47,13 @@ class UserSkill extends Component<Props, State> {
   }
 
   get initialOpenState (): boolean {
-    const { resources, recommendedResources } = this.props
+    const {
+      asPage,
+      resources,
+      recommendedResources
+    } = this.props
 
-    return resources.total !== 0 || recommendedResources.length > 0
+    return asPage || resources.total !== 0 || recommendedResources.length > 0
   }
 
   state = {
@@ -147,7 +151,7 @@ class UserSkill extends Component<Props, State> {
 
             <UserSkillHeader
               name={data.skill.name}
-              link={resources.total > resources.data.length && skillRoute}
+              link={!asPage && resources.total > resources.data.length && skillRoute}
               menu={{
                 addResource: this.toggleCreatorVisibility,
                 removeSkill: this.removeSkill

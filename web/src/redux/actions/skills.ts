@@ -29,6 +29,11 @@ export const setSkillsData = (data: IUserSkill[]): SetSkillsData => ({
   payload: data,
 })
 
+export const resetSkillsData = (): SetSkillsData => ({
+  type: SkillsActionTypes.SET_SKILLS_DATA,
+  payload: [],
+})
+
 export const addSkillToData = (data: IUserSkill[]): AddSkills => ({
   type: SkillsActionTypes.ADD_SKILLS,
   payload: data,

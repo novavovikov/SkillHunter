@@ -1,6 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { API } from '../../constants/api'
-import { ISkill } from '../../types'
 import { ajax } from '../../utils/ajax'
 import ac from '../actions'
 import { SkillsActionTypes } from '../actionTypes/skills'
@@ -12,9 +11,6 @@ function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
 
   try {
     const { data } = yield call(ajax.get, `${API.USER_SKILL}/${skillsetId}/list`)
-
-    const skillIds = yield data.map(({ id }: ISkill) => id)
-    yield put(ac.getResourcesSaga(skillsetId, skillIds ))
 
     yield put(ac.setSkillsData(data))
   } catch (error) {

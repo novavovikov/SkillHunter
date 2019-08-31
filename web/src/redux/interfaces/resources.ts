@@ -1,6 +1,12 @@
 import { IUserResource } from '../../types'
 import { ResourcesActionTypes } from '../actionTypes/resources'
 
+export interface GetResourcesSagaPayload {
+  skillsetId: number
+  skillIds: number[]
+  limit?: number
+}
+
 export interface AddResourceSagaPayload {
   skillsetId: number
   skillId: number
@@ -20,8 +26,7 @@ export interface ResourceLikeStatusPayload {
 
 export interface GetResourcesSaga {
   type: ResourcesActionTypes.SAGA_GET_RESOURCES
-  skillsetId: number
-  skillIds: number[]
+  payload: GetResourcesSagaPayload
 }
 
 export interface AddResourceSaga {

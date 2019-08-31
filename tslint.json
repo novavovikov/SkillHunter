@@ -6,9 +6,6 @@
   "extends": [
     "tslint:recommended"
   ],
-  "jsRules": {
-    "no-unused-expression": true
-  },
   "rules": {
     "quotemark": [
       true,
@@ -58,6 +55,7 @@
     "no-namespace": false,
     "no-reference": false,
     "no-unused-variable": true,
+    "no-unused-expression": false,
     "object-shorthand-properties-first": false,
     "ordered-imports": false,
     "prefer-array-literal": false,

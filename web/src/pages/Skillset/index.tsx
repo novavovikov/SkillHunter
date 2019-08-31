@@ -5,13 +5,15 @@ import { compose } from 'redux'
 import { Page, UserSkill } from '../../components'
 import { CREATOR_SKILL_QUERY, ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
-import { getSkillsDataSaga } from '../../redux/actions/skills'
+import { getResourcesSaga } from '../../redux/actions/resources'
+import { getSkillsDataSaga, resetSkillsData } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
-import { ResourcesState } from '../../redux/reducers/resources'
 import { UserState } from '../../redux/reducers/user'
 import { IUserSkill } from '../../types'
 import { Button } from '../../UI'
 import { analytics } from '../../utils/analytics'
+import { getSkillsetIdFromUserData } from '../../utils/skillset'
+import { GetResourcesSagaPayload } from '../../redux/interfaces/resources'
 import * as s from './Skillset.css'
 
 interface Params {
@@ -22,37 +24,48 @@ interface Props extends RouteComponentProps<Params> {
   user: UserState
   isLoading: boolean
   skills: IUserSkill[]
-  resources: ResourcesState
   getSkills: (skillsetId: number) => void
+  resetSkills: () => void
+  getResources: (data: GetResourcesSagaPayload) => void
 }
 
 class Skillset extends React.Component<Props> {
+  get skillsetId (): number | null {
+    const { user, match } = this.props
+
+    return getSkillsetIdFromUserData(match.params.skillset, user)
+  }
+
   componentDidMount (): void {
     this.getSkills()
   }
 
-  componentDidUpdate ({ match }: Readonly<Props>): void {
-    if (this.props.match.params.skillset !== match.params.skillset) {
+  componentDidUpdate (prevProps: Readonly<Props>): void {
+    const { match, skills, getResources } = this.props
+
+    if (match.params.skillset !== prevProps.match.params.skillset) {
       this.getSkills()
+    }
+
+    if (skills.length !== prevProps.skills.length) {
+      const skillsetId = this.skillsetId
+      const skillIds = skills.map(({ id }) => id)
+
+      skillsetId && getResources({ skillsetId, skillIds })
     }
   }
 
-  getSkillsetId = () => {
-    const { user, match } = this.props
-
-    if (!user) {
-      return
-    }
-
-    const skillset: any = user.skillsets.find(({ name }) => name === match.params.skillset) || {}
-
-    return skillset.id
+  componentWillUnmount (): void {
+    // TODO подумать над тем, чтобы не сбрасывать состояние скиллов, а просто перезапросить материалы
+    // можно просто обновлять данные по материалам
+    this.props.resetSkills()
   }
 
   getSkills = () => {
-    const skillsetId = this.getSkillsetId()
+    const { skills } = this.props
+    const skillsetId = this.skillsetId
 
-    if (skillsetId) {
+    if (skillsetId && !skills.length) {
       this.props.getSkills(skillsetId)
     }
   }
@@ -121,6 +134,8 @@ export default compose(
     }),
     {
       getSkills: getSkillsDataSaga,
+      resetSkills: resetSkillsData,
+      getResources: getResourcesSaga,
     },
   ),
 )(Skillset)

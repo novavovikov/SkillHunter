@@ -26,11 +26,14 @@ function * getResourcesRecommendationsSaga (skillIds: number[]) {
   }
 }
 
-function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) {
+function * getResourcesSaga ({ payload: { skillsetId, skillIds, limit = 5 } }: GetResourcesSaga) {
   yield put(ac.addLoading('resources'))
 
   try {
-    const { data: resources } = yield call(ajax.get, `${API.USER_RESOURCE}/${skillsetId}?skillIds=${skillIds}`)
+    const { data: resources } = yield call(
+      ajax.get,
+      `${API.USER_RESOURCE}/${skillsetId}?skillIds=${skillIds}&limit=${limit}`,
+    )
 
     yield put(ac.setResources(resources))
     yield getResourcesRecommendationsSaga(skillIds)

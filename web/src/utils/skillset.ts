@@ -1,6 +1,6 @@
 import { IUser } from '../types'
 
-export const getSkillsetFromUserData = (
+export const getSkillsetIdFromUserData = (
   skillsetName: string,
   userData: IUser | null
 ) => {
@@ -10,9 +10,9 @@ export const getSkillsetFromUserData = (
 
   const skillset = userData.skillsets.find(({ name }) => name === skillsetName)
 
-  if (!skillset) {
-    return null
+  if (skillset) {
+    return skillset.id
   }
 
-  return skillset
+  return null
 }
