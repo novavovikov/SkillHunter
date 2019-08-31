@@ -170,7 +170,7 @@ export class ResourceService {
 
     resource.usersLikes = resource.usersLikes.filter(({ id }) => id !== user.id)
 
-    this.resourceRepository.save(resource)
+    await this.resourceRepository.save(resource)
 
     return {
       id: resourceId,

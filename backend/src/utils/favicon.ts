@@ -1,6 +1,6 @@
 import { HttpService, Injectable } from '@nestjs/common'
 import { map } from 'rxjs/operators'
-import { urlNormalizer } from './url'
+import { isUrl, urlNormalizer } from './url'
 
 @Injectable()
 export class Favicon {
@@ -8,7 +8,10 @@ export class Favicon {
     private readonly http: HttpService,
   ) {}
 
-  getFaviconFromDocument = async (document: Document, urlOrigin?: string) => {
+  getFaviconFromDocument = async (
+    document: Document,
+    urlOrigin?: string
+  ) => {
     let icon: HTMLLinkElement = document.querySelector('link[rel=icon]')
 
     if (!icon) {
@@ -16,33 +19,33 @@ export class Favicon {
     }
 
     if (!icon && urlOrigin) {
-      const iconUrl = urlNormalizer(`${urlOrigin}/favicon.ico`)
-
-      return await this.checkFaviconUrl(iconUrl) ? iconUrl : null
+      return this.validateFaviconUrl(`${urlOrigin}/favicon.ico`)
     }
 
     const href = icon && icon.href
 
-    if (href && !href.includes('http')) {
-      return urlNormalizer(`${urlOrigin}/${href}`)
+    if (href && isUrl(href)) {
+      return this.validateFaviconUrl(href)
     }
 
     if (href) {
-      return urlNormalizer(href)
+      return this.validateFaviconUrl(`${urlOrigin}/${href}`)
     }
 
     return null
   }
 
-  async checkFaviconUrl (iconUrl: string) {
+  async validateFaviconUrl (iconUrl: string) {
+    const url = urlNormalizer(iconUrl)
+
     try {
-      await this.http.get(iconUrl).
+      await this.http.get(url).
         pipe(map((res) => res)).
         toPromise()
 
-      return true
+      return url
     } catch (e) {
-      return false
+      return null
     }
   }
 }
