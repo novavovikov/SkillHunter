@@ -45,8 +45,13 @@ export class UserController {
   @Get()
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  getUsers () {
-    return this.userService.findAll()
+  async getUsers () {
+    const users = await this.userService.findAll()
+
+    return {
+      total: users.length,
+      data: users
+    }
   }
 
   @Get('me')
