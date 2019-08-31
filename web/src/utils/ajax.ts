@@ -1,7 +1,7 @@
 import axios from 'axios'
-import cookies from 'js-cookie'
 import { API } from '../constants/api'
 import { ROUTES } from '../constants/routing'
+import { getToken } from './token'
 
 export const ajax = axios.create({
   baseURL: API.BASE_URL,
@@ -9,7 +9,7 @@ export const ajax = axios.create({
 
 ajax.interceptors.request.use(
   config => {
-    const token = cookies.get('authToken')
+    const token = getToken()
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`

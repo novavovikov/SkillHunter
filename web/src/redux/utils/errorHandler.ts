@@ -2,7 +2,10 @@ import { ENotifications } from '../../constants/notification'
 import { analytics } from '../../utils/analytics'
 import ac from '../actions'
 
-export const errorHandler = (place: string, error: any) => {
+export const errorHandler = (
+  place: string,
+  error: any
+) => {
   console.warn(`${place}: ${error}`)
 
   if (window.navigator.vibrate) {

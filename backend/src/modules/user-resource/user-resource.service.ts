@@ -14,10 +14,23 @@ export class UserResourceService {
     private userResourceRepository: Repository<UserResource>,
   ) {}
 
-  find (criteria: any, options?: FindManyOptions<UserResource>) {
+  find (
+    criteria: Partial<UserResource>,
+    options?: FindManyOptions<UserResource>
+  ) {
     return this.userResourceRepository.find({
       where: criteria,
       ...options,
+    })
+  }
+
+  async findOne (
+    criteria: Partial<UserResource>,
+    options?: FindOneOptions<UserResource>
+  ) {
+    return this.userResourceRepository.findOne({
+      where: criteria,
+      ...options
     })
   }
 
@@ -138,10 +151,8 @@ export class UserResourceService {
     return result
   }
 
-  async remove (id: number) {
-    const userResource = await this.userResourceRepository.findOne(id)
-
-    this.userResourceRepository.remove(userResource)
+  async remove (userResource: UserResource) {
+    return this.userResourceRepository.remove(userResource)
   }
 
   async removeResourcesBySkillsetId (

@@ -13,7 +13,11 @@ export class User {
   @CreateDateColumn()
   created: Date
 
-  @Column({ type: 'enum', enum: RoleType, default: RoleType.User })
+  @Column({
+    type: 'enum',
+    enum: RoleType,
+    default: RoleType.User,
+  })
   role: RoleType
 
   @Column({ nullable: true })
@@ -34,16 +38,29 @@ export class User {
   @Column({ nullable: true })
   facebookId: string
 
-  @ManyToMany(() => Resource, (resource: Resource) => resource.usersLikes)
+  @ManyToMany(
+    () => Resource,
+    (resource: Resource) => resource.usersLikes,
+  )
   likedResources: Resource[]
 
-  @ManyToMany(() => Skillset, (skillset: Skillset) => skillset.users, { cascade: true, eager: true })
+  @ManyToMany(
+    () => Skillset,
+    (skillset: Skillset) => skillset.users,
+    { cascade: true, eager: true },
+  )
   @JoinTable({ name: 'user_skillsets' })
   skillsets: Skillset[]
 
-  @OneToMany(() => UserSkill, (userSkill: UserSkill) => userSkill.user)
+  @OneToMany(
+    () => UserSkill,
+    (userSkill: UserSkill) => userSkill.user,
+  )
   skills: UserSkill[]
 
-  @OneToMany(() => UserResource, (userResource: UserResource) => userResource.user)
+  @OneToMany(
+    () => UserResource,
+    (userResource: UserResource) => userResource.user,
+  )
   resources: UserResource[]
 }

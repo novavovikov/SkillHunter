@@ -22,6 +22,16 @@ export class UserSkillService {
     })
   }
 
+  findOne (
+    criteria: any,
+    options?: FindOneOptions<UserSkill>,
+  ) {
+    return this.userSkillRepository.findOne({
+      where: criteria,
+      ...options,
+    })
+  }
+
   findById (
     id: number | string,
     options?: FindOneOptions<UserSkill>,
@@ -63,10 +73,6 @@ export class UserSkillService {
     })
 
     return this.userSkillRepository.save(userSkills)
-  }
-
-  save (userSkill: UserSkill[]) {
-    return this.userSkillRepository.save(userSkill)
   }
 
   deleteSkills (data: any) {

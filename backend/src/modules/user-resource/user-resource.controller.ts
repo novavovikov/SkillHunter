@@ -132,6 +132,16 @@ export class UserResourceController {
     @Body('resourceId') resourceId: number,
     @Body('data') data: Partial<UserResource>,
   ) {
+    const userSkillset = user.skillsets.find(({ id }) => id === skillsetId)
+
+    if (!userSkillset) {
+      throw new HttpException({
+        message: 'No edit access to this skill set',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.BAD_REQUEST,
+      }, HttpStatus.BAD_REQUEST)
+    }
+
     const userSkill = await this.userSkillService.findById(skillId, {
       relations: ['userResources']
     })
@@ -216,9 +226,23 @@ export class UserResourceController {
   @ApiUseTags('user-resource')
   @UseGuards(AuthGuard('jwt'))
   async removeResource (
-    @UserData() user,
+    @UserData() user: User,
     @Param('resourceId') resourceId: string,
   ) {
-    return this.userResourceService.remove(Number(resourceId))
+    const userResource = await this.userResourceService.findOne({
+      id: Number(resourceId),
+      user,
+    })
+
+    if (!userResource) {
+      throw new HttpException({
+        message: 'Resource not found',
+        type: HttpMessageType.error,
+        statusCode: HttpStatus.NOT_FOUND
+      }, HttpStatus.NOT_FOUND)
+    }
+
+    await this.userResourceService.remove(userResource)
+    return
   }
 }

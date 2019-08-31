@@ -5,7 +5,6 @@ import { In } from 'typeorm'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { HttpMessageType } from '../../constants/exception'
-import { getUserResourceWithLikedField } from '../../utils/normalizer'
 import { unique } from '../../utils/unique'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
@@ -43,8 +42,8 @@ export class UserSkillController {
       join: {
         alias: 'userSkill',
         leftJoinAndSelect: {
-          'skill': 'userSkill.skill',
-          'resources': 'skill.resources',
+          skill: 'userSkill.skill',
+          resources: 'skill.resources',
         },
       },
     })
@@ -91,7 +90,10 @@ export class UserSkillController {
     @UserData() user,
     @Param('skillId') skillId: string,
   ) {
-    const userSkill = await this.userSkillService.findById(skillId)
+    const userSkill = await this.userSkillService.findOne({
+      id: skillId,
+      user
+    })
 
     if (!userSkill) {
       throw new HttpException({

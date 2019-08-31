@@ -34,7 +34,10 @@ export class SkillService {
       getMany()
   }
 
-  find (criteria: any, options?: FindOneOptions<Skill>) {
+  find (
+    criteria: any,
+    options?: FindOneOptions<Skill>
+  ) {
     return this.skillRepository.
       find({
         where: criteria,

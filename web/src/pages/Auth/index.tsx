@@ -1,5 +1,4 @@
 import cn from 'classnames'
-import cookies from 'js-cookie'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
@@ -11,6 +10,7 @@ import { UserState } from '../../redux/reducers/user'
 import { H2, H4, Logo, Tip } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './Auth.css'
+import { getToken } from '../../utils/token'
 
 interface Props {
   user: UserState,
@@ -20,7 +20,7 @@ interface Props {
 class Auth extends React.Component<Props> {
   componentDidMount (): void {
     const { getUser, user } = this.props
-    const token = cookies.get('authToken')
+    const token = getToken()
 
     if (
       token &&
@@ -32,8 +32,9 @@ class Auth extends React.Component<Props> {
 
   render () {
     const { user } = this.props
+    const token = getToken()
 
-    if (user) {
+    if (token && user) {
       return <Redirect to={ROUTES.HOME}/>
     }
 

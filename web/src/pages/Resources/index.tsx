@@ -12,6 +12,7 @@ import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
 import { getSkillsetIdFromUserData } from '../../utils/skillset'
 import { GetResourcesSagaPayload } from '../../redux/interfaces/resources'
+import NotFound from '../NotFound'
 
 interface Params {
   skillset: string
@@ -19,6 +20,7 @@ interface Params {
 }
 
 interface Props extends RouteComponentProps<Params> {
+  isLoading: boolean
   user: UserState
   userSkill: UserSkillState
   getUserSkill: (userSkillId: number) => void
@@ -56,10 +58,14 @@ class ResourcesPage extends Component<Props> {
   }
 
   render () {
-    const { userSkill } = this.props
+    const { userSkill, isLoading } = this.props
+
+    if (isLoading) {
+      return null
+    }
 
     if (!userSkill) {
-      return null
+      return <NotFound/>
     }
 
     return (
@@ -76,8 +82,9 @@ class ResourcesPage extends Component<Props> {
 export default compose(
   withUser,
   connect(
-    ({ userSkill }: RootState) => ({
+    ({ userSkill, loading }: RootState) => ({
       userSkill,
+      isLoading: loading.userSkill
     }),
     {
       getUserSkill: getUserSkillSaga,

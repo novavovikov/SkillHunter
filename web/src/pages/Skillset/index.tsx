@@ -65,7 +65,7 @@ class Skillset extends React.Component<Props> {
     const { skills } = this.props
     const skillsetId = this.skillsetId
 
-    if (skillsetId && !skills.length) {
+    if (skillsetId) {
       this.props.getSkills(skillsetId)
     }
   }

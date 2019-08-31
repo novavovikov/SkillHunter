@@ -14,7 +14,7 @@ function * getUserSkillSaga ({ skillId }: GetUserSkillSaga) {
 
     yield put(ac.setUserSkill(data))
   } catch (error) {
-    yield put(errorHandler('getUserSkillSaga: ', error))
+    errorHandler('getUserSkillSaga: ', error)
   }
 
   yield put(ac.removeLoading('userSkill'))
