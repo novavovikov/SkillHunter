@@ -11,7 +11,7 @@ function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
   yield put(ac.addLoading('skill'))
 
   try {
-    const { data } = yield call(ajax, `${API.USER_SKILL}/${skillsetId}`)
+    const { data } = yield call(ajax.get, `${API.USER_SKILL}/${skillsetId}/list`)
 
     const skillIds = yield data.map(({ id }: ISkill) => id)
     yield put(ac.getResourcesSaga(skillsetId, skillIds ))

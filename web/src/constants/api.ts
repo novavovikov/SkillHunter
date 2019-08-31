@@ -8,6 +8,7 @@ export const API = {
   USER_SKILLSET: 'user/skillset',
   USER_SKILLSET_COPY: 'user/skillset/copy',
   USER_SKILL: 'user-skill',
+  USER_SKILL_RECOMMENDATION_RESOURCES: 'user-skill/recommendation/resources',
   USER_RESOURCE: 'user-resource',
 
   SKILLSET: 'skillset',

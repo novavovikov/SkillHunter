@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
@@ -25,14 +25,15 @@ interface Params {
 }
 
 interface Props extends RouteComponentProps<Params> {
+  asPage: boolean
   data: IUserSkill
   resources: UserResourceState
   recommendedResources: IResource[]
   removeSkill: (skillIds: number[]) => void
   addResource: (data: AddResourceSagaPayload) => void
   updateResource: (data: Partial<IUserResource>) => void
-  changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
   removeResource: (data: Partial<IUserResource>) => void
+  changeResourceLikeStatus: (data: ResourceLikeStatusSagaPayload) => void
 }
 
 interface State {
@@ -40,9 +41,19 @@ interface State {
   creatorVisible: boolean
 }
 
-class UserSkill extends React.Component<Props, State> {
+class UserSkill extends Component<Props, State> {
+  static defaultProps = {
+    asPage: false,
+  }
+
+  get initialOpenState (): boolean {
+    const { resources, recommendedResources } = this.props
+
+    return resources.total !== 0 || recommendedResources.length > 0
+  }
+
   state = {
-    isOpen: this.props.resources.total !== 0 || this.props.recommendedResources.length > 0,
+    isOpen: this.initialOpenState,
     creatorVisible: false,
   }
 
@@ -96,7 +107,8 @@ class UserSkill extends React.Component<Props, State> {
       match,
       changeResourceLikeStatus,
       updateResource,
-      removeResource
+      removeResource,
+      asPage,
     } = this.props
 
     const skillRoute = `${ROUTES.SKILLSET}/${match.params.skillset}${ROUTES.SKILL}/${data.id}`
@@ -105,15 +117,33 @@ class UserSkill extends React.Component<Props, State> {
       <>
         <div className={s.UserSkill}>
            <div className={s.UserSkill__caption}>
-            <button
-              className={s.UserSkill__switcher}
-              onClick={this.toggleOpen}
-            >
-              <Icon
-                type={isOpen ? IconTypes.arrowUp : IconTypes.arrowDown}
-                size="24"
-              />
-            </button>
+             {asPage
+               ? (
+                 <Link
+                   to={`${ROUTES.SKILLSET}/${match.params.skillset}`}
+                   className={s.UserSkill__switcher}
+                 >
+                   <Icon
+                     type={IconTypes.arrowLeft}
+                     size="24"
+                   />
+                 </Link>
+               )
+               : (
+                 <button
+                   className={s.UserSkill__switcher}
+                   onClick={this.toggleOpen}
+                 >
+                   <Icon
+                     size="24"
+                     type={isOpen
+                       ? IconTypes.arrowUp
+                       : IconTypes.arrowDown
+                     }
+                   />
+                 </button>
+               )
+             }
 
             <UserSkillHeader
               name={data.skill.name}

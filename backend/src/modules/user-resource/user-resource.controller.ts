@@ -60,11 +60,13 @@ export class UserResourceController {
     @UserData() user,
     @Param('skillsetId') skillsetId: string,
     @Query('skillIds') skillIds: string,
+    @Query('limit') limit: string,
   ) {
     return this.userResourceService.getResourcesBulk(
       user,
       Number(skillsetId),
       skillIds.split(',').map(Number),
+      limit
     )
   }
 

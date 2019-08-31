@@ -76,7 +76,7 @@ export class UserSkillController {
     }, {})
   }
 
-  @Get(':skillsetId')
+  @Get(':skillsetId/list')
   @ApiUseTags('user-skill')
   getSkills (
     @UserData() user,
@@ -85,15 +85,13 @@ export class UserSkillController {
     return this.userSkillService.getSkillsBySkillsetId(user, Number(skillsetId))
   }
 
-  @Get(':skillId/resources')
+  @Get(':skillId')
   @ApiUseTags('user-skill')
   async getSkillResources (
     @UserData() user,
     @Param('skillId') skillId: string,
   ) {
-    const userSkill = await this.userSkillService.findById(skillId, {
-      relations: ['userResources']
-    })
+    const userSkill = await this.userSkillService.findById(skillId)
 
     if (!userSkill) {
       throw new HttpException({
@@ -103,10 +101,7 @@ export class UserSkillController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    return {
-      ...userSkill,
-      userResources: userSkill.userResources.map(userResource => getUserResourceWithLikedField(user.id, userResource))
-    }
+    return userSkill
   }
 
   @Post(':skillsetId')

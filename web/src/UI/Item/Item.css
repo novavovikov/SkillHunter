@@ -11,6 +11,10 @@
   white-space: nowrap;
   cursor: pointer;
 
+  @media (--lg) {
+    background: var(--color-desert-storm);
+  }
+
   &:hover {
     background: #EDF3FD;
   }

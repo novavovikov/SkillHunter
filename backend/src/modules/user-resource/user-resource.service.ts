@@ -104,6 +104,7 @@ export class UserResourceService {
     user: User,
     skillsetId: number,
     userSkillIds: number[],
+    limit: number | string = 5
   ) {
     const result = {}
 
@@ -121,7 +122,7 @@ export class UserResourceService {
         order: {
           id: 'DESC',
         },
-        take: 5
+        take: Number(limit)
       })
 
       if (userResources.length) {

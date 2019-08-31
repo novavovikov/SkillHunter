@@ -26,6 +26,7 @@ export const addResourceSaga = (data: AddResourceSagaPayload): AddResourceSaga =
   type: ResourcesActionTypes.SAGA_ADD_RESOURCE,
   payload: data,
 })
+
 export const updateResourceSaga = (data: Partial<IUserResource>): UpdateResourceSaga => ({
   type: ResourcesActionTypes.SAGA_UPDATE_RESOURCE,
   payload: data,

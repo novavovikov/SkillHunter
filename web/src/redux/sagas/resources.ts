@@ -14,17 +14,26 @@ import {
 } from '../interfaces/resources'
 import { errorHandler } from '../utils/errorHandler'
 
+function * getResourcesRecommendationsSaga (skillIds: number[]) {
+  try {
+    const { data: recommendedResources } = yield call(
+      ajax.get, `${API.USER_SKILL_RECOMMENDATION_RESOURCES}?skillIds=${skillIds}`,
+    )
+
+    yield put(ac.setRecommendedResources(recommendedResources))
+  } catch (error) {
+    yield put(errorHandler('getResourcesRecommendationsSaga: ', error))
+  }
+}
+
 function * getResourcesSaga ({ skillsetId, skillIds }: GetResourcesSaga) {
   yield put(ac.addLoading('resources'))
 
   try {
     const { data: resources } = yield call(ajax.get, `${API.USER_RESOURCE}/${skillsetId}?skillIds=${skillIds}`)
-    const { data: recommendedResources } = yield call(
-      ajax.get, `${API.USER_SKILL}/recommendation/resources?skillIds=${skillIds}`,
-    )
 
-    yield put(ac.setRecommendedResources(recommendedResources))
     yield put(ac.setResources(resources))
+    yield getResourcesRecommendationsSaga(skillIds)
   } catch (error) {
     yield put(errorHandler('getResourcesSaga: ', error))
   }
@@ -51,10 +60,12 @@ function * addResourceSaga ({ payload }: AddResourceSaga) {
     })
 
     yield put(ac.addResource(userResource))
+
     yield put(ac.removeFromRecommendedResources({
       resourceId: resource.id,
       skillId: payload.skillId
     }))
+
     yield put(ac.addNotification({
       message: 'Material was added',
       type: ENotifications.success,

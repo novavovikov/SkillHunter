@@ -11,7 +11,7 @@ function * getUserDataSaga () {
   yield put(ac.addLoading('user'))
 
   try {
-    const { data } = yield call(ajax, API.ME)
+    const { data } = yield call(ajax.get, API.ME)
 
     yield put(ac.setUserData(data))
   } catch (error) {
