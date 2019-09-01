@@ -10,18 +10,10 @@ export class TelegramService {
 
   sendEvent (method: string, params: any ) {
     try {
-      const query = Object.keys(params).reduce(((query, param, i) => {
-        const value = params[param]
-
-        if (i === 0) {
-          return `?${param}=${value}`
-        }
-
-        return `${query}&${param}=${value}`
-      }))
+      const query = new URLSearchParams(params).toString()
 
       return this
-        .http.get(encodeURI(`${TELEGRAM_URI}/${method}${query}`))
+        .http.get(encodeURI(`${TELEGRAM_URI}/${method}?${query}`))
         .pipe(map(({ data }) => data))
         .toPromise()
         .then((data) => {
