@@ -112,7 +112,8 @@ class Resources extends Component<Props, State> {
                       : '—'}
                   </Table.Td>
                   <Table.Td>
-                    {resource.picture && (
+                    {resource.picture
+                      ? (
                       <img
                         src={resource.picture}
                         alt={''}
@@ -120,7 +121,9 @@ class Resources extends Component<Props, State> {
                           width: 16,
                         }}
                       />
-                    )}
+                      )
+                      : '—'
+                    }
                   </Table.Td>
                   <Table.Td>
                     <a
