@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Controller, Get, Param, Query } from '@nestjs/common'
 import { TELEGRAM_BOT_ID } from './constants/telegram'
 import { TelegramService } from './telegram.service'
 
@@ -8,11 +8,11 @@ export class TelegramController {
     private telegramService: TelegramService,
   ) {}
 
-  @Post()
+  @Get(':method')
   getOk (
-    @Body() body,
+    @Param('method') method: string,
+    @Query() query,
   ) {
-    console.log('message', body)
-    this.telegramService.sendMessage(body.chatId, body.text)
+    this.telegramService.sendEvent(method, query)
   }
 }

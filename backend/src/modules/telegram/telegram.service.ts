@@ -8,10 +8,20 @@ export class TelegramService {
     private readonly http: HttpService,
   ) {}
 
-  sendMessage (chatId: number | string, text: string) {
+  sendEvent (method: string, params: any ) {
     try {
+      const query = Object.keys(params).reduce(((query, param, i) => {
+        const value = params[param]
+
+        if (i === 0) {
+          return `?${param}=${value}`
+        }
+
+        return `${query}&${param}=${value}`
+      }))
+
       return this
-        .http.get(encodeURI(`${TELEGRAM_URI}/sendMessage?chat_id=${chatId}&text=${text}`))
+        .http.get(encodeURI(`${TELEGRAM_URI}/${method}${query}`))
         .pipe(map(({ data }) => data))
         .toPromise()
         .then((data) => {
