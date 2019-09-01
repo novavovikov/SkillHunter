@@ -5,7 +5,7 @@ import { ResourceContent, ResourceHeader, ResourceInfo, SignUpBlock } from '../.
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { EResourceStatus, EResourceTypes, IUserResource } from '../../types'
-import { H1 } from '../../UI'
+import { Head, H1 } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 import NotFound from '../NotFound'
@@ -154,69 +154,78 @@ class Resource extends Component<Props, State> {
       isAuthorized,
     }: IUserResource = userResource
 
+    const resourceTitle = title || resource.title || resource.link
+
     return (
-      <div className={s.Resource}>
-        <ResourceHeader
-          data={userResource}
-          changeStatus={this.changeStatus}
-          handleLike={this.handleLike}
-          onRemove={this.removeResource}
+      <>
+        <Head
+          title={resourceTitle}
+          creator={author}
         />
 
-        <H1 className={s.Resource__title}>
-          {title || resource.title || resource.link}
-        </H1>
+        <div className={s.Resource}>
+          <ResourceHeader
+            data={userResource}
+            changeStatus={this.changeStatus}
+            handleLike={this.handleLike}
+            onRemove={this.removeResource}
+          />
 
-        <ResourceInfo
-          type={type}
-          author={author}
-          link={resource.link}
-        />
+          <H1 className={s.Resource__title}>
+            {resourceTitle}
+          </H1>
 
-        {resource.skills && (
-          <div className={s.Resource__skills}>
-            <div className={s.Resource__skillsTitle}>
-              This resource will help to improve skills:
-            </div>
+          <ResourceInfo
+            type={type}
+            author={author}
+            link={resource.link}
+          />
 
-            {resource.skills.map(({ id, name }) => (
-              <div
-                key={id}
-                className={s.Resource__skillsItem}
-              >
-                {name}
+          {resource.skills && (
+            <div className={s.Resource__skills}>
+              <div className={s.Resource__skillsTitle}>
+                This resource will help to improve skills:
               </div>
-            ))}
-          </div>
-        )}
 
-        {type !== EResourceTypes.Book && (
-          <ResourceContent resourceId={resource.id}/>
-        )}
-
-        <div className={s.Resource__footer}>
-          <a
-            className={s.Resource__watch}
-            href={type === EResourceTypes.Book
-              ? `https://www.google.com/search?q=${author} ${title}`
-              : resource.link
-            }
-            target="_blank"
-            onClick={this.handleWatch}
-          >
-            Watch
-            <div className={s.Resource__watchLabel}>
-              source
+              {resource.skills.map(({ id, name }) => (
+                <div
+                  key={id}
+                  className={s.Resource__skillsItem}
+                >
+                  {name}
+                </div>
+              ))}
             </div>
-          </a>
-        </div>
+          )}
 
-        {!isAuthorized && (
+          {type !== EResourceTypes.Book && (
+            <ResourceContent resourceId={resource.id}/>
+          )}
+
           <div className={s.Resource__footer}>
-            <SignUpBlock/>
+            <a
+              className={s.Resource__watch}
+              href={type === EResourceTypes.Book
+                ? `https://www.google.com/search?q=${author} ${title}`
+                : resource.link
+              }
+              target="_blank"
+              onClick={this.handleWatch}
+            >
+              Watch
+              <div className={s.Resource__watchLabel}>
+                source
+              </div>
+            </a>
           </div>
-        )}
-      </div>
+
+          {!isAuthorized && (
+            <div className={s.Resource__footer}>
+              <SignUpBlock/>
+            </div>
+          )}
+        </div>
+      </>
     )
   }
 }

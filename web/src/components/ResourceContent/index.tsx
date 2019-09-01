@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
-import { Loader } from '../../UI'
+import { Head, Loader } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { getUrl, urlNormalizer, validateUrl } from '../../utils/url'
 import { getVideoURL } from '../../utils/video'
@@ -95,39 +95,54 @@ class ResourceContent extends Component<Props, State> {
       )
     }
 
-    const videoUrl = getVideoURL(resourceContent.canonicalLink)
+    const {
+      canonicalLink,
+      date,
+      title,
+      text,
+      image
+    } = resourceContent
+
+    const videoUrl = getVideoURL(canonicalLink)
 
     return (
-      <div className={s.ResourceContent}>
-        {videoUrl && (
-          <div className={s.ResourceContent__video}>
-            <iframe
-              src={videoUrl}
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+      <>
+        <Head
+          description={text}
+          image={image}
+        />
+
+        <div className={s.ResourceContent}>
+          {videoUrl && (
+            <div className={s.ResourceContent__video}>
+              <iframe
+                src={videoUrl}
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          )}
+
+          {!videoUrl && image && (
+            <img
+              className={s.ResourceContent__img}
+              src={this.getImageUrl(image)}
+              alt={title}
             />
+          )}
+
+          {date && (
+            <div className={s.ResourceContent__date}>
+              {this.getFormattedDate(date)}
+            </div>
+          )}
+
+          <div className={s.ResourceContent__text}>
+            {text}
           </div>
-        )}
-
-        {!videoUrl && resourceContent.image && (
-          <img
-            className={s.ResourceContent__img}
-            src={this.getImageUrl(resourceContent.image)}
-            alt={resourceContent.title}
-          />
-        )}
-
-        {resourceContent.date && (
-          <div className={s.ResourceContent__date}>
-            {this.getFormattedDate(resourceContent.date)}
-          </div>
-        )}
-
-        <div className={s.ResourceContent__text}>
-          {resourceContent.text}
         </div>
-      </div>
+      </>
     )
   }
 }
