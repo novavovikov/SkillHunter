@@ -35,6 +35,10 @@ export class ResourceService {
     })
   }
 
+  update (criteria: any, data: Partial<Resource>) {
+    return this.resourceRepository.update(criteria, data)
+  }
+
   async getFromLink (link: string) {
     try {
       return await this.http.get(link).

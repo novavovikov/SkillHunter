@@ -46,6 +46,23 @@ export class ResourceController {
     return this.resourceService.findAll()
   }
 
+  @Get(':resourceId/refresh')
+  @ApiUseTags('resource')
+  @UseGuards(RolesGuard)
+  @Roles([RoleType.Admin])
+  @UseGuards(AuthGuard('jwt'))
+ async updateResourceCache (
+    @Param('resourceId') resourceId: string,
+  ) {
+    const id = Number(resourceId)
+    const resource = await this.resourceService.findById(id)
+    const receivedResource = await this.resourceService.getFromLink(resource.link)
+
+    await this.resourceService.update({ id }, receivedResource)
+
+    return receivedResource
+  }
+
   @Get(':resourceId/content')
   @ApiUseTags('resource')
   @UseGuards(UserGuard)

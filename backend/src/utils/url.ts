@@ -1,5 +1,10 @@
 export const urlNormalizer = (url: string) => {
-  return url.replace(/([^:]\/)\/+/g, '$1')
+  const link = url.replace(/([^:]\/)\/+/g, '$1')
+
+  if (!/^https?:/i.test(url)) {
+    return `http:${link}`
+  }
+  return link
 }
 
 export const isUrl = (url: string) => {
