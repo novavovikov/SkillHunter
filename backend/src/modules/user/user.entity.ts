@@ -38,6 +38,9 @@ export class User {
   @Column({ nullable: true })
   facebookId: string
 
+  @Column({ nullable: true })
+  telegramId: number
+
   @ManyToMany(
     () => Resource,
     (resource: Resource) => resource.usersLikes,

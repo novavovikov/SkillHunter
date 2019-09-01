@@ -22,4 +22,7 @@ export class UserDto {
 
   @ApiModelProperty()
   role?: RoleType
+
+  @ApiModelProperty()
+  telegramId?: number
 }

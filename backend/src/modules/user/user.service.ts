@@ -66,14 +66,24 @@ export class UserService {
     return user
   }
 
+  findOne (
+    criteria: any,
+    options?: FindOneOptions<User>,
+  ) {
+    return this.userRepository.findOne({
+      where: criteria,
+      ...options,
+    })
+  }
+
   findByPayload (payload: any) {
     const { id, googleId, facebookId } = payload
 
     if (googleId) {
-      return this.userRepository.findOne({ id, googleId })
+      return this.findOne({ id, googleId })
     }
 
-    return this.userRepository.findOne({ id, facebookId })
+    return this.findOne({ id, facebookId })
   }
 
   addSkillset (

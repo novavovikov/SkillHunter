@@ -66,10 +66,12 @@
     "no-var-requires": false,
     "variable-name": [
       true,
+      "check-format",
       "allow-leading-underscore",
       "allow-pascal-case",
-      "ban-keywords",
-      "check-format"
+      "allow-snake-case",
+      "allow-trailing-underscore",
+      "ban-keywords"
     ]
   },
   "rulesDirectory": []

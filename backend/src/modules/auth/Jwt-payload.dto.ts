@@ -11,6 +11,9 @@ export class JwtPayloadDto {
   facebookId?: string
 
   @ApiModelProperty()
+  telegramId?: number
+
+  @ApiModelProperty()
   iat?: number
 
   @ApiModelProperty()

@@ -10,17 +10,12 @@ export class TelegramService {
 
   sendEvent (method: string, params: any ) {
     try {
-      const query = new URLSearchParams(params).toString()
-
       return this
-        .http.get(encodeURI(`${TELEGRAM_URI}/${method}?${query}`))
+        .http.post(`${TELEGRAM_URI}/${method}`, params)
         .pipe(map(({ data }) => data))
         .toPromise()
-        .then((data) => {
-          console.log(2, data)
-        })
         .catch(err => {
-           console.log(3, err)
+           console.log('TelegramService: ', err)
           return []
         })
     } catch (err) {
