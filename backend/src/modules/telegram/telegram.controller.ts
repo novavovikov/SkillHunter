@@ -21,5 +21,9 @@ export class TelegramController {
     @Body() body,
   ) {
     console.log('message', body)
+    this.telegramService.sendEvent('sendMessage', {
+      chat_id: body.message.chat.id,
+      text: 'Я принял!!!'
+    })
   }
 }
