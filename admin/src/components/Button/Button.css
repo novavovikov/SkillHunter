@@ -16,7 +16,8 @@
 
   &:disabled {
     cursor: default;
+    border-color: #BDBDBD;
     background: #BDBDBD;
-    box-shadow: none;
+    color: #fff;
   }
 }

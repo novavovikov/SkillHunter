@@ -13,7 +13,7 @@ export interface ISkill {
 }
 
 export interface IResource {
-  author: string[] | number
+  author: string[]
   created: string
   id: number
   link: string
