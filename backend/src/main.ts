@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import 'dotenv/config'
 import session from 'express-session'
+import cookieParser from 'cookie-parser'
 import { SESSION_SECRET_KEY } from './constants/sessions'
 import { AppModule } from './modules/app/app.module'
 
@@ -26,13 +27,13 @@ async function bootstrap () {
     const document = SwaggerModule.createDocument(app, options)
     SwaggerModule.setup('docs', app, document)
   }
-
+  app.use(cookieParser())
   app.use(session({
     secret: SESSION_SECRET_KEY,
     cookie: {
       path: '/',
       domain: process.env.DOMAIN,
-      maxAge: 1000*60*5
+      maxAge: 1000 * 60 * 5
     }
   }))
   await app.listen(port)

@@ -1,4 +1,4 @@
-import { Controller, Get, Next, Query, Res, UseGuards } from '@nestjs/common'
+import { Controller, Get, Next, Query, Req, Res, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { UserData } from '../../common/decorators/user.decorator'
@@ -40,10 +40,12 @@ export class AuthController {
   @Get('telegram')
   telegramAuth (
     @Query('token') token: string,
+    @Req() req,
     @Res() res,
     @Next() next,
   ) {
-    console.log(123, res.cookie)
-    res.redirect(BACK_URL)
+    console.log(123, req.cookie)
+    // res.redirect(BACK_URL)
+    return null
   }
 }

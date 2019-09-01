@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
+import { Body, Controller, Param, Post } from '@nestjs/common'
 import { TELEGRAM_BOT_ID } from './constants/telegram'
 import { TelegramService } from './telegram.service'
 import { TelegramMessageDto } from './telegram.dto'
@@ -27,18 +27,23 @@ export class TelegramController {
     const user = await this.userService.findOne({ telegramId })
 
     if (!user) {
+      // TODO изменить время жизни токена на 2 мин
       const token = AuthService.signPayload({
         id: -1,
         telegramId,
       })
 
       const domain = process.env.NODE_ENV === 'prod'
-        ? 'http://localhost:3000'
-        : 'https://app.skilhunter.io'
+        ? 'https://app.skilhunter.io'
+        : 'http://localhost:3000'
 
+      const link = `${domain}/api/auth/telegram?token=${token}`
+
+      // TODO сделать нормальное отображение ссылки
       return this.telegramService.sendEvent('sendMessage', {
         chat_id: message.chat.id,
-        text: `User is not found. Login by clicking on the link`,
+        text: `User is not found. Login by clicking on the ${link}`,
+        parse_mode: 'HTML',
       })
     }
 
