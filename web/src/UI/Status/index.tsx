@@ -2,6 +2,7 @@ import cn from 'classnames'
 import React, { FC } from 'react'
 import { EResourceStatus } from '../../types'
 import * as s from './Status.css'
+import { RESOURCE_STATUS_NAMES } from '../../constants/status'
 
 interface Props {
   className?: string
@@ -19,7 +20,7 @@ const Status: FC<Props> = ({ value, className }) => {
       },
       className
     )}>
-      {value}
+      {RESOURCE_STATUS_NAMES[value]}
     </div>
   )
 }

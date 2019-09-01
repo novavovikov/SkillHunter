@@ -1,6 +1,3 @@
-import articleIcon from '../components/ResourcePreviewInfo/icons/article.svg'
-import bookIcon from '../components/ResourcePreviewInfo/icons/book.svg'
-import mediaIcon from '../components/ResourcePreviewInfo/icons/media.svg'
 import { ENotifications } from '../constants/notification'
 
 export enum EResourceStatus {

@@ -2,6 +2,7 @@ import cn from 'classnames'
 import React, { PureComponent } from 'react'
 import { EResourceStatus } from '../../types'
 import * as s from './ResourcePreviewStatus.css'
+import { RESOURCE_STATUS_NAMES } from '../../constants/status'
 
 interface Props {
   isOpen?: boolean
@@ -20,7 +21,7 @@ class ResourcePreviewStatus extends PureComponent<Props> {
           },
         )}
       >
-        {status}
+        {RESOURCE_STATUS_NAMES[status]}
       </button>
     )
   }

@@ -3,6 +3,7 @@
 
 .Status {
   position: relative;
+  white-space: nowrap;
   padding: 0 0 0 20px;
 
   &:before {

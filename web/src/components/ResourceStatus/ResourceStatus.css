@@ -5,6 +5,7 @@
   @apply --font-m;
   border: none;
   background: none;
+  white-space: nowrap;
   cursor: pointer;
 
   &:before {
