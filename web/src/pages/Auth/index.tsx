@@ -1,119 +1,42 @@
-import cn from 'classnames'
-import React from 'react'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
-import { API } from '../../constants/api'
+import React, { Component } from 'react'
+import { Redirect, RouteComponentProps, withRouter } from 'react-router'
+import { Page } from '../../components'
 import { ROUTES } from '../../constants/routing'
-import { getUserDataSaga } from '../../redux/actions/user'
-import { RootState } from '../../redux/reducers'
-import { UserState } from '../../redux/reducers/user'
-import { H2, H4, Logo, Tip } from '../../UI'
-import { analytics } from '../../utils/analytics'
 import * as s from './Auth.css'
-import { getToken } from '../../utils/token'
 
-interface Props {
-  user: UserState,
-  getUser: () => void
+interface State {
+  token: string | null
 }
 
-class Auth extends React.Component<Props> {
-  componentDidMount (): void {
-    const { getUser, user } = this.props
-    const token = getToken()
+class Auth extends Component<RouteComponentProps, State> {
+  get token () {
+    const { location } = this.props
 
-    if (
-      token &&
-      !user
-    ) {
-      getUser()
-    }
+    return new URLSearchParams(location.search).get('token')
+  }
+
+  state = {
+    token: this.token,
   }
 
   render () {
-    const { user } = this.props
-    const token = getToken()
+    const { token } = this.state
 
-    if (token && user) {
+    if (!token) {
       return <Redirect to={ROUTES.HOME}/>
     }
 
     return (
-      <div className={s.Auth}>
-        <Logo className={s.Auth__logo}/>
-
-        <H2 className={s.Auth__title}>
-          Sign in or sign up
-        </H2>
-
-        <div className={s.Auth__label}>
-          with
+      <Page
+        sidebar={false}
+        search={false}
+      >
+        <div className={s.Auth}>
+          Login to SkillHunter
         </div>
-
-        <a
-          className={cn(s.Auth__btn, s.Auth__btn_google)}
-          href={`${API.BASE_URL}${API.AUTH_GOOGLE}`}
-          onClick={() => {
-            analytics({
-              event: 'click_authorize',
-              auth_system: 'google',
-              category: 'registration'
-            })
-          }}
-        >
-          GOOGLE
-        </a>
-
-        <div className={s.Auth__label}>
-          or
-        </div>
-
-        <a
-          className={cn(s.Auth__btn, s.Auth__btn_fb)}
-          href={`${API.BASE_URL}${API.AUTH_FACEBOOK}`}
-          onClick={() => {
-            analytics({
-              event: 'click_authorize',
-              auth_system: 'facebook',
-              category: 'registration'
-            })
-          }}
-        >
-          FACEBOOK
-        </a>
-
-        <div className={s.Auth__terms}>
-          By registering, you agree with our<br/>
-          <a href={'https://skillhunter.io/tos'} target={'_blank'} className={s.Auth__link}>Terms of
-            Service</a> and <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'}
-                               target={'_blank'}
-                               className={s.Auth__link}>Privacy
-          Policy.</a>
-        </div>
-
-        <Tip
-          icon={'lock'}
-          className={s.Auth__security}
-        >
-          We do not pass on information to third parties. You can always close access to your account.
-        </Tip>
-
-        <div className={s.Auth__footer}>
-          <H4 className={s.Auth__title}>
-            Don't have a Google or Facebook Account?
-          </H4>
-          <div className={s.Auth__description}>
-            No problem! You can create a Google or Facebook Account with any email address.
-          </div>
-        </div>
-      </div>
+      </Page>
     )
   }
 }
 
-export default connect(
-  ({ user }: RootState) => ({ user }),
-  {
-    getUser: getUserDataSaga,
-  },
-)(Auth)
+export default withRouter(Auth)

@@ -2,17 +2,6 @@
 // Please do not change this file!
 interface CssExports {
   'Auth': string;
-  'Auth__btn': string;
-  'Auth__btn_fb': string;
-  'Auth__btn_google': string;
-  'Auth__description': string;
-  'Auth__footer': string;
-  'Auth__label': string;
-  'Auth__link': string;
-  'Auth__logo': string;
-  'Auth__security': string;
-  'Auth__terms': string;
-  'Auth__title': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

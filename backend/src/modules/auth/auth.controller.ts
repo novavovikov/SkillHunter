@@ -36,16 +36,4 @@ export class AuthController {
     res.cookie('authToken', user.token, AUTH_COOKIE_OPTIONS)
     res.redirect(BACK_URL)
   }
-
-  @Get('telegram')
-  telegramAuth (
-    @Query('token') token: string,
-    @Req() req,
-    @Res() res,
-    @Next() next,
-  ) {
-    console.log(123, req.cookie)
-    // res.redirect(BACK_URL)
-    return null
-  }
 }
