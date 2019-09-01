@@ -28,6 +28,7 @@ export class TelegramService {
           console.log(2, data)
         })
         .catch(err => {
+           console.log(3, err)
           return []
         })
     } catch (err) {
