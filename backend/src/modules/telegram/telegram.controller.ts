@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import { TELEGRAM_BOT_ID } from './constants/telegram'
 import { TelegramService } from './telegram.service'
 
@@ -13,6 +13,6 @@ export class TelegramController {
     @Body() body,
   ) {
     console.log('message', body)
-    this.telegramService.sendMessage(body.message.chat.id, 'Пошёл нахер!!!')
+    this.telegramService.sendMessage(body.chatId, body.text)
   }
 }
