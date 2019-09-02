@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Res, Session, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common'
 import { TELEGRAM_BOT_ID } from './constants/telegram'
 import { TelegramService } from './telegram.service'
 import { TelegramCallbackQueryDto, TelegramInitiatorDto, TelegramMessageDto } from './telegram.dto'
@@ -11,7 +11,7 @@ import { HttpMessageType } from '../../constants/exception'
 import { JwtPayloadDto } from '../auth/Jwt-payload.dto'
 import { isUrl } from '../../utils/url'
 import { UserSkillService } from '../user-skill/user-skill.service'
-import cacheManager from 'cache-manager'
+import { generateKeyboard } from '../../utils/keyboard'
 
 @Controller(`telegram`)
 export class TelegramController {
@@ -86,10 +86,12 @@ export class TelegramController {
     const { id: telegramId, is_bot } = initiator
 
     if (is_bot) {
-      return this.telegramService.sendEvent('sendMessage', {
+      this.telegramService.sendEvent('sendMessage', {
         chat_id: telegramId,
         text: 'Bot not supported',
       })
+
+      return null
     }
 
     const user = await this.userService.findOne({ telegramId })
@@ -121,12 +123,10 @@ export class TelegramController {
         chat_id: user.telegramId,
         text: 'Choose skillset:',
         reply_markup: {
-          inline_keyboard: [
-            user.skillsets.map(({ name, id }) => ({
-              text: name,
-              callback_data: id
-            }))
-          ],
+          inline_keyboard: generateKeyboard(user.skillsets, {
+              field: 'name',
+            },
+          ),
         }
       })
     }
@@ -164,12 +164,9 @@ export class TelegramController {
       chat_id: from.id,
       text: 'Choose skill:',
       reply_markup: {
-        inline_keyboard: [
-          userSkills.map(({ skill, id }) => ({
-            text: skill.name,
-            callback_data: id
-          }))
-        ],
+        inline_keyboard: generateKeyboard(userSkills, {
+          field: 'skill.name',
+        }),
       }
     })
   }
