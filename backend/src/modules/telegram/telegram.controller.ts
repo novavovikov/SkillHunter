@@ -80,7 +80,7 @@ export class TelegramController {
         expiresIn: '2m',
       })
 
-      const link = `[link](https://app.skilhunter.io/auth?token=${token})`
+      const link = `[link](https://app.skillhunter.io/auth?token=${token})`
 
       return this.telegramService.sendEvent('sendMessage', {
         chat_id: chat.id,
