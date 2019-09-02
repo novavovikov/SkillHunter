@@ -80,13 +80,7 @@ export class TelegramController {
         expiresIn: '2m',
       })
 
-      const domain = process.env.NODE_ENV === 'prod'
-        ? 'https://app.skilhunter.io'
-        : 'http://localhost:3000'
-
-      const link = process.env.NODE_ENV === 'prod'
-        ? `[link](${domain}/auth?token=${token} "Click Me!")`
-        : `(${domain}/auth?token=${token})`
+      const link = `[link](https://app.skilhunter.io/auth?token=${token})`
 
       return this.telegramService.sendEvent('sendMessage', {
         chat_id: chat.id,
