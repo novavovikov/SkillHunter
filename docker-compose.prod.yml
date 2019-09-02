@@ -43,7 +43,7 @@ services:
     environment:
       - NODE_ENV=prod
       - DOMAIN=skillhunter.io
-      - PORT=4000
+      - PORT=6000
       - TELEGRAM_BOT_ID=718396767:AAGha-b2mIDH9TmVb1OZNebu23jmv6Xu8Zo
       - GOOGLE_CLIENT_ID=71152846727-1i6m8nnkch3morlj2o5fq0jfug55piu9.apps.googleusercontent.com
       - GOOGLE_CLIENT_SECRET=Fuph7bjuvg_8bVnc4QQu5QG3
@@ -58,7 +58,7 @@ services:
 
     working_dir: /app
     ports:
-      - 4000:4000
+      - 6000:6000
     restart: always
 
 volumes:
