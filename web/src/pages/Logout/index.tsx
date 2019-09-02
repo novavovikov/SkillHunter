@@ -13,7 +13,7 @@ const Logout:FC<Props> = ({ logoutUser }) => {
     logoutUser()
   })
 
-  return <Redirect to={ROUTES.AUTH}/>
+  return <Redirect to={ROUTES.LOGIN}/>
 }
 
 export default connect(

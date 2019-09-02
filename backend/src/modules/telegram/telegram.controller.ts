@@ -9,6 +9,7 @@ import { User } from '../user/user.entity'
 import { AuthGuard } from '@nestjs/passport'
 import { HttpMessageType } from '../../constants/exception'
 import { JwtPayloadDto } from '../auth/Jwt-payload.dto'
+import { isUrl } from '../../utils/url'
 
 @Controller(`telegram`)
 export class TelegramController {
@@ -50,47 +51,69 @@ export class TelegramController {
       chat_id: tokenData.telegramId,
       text: `Welcome, ${user.name}`,
     })
+
+    return tokenData.telegramId
   }
 
   @Post(TELEGRAM_BOT_ID)
   async getData (
+    @Body() body,
     @Body('message') message: TelegramMessageDto,
   ) {
-    if (message.from.is_bot) {
+    console.log(2, body)
+    const { from, chat, text } = message
+
+    if (from.is_bot) {
       return this.telegramService.sendEvent('sendMessage', {
-        chat_id: message.chat.id,
+        chat_id: chat.id,
         text: 'Bot not supported',
       })
     }
-    const telegramId = message.from.id
+    const telegramId = from.id
     const user = await this.userService.findOne({ telegramId })
 
     if (!user) {
-      // TODO изменить время жизни токена на 2 мин
       const token = AuthService.signPayload({
         id: -1,
         telegramId,
+      }, {
+        expiresIn: '2m',
       })
 
       const domain = process.env.NODE_ENV === 'prod'
         ? 'https://app.skilhunter.io'
         : 'http://localhost:3000'
 
-      const link = 'link'.link(`${domain}/auth?token=${token}`)
+      const link = process.env.NODE_ENV === 'prod'
+        ? `[link](${domain}/auth?token=${token} "Click Me!")`
+        : `(${domain}/auth?token=${token})`
 
-      // TODO сделать нормальное отображение ссылки
       return this.telegramService.sendEvent('sendMessage', {
-        chat_id: message.chat.id,
+        chat_id: chat.id,
         text: `User is not found. Login by clicking on the ${link}`,
-        parse_mode: 'HTML',
+        parse_mode: 'Markdown',
       })
     }
 
-    console.log('user', user)
-    console.log('message', message)
+    if (isUrl(text)) {
+      return this.telegramService.sendEvent('sendMessage', {
+        chat_id: chat.id,
+        text: `Choose skillset`,
+        reply_markup: {
+          keyboard: user.skillsets.map(({ name, id }) => [{
+            text: name,
+            callback_data: JSON.stringify({
+              resourceLink: text,
+              skillsetId: id
+            })
+          }]),
+        }
+      })
+    }
+
     this.telegramService.sendEvent('sendMessage', {
-      chat_id: message.chat.id,
-      text: `Your name - ${message.from.first_name} ${message.from.last_name}`,
+      chat_id: chat.id,
+      text: `Your name - ${from.first_name} ${from.last_name}`,
     })
   }
 

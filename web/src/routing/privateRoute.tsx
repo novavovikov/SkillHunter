@@ -15,7 +15,7 @@ class PrivateRoute extends React.Component<Props> {
     const token = getToken()
 
     if (!token || !user) {
-      return  <Redirect to={ROUTES.AUTH}/>
+      return <Redirect to={`${ROUTES.LOGIN}?backUrl=${window.location.href}`}/>
     }
 
     return <Route {...rest}/>

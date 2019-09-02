@@ -26,9 +26,9 @@ ajax.interceptors.response.use(
     if (
       err.response &&
       err.response.status === 401 &&
-      window.location.pathname !== ROUTES.AUTH
+      window.location.pathname !== ROUTES.LOGIN
     ) {
-      window.location.href = ROUTES.AUTH
+      window.location.href = `${ROUTES.LOGIN}?backUrl=${window.location.href}`
     }
 
     return Promise.reject(err)

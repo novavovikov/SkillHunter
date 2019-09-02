@@ -6,6 +6,7 @@ import { analytics } from '../utils/analytics'
 import PrivateRoute from './privateRoute'
 
 const Share = React.lazy(() => import('../pages/Share'))
+const Login = React.lazy(() => import('../pages/Login'))
 const Auth = React.lazy(() => import('../pages/Auth'))
 const Home = React.lazy(() => import('../pages/Home'))
 const Settings = React.lazy(() => import('../pages/Settings'))
@@ -32,8 +33,8 @@ class Routes extends Component<RouteComponentProps> {
       <React.Suspense fallback={<div>Загрузка</div>}>
         <Switch>
           <Route
-            path={ROUTES.AUTH}
-            component={Auth}
+            path={ROUTES.LOGIN}
+            component={Login}
             exact
           />
 
@@ -46,6 +47,12 @@ class Routes extends Component<RouteComponentProps> {
           <PrivateRoute
             path={ROUTES.HOME}
             component={Home}
+            exact
+          />
+
+          <PrivateRoute
+            path={ROUTES.AUTH}
+            component={Auth}
             exact
           />
 

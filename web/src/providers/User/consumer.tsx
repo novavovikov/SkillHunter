@@ -27,7 +27,7 @@ export const withUser = (WrappedComponent: React.ComponentType) => {
 
     render () {
       if (!this.token) {
-        return <Redirect to={ROUTES.AUTH}/>
+        return <Redirect to={`${ROUTES.LOGIN}?backUrl=${window.location.href}`}/>
       }
 
       const { user } = this.props

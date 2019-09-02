@@ -1,29 +1,48 @@
 import React from 'react'
-import { Redirect } from 'react-router'
+import { compose } from 'redux'
+import { Redirect, RouteComponentProps, withRouter } from 'react-router'
 import { ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { UserState } from '../../redux/reducers/user'
+import { LOGIN_BACK_URL_STORAGE_KEY } from '../../constants/login'
 
-interface Props {
+interface Props extends RouteComponentProps {
   user: UserState
 }
 
 class Home extends React.Component<Props> {
-  render () {
-    const { user  } = this.props
+  getRedirectUrl = () => {
+    const { user } = this.props
+    const backUrl = sessionStorage.getItem(LOGIN_BACK_URL_STORAGE_KEY)
+    sessionStorage.removeItem(LOGIN_BACK_URL_STORAGE_KEY)
 
     if (!user) {
-      return <Redirect to={ROUTES.AUTH}/>
+      return `${ROUTES.LOGIN}?backUrl=${backUrl}`
     }
 
     if (!user.skillsets.length) {
-      return <Redirect to={ROUTES.INTRODUCTION}/>
+      return ROUTES.INTRODUCTION
     }
 
-    const skillset = user.skillsets[0].name
+    if (backUrl) {
+      const url = new URL(backUrl)
 
-    return <Redirect to={`${ROUTES.SKILLSET}/${skillset}`}/>
+      return `${url.pathname}${url.search}`
+    }
+
+    const [skillset] = user.skillsets
+
+    return `${ROUTES.SKILLSET}/${skillset.name}`
+  }
+
+  render () {
+    const redirectUrl = this.getRedirectUrl()
+
+    return <Redirect to={redirectUrl}/>
   }
 }
 
-export default withUser(Home)
+export default compose(
+  withRouter,
+  withUser,
+)(Home)

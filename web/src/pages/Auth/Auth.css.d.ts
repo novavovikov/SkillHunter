@@ -2,6 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'Auth': string;
+  'Auth__text': string;
+  'Auth__text_error': string;
+  'Auth__text_simple': string;
+  'Auth__text_success': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;
