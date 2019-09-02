@@ -4,7 +4,7 @@ export const getVideoURL = (link: string): string | null => {
   const url = getUrl(link)
 
   if (!url) {
-    return null4
+    return null
   }
 
   if (url.host.includes('youtube.com')) {

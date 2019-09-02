@@ -1,7 +1,7 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Res, Session, UseGuards } from '@nestjs/common'
 import { TELEGRAM_BOT_ID } from './constants/telegram'
 import { TelegramService } from './telegram.service'
-import { TelegramMessageDto } from './telegram.dto'
+import { TelegramCallbackQueryDto, TelegramInitiatorDto, TelegramMessageDto } from './telegram.dto'
 import { UserService } from '../user/user.service'
 import { AuthService } from '../auth/auth.service'
 import { UserData } from '../../common/decorators/user.decorator'
@@ -10,6 +10,8 @@ import { AuthGuard } from '@nestjs/passport'
 import { HttpMessageType } from '../../constants/exception'
 import { JwtPayloadDto } from '../auth/Jwt-payload.dto'
 import { isUrl } from '../../utils/url'
+import { UserSkillService } from '../user-skill/user-skill.service'
+import cacheManager from 'cache-manager'
 
 @Controller(`telegram`)
 export class TelegramController {
@@ -17,6 +19,7 @@ export class TelegramController {
     private telegramService: TelegramService,
     private authService: AuthService,
     private userService: UserService,
+    private userSkillService: UserSkillService,
   ) {}
 
   @Get('auth/:token')
@@ -59,63 +62,115 @@ export class TelegramController {
   async getData (
     @Body() body,
     @Body('message') message: TelegramMessageDto,
+    @Body('callback_query') callbackQuery: TelegramCallbackQueryDto,
   ) {
-    console.log(2, body)
-    const { from, chat, text } = message
-
-    if (from.is_bot) {
-      return this.telegramService.sendEvent('sendMessage', {
-        chat_id: chat.id,
-        text: 'Bot not supported',
-      })
-    }
-    const telegramId = from.id
-    const user = await this.userService.findOne({ telegramId })
-
-    if (!user) {
-      const token = AuthService.signPayload({
-        id: -1,
-        telegramId,
-      }, {
-        expiresIn: '2m',
-      })
-
-      const link = `[link](https://app.skillhunter.io/auth?token=${token})`
-
-      return this.telegramService.sendEvent('sendMessage', {
-        chat_id: chat.id,
-        text: `User is not found. Login by clicking on the ${link}`,
-        parse_mode: 'Markdown',
-      })
+    console.log('BODY', body)
+    if (message) {
+      return this.messageHandler(message)
     }
 
-    if (isUrl(text)) {
-      return this.telegramService.sendEvent('sendMessage', {
-        chat_id: chat.id,
-        text: `Choose skillset`,
-        reply_markup: {
-          keyboard: user.skillsets.map(({ name, id }) => [{
-            text: name,
-            callback_data: JSON.stringify({
-              resourceLink: text,
-              skillsetId: id
-            })
-          }]),
-        }
-      })
+    if (callbackQuery) {
+      return this.selectSkill(callbackQuery)
     }
-
-    this.telegramService.sendEvent('sendMessage', {
-      chat_id: chat.id,
-      text: `Your name - ${from.first_name} ${from.last_name}`,
-    })
   }
 
   @Post(`${TELEGRAM_BOT_ID}/:method`)
   sendEvent (
     @Param('method') method: string,
-    @Body() params: any,
+    @Body() params,
   ) {
     this.telegramService.sendEvent(method, params)
+  }
+
+  async identifyUser (initiator: TelegramInitiatorDto): Promise<User | null> {
+    const { id: telegramId, is_bot } = initiator
+
+    if (is_bot) {
+      return this.telegramService.sendEvent('sendMessage', {
+        chat_id: telegramId,
+        text: 'Bot not supported',
+      })
+    }
+
+    const user = await this.userService.findOne({ telegramId })
+
+    if (user) {
+      return user
+    }
+
+    const token = AuthService.signPayload({ id: -1, telegramId }, {
+      expiresIn: '2m',
+    })
+
+    const link = `[link](https://app.skillhunter.io/auth?token=${token})`
+    this.telegramService.sendEvent('sendMessage', {
+      chat_id: telegramId,
+      text: `User is not found. Login by clicking on the ${link}`,
+      parse_mode: 'Markdown',
+    })
+
+    return null
+  }
+
+  selectSkillset (
+    link: string,
+    user: User
+  ) {
+    if (isUrl(link)) {
+      return this.telegramService.sendEvent('sendMessage', {
+        chat_id: user.telegramId,
+        text: 'Choose skillset:',
+        reply_markup: {
+          inline_keyboard: [
+            user.skillsets.map(({ name, id }) => ({
+              text: name,
+              callback_data: id
+            }))
+          ],
+        }
+      })
+    }
+
+    return this.telegramService.sendEvent('sendMessage', {
+      chat_id: user.telegramId,
+      text: 'Link not found'
+    })
+  }
+
+  async messageHandler (message: TelegramMessageDto) {
+    const { from, text } = message
+
+    const user = await this.identifyUser(from)
+
+    if (!user) {
+      return null
+    }
+
+    this.selectSkillset(text, user)
+  }
+
+  async selectSkill (callbackQuery: TelegramCallbackQueryDto) {
+    const { from, data, message } = callbackQuery
+    const user = await this.identifyUser(from)
+
+    if (!user) {
+      return null
+    }
+
+    const skillsetId = JSON.parse(data)
+    const userSkills = await this.userSkillService.find({ user, skillsetId })
+
+    return this.telegramService.sendEvent('sendMessage', {
+      chat_id: from.id,
+      text: 'Choose skill:',
+      reply_markup: {
+        inline_keyboard: [
+          userSkills.map(({ skill, id }) => ({
+            text: skill.name,
+            callback_data: id
+          }))
+        ],
+      }
+    })
   }
 }

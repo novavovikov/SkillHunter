@@ -25,10 +25,25 @@ export interface TelegramMessageDto {
   chat: TelegramChatDto
 }
 
+export interface TelegramCallbackQueryDto {
+  id: string
+  from: TelegramInitiatorDto
+  message: TelegramMessageDto
+  chat_instance: string
+  data: string
+
+  date: number
+  text: string
+  chat: TelegramChatDto
+}
+
 export class TelegramRequestDto {
   @ApiModelProperty()
   update_id: number
 
   @ApiModelProperty()
-  message: TelegramMessageDto
+  callback_query?: TelegramCallbackQueryDto
+
+  @ApiModelProperty()
+  message?: TelegramMessageDto
 }
