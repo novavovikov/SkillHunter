@@ -43,6 +43,7 @@ import SignUpBlock from './SignUpBlock'
 import RoadMap from './RoadMap'
 import RemoveAccount from './RemoveAccount'
 import * as Steps from './Steps'
+import * as Text from './Text'
 
 export {
   Analytics,
@@ -89,5 +90,6 @@ export {
   SignUpBlock,
   RoadMap,
   Steps,
-  RemoveAccount
+  RemoveAccount,
+  Text,
 }

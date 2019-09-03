@@ -1,5 +1,7 @@
 export const ROUTES = {
   HOME: '/',
+  TOS: '/tos',
+  COOKIE: '/cookie',
   LOGIN: '/login',
   AUTH: '/auth',
   SHARE: '/share',

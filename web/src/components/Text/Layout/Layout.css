@@ -1,0 +1,44 @@
+@import "../../../styles/variables.css";
+
+.Layout {
+  max-width: 760px;
+  padding: 60px 20px;
+  background: #fff;
+  margin: 30px auto;
+
+  &__caption {
+    text-align: center;
+    margin: 0 0 40px;
+
+    @media(--lg) {
+      margin-bottom: 60px;
+    }
+
+    @media(--md) {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__subtitle {
+
+  }
+
+  &__content {
+    font-size: 20px;
+    line-height: 1.55;
+    font-weight: 300;
+    white-space: pre-line;
+
+    @media(--lg) {
+      font-size: 18px;
+    }
+
+    @media(--md) {
+      font-size: 16px;
+    }
+  }
+}

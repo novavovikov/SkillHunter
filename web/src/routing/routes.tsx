@@ -5,8 +5,10 @@ import { ROUTES } from '../constants/routing'
 import { analytics } from '../utils/analytics'
 import PrivateRoute from './privateRoute'
 
-const Share = React.lazy(() => import('../pages/Share'))
+const ToS = React.lazy(() => import('../pages/ToS'))
+const Cookie = React.lazy(() => import('../pages/Cookie'))
 const Login = React.lazy(() => import('../pages/Login'))
+const Share = React.lazy(() => import('../pages/Share'))
 const Auth = React.lazy(() => import('../pages/Auth'))
 const Home = React.lazy(() => import('../pages/Home'))
 const Settings = React.lazy(() => import('../pages/Settings'))
@@ -32,6 +34,18 @@ class Routes extends Component<RouteComponentProps> {
     return (
       <React.Suspense fallback={<div>Загрузка</div>}>
         <Switch>
+          <Route
+            path={ROUTES.TOS}
+            component={ToS}
+            exact
+          />
+
+          <Route
+            path={ROUTES.COOKIE}
+            component={Cookie}
+            exact
+          />
+
           <Route
             path={ROUTES.LOGIN}
             component={Login}

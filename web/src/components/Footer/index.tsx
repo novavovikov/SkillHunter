@@ -1,23 +1,25 @@
 import React, { FC } from 'react'
+import { Link } from 'react-router-dom'
 import { Layout } from '../../UI'
+import { ROUTES } from '../../constants/routing'
 import * as s from './Footer.css'
 
 const LINKS = [
   {
-    href: 'https://skillhunter.io/static/files/privacy_policy_en.pdf',
-    label: 'Privacy Policy'
-  },
-  {
-    href: 'https://skillhunter.io/cookie',
+    href: ROUTES.COOKIE,
     label: 'Cookies'
   },
   {
-    href: 'https://skillhunter.io/tos',
+    href: ROUTES.TOS,
     label: 'Terms of Service'
   }
 ]
 
 const Footer: FC = () => {
+  const handleLink = () => {
+    window.scrollTo(0, 0)
+  }
+
   return (
     <Layout.Footer>
       <div className={s.Footer}>
@@ -28,15 +30,23 @@ const Footer: FC = () => {
         </div>
 
         <div>
+          <a
+            href="https://skillhunter.io/static/files/privacy_policy_en.pdf"
+            className={s.Footer__link}
+            target="_blank"
+          >
+            Privacy Policy
+          </a>
+
           {LINKS.map(({ href, label }, index) => (
-            <a
+            <Link
               key={index}
-              href={href}
+              to={href}
               className={s.Footer__link}
-              target="_blank"
+              onClick={handleLink}
             >
               {label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

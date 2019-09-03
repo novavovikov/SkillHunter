@@ -1,0 +1,15 @@
+.Content {
+  margin: 0 0 40px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__title {
+    margin: 0 0 10px;
+  }
+
+  &__text {
+
+  }
+}

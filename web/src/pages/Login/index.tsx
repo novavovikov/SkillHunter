@@ -3,6 +3,7 @@ import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Redirect, RouteComponentProps, withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { getUserDataSaga } from '../../redux/actions/user'
@@ -91,8 +92,8 @@ class Login extends React.Component<Props> {
 
         <div className={s.Login__terms}>
           By registering, you agree with our<br/>
-          <a href={'https://skillhunter.io/tos'} target={'_blank'} className={s.Login__link}>Terms of
-            Service</a> and <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'}
+          <Link to={ROUTES.TOS} target={'_blank'} className={s.Login__link}>Terms of
+            Service</Link> and <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'}
                                target={'_blank'}
                                className={s.Login__link}>Privacy
           Policy.</a>
