@@ -58,13 +58,11 @@ export class SkillService {
     return this.skillRepository.findByIds(skills)
   }
 
-  async update (
+  update (
     id: number,
     data: Partial<SkillDto>
   ) {
-    await this.skillRepository.update({ id }, data)
-
-    return this.skillRepository.findOne({ id })
+    return this.skillRepository.update({ id }, data)
   }
 
   delete (id: number) {

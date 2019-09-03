@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { ChangeEvent, Component } from 'react'
 import { Button, Table } from '../../components'
 import { ajax } from '../../utils/ajax'
 import { IResource } from '../../types'
@@ -61,6 +61,21 @@ class Resources extends Component<Props, State> {
           loaders: loaders.filter(loaderId => loaderId !== resourceId)
         })
       })
+  }
+
+  handleAcceptance = async (e: ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = e.target
+
+    const { data } = await ajax.put(`resource/${value}`, { accepted: checked })
+    const { resources }: State = this.state
+
+    this.setState({
+      resources: resources.map(resource => {
+        return resource.id === data.id
+          ? { ...resource, ...data }
+          : resource
+      }),
+    })
   }
 
   render () {
@@ -133,6 +148,21 @@ class Resources extends Component<Props, State> {
                     >
                       {origin}
                     </a>
+                  </Table.Td>
+                  <Table.Td>
+                    <label
+                      style={{
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={resource.accepted}
+                        onChange={this.handleAcceptance}
+                        value={resource.id}
+                      />
+                      <span>accepted</span>
+                    </label>
                   </Table.Td>
                   <Table.Td>
                     {(!origin || !origin.includes('googleapis.com')) && (

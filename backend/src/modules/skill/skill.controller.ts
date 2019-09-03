@@ -33,11 +33,17 @@ export class SkillController {
   @Put(':skillId')
   @Roles([RoleType.Admin])
   @ApiUseTags('skill')
-  updateSkill (
+  async updateSkill (
     @Body() data: Partial<SkillDto>,
     @Param('skillId') skillId: string,
   ) {
-    return this.skillService.update(Number(skillId), data)
+    const id = Number(skillId)
+    await this.skillService.update(id, data)
+
+    return {
+      id,
+      ...data,
+    }
   }
 
   @Delete(':skillId')

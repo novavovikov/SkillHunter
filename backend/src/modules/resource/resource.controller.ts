@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { FindOneOptions, In } from 'typeorm'
@@ -12,6 +24,7 @@ import { RoleType } from '../../constants/role-type'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
 import { ResourceService } from './resource.service'
+import { SkillDto } from '../skill/skill.dto'
 
 @Controller('resource')
 export class ResourceController {
@@ -138,6 +151,23 @@ export class ResourceController {
   @ApiUseTags('resource')
   async setResourceLike (@Param('resourceId') resourceId: string, @UserData() user) {
     return await this.resourceService.setResourceLike(Number(resourceId), user)
+  }
+
+  @Put(':resourceId')
+  @UseGuards(AuthGuard('jwt'))
+  @Roles([RoleType.Admin])
+  @ApiUseTags('skill')
+  async updateSkill (
+    @Body() data: Partial<SkillDto>,
+    @Param('resourceId') resourceId: string,
+  ) {
+    const id = Number(resourceId)
+    await this.resourceService.update(id, data)
+
+    return {
+      id,
+      ...data,
+    }
   }
 
   @Delete(':resourceId/like')

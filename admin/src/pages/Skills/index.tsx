@@ -33,11 +33,9 @@ class Skills extends Component<{}, State> {
 
       this.setState({
         skills: skills.map(skill => {
-          if (skill.id === data.id) {
-            return data
-          }
-
-          return skill
+          return skill.id === data.id
+            ? { ...skill, ...data }
+            : skill
         }),
       })
   }

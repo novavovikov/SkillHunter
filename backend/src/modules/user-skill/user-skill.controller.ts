@@ -61,10 +61,12 @@ export class UserSkillController {
     return userSkills.reduce((acc, userSkill) => {
       const { resources } = userSkill.skill
 
-      const recommendations = resources.filter((resource) => (
-        !resource.author &&
-        !userResources.some(userResource => (
-          userResource.userSkill.id === userSkill.id && userResource.resource.id === resource.id
+      const recommendations = resources.filter(({ author, id, accepted}) => (
+        accepted &&
+        !author &&
+        !userResources.some(({ userSkill, resource }) => (
+          userSkill.id === userSkill.id &&
+          resource.id === id
         ))
       ))
 

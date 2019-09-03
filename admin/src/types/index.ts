@@ -19,6 +19,7 @@ export interface IResource {
   link: string
   picture: string
   title: string
+  accepted: boolean
   userIdsLikes: number[],
   skills?: ISkill[]
 }

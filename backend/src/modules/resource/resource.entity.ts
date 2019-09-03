@@ -32,6 +32,9 @@ export class Resource {
   @Column({ nullable: true })
   picture: string
 
+  @Column({ default: true })
+  accepted: boolean
+
   @ManyToMany(() => Skill, (skill: Skill) => skill.resources, { cascade: true })
   @JoinTable({ name: 'skill_resources' })
   skills: Skill[]

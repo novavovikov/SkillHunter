@@ -7,7 +7,6 @@ import { HttpMessageType } from '../../constants/exception'
 import { Favicon } from '../../utils/favicon'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
-import extractor from 'unfluff'
 
 const extractor = require('unfluff')
 
@@ -35,7 +34,10 @@ export class ResourceService {
     })
   }
 
-  update (criteria: any, data: Partial<Resource>) {
+  update (
+    criteria: any,
+    data: Partial<Resource>,
+  ) {
     return this.resourceRepository.update(criteria, data)
   }
 
@@ -93,7 +95,10 @@ export class ResourceService {
     }
   }
 
-  async getBook (author: string, title) {
+  async getBook (
+    author: string,
+    title: string
+  ) {
     return await this.http.get(encodeURI(`https://www.googleapis.com/books/v1/volumes?q=${author} ${title}`)).
       pipe(map(({ data }) => data)).
       toPromise().
@@ -159,7 +164,10 @@ export class ResourceService {
     }
   }
 
-  async removeResourceLike (resourceId: number, user: User) {
+  async removeResourceLike (
+    resourceId: number,
+    user: User
+  ) {
     const resource: Resource = await this.findById(resourceId, {
       relations: ['usersLikes'],
     })
