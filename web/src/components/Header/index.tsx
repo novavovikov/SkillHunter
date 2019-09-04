@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Layout, Logo } from '../../UI'
+import { Button, Layout, Logo } from '../../UI'
 import { HeaderMenu, Search } from '../index'
 import * as s from './Header.css'
 
@@ -19,6 +19,13 @@ const Header: FC<Props> = ({ search, userMenu }) => {
 
       {userMenu && (
         <div className={s.Header__section}>
+          <a
+            href="https://www.patreon.com/sh_official"
+            className={s.Header__donate}
+            target="_blank"
+          >
+            Donate
+          </a>
           <HeaderMenu/>
         </div>
       )}
