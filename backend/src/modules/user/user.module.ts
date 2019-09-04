@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { HttpModule, Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
@@ -11,6 +11,8 @@ import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserController } from './user.controller'
 import { User } from './user.entity'
 import { UserService } from './user.service'
+import { Resource } from '../resource/resource.entity'
+import { ResourceService } from '../resource/resource.service'
 
 @Module({
   imports: [
@@ -20,7 +22,11 @@ import { UserService } from './user.service'
       UserResource,
       Skillset,
       Skill,
+      Resource,
     ]),
+    HttpModule.register({
+      timeout: 10000,
+    }),
   ],
   controllers: [UserController],
   providers: [
@@ -29,6 +35,7 @@ import { UserService } from './user.service'
     UserResourceService,
     SkillsetService,
     SkillService,
+    ResourceService,
   ],
 })
 export class UserModule {}

@@ -190,4 +190,8 @@ export class ResourceService {
       likes: resource.usersLikes.length,
     }
   }
+
+  remove (resource: Resource) {
+    return this.resourceRepository.remove(resource)
+  }
 }

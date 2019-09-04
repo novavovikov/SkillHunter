@@ -58,6 +58,10 @@ function * removeUserSkillset ({ skillsetId }: RemoveUserSkillsetSaga) {
     yield call(ajax.delete, `${API.USER_SKILLSET}/${skillsetId}`)
 
     yield put(ac.removeUserSkillset(skillsetId))
+    yield put(ac.addNotification({
+      message: 'Skillset was removed',
+      type: ENotifications.success,
+    }))
   } catch (error) {
     yield put(errorHandler('removeUserSkillset: ', error))
   }

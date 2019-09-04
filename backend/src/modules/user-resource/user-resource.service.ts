@@ -62,7 +62,7 @@ export class UserResourceService {
     skillsetId: number,
     userSkill: UserSkill,
     resource: Resource,
-    data: Partial<UserResource>,
+    data: Partial<UserResource> = {},
   ) {
     const userResource = this.userResourceRepository.create({
       ...data,
@@ -151,7 +151,7 @@ export class UserResourceService {
     return result
   }
 
-  async remove (userResource: UserResource) {
+  remove (userResource: UserResource) {
     return this.userResourceRepository.remove(userResource)
   }
 

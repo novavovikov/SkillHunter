@@ -57,7 +57,7 @@ export class UserResourceController {
   @ApiUseTags('user-resource')
   @UseGuards(AuthGuard('jwt'))
   async getResourcesBulk (
-    @UserData() user,
+    @UserData() user: User,
     @Param('skillsetId') skillsetId: string,
     @Query('skillIds') skillIds: string,
     @Query('limit') limit: string,
@@ -75,14 +75,14 @@ export class UserResourceController {
   @UseGuards(UserGuard)
   async getResourceContent (
     @Param('resourceId') resourceId: string,
-    @UserData() user,
+    @UserData() user: User,
   ) {
     const userResource = await this.userResourceService.findById(resourceId, {
       join: {
         alias: 'userResource',
         leftJoinAndSelect: {
-          'resource': 'userResource.resource',
-          'skills': 'resource.skills',
+          resource: 'userResource.resource',
+          skills: 'resource.skills',
         }
       },
     })
@@ -111,7 +111,7 @@ export class UserResourceController {
   @ApiUseTags('user-resource')
   @UseGuards(AuthGuard('jwt'))
   async getResources (
-    @UserData() user,
+    @UserData() user: User,
     @Param('skillsetId') skillsetId: string,
     @Param('skillId') skillId: string,
   ) {
@@ -126,7 +126,7 @@ export class UserResourceController {
   @ApiUseTags('user-resource')
   @UseGuards(AuthGuard('jwt'))
   async addResource (
-    @UserData() user,
+    @UserData() user: User,
     @Body('skillsetId') skillsetId: number,
     @Body('skillId') skillId: number,
     @Body('resourceId') resourceId: number,
@@ -207,7 +207,7 @@ export class UserResourceController {
   @ApiUseTags('user-resource')
   @UseGuards(AuthGuard('jwt'))
   async updateResource (
-    @UserData() user,
+    @UserData() user: User,
     @Param('resourceId') resourceId: string,
     @Body() data: Partial<UserResource>,
   ) {

@@ -78,6 +78,22 @@ class Resources extends Component<Props, State> {
     })
   }
 
+  handleRemove = async (e: any) => {
+    const { value } = e.target
+
+    try {
+      await ajax.delete(`resource/${value}`)
+      const { resources }: State = this.state
+      const resourceId = Number(value)
+
+      this.setState({
+        resources: resources.filter(({ id }) => id !== resourceId)
+      })
+    } catch (e) {
+      alert('Skill has user relation')
+    }
+  }
+
   render () {
     const { resources, loaders } = this.state
 
@@ -97,6 +113,7 @@ class Resources extends Component<Props, State> {
               <Table.Th>picture</Table.Th>
               <Table.Th>link</Table.Th>
               <Table.Th>refresh</Table.Th>
+              <Table.Th>remove</Table.Th>
             </Table.Tr>
           </Table.Head>
           <Table.Body>
@@ -174,6 +191,14 @@ class Resources extends Component<Props, State> {
                         Refresh
                       </Button>
                     )}
+                  </Table.Td>
+                  <Table.Td>
+                    <Button
+                      onClick={this.handleRemove}
+                      value={resource.id}
+                    >
+                      Remove
+                    </Button>
                   </Table.Td>
                 </Table.Tr>
               )

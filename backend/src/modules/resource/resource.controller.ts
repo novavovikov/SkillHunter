@@ -19,12 +19,12 @@ import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { UserGuard } from '../../common/guards/user.guard'
 import { HttpMessageType } from '../../constants/exception'
-import { RESOURCES_BLACK_LIST } from '../../constants/resources'
 import { RoleType } from '../../constants/role-type'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
 import { ResourceService } from './resource.service'
 import { SkillDto } from '../skill/skill.dto'
+import { RESOURCES_BLACK_LIST } from '../../constants/resources'
 
 @Controller('resource')
 export class ResourceController {
@@ -92,17 +92,20 @@ export class ResourceController {
   @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')
   async setResource (
+    @UserData() user: User,
     @Body('link') link: string,
   ) {
-    const url = new URL(link)
+    if (user.role !== RoleType.Admin) {
+      const url = new URL(link)
 
-    for (const domain of RESOURCES_BLACK_LIST) {
-      if (url.hostname.includes(domain)) {
-        throw new HttpException({
-          message: 'The resource is in the black list',
-          type: HttpMessageType.warning,
-          statusCode: HttpStatus.BAD_REQUEST
-        }, HttpStatus.BAD_REQUEST)
+      for (const domain of RESOURCES_BLACK_LIST) {
+        if (url.hostname.includes(domain)) {
+          throw new HttpException({
+            message: 'The resource is in the black list',
+            type: HttpMessageType.warning,
+            statusCode: HttpStatus.BAD_REQUEST,
+          }, HttpStatus.BAD_REQUEST)
+        }
       }
     }
 
@@ -122,7 +125,10 @@ export class ResourceController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    return this.resourceService.create(receivedResource)
+    return this.resourceService.create({
+      ...receivedResource,
+      accepted: user.role !== RoleType.Admin,
+    })
   }
 
   @Post('book')
@@ -178,5 +184,16 @@ export class ResourceController {
     @UserData() user
   ) {
     return await this.resourceService.removeResourceLike(Number(resourceId), user)
+  }
+
+  @Delete(':resourceId')
+  @UseGuards(AuthGuard('jwt'))
+  @Roles([RoleType.Admin])
+  @ApiUseTags('resource')
+  async removeResource (
+    @Param('resourceId') resourceId: string,
+  ) {
+    const resource = await this.resourceService.findById(Number(resourceId))
+    return await this.resourceService.remove(resource)
   }
 }

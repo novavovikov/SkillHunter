@@ -80,7 +80,7 @@ export class UserSkillController {
   @Get(':skillsetId/list')
   @ApiUseTags('user-skill')
   getSkills (
-    @UserData() user,
+    @UserData() user: User,
     @Param('skillsetId') skillsetId: string,
   ) {
     return this.userSkillService.getSkillsBySkillsetId(user, Number(skillsetId))
@@ -89,7 +89,7 @@ export class UserSkillController {
   @Get(':skillId')
   @ApiUseTags('user-skill')
   async getSkillResources (
-    @UserData() user,
+    @UserData() user: User,
     @Param('skillId') skillId: string,
   ) {
     const userSkill = await this.userSkillService.findOne({
@@ -111,7 +111,7 @@ export class UserSkillController {
   @Post(':skillsetId')
   @ApiUseTags('user-skill')
   async adSkills (
-    @UserData() user,
+    @UserData() user: User,
     @Param('skillsetId') skillsetId: string,
     @Body('skills') skills: string[],
   ) {
@@ -153,7 +153,7 @@ export class UserSkillController {
   @Delete()
   @ApiUseTags('user-skill')
   async deleteSkills (
-    @UserData() user,
+    @UserData() user: User,
     @Query('ids') ids: string,
   ) {
     const userSkillsIds = ids.split(',').map(Number)

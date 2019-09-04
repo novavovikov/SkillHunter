@@ -29,6 +29,8 @@ import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserDto } from './user.dto'
 import { User } from './user.entity'
 import { UserService } from './user.service'
+import { WELCOME_RESOURCE_ID, WELCOME_SKILL_NAME } from '../../constants/welcome'
+import { ResourceService } from '../resource/resource.service'
 
 @Controller('user')
 @UseGuards(RolesGuard)
@@ -38,8 +40,9 @@ export class UserController {
     private userService: UserService,
     private userSkillService: UserSkillService,
     private userResourceService: UserResourceService,
-    private skillService: SkillService,
     private skillsetService: SkillsetService,
+    private skillService: SkillService,
+    private resourceService: ResourceService,
   ) {}
 
   @Get()
@@ -57,7 +60,12 @@ export class UserController {
   @Get('me')
   @ApiUseTags('user')
   getCurrentUser (@UserData() user: User) {
-    const { facebookId, googleId, ...userData } = user
+    const {
+      facebookId,
+      googleId,
+      telegramId,
+      ...userData
+    } = user
 
     return userData
   }
@@ -156,7 +164,7 @@ export class UserController {
   async addSkillset (
     @Body('skillset') skillset: string,
     @Body('skills') skills: string[],
-    @UserData() user,
+    @UserData() user: User,
     @Session() session
   ) {
     if (user.skillsets.find(({ name }) => name === skillset)) {
@@ -179,18 +187,30 @@ export class UserController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    const skillList: Skill[] = await this.skillService.getSkillList(skills)
+    const skillList: Skill[] = await this.skillService.getSkillList([...skills, WELCOME_SKILL_NAME])
     foundSkillset.skills = unique([...foundSkillset.skills, ...skillList])
 
     const updatedUser = await this.userService.addSkillset(user, foundSkillset)
-    await this.userSkillService.addSkills(
-      user.id,
+    const userSkills = await this.userSkillService.addSkills(
+      user,
       foundSkillset.id,
       skillList,
     )
 
-    session.destroy()
+    // FIXME don't use ID an NAME
+    const welcomeSkill = userSkills.find(({ skill }) => skill.name === WELCOME_SKILL_NAME)
+    const welcomeResource = await this.resourceService.findById(WELCOME_RESOURCE_ID)
 
+    if (welcomeSkill && welcomeResource) {
+      await this.userResourceService.addResource(
+        user,
+        foundSkillset.id,
+        welcomeSkill,
+        welcomeResource
+      )
+    }
+
+    session.destroy()
     return updatedUser.skillsets
   }
 
@@ -200,7 +220,7 @@ export class UserController {
   async copySkillset (
     @Body('source') source: string,
     @Body('target') target: string,
-    @UserData() user,
+    @UserData() user: User,
   ) {
     if (user.skillsets.find(({ name }) => name === target)) {
       throw new HttpException({
@@ -238,7 +258,7 @@ export class UserController {
 
     const updatedUser = await this.userService.addSkillset(user, targetSkillset)
     await this.userSkillService.addSkills(
-      user.id,
+      user,
       targetSkillset.id,
       targetSkillset.skills,
     )

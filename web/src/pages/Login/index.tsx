@@ -93,9 +93,8 @@ class Login extends React.Component<Props> {
         <div className={s.Login__terms}>
           By registering, you agree with our<br/>
           <Link to={ROUTES.TOS} target={'_blank'} className={s.Login__link}>Terms of
-            Service</Link> and <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'}
-                               target={'_blank'}
-                               className={s.Login__link}>Privacy
+            Service</Link> and <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'} target={'_blank'}
+                                  className={s.Login__link}>Privacy
           Policy.</a>
         </div>
 
