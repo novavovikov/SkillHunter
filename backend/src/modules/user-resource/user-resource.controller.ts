@@ -27,6 +27,7 @@ import { UserSkillService } from '../user-skill/user-skill.service'
 import { User } from '../user/user.entity'
 import { UserResource } from './user-resource.entity'
 import { UserResourceService } from './user-resource.service'
+import { WELCOME_SKILL_NAME } from '../../constants/welcome'
 
 @Controller('user-resource')
 @UseGuards(RolesGuard)
@@ -130,7 +131,7 @@ export class UserResourceController {
     @Body('skillsetId') skillsetId: number,
     @Body('skillId') skillId: number,
     @Body('resourceId') resourceId: number,
-    @Body('data') data: Partial<UserResource>,
+    @Body('data') data: Partial<UserResource> = {},
   ) {
     const userSkillset = user.skillsets.find(({ id }) => id === skillsetId)
 
@@ -192,6 +193,15 @@ export class UserResourceController {
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)
+    }
+
+    if (
+      userSkill.skill.name === WELCOME_SKILL_NAME &&
+      resource.accepted
+    ) {
+      await this.resourceService.update({ id: resource.id }, {
+        accepted: false
+      })
     }
 
     return this.userResourceService.addResource(

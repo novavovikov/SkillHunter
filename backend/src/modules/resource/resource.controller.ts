@@ -125,10 +125,7 @@ export class ResourceController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    return this.resourceService.create({
-      ...receivedResource,
-      accepted: user.role !== RoleType.Admin,
-    })
+    return this.resourceService.create(receivedResource)
   }
 
   @Post('book')
