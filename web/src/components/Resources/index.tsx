@@ -36,13 +36,13 @@ class Resources extends Component<Props> {
           })}>
             <div className={s.Resources__creator}>
               <IconButton onClick={openCreator}>
-                Add source
+                Add resource
               </IconButton>
             </div>
 
             {!data.length && (
               <OnBoarding className={s.Resources__onboarding}>
-                List is empty. Add source for skill. Collecting, reading later and sharing source.
+                List is empty. Add resource for skill. Collecting, reading later and sharing resource.
               </OnBoarding>
             )}
           </div>

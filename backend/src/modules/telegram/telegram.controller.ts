@@ -32,7 +32,7 @@ export class TelegramController {
 
     if (!tokenData || !tokenData.telegramId) {
       throw new HttpException({
-        message: `Token invalid`,
+        message: `Invalid token`,
         type: HttpMessageType.warning,
         statusCode: HttpStatus.BAD_REQUEST,
       }, HttpStatus.BAD_REQUEST)
@@ -40,7 +40,7 @@ export class TelegramController {
 
     if (user.telegramId) {
       throw new HttpException({
-        message: `This user has got\n a telegram account`,
+        message: `You have already logged in telegram`,
         type: HttpMessageType.warning,
         statusCode: HttpStatus.BAD_REQUEST,
       }, HttpStatus.BAD_REQUEST)

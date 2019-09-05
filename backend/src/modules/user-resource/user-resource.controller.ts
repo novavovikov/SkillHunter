@@ -90,7 +90,7 @@ export class UserResourceController {
 
     if (!userResource) {
       throw new HttpException({
-        message: 'Resource not found',
+        message: 'The resource is not found',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)
@@ -137,7 +137,7 @@ export class UserResourceController {
 
     if (!userSkillset) {
       throw new HttpException({
-        message: 'No edit access to this skill set',
+        message: `You don't have rights to edit this skillset`,
         type: HttpMessageType.error,
         statusCode: HttpStatus.BAD_REQUEST,
       }, HttpStatus.BAD_REQUEST)
@@ -149,7 +149,7 @@ export class UserResourceController {
 
     if (!userSkill) {
       throw new HttpException({
-        message: 'User skill not found',
+        message: 'The skill is not found',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)
@@ -159,7 +159,7 @@ export class UserResourceController {
 
     if (createdResource) {
       throw new HttpException({
-        message: 'Resource already exist in skill',
+        message: 'This skill has already have this resource',
         type: HttpMessageType.warning,
         statusCode: HttpStatus.BAD_REQUEST
       }, HttpStatus.BAD_REQUEST)
@@ -169,7 +169,7 @@ export class UserResourceController {
 
     if (!resource) {
       throw new HttpException({
-        message: 'Resource not found',
+        message: 'The resource is not found',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)
@@ -179,7 +179,7 @@ export class UserResourceController {
 
     if (!skillset) {
       throw new HttpException({
-        message: 'Skillset not found',
+        message: 'The skillset is not found',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)
@@ -189,7 +189,7 @@ export class UserResourceController {
 
     if (!resourceSkillRelation) {
       throw new HttpException({
-        message: 'Skill not found',
+        message: 'The skill is not found',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)
@@ -246,7 +246,7 @@ export class UserResourceController {
 
     if (!userResource) {
       throw new HttpException({
-        message: 'Resource not found',
+        message: 'The resource is not found',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)

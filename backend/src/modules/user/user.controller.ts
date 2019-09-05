@@ -169,7 +169,7 @@ export class UserController {
   ) {
     if (user.skillsets.find(({ name }) => name === skillset)) {
       throw new HttpException({
-        message: 'Skillset already exists',
+        message: 'The skillset has already been added',
         type: HttpMessageType.warning,
         statusCode: HttpStatus.BAD_REQUEST
       }, HttpStatus.BAD_REQUEST)
@@ -181,7 +181,7 @@ export class UserController {
 
     if (!foundSkillset) {
       throw new HttpException({
-        message: 'Skillset does not exist',
+        message: 'There were some problems while creating this skillset.\nPlease contact us.',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)
@@ -224,7 +224,7 @@ export class UserController {
   ) {
     if (user.skillsets.find(({ name }) => name === target)) {
       throw new HttpException({
-        message: 'Skillset already exists',
+        message: 'The skillset already exists',
         type: HttpMessageType.warning,
         statusCode: HttpStatus.BAD_REQUEST,
       }, HttpStatus.BAD_REQUEST)
@@ -236,7 +236,7 @@ export class UserController {
 
     if (!sourceSkillset) {
       throw new HttpException({
-        message: 'Skillset does not exist',
+        message: 'There were some problems while creating this skillset.\nPlease contact us.',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND,
       }, HttpStatus.NOT_FOUND)

@@ -48,7 +48,7 @@ class TypeForm extends React.Component<Props> {
           </div>
 
           <div className={s.ResourceCreator__desc}>
-            Select source type
+            Select resource type
           </div>
         </div>
       </>

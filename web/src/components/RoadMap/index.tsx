@@ -14,13 +14,13 @@ const STEPS = [
   },
   {
     icon: step2,
-    title: 'Collect&share',
+    title: 'Collect and share',
     label: 'your materials',
   },
   {
     icon: step3,
-    title: 'Make plan',
-    label: 'with mentors or yourself',
+    title: 'Make a plan',
+    label: 'with mentors or\nby yourself',
   },
   {
     icon: step4,
@@ -30,7 +30,7 @@ const STEPS = [
   {
     icon: step5,
     title: 'Get a grade',
-    label: 'after improve',
+    label: 'after improving',
   },
 ]
 
@@ -51,7 +51,7 @@ const RoadMap: FC = () => {
           <div className={s.RoadMap__itemTitle}>
             {title}
           </div>
-          <div>
+          <div className={s.RoadMap__itemText}>
             {label}
           </div>
         </div>

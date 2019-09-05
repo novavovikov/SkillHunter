@@ -138,7 +138,7 @@ class Search extends Component<Props, State> {
               value={inputValue}
               onChange={this.onChange}
               onFocus={this.onFocus}
-              placeholder="Search source"
+              placeholder="Search resource"
               ref={this.inputRef}
             />
 

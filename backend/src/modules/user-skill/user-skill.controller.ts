@@ -99,7 +99,7 @@ export class UserSkillController {
 
     if (!userSkill) {
       throw new HttpException({
-        message: 'User skill does not exist',
+        message: 'Skill does not exist',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)

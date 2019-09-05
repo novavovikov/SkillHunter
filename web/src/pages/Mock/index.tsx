@@ -18,8 +18,8 @@ const Mock: FC<Props> = ({ title }) => {
         </H2>
 
         <div className={s.Mock__text}>
-          To date, we have made it possible to create skillsets, collect resources and share them. Below you see the
-          flow that we consider necessary for the process of self-development. What we will do next is up to you.
+          We have so far made it possible to create skillsets, collect resources and share them. Below you can see the
+          way that we consider necessary for the process of self-development. What we will do next is for you to decide.
         </div>
 
         <RoadMap/>

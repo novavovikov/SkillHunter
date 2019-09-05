@@ -101,7 +101,7 @@ export class ResourceController {
       for (const domain of RESOURCES_BLACK_LIST) {
         if (url.hostname.includes(domain)) {
           throw new HttpException({
-            message: 'The resource is in the black list',
+            message: `The resources from this website are forbidden`,
             type: HttpMessageType.warning,
             statusCode: HttpStatus.BAD_REQUEST,
           }, HttpStatus.BAD_REQUEST)
@@ -119,7 +119,7 @@ export class ResourceController {
 
     if (!receivedResource) {
       throw new HttpException({
-        message: 'Resource not found',
+        message: 'There were some problems while adding this resource.\nPlease contact us.',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)

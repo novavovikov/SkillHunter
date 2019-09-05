@@ -64,7 +64,7 @@ class LinkForm extends React.Component<Props, State> {
             className={s.ResourceCreator__input}
             onChange={this.onChangeInput}
             value={inputValue}
-            placeholder="Add a link to the source"
+            placeholder="Add a link to the resource"
             autoFocus
           />
 

@@ -8,6 +8,7 @@
   margin: 5px 0;
   padding: 15px 40px 10px 15px;
   box-shadow: var(--shadow);
+  line-height: 1.5;
   animation: showNotification var(--transition-fast) forwards;
 
   &__text {

@@ -107,10 +107,10 @@ class Login extends React.Component<Props> {
 
         <div className={s.Login__footer}>
           <H4 className={s.Login__title}>
-            Don't have a Google or Facebook Account?
+            Don't have a Google or a Facebook Account?
           </H4>
           <div className={s.Login__description}>
-            No problem! You can create a Google or Facebook Account with any email address.
+            No problem! You can create a Google or a Facebook Account with any email address.
           </div>
         </div>
       </div>

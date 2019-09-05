@@ -77,4 +77,8 @@
     font-weight: 500;
     margin: 0 0 8px;
   }
+
+  &__itemText {
+    white-space: pre-line;
+  }
 }

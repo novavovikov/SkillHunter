@@ -107,12 +107,12 @@ class Routes extends Component<RouteComponentProps> {
 
           <PrivateRoute
             path={`${ROUTES.EVALUATION}/:skillset`}
-            component={() => <Mock title="Evaluation coming soon"/>}
+            component={() => <Mock title="Evaluation is coming soon"/>}
           />
 
           <PrivateRoute
             path={`${ROUTES.PLAN}/:skillset`}
-            component={() => <Mock title="Plan coming soon"/>}
+            component={() => <Mock title="Plan is coming soon"/>}
           />
 
           <Route

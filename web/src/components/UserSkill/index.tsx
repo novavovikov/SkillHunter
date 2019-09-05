@@ -163,7 +163,7 @@ class UserSkill extends Component<Props, State> {
                 className={s.UserSkill__empty}
                 icon={IconTypes.arrowDown}
               >
-                Expand list and add source
+                Expand list and add resource
               </OnBoarding>
             )}
           </div>

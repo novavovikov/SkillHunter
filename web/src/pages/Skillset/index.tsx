@@ -99,6 +99,7 @@ class Skillset extends React.Component<Props> {
     return (
       <Page>
         <Head title={`Skillset | ${match.params.skillset}`}/>
+
         {!isLoading && skills.map((skill) => (
           <UserSkill
             key={skill.id}

@@ -44,7 +44,7 @@ class CopySkillset extends Component<Props, State> {
     e.preventDefault()
 
     const { inputValue } = this.state
-    const { copyUserSkillset, onClose, source } = this.props
+    const { copyUserSkillset, source } = this.props
 
     copyUserSkillset(source.name, inputValue.trim())
     this.closePopup()

@@ -5,7 +5,7 @@ import { ResourceContent, ResourceHeader, ResourceInfo, SignUpBlock } from '../.
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { EResourceStatus, EResourceTypes, IUserResource } from '../../types'
-import { Head, H1 } from '../../UI'
+import { H1, Head } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 import NotFound from '../NotFound'
@@ -67,7 +67,7 @@ class Resource extends Component<Props, State> {
   }
 
   updateResource = (data: Partial<IUserResource>) => {
-    const { userResource }:State = this.state
+    const { userResource }: State = this.state
 
     if (userResource) {
       this.setState({
@@ -214,7 +214,7 @@ class Resource extends Component<Props, State> {
             >
               Watch
               <div className={s.Resource__watchLabel}>
-                source
+                resource
               </div>
             </a>
           </div>

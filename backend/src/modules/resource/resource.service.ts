@@ -139,7 +139,7 @@ export class ResourceService {
 
     if (!resource) {
       throw new HttpException({
-        message: 'Resource not found',
+        message: 'The resource is not found',
         type: HttpMessageType.error,
         statusCode: HttpStatus.BAD_REQUEST
       }, HttpStatus.BAD_REQUEST)
@@ -174,7 +174,7 @@ export class ResourceService {
 
     if (!resource) {
       throw new HttpException({
-        message: 'Resource not found',
+        message: 'The resource is not found',
         type: HttpMessageType.error,
         statusCode: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND)
