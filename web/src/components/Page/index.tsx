@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
 import { IconTypes } from '../../types'
-import { Icon, Layout } from '../../UI'
+import { Head, Icon, Layout } from '../../UI'
 import { Footer, Header, Sidebar } from '../index'
 import * as s from './Page.css'
 
@@ -46,6 +46,8 @@ class Page extends Component<Props, State> {
 
     return (
       <Layout.Wrap>
+        <Head/>
+
         <Header
           search={search}
           userMenu={userMenu}

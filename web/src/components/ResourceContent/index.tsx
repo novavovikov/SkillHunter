@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
-import { Head, Loader } from '../../UI'
+import { Loader } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { getUrl, urlNormalizer, validateUrl } from '../../utils/url'
 import { getVideoURL } from '../../utils/video'
@@ -107,11 +107,6 @@ class ResourceContent extends Component<Props, State> {
 
     return (
       <>
-        <Head
-          description={text}
-          image={image}
-        />
-
         <div className={s.ResourceContent}>
           {videoUrl && (
             <div className={s.ResourceContent__video}>
