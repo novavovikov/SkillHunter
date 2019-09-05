@@ -5,8 +5,8 @@
   @apply --font-m;
   margin: 0 0 0 34px;
 
-  @media(--xs) {
-    margin-left: 10px;
+  @media(--lg) {
+    margin-left: 15px;
   }
 
   &__info {

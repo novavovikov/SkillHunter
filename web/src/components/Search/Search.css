@@ -3,6 +3,10 @@
 .Search {
   width: 478px;
 
+  @media(--xl) {
+    width: 400px;
+  }
+
   @media(--lg) {
     position: absolute;
     top: 0;

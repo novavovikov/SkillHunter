@@ -24,7 +24,7 @@ const Header: FC<Props> = ({ search, userMenu }) => {
             className={s.Header__donate}
             target="_blank"
           >
-            Donate
+            Patreon
           </a>
           <HeaderMenu/>
         </div>
