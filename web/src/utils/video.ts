@@ -12,6 +12,10 @@ export const getVideoURL = (link: string): string | null => {
     return videoId && `//www.youtube.com/embed/${videoId}`
   }
 
+  if (url.host.includes('youtu.be')) {
+    return url.pathname && `//www.youtube.com/embed/${url.pathname}`
+  }
+
   if (url.host.includes('vimeo.com')) {
     return `//player.vimeo.com/video${url.pathname}`
   }

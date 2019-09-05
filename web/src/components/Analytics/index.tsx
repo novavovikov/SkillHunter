@@ -27,6 +27,7 @@ class Analytics extends Component<Props> {
       analytics({
         event: PAGE_VIEW_EVENT,
         userId: userData.id,
+        userCreated: userData.created,
         userName: userData.name,
         locale: userData.locale,
         role: userData.role
