@@ -10,7 +10,7 @@ import { getSkillsDataSaga, resetSkillsData } from '../../redux/actions/skills'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { IUserSkill } from '../../types'
-import { Button } from '../../UI'
+import { Button, Head } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import { getSkillsetIdFromUserData } from '../../utils/skillset'
 import { GetResourcesSagaPayload } from '../../redux/interfaces/resources'
@@ -98,6 +98,7 @@ class Skillset extends React.Component<Props> {
 
     return (
       <Page>
+        <Head title={`Skillset | ${match.params.skillset}`}/>
         {!isLoading && skills.map((skill) => (
           <UserSkill
             key={skill.id}

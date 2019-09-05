@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Page, RoadMap } from '../../components'
-import { H2 } from '../../UI'
+import { H2, Head } from '../../UI'
 import * as s from './Mock.css'
 
 interface Props {
@@ -11,6 +11,7 @@ const Mock: FC<Props> = ({ title }) => {
   return (
 
     <Page>
+      <Head title={title}/>
       <div className={s.Mock}>
         <H2 className={s.Mock__title}>
           {title}

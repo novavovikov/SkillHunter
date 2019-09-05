@@ -32,6 +32,7 @@
   &__info {
     width: calc(100% - 32px);
     transition: var(--transition);
+    line-height: 1.5;
 
     &:hover {
       color: var(--color-dodger-blue);
