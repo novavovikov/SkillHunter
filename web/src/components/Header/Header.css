@@ -30,10 +30,35 @@
 
   &__donate {
     @apply --button;
+    background: #f96854;
+    text-transform: uppercase;
+    font-weight: bold;
     margin-left: 10px;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: calc(100/7)px;
+      height: calc(96/7)px;
+      background: url("./icons/patreon_mark.svg") no-repeat center/contain;
+      margin: 0 10px 0 0;
+    }
+
+    &:hover {
+      opacity: .9;
+      background: #f96854;
+    }
 
     @media (--xs) {
       padding: 9px 12px;
+    }
+
+    @media (--xs) {
+      font-size: 0;
+
+      &:before {
+        margin-right: 0;
+      }
     }
   }
 }
