@@ -42,6 +42,8 @@ interface State {
 }
 
 class UserSkill extends Component<Props, State> {
+  static resourceCount = 5
+
   static defaultProps = {
     asPage: false,
   }
@@ -116,6 +118,9 @@ class UserSkill extends Component<Props, State> {
     } = this.props
 
     const skillRoute = `${ROUTES.SKILLSET}/${match.params.skillset}${ROUTES.SKILL}/${data.id}`
+    const resourcesData = asPage
+      ? resources.data
+      : resources.data.slice(0, 5)
 
     return (
       <>
@@ -151,7 +156,7 @@ class UserSkill extends Component<Props, State> {
 
             <UserSkillHeader
               name={data.skill.name}
-              link={!asPage && resources.total > resources.data.length && skillRoute}
+              link={!asPage && resources.total > UserSkill.resourceCount && skillRoute}
               menu={{
                 addResource: this.toggleCreatorVisibility,
                 removeSkill: this.removeSkill
@@ -177,7 +182,7 @@ class UserSkill extends Component<Props, State> {
 
           {isOpen && (
             <Resources
-              data={resources.data}
+              data={resourcesData}
               recommendations={recommendedResources}
               openCreator={this.toggleCreatorVisibility}
               createResource={this.createResource}
@@ -188,7 +193,9 @@ class UserSkill extends Component<Props, State> {
           )}
         </div>
 
-        {isOpen && resources.total > resources.data.length && (
+        {!asPage &&
+        isOpen &&
+        resources.total > UserSkill.resourceCount && (
           <Link
             to={skillRoute}
             className={cn(s.UserSkill__link, s.UserSkill__link_more)}

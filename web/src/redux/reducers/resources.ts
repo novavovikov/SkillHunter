@@ -30,7 +30,7 @@ export const resources: Reducer<ResourcesState, ResourcesAction> = (state = init
         ...state,
         [action.payload.userSkill.id]: {
           total: resourceData.total + 1,
-          data: [action.payload, ...resourceData.data].slice(0, 5)
+          data: [action.payload, ...resourceData.data]
         },
       }
     case ResourcesActionTypes.UPDATE_RESOURCE:
