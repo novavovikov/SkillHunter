@@ -83,7 +83,13 @@ class UserSkill extends Component<Props, State> {
   }
 
   removeSkill = () => {
-    const { data, removeSkill } = this.props
+    const {
+      asPage,
+      data,
+      removeSkill,
+      history,
+      match
+    } = this.props
 
     removeSkill([data.id])
 
@@ -92,6 +98,10 @@ class UserSkill extends Component<Props, State> {
       skill_name: data.skill.name,
       category: 'skillset'
     })
+
+    if (asPage) {
+      history.push(`${ROUTES.SKILLSET}/${match.params.skillset}`)
+    }
   }
 
   createResource = (data: Partial<IUserResource>) => {
@@ -120,7 +130,7 @@ class UserSkill extends Component<Props, State> {
     const skillRoute = `${ROUTES.SKILLSET}/${match.params.skillset}${ROUTES.SKILL}/${data.id}`
     const resourcesData = asPage
       ? resources.data
-      : resources.data.slice(0, 5)
+      : resources.data.slice(0, UserSkill.resourceCount)
 
     return (
       <>
