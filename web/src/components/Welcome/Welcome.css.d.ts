@@ -6,6 +6,7 @@ interface CssExports {
   'Welcome__buttonLabel': string;
   'Welcome__footer': string;
   'Welcome__image': string;
+  'Welcome__label': string;
   'Welcome__paragraph': string;
   'Welcome__text': string;
   'Welcome__title': string;

@@ -5,6 +5,12 @@
   line-height: 40px;
   color: #000;
 
+  &__label {
+    @apply --font-m;
+    color: var(--color-dusty-gray);
+    margin: 0 0 8px;
+  }
+
   &__title {
     display: flex;
     align-items: center;

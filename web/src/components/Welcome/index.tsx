@@ -8,9 +8,9 @@ class Welcome extends Component {
     return (
       <div className={s.Welcome}>
         <div className={s.Welcome__text}>
-          <h6>
+          <div className={s.Welcome__label}>
             Resource summary:
-          </h6>
+          </div>
           <p className={s.Welcome__paragraph}>
             Эта статья поможет тебе разобраться в сервисе и понять как Skillhunter пожет помочь в саморазвитии.
           </p>
