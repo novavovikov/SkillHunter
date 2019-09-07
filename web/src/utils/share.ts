@@ -21,6 +21,7 @@ const SITES_LINKS = {
 export interface ShareParams {
   url: string
   text: string
+  image?: string
   via?: string
   hashTags?: string[]
 }

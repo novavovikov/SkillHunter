@@ -146,6 +146,7 @@ class ResourcePreview extends React.Component<Props> {
             <ShareMenu
               link={`${ROUTES.RESOURCE}/${data.id}`}
               text={data.title || data.resource.title}
+              image={data.resource.image}
               eventCategory="skillset"
             />
           </div>

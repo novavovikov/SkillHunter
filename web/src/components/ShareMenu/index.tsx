@@ -7,6 +7,7 @@ export interface ShareProps {
   eventCategory: string
   link: string
   text: string
+  image: string
   label?: string
 }
 
