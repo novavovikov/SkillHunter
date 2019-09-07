@@ -1,7 +1,6 @@
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = env => {
   return [
@@ -12,7 +11,6 @@ module.exports = env => {
         to: './',
       },
     ]),
-    new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './public/index.html',
