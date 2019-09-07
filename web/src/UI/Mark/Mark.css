@@ -2,6 +2,7 @@
 
 .Mark {
   background: none;
+  font-weight: 500;
 
   &_green {
     color: var(--color-salem);

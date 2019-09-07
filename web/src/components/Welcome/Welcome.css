@@ -17,7 +17,7 @@
     min-height: 40px;
     text-transform: uppercase;
     color: var(--color-dusty-gray);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0 0 20px;
 
     &_icon {
