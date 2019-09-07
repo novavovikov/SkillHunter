@@ -41,7 +41,7 @@ services:
       - landing:/app/out
       - static:/app/src/static
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=prod
       - DOMAIN=skillhunter.io
       - PORT=6000
       - TELEGRAM_BOT_ID=718396767:AAGha-b2mIDH9TmVb1OZNebu23jmv6Xu8Zo
