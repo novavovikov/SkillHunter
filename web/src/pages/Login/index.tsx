@@ -9,7 +9,7 @@ import { ROUTES } from '../../constants/routing'
 import { getUserDataSaga } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
-import { H2, H5, Logo, Tip } from '../../UI'
+import { H2, H5, Head, Logo, Tip } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import { getToken } from '../../utils/token'
 import { LOGIN_BACK_URL_STORAGE_KEY } from '../../constants/login'
@@ -47,73 +47,77 @@ class Login extends React.Component<Props> {
     }
 
     return (
-      <div className={s.Login}>
-        <Logo className={s.Login__logo}/>
+      <>
+        <Head title="Login | Skillhunter"/>
 
-        <H2 className={s.Login__title}>
-          Sign in or sign up
-        </H2>
+        <div className={s.Login}>
+          <Logo className={s.Login__logo}/>
 
-        <div className={s.Login__label}>
-          with
-        </div>
+          <H2 className={s.Login__title}>
+            Sign in or sign up
+          </H2>
 
-        <a
-          className={cn(s.Login__btn, s.Login__btn_google)}
-          href={`${API.BASE_URL}${API.AUTH_GOOGLE}`}
-          onClick={() => {
-            analytics({
-              event: 'click_authorize',
-              auth_system: 'google',
-              category: 'registration'
-            })
-          }}
-        >
-          GOOGLE
-        </a>
+          <div className={s.Login__label}>
+            with
+          </div>
 
-        <div className={s.Login__label}>
-          or
-        </div>
+          <a
+            className={cn(s.Login__btn, s.Login__btn_google)}
+            href={`${API.BASE_URL}${API.AUTH_GOOGLE}`}
+            onClick={() => {
+              analytics({
+                event: 'click_authorize',
+                auth_system: 'google',
+                category: 'registration',
+              })
+            }}
+          >
+            GOOGLE
+          </a>
 
-        <a
-          className={cn(s.Login__btn, s.Login__btn_fb)}
-          href={`${API.BASE_URL}${API.AUTH_FACEBOOK}`}
-          onClick={() => {
-            analytics({
-              event: 'click_authorize',
-              auth_system: 'facebook',
-              category: 'registration'
-            })
-          }}
-        >
-          FACEBOOK
-        </a>
+          <div className={s.Login__label}>
+            or
+          </div>
 
-        <div className={s.Login__terms}>
-          By registering, you agree with our<br/>
-          <Link to={ROUTES.TOS} target={'_blank'} className={s.Login__link}>Terms of
-            Service</Link> and <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'} target={'_blank'}
-                                  className={s.Login__link}>Privacy
-          Policy.</a>
-        </div>
+          <a
+            className={cn(s.Login__btn, s.Login__btn_fb)}
+            href={`${API.BASE_URL}${API.AUTH_FACEBOOK}`}
+            onClick={() => {
+              analytics({
+                event: 'click_authorize',
+                auth_system: 'facebook',
+                category: 'registration',
+              })
+            }}
+          >
+            FACEBOOK
+          </a>
 
-        <Tip
-          icon={'lock'}
-          className={s.Login__security}
-        >
-          We do not pass on information to third parties. You can always close access to your account.
-        </Tip>
+          <div className={s.Login__terms}>
+            By registering, you agree with our<br/>
+            <Link to={ROUTES.TOS} target={'_blank'} className={s.Login__link}>Terms of
+              Service</Link> and <a href={'https://skillhunter.io/static/files/privacy_policy_en.pdf'} target={'_blank'}
+                                    className={s.Login__link}>Privacy
+            Policy.</a>
+          </div>
 
-        <div className={s.Login__footer}>
-          <H5 className={s.Login__title}>
-            Don't have a Google or a Facebook Account?
-          </H5>
-          <div className={s.Login__description}>
-            No problem! You can create a Google or a Facebook Account with any email address.
+          <Tip
+            icon={'lock'}
+            className={s.Login__security}
+          >
+            We do not pass on information to third parties. You can always close access to your account.
+          </Tip>
+
+          <div className={s.Login__footer}>
+            <H5 className={s.Login__title}>
+              Don't have a Google or a Facebook Account?
+            </H5>
+            <div className={s.Login__description}>
+              No problem! You can create a Google or a Facebook Account with any email address.
+            </div>
           </div>
         </div>
-      </div>
+      </>
     )
   }
 }

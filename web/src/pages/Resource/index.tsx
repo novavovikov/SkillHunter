@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { ResourceContent, ResourceHeader, ResourceInfo, SignUpBlock } from '../../components'
+import { Footer, ResourceContent, ResourceHeader, ResourceInfo, SignUpBlock } from '../../components'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { EResourceStatus, EResourceTypes, IUserResource } from '../../types'
-import { H1, Head } from '../../UI'
+import { H1, Head, Layout } from '../../UI'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 import NotFound from '../NotFound'
-import s from './Resource.css'
 import { WELCOME_RESOURCE_ID } from '../../constants/welcome'
 import Welcome from '../../components/Welcome'
+import s from './Resource.css'
 
 interface Params {
   userResourceId: string
@@ -159,7 +159,7 @@ class Resource extends Component<Props, State> {
     const resourceTitle = title || resource.title || resource.link
 
     return (
-      <>
+      <Layout.Wrap>
         <Head
           title={resourceTitle}
           creator={author}
@@ -235,7 +235,9 @@ class Resource extends Component<Props, State> {
             </div>
           )}
         </div>
-      </>
+
+        <Footer/>
+      </Layout.Wrap>
     )
   }
 }
