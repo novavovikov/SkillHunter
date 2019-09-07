@@ -1,4 +1,15 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  CacheInterceptor,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common'
 import { TELEGRAM_BOT_ID } from './constants/telegram'
 import { TelegramService } from './telegram.service'
 import { TelegramCallbackQueryDto, TelegramInitiatorDto, TelegramMessageDto } from './telegram.dto'
@@ -59,12 +70,13 @@ export class TelegramController {
   }
 
   @Post(TELEGRAM_BOT_ID)
+  @UseInterceptors(CacheInterceptor)
   async getData (
     @Body() body,
     @Body('message') message: TelegramMessageDto,
     @Body('callback_query') callbackQuery: TelegramCallbackQueryDto,
   ) {
-    console.log('BODY', body)
+    console.log(222, this.cacheStore)
     if (message) {
       return this.messageHandler(message)
     }

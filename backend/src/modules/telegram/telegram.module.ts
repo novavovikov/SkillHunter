@@ -1,4 +1,4 @@
-import { CacheModule, HttpModule, Module } from '@nestjs/common'
+import { HttpModule, Module } from '@nestjs/common'
 import { TelegramController } from './telegram.controller'
 import { TelegramService } from './telegram.service'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -14,9 +14,6 @@ import { UserSkillService } from '../user-skill/user-skill.service'
       User,
       UserSkill
     ]),
-    CacheModule.register({
-      ttl: 120
-    }),
     HttpModule.register({
       timeout: 6000,
     }),
