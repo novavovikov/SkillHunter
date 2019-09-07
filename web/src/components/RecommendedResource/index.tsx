@@ -19,7 +19,7 @@ class RecommendedResource extends Component<Props> {
     const {
       title,
       link,
-      picture,
+      icon,
     } = this.props.data
 
     const url = new URL(link)
@@ -41,7 +41,7 @@ class RecommendedResource extends Component<Props> {
           <div className={s.RecommendedResource__source}>
             <div className={s.RecommendedResource__favicon}>
               <img
-                src={picture || favicon}
+                src={icon || favicon}
                 alt=""
               />
             </div>

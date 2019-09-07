@@ -163,6 +163,8 @@ class Resource extends Component<Props, State> {
         <Head
           title={resourceTitle}
           creator={author}
+          image={resource.image}
+          description={resource.text}
         />
 
         <div className={s.Resource}>
@@ -207,7 +209,7 @@ class Resource extends Component<Props, State> {
               )}
 
               {type !== EResourceTypes.Book && (
-                <ResourceContent resourceId={resource.id}/>
+                <ResourceContent data={resource}/>
               )}
 
               <div className={s.Resource__footer}>

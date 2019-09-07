@@ -76,18 +76,6 @@ export class ResourceController {
     return receivedResource
   }
 
-  @Get(':resourceId/content')
-  @ApiUseTags('resource')
-  @UseGuards(UserGuard)
-  async getResourceContent (
-    @Param('resourceId') resourceId: string,
-    @UserData() user: User
-  ) {
-    const resource = await this.resourceService.findById(Number(resourceId))
-
-    return this.resourceService.getContentByLink(resource.link)
-  }
-
   @Post('article|media|course')
   @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('resource')

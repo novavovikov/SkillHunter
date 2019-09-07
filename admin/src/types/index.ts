@@ -16,11 +16,14 @@ export interface IResource {
   author: string[]
   created: string
   id: number
+  date: string | null
   link: string
-  picture: string
+  image: string
+  icon: string
   title: string
+  text: string
   accepted: boolean
-  userIdsLikes: number[],
+  userIdsLikes: number[]
   skills?: ISkill[]
 }
 

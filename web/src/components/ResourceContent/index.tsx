@@ -5,55 +5,13 @@ import { ajax } from '../../utils/ajax'
 import { getUrl, urlNormalizer, validateUrl } from '../../utils/url'
 import { getVideoURL } from '../../utils/video'
 import * as s from './ResourceContent.css'
-
-interface IResourceContent {
-  author: string[]
-  canonicalLink: string
-  copyright: string | null
-  date: string
-  description: string
-  image: string | null
-  lang: string
-  links: any
-  publisher: string
-  softTitle: string
-  tags: string[]
-  text: string | null
-  title: string
-  videos: any[]
-}
+import { IResource } from '../../types'
 
 interface Props {
-  resourceId: number
+  data: IResource
 }
 
-interface State {
-  isLoading: boolean
-  resourceContent: any
-}
-
-class ResourceContent extends Component<Props, State> {
-  state = {
-    isLoading: true,
-    resourceContent: null,
-  }
-
-  async componentDidMount () {
-    const { resourceId } = this.props
-
-    try {
-      const { data } = await ajax.get(`resource/${resourceId}/content`)
-
-      this.setState({
-        isLoading: false,
-        resourceContent: data as IResourceContent,
-      })
-    } catch (e) {
-      this.setState({ isLoading: false })
-      console.warn(e)
-    }
-  }
-
+class ResourceContent extends Component<Props> {
   getFormattedDate = (date: string) => {
     if (isNaN(Date.parse(date))) {
       return date
@@ -74,8 +32,8 @@ class ResourceContent extends Component<Props, State> {
       return url
     }
 
-    const { resourceContent }: State = this.state
-    const link = getUrl(resourceContent.canonicalLink)
+    const { data } = this.props
+    const link = getUrl(data.link)
 
     if (!link) {
       return url
@@ -85,25 +43,15 @@ class ResourceContent extends Component<Props, State> {
   }
 
   render () {
-    const { resourceContent, isLoading }: State = this.state
-
-    if (isLoading) {
-      return (
-        <div className={cn(s.ResourceContent, s.ResourceContent_loader)}>
-          <Loader size="s"/>
-        </div>
-      )
-    }
-
     const {
-      canonicalLink,
+      link,
       date,
       title,
       text,
       image
-    } = resourceContent
+    } = this.props.data
 
-    const videoUrl = getVideoURL(canonicalLink)
+    const videoUrl = getVideoURL(link)
 
     return (
       <>

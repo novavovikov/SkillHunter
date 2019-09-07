@@ -108,10 +108,13 @@ class Resources extends Component<Props, State> {
             <Table.Tr>
               <Table.Th>id</Table.Th>
               <Table.Th>created</Table.Th>
+              <Table.Th>image</Table.Th>
               <Table.Th style={{ width: '500px' }}>title</Table.Th>
               <Table.Th>author</Table.Th>
-              <Table.Th>picture</Table.Th>
+              <Table.Th>icon</Table.Th>
               <Table.Th>link</Table.Th>
+              <Table.Th>text</Table.Th>
+              <Table.Th>date</Table.Th>
               <Table.Th>refresh</Table.Th>
               <Table.Th>remove</Table.Th>
             </Table.Tr>
@@ -132,6 +135,20 @@ class Resources extends Component<Props, State> {
                     {resource.created}
                   </Table.Td>
                   <Table.Td>
+                    {resource.image
+                      ? (
+                        <img
+                          src={resource.image}
+                          alt={''}
+                          style={{
+                            width: 64,
+                          }}
+                        />
+                      )
+                      : '—'
+                    }
+                  </Table.Td>
+                  <Table.Td>
                     {resource.title}
                   </Table.Td>
                   <Table.Td>
@@ -144,10 +161,10 @@ class Resources extends Component<Props, State> {
                       : '—'}
                   </Table.Td>
                   <Table.Td>
-                    {resource.picture
+                    {resource.icon
                       ? (
                       <img
-                        src={resource.picture}
+                        src={resource.icon}
                         alt={''}
                         style={{
                           width: 16,
@@ -165,6 +182,19 @@ class Resources extends Component<Props, State> {
                     >
                       {origin}
                     </a>
+                  </Table.Td>
+                  <Table.Td>
+                    <div style={{
+                      whiteSpace: 'nowrap',
+                      width: 200,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}>
+                      {resource.text || '—'}
+                    </div>
+                  </Table.Td>
+                  <Table.Td>
+                    {resource.date || '—'}
                   </Table.Td>
                   <Table.Td>
                     <label

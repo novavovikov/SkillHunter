@@ -30,7 +30,16 @@ export class Resource {
   link: string
 
   @Column({ nullable: true })
-  picture: string
+  date: string
+
+  @Column({ nullable: true })
+  icon: string
+
+  @Column({ nullable: true })
+  image: string
+
+  @Column({ nullable: true })
+  text: string
 
   @Column({ default: true })
   accepted: boolean

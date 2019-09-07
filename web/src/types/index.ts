@@ -37,10 +37,14 @@ export interface IResource {
   created: string
   id: number
   link: string
-  picture: string
   title: string
   userIdsLikes: number[],
   skills?: ISkill[]
+  date: string | null
+  image: string
+  icon: string
+  text: string
+  accepted: boolean
 }
 
 export interface IUserResource {

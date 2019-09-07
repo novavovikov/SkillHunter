@@ -41,7 +41,10 @@ export class ResourceService {
     return this.resourceRepository.update(criteria, data)
   }
 
-  async getFromLink (link: string) {
+  async getFromLink (
+    link: string,
+    locale: string = 'en'
+  ) {
     try {
       return await this.http.get(link).
         pipe(map(({ data }) => data)).
@@ -54,37 +57,20 @@ export class ResourceService {
           const { document } = dom.window
           const url: URL = new URL(link)
           const FaviconClass = new Favicon(this.http)
-          const picture: string = await FaviconClass.getFaviconFromDocument(document, url.origin)
-          const title: HTMLTitleElement = document.querySelector('title')
+          const icon: string = await FaviconClass.getFaviconFromDocument(document, url.origin)
+          const titleNode: HTMLTitleElement = document.querySelector('title')
 
-          return {
-            link,
-            picture,
-            title: title && title.text,
-          }
-        }).
-        catch(err => {
-          return null
-        })
-    } catch (err) {
-      return null
-    }
-  }
-
-  async getContentByLink (link: string, locale: string = 'en') {
-    try {
-      return await this.http.get(link).
-        pipe(map(({ data }) => data)).
-        toPromise().
-        then(async resp => {
           const data = extractor.lazy(resp, locale)
 
           return {
-            title: data.title() || data.softTitle(),
+            link,
+            icon,
             date: data.date(),
-            image: data.image(),
+            title: titleNode
+              ? titleNode.text
+              : data.title() || data.softTitle(),
             text: data.description() || data.text(),
-            canonicalLink: link
+            image: data.image()
           }
         }).
         catch(err => {

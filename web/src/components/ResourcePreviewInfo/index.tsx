@@ -63,7 +63,7 @@ class ResourcePreviewInfo extends Component<Props> {
             >
               <div className={s.ResourcePreviewInfo__favicon}>
                 <img
-                  src={data.resource.picture || favicon}
+                  src={data.resource.icon || favicon}
                   alt=""
                 />
               </div>
