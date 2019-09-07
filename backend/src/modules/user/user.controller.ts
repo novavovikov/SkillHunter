@@ -31,6 +31,7 @@ import { User } from './user.entity'
 import { UserService } from './user.service'
 import { WELCOME_RESOURCE_ID, WELCOME_SKILL_NAME } from '../../constants/welcome'
 import { ResourceService } from '../resource/resource.service'
+import { UserSkill } from '../user-skill/user-skill.entity'
 
 @Controller('user')
 @UseGuards(RolesGuard)
@@ -187,7 +188,11 @@ export class UserController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    const skillList: Skill[] = await this.skillService.getSkillList([...skills, WELCOME_SKILL_NAME])
+    const skillNames = user.skillsets.length === 1
+      ? skills
+      : [...skills, WELCOME_SKILL_NAME]
+
+    const skillList: Skill[] = await this.skillService.getSkillList(skillNames)
     foundSkillset.skills = unique([...foundSkillset.skills, ...skillList])
 
     const updatedUser = await this.userService.addSkillset(user, foundSkillset)
@@ -197,16 +202,12 @@ export class UserController {
       skillList,
     )
 
-    // FIXME don't use ID an NAME
-    const welcomeSkill = userSkills.find(({ skill }) => skill.name === WELCOME_SKILL_NAME)
-    const welcomeResource = await this.resourceService.findById(WELCOME_RESOURCE_ID)
-
-    if (welcomeSkill && welcomeResource) {
-      const t = await this.userResourceService.addResource(
+    if (user.skillsets.length === 1) {
+      const welcomeSkill = userSkills.find(({ skill }) => skill.name === WELCOME_SKILL_NAME)
+      await this.createWelcomeSkill(
         user,
         foundSkillset.id,
-        welcomeSkill,
-        welcomeResource
+        welcomeSkill
       )
     }
 
@@ -274,5 +275,25 @@ export class UserController {
     await this.userResourceService.removeResourcesBySkillsetId(user, Number(skillsetId))
     await this.userSkillService.removeSkillsBySkillsetId(user, Number(skillsetId))
     await this.userService.removeSkillset(user.id, Number(skillsetId))
+  }
+
+  createWelcomeSkill = async (
+    user: User,
+    skillsetId: number,
+    userSkill: UserSkill
+  ) => {
+    // FIXME don't use ID an NAME
+    const welcomeResource = await this.resourceService.findById(WELCOME_RESOURCE_ID)
+
+    if (userSkill && welcomeResource) {
+      return this.userResourceService.addResource(
+        user,
+        skillsetId,
+        userSkill,
+        welcomeResource
+      )
+    }
+
+    return null
   }
 }

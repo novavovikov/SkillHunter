@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --env development",
     "build": "webpack --env production",
-    "test": "npx jest"
+    "test": "npx jest",
+    "analyzer": "webpack --profile"
   },
   "author": "NovaVovikov",
   "license": "MIT",
@@ -50,6 +51,7 @@
     "tslint-react": "^4.0.0",
     "typescript": "^3.5.3",
     "webpack": "^4.39.1",
+    "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.7.2"
   },

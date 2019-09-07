@@ -58,7 +58,10 @@ class RemoveSkillset extends Component<Props> {
             Cancel
           </SimpleButton>
 
-          <SimpleButton className={s.RemoveSkillset__button}>
+          <SimpleButton
+            className={s.RemoveSkillset__button}
+            autoFocus
+          >
             Delete
           </SimpleButton>
         </form>

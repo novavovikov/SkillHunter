@@ -75,6 +75,7 @@ class RemoveAccount extends Component<RouteComponentProps, State> {
               onChange={this.handleInput}
               placeholder="Yes or No"
               eventCategory="profile"
+              autoFocus
             />
 
             <Button
