@@ -1,7 +1,7 @@
 @import "../../styles/variables.css";
 
-.H4 {
+.H5 {
   @apply --title;
-  @apply --h4;
+  @apply --font-xl;
   margin: 0 0 10px;
 }

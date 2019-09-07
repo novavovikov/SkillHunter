@@ -8,9 +8,9 @@ interface Props {
 
 const H3: FC<Props> = ({ children, className }) => {
   return (
-    <h2 className={cn(s.H3, className)}>
+    <h3 className={cn(s.H3, className)}>
       {children}
-    </h2>
+    </h3>
   )
 }
 

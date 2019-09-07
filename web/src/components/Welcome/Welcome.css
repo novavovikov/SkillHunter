@@ -1,0 +1,115 @@
+@import "../../styles/variables.css";
+
+.Welcome {
+  font-size: 26px;
+  line-height: 40px;
+  color: #000;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    text-transform: uppercase;
+    color: var(--color-dusty-gray);
+    font-weight: 600;
+    margin: 0 0 20px;
+
+    &_icon {
+      position: relative;
+      padding-left: 62px;
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 50px;
+        height: 40px;
+        margin-top: -20px;
+        background: no-repeat center/contain;
+      }
+    }
+
+    &_greeting {
+      &:before {
+        background-image: url("./icons/ico-greeting.svg");
+      }
+    }
+
+    &_mission {
+      &:before {
+        background-image: url("./icons/ico-mission.svg");
+      }
+    }
+
+    &_archive {
+      &:before {
+        background-image: url("./icons/ico-archive.svg");
+      }
+    }
+
+    &_list {
+      &:before {
+        background-image: url("./icons/ico-list.svg");
+      }
+    }
+
+    &_route {
+      &:before {
+        background-image: url("./icons/ico-route.svg");
+      }
+    }
+  }
+
+  &__text {
+    margin: 0 0 70px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__paragraph {
+    margin: 0 0 17px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__image {
+    margin: 40px 0;
+    text-align: center;
+    font-size: 0;
+
+    img {
+      max-width: 100%;
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__button {
+    @apply --button;
+    @apply --font-xl;
+    width: 210px;
+    min-height: 50px;
+  }
+
+  &__buttonLabel {
+    @apply --button-label;
+  }
+}

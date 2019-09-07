@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { H3 } from '../../UI'
+import { H4 } from '../../UI'
 import * as s from './Faq.css'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 const Faq: FC<Props> = ({ title, children }) => {
   return (
     <div className={s.Faq}>
-      <H3>{title}</H3>
+      <H4>{title}</H4>
       {children}
     </div>
   )

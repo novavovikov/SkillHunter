@@ -71,6 +71,7 @@ export class UserResourceService {
       userSkill,
       resource,
     })
+
     const savedUserResource = await this.userResourceRepository.save(userResource)
 
     return getUserResourceWithLikedField(

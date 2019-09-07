@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import React, { Component } from 'react'
-import { H4 } from '../../UI'
+import { H5 } from '../../UI'
 import { SkillsSearch } from '../index'
 import * as s from './SkillsSuggestion.css'
 
@@ -17,9 +17,9 @@ class SkillsSuggestion extends Component<SkillsSuggestionProps> {
     return (
       <div className={cn(s.SkillsSuggestion)}>
         <div className={s.SkillsSuggestion__header}>
-          <H4 className={s.SkillsSuggestion__title}>
+          <H5 className={s.SkillsSuggestion__title}>
             For added new skill type in name of skill and pick it
-          </H4>
+          </H5>
           <div>
             Choose one or more skills
           </div>

@@ -202,7 +202,7 @@ export class UserController {
     const welcomeResource = await this.resourceService.findById(WELCOME_RESOURCE_ID)
 
     if (welcomeSkill && welcomeResource) {
-      await this.userResourceService.addResource(
+      const t = await this.userResourceService.addResource(
         user,
         foundSkillset.id,
         welcomeSkill,

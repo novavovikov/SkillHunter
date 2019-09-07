@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { H1, H4 } from '../../../UI'
+import { H1, H5 } from '../../../UI'
 import s from './Layout.css'
 
 interface Props {
@@ -21,9 +21,9 @@ const Layout: FC<Props> = (
       <H1 className={s.Layout__title}>{title}</H1>
 
       {subtitle && (
-        <H4 className={s.Layout__subtitle}>
+        <H5 className={s.Layout__subtitle}>
           {subtitle}
-        </H4>
+        </H5>
       )}
     </div>
 

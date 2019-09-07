@@ -10,6 +10,8 @@ import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 import NotFound from '../NotFound'
 import s from './Resource.css'
+import { WELCOME_RESOURCE_ID } from '../../constants/welcome'
+import Welcome from '../../components/Welcome'
 
 interface Params {
   userResourceId: string
@@ -175,49 +177,57 @@ class Resource extends Component<Props, State> {
             {resourceTitle}
           </H1>
 
-          <ResourceInfo
-            type={type}
-            author={author}
-            link={resource.link}
-          />
+          {resource.id === WELCOME_RESOURCE_ID && (
+            <Welcome/>
+          )}
 
-          {resource.skills && (
-            <div className={s.Resource__skills}>
-              <div className={s.Resource__skillsTitle}>
-                This resource will help to improve skills:
-              </div>
+          {resource.id !== WELCOME_RESOURCE_ID && (
+            <>
+              <ResourceInfo
+                type={type}
+                author={author}
+                link={resource.link}
+              />
 
-              {resource.skills.map(({ id, name }) => (
-                <div
-                  key={id}
-                  className={s.Resource__skillsItem}
-                >
-                  {name}
+              {resource.skills && (
+                <div className={s.Resource__skills}>
+                  <div className={s.Resource__skillsTitle}>
+                    This resource will help to improve skills:
+                  </div>
+
+                  {resource.skills.map(({ id, name }) => (
+                    <div
+                      key={id}
+                      className={s.Resource__skillsItem}
+                    >
+                      {name}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          )}
+              )}
 
-          {type !== EResourceTypes.Book && (
-            <ResourceContent resourceId={resource.id}/>
-          )}
+              {type !== EResourceTypes.Book && (
+                <ResourceContent resourceId={resource.id}/>
+              )}
 
-          <div className={s.Resource__footer}>
-            <a
-              className={s.Resource__watch}
-              href={type === EResourceTypes.Book
-                ? `https://www.google.com/search?q=${author} ${title}`
-                : resource.link
-              }
-              target="_blank"
-              onClick={this.handleWatch}
-            >
-              Watch
-              <div className={s.Resource__watchLabel}>
-                resource
+              <div className={s.Resource__footer}>
+                <a
+                  className={s.Resource__watch}
+                  href={type === EResourceTypes.Book
+                    ? `https://www.google.com/search?q=${author} ${title}`
+                    : resource.link
+                  }
+                  target="_blank"
+                  onClick={this.handleWatch}
+                >
+                  Watch
+                  <div className={s.Resource__watchLabel}>
+                    resource
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
+            </>
+          )}
 
           {!isAuthorized && (
             <div className={s.Resource__footer}>

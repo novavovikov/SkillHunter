@@ -22,7 +22,7 @@ function * getSkillsDataSaga ({ skillsetId }: GetSkillsDataPayload) {
 }
 
 function * addSkillsSaga ({ skillsetId, skills }: AddSkillsSaga) {
-  yield put(ac.addLoading('skill'))
+  yield put(ac.addLoading('addSkill'))
 
   try {
     const { data } = yield call(ajax.post, `${API.USER_SKILL}/${skillsetId}`, { skills })
@@ -32,11 +32,11 @@ function * addSkillsSaga ({ skillsetId, skills }: AddSkillsSaga) {
     yield put(errorHandler('addSkillsSaga: ', error))
   }
 
-  yield put(ac.removeLoading('skill'))
+  yield put(ac.removeLoading('addSkill'))
 }
 
 function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
-  yield put(ac.addLoading('skill'))
+  yield put(ac.addLoading('removeSkill'))
 
   try {
     yield call(ajax.delete, `${API.USER_SKILL}?ids=${skillIds}`)
@@ -46,7 +46,7 @@ function * removeSkillsSaga ({ skillIds }: RemoveSkillsSaga) {
     yield put(errorHandler('removeSkillsSaga: ', error))
   }
 
-  yield put(ac.removeLoading('skill'))
+  yield put(ac.removeLoading('removeSkill'))
 }
 
 export function * watchSkillsData () {

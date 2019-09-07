@@ -15,6 +15,7 @@ import { analytics } from '../../utils/analytics'
 import { getSkillsetIdFromUserData } from '../../utils/skillset'
 import { GetResourcesSagaPayload } from '../../redux/interfaces/resources'
 import * as s from './Skillset.css'
+import { userSkill } from '../../redux/reducers/userSkill'
 
 interface Params {
   skillset: string

@@ -7,14 +7,14 @@ import { SESSION_SECRET_KEY } from './constants/sessions'
 import { AppModule } from './modules/app/app.module'
 
 const API_BASE_PATH = 'api'
-const env = process.env.NODE_ENV || 'dev'
+const env = process.env.NODE_ENV || 'development'
 const port = process.env.PORT
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule)
   app.setGlobalPrefix(API_BASE_PATH)
 
-  if (env === 'dev') {
+  if (env === 'development') {
     const options = new DocumentBuilder().setTitle('SkillHunter Application').
       setDescription('APIs for the SkillHunter application.').
       setVersion('1.0.0').

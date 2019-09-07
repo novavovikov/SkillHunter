@@ -1,4 +1,3 @@
-import cn from 'classnames'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'

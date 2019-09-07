@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { H4, Item, Menu } from '../../UI'
+import { H5, Item, Menu } from '../../UI'
 import * as s from './UserSkillHeader.css'
 
 interface Props {
@@ -24,7 +24,7 @@ const UserSkillHeader: FC<Props> = (props) => {
 
   return (
     <div className={cn(s.UserSkillHeader, className)}>
-      <H4 className={s.UserSkillHeader__title}>
+      <H5 className={s.UserSkillHeader__title}>
         {link
           ? (
             <Link
@@ -36,7 +36,7 @@ const UserSkillHeader: FC<Props> = (props) => {
           )
           : name
         }
-      </H4>
+      </H5>
 
       <Menu
         className={s.UserSkillHeader__menu}

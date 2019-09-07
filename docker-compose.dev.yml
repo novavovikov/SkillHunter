@@ -13,7 +13,7 @@ services:
       - 8.8.8.8
     command: sh -c "npm i && npm run prestart && npm run start:dev"
     environment:
-      - NODE_ENV=dev
+      - NODE_ENV=development
       - DOMAIN=localhost
       - PORT=6000
       - HOME=/app/.home
