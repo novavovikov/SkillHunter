@@ -1,0 +1,17 @@
+@import "../../styles/variables.css";
+
+.Mark {
+  background: none;
+
+  &_green {
+    color: var(--color-salem);
+  }
+
+  &_blue {
+    color: var(--color-dodger-blue);
+  }
+
+  &_orange {
+    color: var(--color-saffron);
+  }
+}

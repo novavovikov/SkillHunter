@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Title from './Title'
 import welcomeImage from './images/welcome.png'
 import * as s from './Welcome.css'
+import { Mark } from '../../UI'
 
 class Welcome extends Component {
   render () {
@@ -40,7 +41,8 @@ class Welcome extends Component {
             Миссия
           </Title>
           <p className={s.Welcome__paragraph}>
-            Мы хотим сделать обучение и развитие более социальным и доступным, лекгим и простым.
+            Мы хотим <Mark color="green">сделать обучение и развитие</Mark> более <Mark color="blue">социальным и
+            доступным, лекгим и простым.</Mark>
           </p>
 
           <p className={s.Welcome__paragraph}>

@@ -7,6 +7,7 @@ import Icon from './Icon'
 import OnBoarding from './OnBoarding'
 import Status from './Status'
 import Loader from './Loader'
+import Mark from './Mark'
 import H1 from './H1'
 import H2 from './H2'
 import H3 from './H3'
@@ -35,6 +36,7 @@ export {
   OnBoarding,
   Status,
   Loader,
+  Mark,
   H1,
   H2,
   H3,
