@@ -16,24 +16,32 @@ services:
       - web_app
       - backend
     restart: always
+    networks:
+      - SkillHunter
 
   landing:
     build: ./landing
     volumes:
       - landing:/app/out
     working_dir: /app
+    networks:
+      - SkillHunter
 
   web_app:
     build: ./web
     volumes:
       - web_app:/app/dist
     working_dir: /app
+    networks:
+      - SkillHunter
 
   admin_panel:
     build: ./admin
     volumes:
       - admin_panel:/app/dist
     working_dir: /app
+    networks:
+      - SkillHunter
 
   backend:
     build: ./backend
@@ -44,6 +52,8 @@ services:
       - NODE_ENV=prod
       - DOMAIN=skillhunter.io
       - PORT=6000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
       - TELEGRAM_BOT_ID=718396767:AAGha-b2mIDH9TmVb1OZNebu23jmv6Xu8Zo
       - GOOGLE_CLIENT_ID=71152846727-1i6m8nnkch3morlj2o5fq0jfug55piu9.apps.googleusercontent.com
       - GOOGLE_CLIENT_SECRET=Fuph7bjuvg_8bVnc4QQu5QG3
@@ -55,14 +65,27 @@ services:
       - POSTGRES_HOST
       - POSTGRES_PORT
       - POSTGRES_DB
-
     working_dir: /app
     ports:
       - 6000:6000
     restart: always
+    networks:
+      - SkillHunter
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - 6379:6379
+    networks:
+      - SkillHunter
 
 volumes:
   landing:
   web_app:
   admin_panel:
   static:
+
+networks:
+  SkillHunter:

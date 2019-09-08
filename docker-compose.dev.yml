@@ -31,12 +31,12 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DB=skillhunter
     restart: always
-    networks:
-      - app
     depends_on:
       - postgres
       - web_app
       - redis
+    networks:
+      - SkillHunter
 
   postgres:
     image: postgres:11
@@ -51,14 +51,14 @@ services:
       - POSTGRES_INITDB_ARGS=-N
     user: $USER_ID:$GROUP_ID
     networks:
-      - app
+      - SkillHunter
 
   redis:
     image: "redis:alpine"
     ports:
       - 6379:6379
     networks:
-      - app
+      - SkillHunter
 
   web_app:
     image: node:10.15.3-alpine
@@ -73,7 +73,7 @@ services:
     command: sh -c "npm i && npm run start"
     restart: always
     networks:
-      - app
+      - SkillHunter
 
   admin_panel:
     image: node:10.15.3-alpine
@@ -88,7 +88,7 @@ services:
     command: sh -c "npm i && npm run start"
     restart: always
     networks:
-      - app
+      - SkillHunter
 
 networks:
-  app:
+  SkillHunter:

@@ -16,7 +16,7 @@ export class SkillsetService {
   findAll () {
     return this.skillsetRepository.find({
       order: {
-        id: 'ASC',
+        id: 'DESC',
       },
     })
   }
@@ -89,5 +89,12 @@ export class SkillsetService {
 
     user.skills = unique([...user.skills, ...skills])
     return await this.skillsetRepository.save(user)
+  }
+
+  update (
+    criteria: any,
+    data: Partial<Skillset>,
+  ) {
+    return this.skillsetRepository.update(criteria, data)
   }
 }
