@@ -188,9 +188,9 @@ export class UserController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    const skillNames = user.skillsets.length === -1
-      ? skills
-      : [...skills, WELCOME_SKILL_NAME]
+    const skillNames = user.skillsets.length === 1
+      ? [...skills, WELCOME_SKILL_NAME]
+      : skills
 
     const skillList: Skill[] = await this.skillService.getSkillList(skillNames)
     foundSkillset.skills = unique([...foundSkillset.skills, ...skillList])
@@ -202,7 +202,7 @@ export class UserController {
       skillList,
     )
 
-    if (user.skillsets.length === -1) {
+    if (user.skillsets.length === 1) {
       const welcomeSkill = userSkills.find(({ skill }) => skill.name === WELCOME_SKILL_NAME)
       await this.createWelcomeSkill(
         user,
