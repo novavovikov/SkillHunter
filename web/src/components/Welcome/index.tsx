@@ -44,10 +44,6 @@ class Welcome extends Component {
             Мы хотим <Mark color="green">сделать обучение и развитие</Mark> более <Mark color="blue">социальным и
             доступным, лекгим и простым.</Mark>
           </p>
-
-          <p className={s.Welcome__paragraph}>
-            Но давай начнем с нашей цели и миссии :)
-          </p>
         </div>
 
         <div className={s.Welcome__text}>
