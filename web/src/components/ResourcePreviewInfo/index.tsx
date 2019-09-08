@@ -7,6 +7,7 @@ import { analytics } from '../../utils/analytics'
 import favicon from './icons/favicon.svg'
 import { getIconByType } from './iconType'
 import * as s from './ResourcePreviewInfo.css'
+import { WELCOME_RESOURCE_ID } from '../../constants/welcome'
 
 interface Props {
   eventCategory: string
@@ -56,7 +57,10 @@ class ResourcePreviewInfo extends Component<Props> {
 
           {data.type !== EResourceTypes.Book && (
             <a
-              href={data.resource.link}
+              href={data.resource.id === WELCOME_RESOURCE_ID
+                ? `${ROUTES.RESOURCE}/${data.id}`
+                : data.resource.link
+              }
               className={cn(s.ResourcePreviewInfo__source, s.ResourcePreviewInfo__source_site)}
               onClick={this.handleLink}
               target="_blank"
