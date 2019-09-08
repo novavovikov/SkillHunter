@@ -105,18 +105,20 @@ class Welcome extends Component {
           </p>
         </div>
 
-        <div className={s.Welcome__footer}>
-          <a
-            className={s.Welcome__button}
-            href="123"
-            target="_blank"
-          >
-            How
-            <div className={s.Welcome__buttonLabel}>
-              to start
-            </div>
-          </a>
-        </div>
+        {false && (
+          <div className={s.Welcome__footer}>
+            <a
+              className={s.Welcome__button}
+              href="123"
+              target="_blank"
+            >
+              How
+              <div className={s.Welcome__buttonLabel}>
+                to start
+              </div>
+            </a>
+          </div>
+        )}
       </div>
     )
   }
