@@ -5,7 +5,7 @@ interface GenerateKeyboardOptions {
 
 const initialOptions = {
   count: 2,
-  field: 'value', // support nested | delimiter - dot
+  field: 'value', // support nested (delimiter - dot)
 }
 
 export const generateKeyboard = (

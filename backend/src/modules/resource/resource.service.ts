@@ -7,6 +7,7 @@ import { HttpMessageType } from '../../constants/exception'
 import { Favicon } from '../../utils/favicon'
 import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
+import { RESOURCES_BLACK_LIST } from '../../constants/resources'
 
 const extractor = require('unfluff')
 
@@ -32,6 +33,18 @@ export class ResourceService {
       },
       ...options,
     })
+  }
+
+  validateResourceLink (link: string) {
+    const url = new URL(link)
+
+    for (const domain of RESOURCES_BLACK_LIST) {
+      if (url.hostname.includes(domain)) {
+        return false
+      }
+    }
+
+    return true
   }
 
   update (
@@ -116,6 +129,20 @@ export class ResourceService {
     const resource = this.resourceRepository.create(data)
     await this.resourceRepository.save(resource)
     return resource
+  }
+
+  async createByLink (link: string) {
+    const foundResource: Resource = await this.findOne({ link })
+    if (foundResource) {
+      return foundResource
+    }
+
+    const receivedResource = await this.getFromLink(link)
+    if (!receivedResource) {
+      return null
+    }
+
+    return this.create(receivedResource)
   }
 
   async setResourceLike (resourceId: number, user: User) {

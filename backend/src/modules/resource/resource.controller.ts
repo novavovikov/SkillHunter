@@ -82,29 +82,19 @@ export class ResourceController {
     @UserData() user: User,
     @Body('link') link: string,
   ) {
-    if (user.role !== RoleType.Admin) {
-      const url = new URL(link)
+    const isValid = user.role === RoleType.Admin ||
+      this.resourceService.validateResourceLink(link)
 
-      for (const domain of RESOURCES_BLACK_LIST) {
-        if (url.hostname.includes(domain)) {
-          throw new HttpException({
-            message: `The resources from this website are forbidden`,
-            type: HttpMessageType.warning,
-            statusCode: HttpStatus.BAD_REQUEST,
-          }, HttpStatus.BAD_REQUEST)
-        }
-      }
+    if (!isValid) {
+      throw new HttpException({
+        message: `The resources from this website are forbidden`,
+        type: HttpMessageType.warning,
+        statusCode: HttpStatus.BAD_REQUEST,
+      }, HttpStatus.BAD_REQUEST)
     }
 
-    const foundResource: Resource = await this.resourceService.findOne({ link })
-
-    if (foundResource) {
-      return foundResource
-    }
-
-    const receivedResource = await this.resourceService.getFromLink(link)
-
-    if (!receivedResource) {
+    const createdResource = await this.resourceService.createByLink(link)
+    if (!createdResource) {
       throw new HttpException({
         message: 'There were some problems while adding this resource.\nPlease contact us.',
         type: HttpMessageType.error,
@@ -112,7 +102,7 @@ export class ResourceController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    return this.resourceService.create(receivedResource)
+    return createdResource
   }
 
   @Post('book')

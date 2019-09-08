@@ -1,4 +1,3 @@
-import * as redisStore from 'cache-manager-redis-store'
 import { CacheModule, HttpModule, Module } from '@nestjs/common'
 import { TelegramController } from './telegram.controller'
 import { TelegramService } from './telegram.service'
@@ -8,20 +7,25 @@ import { UserService } from '../user/user.service'
 import { AuthService } from '../auth/auth.service'
 import { UserSkill } from '../user-skill/user-skill.entity'
 import { UserSkillService } from '../user-skill/user-skill.service'
+import { UserResourceService } from '../user-resource/user-resource.service'
+import { ResourceService } from '../resource/resource.service'
+import { UserResource } from '../user-resource/user-resource.entity'
+import { Resource } from '../resource/resource.entity'
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       User,
-      UserSkill
+      UserSkill,
+      UserResource,
+      Resource
     ]),
-    CacheModule.register({
-      store: redisStore,
-      host: process.env.REDIS_HOST || 'redis',
-      port: process.env.REDIS_PORT || 6379,
-    }),
     HttpModule.register({
       timeout: 6000,
+    }),
+    CacheModule.register({
+      ttl: 120, // seconds
+      max: 10, // maximum number of items in cache
     }),
   ],
   controllers: [TelegramController],
@@ -30,6 +34,8 @@ import { UserSkillService } from '../user-skill/user-skill.service'
     AuthService,
     UserService,
     UserSkillService,
+    UserResourceService,
+    ResourceService,
   ],
 })
 export class TelegramModule {}

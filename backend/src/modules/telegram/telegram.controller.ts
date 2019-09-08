@@ -12,14 +12,21 @@ import { JwtPayloadDto } from '../auth/Jwt-payload.dto'
 import { isUrl } from '../../utils/url'
 import { UserSkillService } from '../user-skill/user-skill.service'
 import { generateKeyboard } from '../../utils/keyboard'
+import { CacheService } from '../cache'
+import { ResourceService } from '../resource/resource.service'
+import { UserResourceService } from '../user-resource/user-resource.service'
+import { Resource } from '../resource/resource.entity'
 
 @Controller(`telegram`)
 export class TelegramController {
   constructor (
+    private cacheService: CacheService,
     private telegramService: TelegramService,
     private authService: AuthService,
     private userService: UserService,
     private userSkillService: UserSkillService,
+    private userResourceService: UserResourceService,
+    private resourceService: ResourceService,
   ) {}
 
   @Get('auth/:token')
@@ -69,7 +76,7 @@ export class TelegramController {
     }
 
     if (callbackQuery) {
-      return this.selectSkill(callbackQuery)
+      return this.callbackQueryHandler(callbackQuery)
     }
   }
 
@@ -113,11 +120,15 @@ export class TelegramController {
     return null
   }
 
-  selectSkillset (
+  async selectSkillset (
     link: string,
     user: User
   ) {
     if (isUrl(link)) {
+      await this.cacheService.set(`telegram:${user.id}`, {
+        link,
+      })
+
       return this.telegramService.sendEvent('sendMessage', {
         chat_id: user.telegramId,
         text: 'Choose skillset:',
@@ -145,10 +156,10 @@ export class TelegramController {
       return null
     }
 
-    this.selectSkillset(text, user)
+    await this.selectSkillset(text, user)
   }
 
-  async selectSkill (callbackQuery: TelegramCallbackQueryDto) {
+  async callbackQueryHandler (callbackQuery: TelegramCallbackQueryDto) {
     const { from, data, message } = callbackQuery
     const user = await this.identifyUser(from)
 
@@ -156,17 +167,52 @@ export class TelegramController {
       return null
     }
 
-    const skillsetId = JSON.parse(data)
+    const userData = await this.cacheService.get(`telegram:${user.id}`) || {} as any
+
+    if (userData.skillsetId) {
+      const skillId = Number(data)
+      const userSkill = await this.userSkillService.findById(skillId)
+      const resource = await this.resourceService.createByLink(userData.link)
+
+      console.log(222, resource)
+
+      if (!resource) {
+        return null
+      }
+
+      await this.userResourceService.addResource(
+        user,
+        userData.skillsetId,
+        userSkill,
+        resource as Resource
+      )
+      console.log(2, userData, skillId)
+      return null
+    }
+
+    await this.selectSkill(Number(data), user)
+  }
+
+  async selectSkill (
+    skillsetId: number,
+    user: User,
+  ) {
+    const userData = await this.cacheService.get(`telegram:${user.id}`)
+    await this.cacheService.set(`telegram:${user.id}`, {
+      ...userData,
+      skillsetId,
+    })
+
     const userSkills = await this.userSkillService.find({ user, skillsetId })
 
     return this.telegramService.sendEvent('sendMessage', {
-      chat_id: from.id,
+      chat_id: user.telegramId,
       text: 'Choose skill:',
       reply_markup: {
         inline_keyboard: generateKeyboard(userSkills, {
           field: 'skill.name',
         }),
-      }
+      },
     })
   }
 }
