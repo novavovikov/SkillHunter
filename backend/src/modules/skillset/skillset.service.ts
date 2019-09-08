@@ -97,4 +97,8 @@ export class SkillsetService {
   ) {
     return this.skillsetRepository.update(criteria, data)
   }
+
+  remove (skillset: Skillset) {
+    return this.skillsetRepository.remove(skillset)
+  }
 }

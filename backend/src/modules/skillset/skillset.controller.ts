@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Session, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Session, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
@@ -102,7 +102,7 @@ export class SkillsetController {
   @Put(':skillsetId')
   @UseGuards(AuthGuard('jwt'))
   @Roles([RoleType.Admin])
-  @ApiUseTags('skill')
+  @ApiUseTags('skillset')
   async updateSkill (
     @Body() data: Partial<SkillDto>,
     @Param('skillsetId') skillsetId: string,
@@ -114,5 +114,16 @@ export class SkillsetController {
       id,
       ...data,
     }
+  }
+
+  @Delete(':skillsetId')
+  @UseGuards(AuthGuard('jwt'))
+  @Roles([RoleType.Admin])
+  @ApiUseTags('skillset')
+  async removeResource (
+    @Param('skillsetId') skillsetId: string,
+  ) {
+    const skillset = await this.skillsetService.findById(Number(skillsetId))
+    return await this.skillsetService.remove(skillset)
   }
 }

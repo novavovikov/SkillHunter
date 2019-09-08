@@ -1,4 +1,5 @@
-import { HttpModule, Module } from '@nestjs/common'
+import * as redisStore from 'cache-manager-redis-store'
+import { CacheModule, HttpModule, Module } from '@nestjs/common'
 import { TelegramController } from './telegram.controller'
 import { TelegramService } from './telegram.service'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -14,6 +15,11 @@ import { UserSkillService } from '../user-skill/user-skill.service'
       User,
       UserSkill
     ]),
+    CacheModule.register({
+      store: redisStore,
+      host: process.env.REDIS_HOST || 'redis',
+      port: process.env.REDIS_PORT || 6379,
+    }),
     HttpModule.register({
       timeout: 6000,
     }),
