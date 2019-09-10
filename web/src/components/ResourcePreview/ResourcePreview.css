@@ -46,13 +46,6 @@
 
     &_actions {
       width: 190px;
-      visibility: hidden;
-      opacity: 0;
-
-      @media (--lg) {
-        visibility: visible;
-        opacity: 1;
-      }
 
       @media (--xs) {
         width: auto;
@@ -60,25 +53,10 @@
     }
   }
 
-  &:hover &__col {
-    &_actions {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-
-  &:hover &__status {
-    @apply --font-m;
-
-    @media (--md) {
-      font-size: 0;
-    }
-  }
-
   &__status {
     position: relative;
-    font-size: 0;
     color: var(--color-gray);
+    @apply --font-m;
     border: none;
     background: none;
     min-height: 26px;
@@ -113,11 +91,6 @@
         background: var(--color-salem);
       }
     }
-  }
-
-  &:hover &__select {
-    visibility: visible;
-    opacity: 1;
   }
 
   &__menu {

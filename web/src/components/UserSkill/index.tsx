@@ -48,18 +48,8 @@ class UserSkill extends Component<Props, State> {
     asPage: false,
   }
 
-  get initialOpenState (): boolean {
-    const {
-      asPage,
-      resources,
-      recommendedResources
-    } = this.props
-
-    return asPage || resources.total !== 0 || recommendedResources.length > 0
-  }
-
   state = {
-    isOpen: this.initialOpenState,
+    isOpen: true,
     creatorVisible: false,
   }
 
@@ -177,6 +167,7 @@ class UserSkill extends Component<Props, State> {
               <OnBoarding
                 className={s.UserSkill__empty}
                 icon={IconTypes.arrowDown}
+                onClick={this.toggleOpen}
               >
                 Expand list and add resource
               </OnBoarding>

@@ -9,7 +9,6 @@ interface CssExports {
   'ResourcePreview__control': string;
   'ResourcePreview__likes': string;
   'ResourcePreview__menu': string;
-  'ResourcePreview__select': string;
   'ResourcePreview__status': string;
   'ResourcePreview__status_backlog': string;
   'ResourcePreview__status_done': string;

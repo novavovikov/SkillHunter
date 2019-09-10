@@ -55,12 +55,12 @@ export class UserService {
 
     if (userData.facebookId && !user.facebookId) {
       user.facebookId = userData.facebookId
-      this.userRepository.update({ id: user.id }, user)
+      await this.userRepository.save(user)
     }
 
     if (userData.googleId && !user.googleId) {
       user.googleId = userData.googleId
-      this.userRepository.update({ id: user.id }, user)
+      await this.userRepository.save(user)
     }
 
     return user

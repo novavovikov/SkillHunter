@@ -17,9 +17,10 @@ export class AuthController {
     @UserData() user,
     @Res() res,
     @Next() next,
-  ): Promise<any> {
+  ): Promise<null> {
     res.cookie('authToken', user.token, AUTH_COOKIE_OPTIONS)
     res.redirect(BACK_URL)
+    return null
   }
 
   @Get('facebook')
@@ -32,8 +33,9 @@ export class AuthController {
     @UserData() user,
     @Res() res,
     @Next() next,
-  ): Promise<any> {
+  ): Promise<null> {
     res.cookie('authToken', user.token, AUTH_COOKIE_OPTIONS)
     res.redirect(BACK_URL)
+    return null
   }
 }

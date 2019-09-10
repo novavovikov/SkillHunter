@@ -5,6 +5,7 @@ import { IResource, IUserResource } from '../../types'
 import { IconButton, OnBoarding } from '../../UI'
 import { RecommendedResources, ResourcePreview } from '../index'
 import * as s from './Resources.css'
+import { resources } from '../../redux/reducers/resources'
 
 interface Props {
   data: IUserResource[]
@@ -59,18 +60,20 @@ class Resources extends Component<Props> {
           )}
         </div>
 
-        <div className={s.Resources__body}>
-          {data.map((resource: IUserResource) => (
-            <ResourcePreview
-              key={resource.id}
-              data={resource}
-              eventCategory="skillset"
-              updateHandler={onUpdate}
-              likeHandler={onChangeLikeStatus}
-              removeHandler={onRemove}
-            />
-          ))}
-        </div>
+        {data.length > 0 && (
+          <div className={s.Resources__body}>
+            {data.map((resource: IUserResource) => (
+              <ResourcePreview
+                key={resource.id}
+                data={resource}
+                eventCategory="skillset"
+                updateHandler={onUpdate}
+                likeHandler={onChangeLikeStatus}
+                removeHandler={onRemove}
+              />
+            ))}
+          </div>
+        )}
 
         {recommendations.length > 0 && (
           <RecommendedResources

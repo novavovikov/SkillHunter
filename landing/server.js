@@ -16,7 +16,7 @@ const handle = app.getRequestHandler();
     const proxyMiddleware = require('http-proxy-middleware')
 
     server.use(proxyMiddleware('/api', {
-      target: 'http://localhost:6000/api',
+      target: 'http://localhost:4321/api',
       pathRewrite: { '^/api': '/' },
       changeOrigin: true
     }))

@@ -188,7 +188,6 @@ export class UserController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    console.log(user.skillsets.length)
     const skillNames = !user.skillsets.length
       ? [...skills, WELCOME_SKILL_NAME]
       : skills
