@@ -34,7 +34,10 @@ class Users extends Component<{}, State> {
     ajax.
       get(`auth/${value}`).
       then(({ data }) => {
-        cookies.set('authToken', data)
+        cookies.set('authToken', data, {
+          domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'skillhunter.io',
+          path: '/',
+        })
         redirectToLogin()
       }).catch(err => {
       console.warn('Users', err)
