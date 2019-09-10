@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common'
-import { TELEGRAM_BOT_ID } from './constants/telegram'
+import { TELEGRAM_BOT_ID, TELEGRAM_CACHE_KEY } from './constants/telegram'
 import { TelegramService } from './telegram.service'
 import { TelegramCallbackQueryDto, TelegramInitiatorDto, TelegramMessageDto } from './telegram.dto'
 import { UserService } from '../user/user.service'
@@ -16,6 +16,13 @@ import { CacheService } from '../cache'
 import { ResourceService } from '../resource/resource.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
 import { Resource } from '../resource/resource.entity'
+import { LOGOUT_TELEGRAM_COMMAND, START_TELEGRAM_COMMAND, TELEGRAM_COMMANDS } from './constants/commands'
+
+interface UserData {
+  link?: string
+  skillsetId?: number
+  skillId?: number
+}
 
 @Controller(`telegram`)
 export class TelegramController {
@@ -120,18 +127,26 @@ export class TelegramController {
     return null
   }
 
+  async logoutUser (user: User) {
+    await this.userService.update(user.id, { telegramId: null })
+
+    return this.telegramService.sendEvent('sendMessage', {
+      chat_id: user.telegramId,
+      text: `User is logged`,
+      parse_mode: 'Markdown',
+    })
+  }
+
   async selectSkillset (
     link: string,
     user: User
   ) {
     if (isUrl(link)) {
-      await this.cacheService.set(`telegram:${user.id}`, {
-        link,
-      })
+      await this.updateUserCache(user, { link })
 
       return this.telegramService.sendEvent('sendMessage', {
         chat_id: user.telegramId,
-        text: 'Choose skillset:',
+        text: `Choose skillset:`,
         reply_markup: {
           inline_keyboard: generateKeyboard(user.skillsets, {
               field: 'name',
@@ -156,6 +171,24 @@ export class TelegramController {
       return null
     }
 
+    if (START_TELEGRAM_COMMAND === text) {
+      return this.telegramService.sendEvent('sendMessage', {
+        chat_id: user.telegramId,
+        text: 'Send me a link, I will save in your skillset!',
+      })
+    }
+
+    if (LOGOUT_TELEGRAM_COMMAND === text) {
+      return this.logoutUser(user)
+    }
+
+    if (TELEGRAM_COMMANDS.includes(text)) {
+      return this.telegramService.sendEvent('sendMessage', {
+        chat_id: user.telegramId,
+        text: 'This command is under development. Send me a link, I will save in your skillset!',
+      })
+    }
+
     await this.selectSkillset(text, user)
   }
 
@@ -167,42 +200,22 @@ export class TelegramController {
       return null
     }
 
-    const userData = await this.cacheService.get(`telegram:${user.id}`) || {} as any
+    const userData = await this.getUserCache(user)
 
     if (userData.skillsetId) {
-      const skillId = Number(data)
-      const userSkill = await this.userSkillService.findById(skillId)
-      const resource = await this.resourceService.createByLink(userData.link)
-
-      console.log(222, resource)
-
-      if (!resource) {
-        return null
-      }
-
-      await this.userResourceService.addResource(
-        user,
-        userData.skillsetId,
-        userSkill,
-        resource as Resource
-      )
-      console.log(2, userData, skillId)
-      return null
+      return this.addResource(Number(data), user)
     }
 
-    await this.selectSkill(Number(data), user)
+    if (userData.link) {
+      return this.selectSkill(Number(data), user)
+    }
   }
 
   async selectSkill (
     skillsetId: number,
     user: User,
   ) {
-    const userData = await this.cacheService.get(`telegram:${user.id}`)
-    await this.cacheService.set(`telegram:${user.id}`, {
-      ...userData,
-      skillsetId,
-    })
-
+    await this.updateUserCache(user, { skillsetId })
     const userSkills = await this.userSkillService.find({ user, skillsetId })
 
     return this.telegramService.sendEvent('sendMessage', {
@@ -214,5 +227,69 @@ export class TelegramController {
         }),
       },
     })
+  }
+
+  async addResource (
+    skillId: number,
+    user: User,
+  ) {
+    const userData = await this.getUserCache(user)
+    const resource = await this.resourceService.createByLink(userData.link) as Resource
+
+    if (!resource) {
+      return this.telegramService.sendEvent('sendMessage', {
+        chat_id: user.telegramId,
+        text: 'Resource is not created. Try again!',
+      })
+    }
+
+    const userSkill = await this.userSkillService.findById(skillId, {
+      relations: ['userResources'],
+    })
+
+    const userResource = userSkill.userResources.
+      find(userResource => userResource.resource.id === resource.id)
+
+    if (userResource) {
+      await this.clearUserCache(user)
+
+      return this.telegramService.sendEvent('sendMessage', {
+        chat_id: user.telegramId,
+        text: 'Resource has already been before.',
+        reply_markup: {
+          remove_keyboard: true,
+        },
+      })
+    }
+
+    await this.userResourceService.addResource(
+      user,
+      userData.skillsetId,
+      userSkill,
+      resource as Resource,
+    )
+
+    await this.clearUserCache(user)
+    return this.telegramService.sendEvent('sendMessage', {
+      chat_id: user.telegramId,
+      text: 'Resource was added!',
+    })
+  }
+
+  getUserCache (user: User) {
+    return this.cacheService.get<UserData>(`${TELEGRAM_CACHE_KEY}:${user.telegramId}`) || {} as UserData
+  }
+
+  async updateUserCache (user: User, data: any) {
+    const userData = await this.getUserCache(user)
+
+    return this.cacheService.set(`${TELEGRAM_CACHE_KEY}:${user.telegramId}`, {
+      ...userData,
+      ...data,
+    })
+  }
+
+  clearUserCache (user: User) {
+    return this.cacheService.del(`${TELEGRAM_CACHE_KEY}:${user.telegramId}`)
   }
 }
