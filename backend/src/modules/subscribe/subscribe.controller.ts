@@ -20,10 +20,10 @@ export class SubscribeController {
   }
 
   @Get()
-  @ApiUseTags('admin')
   @Roles([RoleType.Admin])
   @UseGuards(RolesGuard)
   @UseGuards(AuthGuard('jwt'))
+  @ApiUseTags('admin')
   getSubscribers () {
     return this.subscribeService.findAll()
   }

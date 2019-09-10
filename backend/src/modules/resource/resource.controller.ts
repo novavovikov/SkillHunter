@@ -50,19 +50,19 @@ export class ResourceController {
   }
 
   @Get('list')
-  @ApiUseTags('resource')
   @UseGuards(RolesGuard)
   @Roles([RoleType.Admin])
   @UseGuards(AuthGuard('jwt'))
+  @ApiUseTags('admin')
   getAllResources () {
     return this.resourceService.findAll()
   }
 
   @Get(':resourceId/refresh')
-  @ApiUseTags('resource')
   @UseGuards(RolesGuard)
   @Roles([RoleType.Admin])
   @UseGuards(AuthGuard('jwt'))
+  @ApiUseTags('admin')
  async updateResourceCache (
     @Param('resourceId') resourceId: string,
   ) {
@@ -136,7 +136,7 @@ export class ResourceController {
   @Put(':resourceId')
   @UseGuards(AuthGuard('jwt'))
   @Roles([RoleType.Admin])
-  @ApiUseTags('skill')
+  @ApiUseTags('admin')
   async updateSkill (
     @Body() data: Partial<SkillDto>,
     @Param('resourceId') resourceId: string,
@@ -163,7 +163,7 @@ export class ResourceController {
   @Delete(':resourceId')
   @UseGuards(AuthGuard('jwt'))
   @Roles([RoleType.Admin])
-  @ApiUseTags('resource')
+  @ApiUseTags('admin')
   async removeResource (
     @Param('resourceId') resourceId: string,
   ) {

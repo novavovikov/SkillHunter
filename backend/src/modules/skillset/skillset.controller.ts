@@ -102,7 +102,7 @@ export class SkillsetController {
   @Put(':skillsetId')
   @UseGuards(AuthGuard('jwt'))
   @Roles([RoleType.Admin])
-  @ApiUseTags('skillset')
+  @ApiUseTags('admin')
   async updateSkill (
     @Body() data: Partial<SkillDto>,
     @Param('skillsetId') skillsetId: string,
@@ -119,7 +119,7 @@ export class SkillsetController {
   @Delete(':skillsetId')
   @UseGuards(AuthGuard('jwt'))
   @Roles([RoleType.Admin])
-  @ApiUseTags('skillset')
+  @ApiUseTags('admin')
   async removeResource (
     @Param('skillsetId') skillsetId: string,
   ) {

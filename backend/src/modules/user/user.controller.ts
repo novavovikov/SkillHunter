@@ -217,7 +217,7 @@ export class UserController {
 
   @Post('skillset/copy')
   @Roles([RoleType.Admin])
-  @ApiUseTags('user')
+  @ApiUseTags('admin')
   async copySkillset (
     @Body('source') source: string,
     @Body('target') target: string,
@@ -268,6 +268,7 @@ export class UserController {
   }
 
   @Delete('skillset/:skillsetId')
+  @ApiUseTags('user')
   async removeSkillset (
     @Param('skillsetId') skillsetId: string,
     @UserData() user

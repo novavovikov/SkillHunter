@@ -42,6 +42,7 @@ export class UserResourceController {
 
   @Get('search')
   @UseGuards(AuthGuard('jwt'))
+  @ApiUseTags('user-resource')
   async findResources (
     @Query('q') q: string,
     @UserData() user: User,

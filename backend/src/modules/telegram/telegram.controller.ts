@@ -17,6 +17,7 @@ import { ResourceService } from '../resource/resource.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
 import { Resource } from '../resource/resource.entity'
 import { LOGOUT_TELEGRAM_COMMAND, START_TELEGRAM_COMMAND, TELEGRAM_COMMANDS } from './constants/commands'
+import { ApiUseTags } from '@nestjs/swagger'
 
 interface UserData {
   link?: string
@@ -24,7 +25,8 @@ interface UserData {
   skillId?: number
 }
 
-@Controller(`telegram`)
+@Controller('telegram')
+@ApiUseTags('telegram')
 export class TelegramController {
   constructor (
     private cacheService: CacheService,

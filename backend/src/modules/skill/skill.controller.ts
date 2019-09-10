@@ -32,7 +32,7 @@ export class SkillController {
 
   @Put(':skillId')
   @Roles([RoleType.Admin])
-  @ApiUseTags('skill')
+  @ApiUseTags('admin')
   async updateSkill (
     @Body() data: Partial<SkillDto>,
     @Param('skillId') skillId: string,
@@ -48,7 +48,7 @@ export class SkillController {
 
   @Delete(':skillId')
   @Roles([RoleType.Admin])
-  @ApiUseTags('skill')
+  @ApiUseTags('admin')
   deleteSkill (
     @Param('skillId') skillId: string,
   ) {
