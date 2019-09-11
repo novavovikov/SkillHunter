@@ -57,6 +57,9 @@ services:
     image: "redis:alpine"
     ports:
       - 6379:6379
+    volumes:
+      - redis_data:/data
+      - ./redis/redis.conf:/opt/bitnami/redis/etc/redis.conf
     networks:
       - SkillHunter
 
@@ -92,3 +95,6 @@ services:
 
 networks:
   SkillHunter:
+
+volumes:
+  redis_data:

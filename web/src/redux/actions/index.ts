@@ -1,3 +1,4 @@
+import * as app from './app'
 import * as user from './user'
 import * as skillset from './skillset'
 import * as skills from './skills'
@@ -8,6 +9,7 @@ import * as notifications from './notifications'
 import * as loading from './loading'
 
 export default {
+  ...app,
   ...user,
   ...skillset,
   ...skills,

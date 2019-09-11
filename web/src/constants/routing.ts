@@ -13,6 +13,7 @@ export const ROUTES = {
   SKILL: '/skill',
   EVALUATION: '/evaluation',
   RESOURCE: '/resource',
+  UPDATE: '/update',
   PLAN: '/plan',
 }
 

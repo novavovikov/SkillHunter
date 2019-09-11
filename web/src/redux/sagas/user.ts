@@ -2,10 +2,10 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { API } from '../../constants/api'
 import { ENotifications } from '../../constants/notification'
 import { ajax } from '../../utils/ajax'
-import ac from '../actions'
 import { UserActionTypes } from '../actionTypes/user'
 import { AddUserSkillsetSaga, CopyUserSkillsetSaga, RemoveUserSkillsetSaga } from '../interfaces/user'
 import { errorHandler } from '../utils/errorHandler'
+import ac from '../actions'
 
 function * getUserDataSaga () {
   yield put(ac.addLoading('user'))
@@ -15,6 +15,14 @@ function * getUserDataSaga () {
 
     yield put(ac.setUserData(data))
   } catch (error) {
+    if (
+      error &&
+      error.response &&
+      error.response.status >= 500
+    ) {
+      yield put(ac.updateAppData({ statusCode: error.response.status }))
+    }
+
     yield put(ac.setUserData(null))
   }
 

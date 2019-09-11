@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
-import { Route, RouteComponentProps, Switch, withRouter } from 'react-router'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router'
 import { PAGE_VIEW_EVENT } from '../constants/analytics'
 import { ROUTES } from '../constants/routing'
+import { RootState } from '../redux/reducers'
 import { analytics } from '../utils/analytics'
 import PrivateRoute from './privateRoute'
+import UpdatePage from '../pages/UpdatePage'
 
 const ToS = React.lazy(() => import('../pages/ToS'))
 const Cookie = React.lazy(() => import('../pages/Cookie'))
@@ -20,7 +24,11 @@ const Resources = React.lazy(() => import('../pages/Resources'))
 const Mock = React.lazy(() => import('../pages/Mock'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
-class Routes extends Component<RouteComponentProps> {
+interface Props extends RouteComponentProps {
+  statusCode: number
+}
+
+class Routes extends Component<Props> {
   componentDidMount (): void {
     this.props.history.listen(() => {
       analytics({
@@ -31,6 +39,12 @@ class Routes extends Component<RouteComponentProps> {
   }
 
   render () {
+    const { statusCode } = this.props
+
+    if (statusCode >= 500) {
+      return <UpdatePage/>
+    }
+
     return (
       <React.Suspense fallback={<div>Загрузка</div>}>
         <Switch>
@@ -121,14 +135,18 @@ class Routes extends Component<RouteComponentProps> {
             exact
           />
 
-          <PrivateRoute
-            path={'*'}
-            component={NotFound}
-          />
+          <PrivateRoute component={NotFound}/>
         </Switch>
       </React.Suspense>
     )
   }
 }
 
-export default withRouter(Routes)
+export default compose(
+  withRouter,
+  connect(
+    ({ app }: RootState) => ({
+      statusCode: app.statusCode
+    }),
+  ),
+)(Routes)
