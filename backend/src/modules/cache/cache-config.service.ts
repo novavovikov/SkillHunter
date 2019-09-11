@@ -32,8 +32,7 @@ export class CacheConfigService implements CacheOptionsFactory {
       store: redisStore,
       host: process.env.REDIS_HOST || 'redis',
       port: process.env.REDIS_PORT || 6379,
-      ttl: 120, // seconds
-      max: 10, // maximum number of items in cache
+      ttl: 600, // seconds
     }
   }
 }

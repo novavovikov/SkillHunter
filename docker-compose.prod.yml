@@ -75,9 +75,11 @@ services:
       - redis
 
   redis:
-    build: ./redis
+    image: "redis:alpine"
     ports:
       - 6379:6379
+    volumes:
+      - redis_data:/data
     networks:
       - SkillHunter
 
@@ -86,6 +88,7 @@ volumes:
   web_app:
   admin_panel:
   static:
+  redis_data:
 
 networks:
   SkillHunter:
