@@ -1,10 +1,10 @@
-import { CacheService } from './cache.service'
+import { CacheService } from '../../modules/cache/cache.service'
 import { CacheManagerOptions, InternalServerErrorException } from '@nestjs/common'
 import 'reflect-metadata'
 import { switchMap, tap } from 'rxjs/operators'
 import { from, Observable, of } from 'rxjs'
 
-type Cacheable<T> = (...args) => Observable<T>;
+type Cacheable<T> = (...args) => Observable<T>
 
 export function Cache<T> (options?: CacheManagerOptions) {
   return (target: any, methodName: string, descriptor: TypedPropertyDescriptor<Cacheable<T>>) => {
@@ -28,8 +28,7 @@ export function Cache<T> (options?: CacheManagerOptions) {
           switchMap(res =>
             res
               ? of(res)
-              : originalMethod.apply(this, args).
-                pipe(tap((methodResult: T) => cache.set<T>(cacheKey, methodResult, options))),
+              : originalMethod.apply(this, args).pipe(tap((methodResult: T) => cache.set<T>(cacheKey, methodResult, options))),
           ),
         )
       }

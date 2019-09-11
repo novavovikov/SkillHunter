@@ -12,7 +12,7 @@ import { UserSkillModule } from '../user-skill/user-skill.module'
 import { UserModule } from '../user/user.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { CacheModule } from '../cache'
+import { CacheModule } from '../cache/cache.module'
 import config from '../../../ormconfig'
 
 @Module({
