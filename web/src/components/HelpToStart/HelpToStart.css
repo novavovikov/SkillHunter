@@ -122,6 +122,7 @@
     max-width: 100%;
     background: rgba(204, 204, 204, 0.5);
     overflow: hidden;
+    z-index: var(--z-popup);
 
     video {
       position: absolute;
@@ -153,6 +154,7 @@
     background: #000 url("./icons/zoom.svg") no-repeat center/24px 30px;
     opacity: 0.2;
     transition: var(--transition);
+    z-index: 3;
   }
 
   &__submit {
