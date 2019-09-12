@@ -5,6 +5,10 @@
   @apply --font-s;
   background: #fff;
 
+  @media (--md) {
+    padding: 20px;
+  }
+
   &__header {
     display: flex;
     align-items: center;
@@ -31,7 +35,11 @@
     width: 26px;
     height: 26px;
     margin: 0 5px 0 0;
-    background: url("./icons/peace.svg");
+    background: url("./icons/peace.svg") no-repeat center/contain;
+
+    @media (--xs) {
+      display: none;
+    }
   }
 
   &__text {
@@ -61,6 +69,15 @@
       padding: 5px;
     }
 
+    @media (--xs) {
+      padding-left: 50px;
+
+      &:before {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
     &_done {
       &:before {
         background: var(--color-jungle-green);
@@ -78,6 +95,13 @@
         border-right: 2px solid #fff;
         border-bottom: 2px solid #fff;
         transform: rotate(45deg);
+
+        @media (--xs) {
+          left: 12px;
+          top: 0;
+          width: 12px;
+          height: 20px;
+        }
       }
     }
 
@@ -93,11 +117,15 @@
     position: relative;
     margin: 20px 0 0;
     width: 380px;
-    height: 105px;
+    padding-bottom: calc(105/380*100%);
+    max-width: 100%;
     background: rgba(204, 204, 204, 0.5);
     overflow: hidden;
 
     video {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       transition: var(--transition);
