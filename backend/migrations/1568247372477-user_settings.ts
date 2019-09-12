@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class userSettings1568239809921 implements MigrationInterface {
+export class userSettings1568247372477 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query(`CREATE TABLE "user_settings" ("id" SERIAL NOT NULL, "private" boolean NOT NULL DEFAULT false, "onboarding" boolean NOT NULL DEFAULT true, "newsletter" boolean NOT NULL DEFAULT true, "push" boolean NOT NULL DEFAULT true, CONSTRAINT "PK_00f004f5922a0744d174530d639" PRIMARY KEY ("id"))`);
