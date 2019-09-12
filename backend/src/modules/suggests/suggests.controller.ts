@@ -23,25 +23,27 @@ export class SuggestsController {
     @Query('skill') skill: string,
   ) {
     if (skillset) {
-      const normalizedText = textNormalizer(skillset)
-      const data = await this.suggestsService.getDataFromHH(SUGGESTS.skillset, normalizedText)
-      await this.skillsetService.setSkillsets(data.map(item => ({
-        ...item,
-        accepted: true,
-      })))
+      // FIXME remove integration with HH
+      // const normalizedText = textNormalizer(skillset)
+      // const data = await this.suggestsService.getDataFromHH(SUGGESTS.skillset, normalizedText)
+      // await this.skillsetService.setSkillsets(data.map(item => ({
+      //   ...item,
+      //   accepted: true,
+      // })))
 
-      return this.skillsetService.like('name', normalizedText)
+      return this.skillsetService.like('name', skillset)
     }
 
     if (skill) {
-      const normalizedText = textNormalizer(skill)
-      const data = await this.suggestsService.getDataFromHH(SUGGESTS.skill, normalizedText)
-      await this.skillService.setSkills(data.map(item => ({
-        ...item,
-        accepted: true,
-      })))
+      // FIXME remove integration with HH
+      // const normalizedText = textNormalizer(skill)
+      // const data = await this.suggestsService.getDataFromHH(SUGGESTS.skill, normalizedText)
+      // await this.skillService.setSkills(data.map(item => ({
+      //   ...item,
+      //   accepted: true,
+      // })))
 
-      return this.skillService.like('name', normalizedText)
+      return this.skillService.like('name', skill)
     }
 
     return []
