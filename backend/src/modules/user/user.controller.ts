@@ -32,6 +32,7 @@ import { UserService } from './user.service'
 import { WELCOME_RESOURCE_ID, WELCOME_SKILL_NAME } from '../../constants/welcome'
 import { ResourceService } from '../resource/resource.service'
 import { UserSkill } from '../user-skill/user-skill.entity'
+import { UserSettingsService } from '../user-settings/user-settings.service'
 
 @Controller('user')
 @UseGuards(RolesGuard)
@@ -39,6 +40,7 @@ import { UserSkill } from '../user-skill/user-skill.entity'
 export class UserController {
   constructor (
     private userService: UserService,
+    private userSettingService: UserSettingsService,
     private userSkillService: UserSkillService,
     private userResourceService: UserResourceService,
     private skillsetService: SkillsetService,
@@ -141,14 +143,6 @@ export class UserController {
     return this.userService.update(user.id, updatedData)
   }
 
-  @Delete()
-  @ApiUseTags('user')
-  async deleteUser (@UserData() user) {
-    await this.userResourceService.removeAllResources(user)
-    await this.userSkillService.removeAllSkills(user)
-    return this.userService.delete(user.id)
-  }
-
   @Get('skillsets')
   @ApiUseTags('user')
   async getSkillset (@UserData() user): Promise<Skillset[]> {
@@ -188,7 +182,8 @@ export class UserController {
       }, HttpStatus.NOT_FOUND)
     }
 
-    const skillNames = !user.skillsets.length
+    // FIXME отключили welcome скил на время
+    const skillNames = user.skillsets.length === -1
       ? [...skills, WELCOME_SKILL_NAME]
       : skills
 
@@ -202,7 +197,8 @@ export class UserController {
       skillList,
     )
 
-    if (user.skillsets.length === 1) {
+    // FIXME отключили welcome скил на время
+    if (user.skillsets.length === -1) {
       const welcomeSkill = userSkills.find(({ skill }) => skill.name === WELCOME_SKILL_NAME)
       await this.createWelcomeSkill(
         user,
@@ -265,6 +261,15 @@ export class UserController {
     )
 
     return updatedUser.skillsets
+  }
+
+  @Delete()
+  @ApiUseTags('user')
+  async deleteUser (@UserData() user) {
+    await this.userResourceService.removeAllResources(user)
+    await this.userSkillService.removeAllSkills(user)
+    await this.userSettingService.delete(user)
+    return this.userService.delete(user.id)
   }
 
   @Delete('skillset/:skillsetId')

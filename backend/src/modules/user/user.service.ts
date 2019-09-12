@@ -32,8 +32,11 @@ export class UserService {
 
   async create (data: UserDto) {
     const user = this.userRepository.create(data)
-    await this.userRepository.save(user)
-    return user
+
+    return this.userRepository.save({
+      ...user,
+      settings: {}
+    })
   }
 
   async update (id: number, data: UserDto) {

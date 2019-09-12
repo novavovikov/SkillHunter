@@ -3,6 +3,7 @@
 interface CssExports {
   'UpdatePage': string;
   'UpdatePage__img': string;
+  'UpdatePage__subtitle': string;
   'UpdatePage__title': string;
 }
 declare var cssExports: CssExports;

@@ -1,4 +1,5 @@
 import Analytics from './Analytics'
+import HelpToStart from './HelpToStart'
 import Page from './Page'
 import Footer from './Footer'
 import ProgressBar from './ProgressBar'
@@ -47,6 +48,7 @@ import * as Text from './Text'
 
 export {
   Analytics,
+  HelpToStart,
   Page,
   Footer,
   ProgressBar,

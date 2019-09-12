@@ -34,7 +34,7 @@ export class UserResourceService {
     })
   }
 
-  async findById (
+  findById (
     resourceId: string | number,
     options?: FindOneOptions<UserResource>
   ) {

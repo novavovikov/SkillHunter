@@ -8,6 +8,7 @@ import { SubscribeModule } from '../subscribe/subscribe.module'
 import { SuggestsModule } from '../suggests/suggests.module'
 import { TelegramModule } from '../telegram/telegram.module'
 import { UserResourceModule } from '../user-resource/user-resource.module'
+import { UserSettingsModule } from '../user-settings/user-settings.module'
 import { UserSkillModule } from '../user-skill/user-skill.module'
 import { UserModule } from '../user/user.module'
 import { AppController } from './app.controller'
@@ -22,6 +23,7 @@ import config from '../../../ormconfig'
     AuthModule,
     SuggestsModule,
     UserModule,
+    UserSettingsModule,
     SkillsetModule,
     UserSkillModule,
     UserResourceModule,

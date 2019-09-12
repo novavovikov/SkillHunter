@@ -13,11 +13,14 @@ import { User } from './user.entity'
 import { UserService } from './user.service'
 import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
+import { UserSettings } from '../user-settings/user-settings.entity'
+import { UserSettingsService } from '../user-settings/user-settings.service'
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       User,
+      UserSettings,
       UserSkill,
       UserResource,
       Skillset,
@@ -31,6 +34,7 @@ import { ResourceService } from '../resource/resource.service'
   controllers: [UserController],
   providers: [
     UserService,
+    UserSettingsService,
     UserSkillService,
     UserResourceService,
     SkillsetService,

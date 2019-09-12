@@ -14,11 +14,18 @@ class UpdatePage extends Component {
   render () {
     return (
       <div className={s.UpdatePage}>
-        <div className={s.UpdatePage__img}>
-          <img src={updatePageImg} alt=""/>
-        </div>
+        <img
+          className={s.UpdatePage__img}
+          src={updatePageImg}
+          alt=""
+        />
+
         <div className={s.UpdatePage__title}>
-          We are updating <br/>our website
+          SkillHunter is currently down
+          for maintenance.
+        </div>
+        <div className={s.UpdatePage__subtitle}>
+          Please check back soon.
         </div>
       </div>
     )

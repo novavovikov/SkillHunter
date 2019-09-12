@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Title from './Title'
-import welcomeImage from './images/welcome.png'
+import welcomeImage from './images/welcome.svg'
 import * as s from './Welcome.css'
 import { Mark } from '../../UI'
 

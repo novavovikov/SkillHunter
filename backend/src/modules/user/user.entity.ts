@@ -1,9 +1,20 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { RoleType } from '../../constants/role-type'
 import { Skillset } from '../skillset/skillset.entity'
 import { Resource } from '../resource/resource.entity'
 import { UserResource } from '../user-resource/user-resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
+import { UserSettings } from '../user-settings/user-settings.entity'
 
 @Entity()
 export class User {
@@ -40,6 +51,17 @@ export class User {
 
   @Column({ nullable: true })
   telegramId: number
+
+  @OneToOne(
+    () => UserSettings,
+    settings => settings.user,
+    {
+      cascade: ['insert', 'remove', 'update'],
+      onDelete: 'CASCADE',
+    },
+  )
+  @JoinColumn()
+  settings: UserSettings
 
   @ManyToMany(
     () => Resource,
