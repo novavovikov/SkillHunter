@@ -16,7 +16,19 @@ const Video: FC<Props> = ({ name }) => {
     }
 
     if (videoNode.requestFullscreen) {
-      videoNode.requestFullscreen()
+      return videoNode.requestFullscreen()
+    }
+
+    if (videoNode.mozRequestFullScreen) { /* Firefox */
+      return videoNode.mozRequestFullScreen()
+    }
+
+    if (videoNode.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      return videoNode.webkitRequestFullscreen()
+    }
+
+    if (videoNode.msRequestFullscreen) { /* IE/Edge */
+      return videoNode.msRequestFullscreen()
     }
   }
 

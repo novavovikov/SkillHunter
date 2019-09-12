@@ -65,3 +65,9 @@ declare interface Window {
     }
   }
 }
+
+interface Element {
+  mozRequestFullScreen: () => void
+  webkitRequestFullscreen: () => void
+  msRequestFullscreen: () => void
+}

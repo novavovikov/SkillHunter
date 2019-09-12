@@ -2,7 +2,8 @@
 
 .HelpToStart {
   padding: 40px 60px 25px;
-  @apply --font-s;
+  font-size: 12px;
+  line-height: 14px;
   background: #fff;
 
   @media (--md) {
@@ -70,11 +71,11 @@
     }
 
     @media (--xs) {
-      padding-left: 50px;
+      padding-left: 46px;
 
       &:before {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
       }
     }
 
@@ -98,9 +99,9 @@
 
         @media (--xs) {
           left: 12px;
-          top: 0;
-          width: 12px;
-          height: 20px;
+          top: 1px;
+          width: 10px;
+          height: 18px;
         }
       }
     }
@@ -139,7 +140,7 @@
   }
 
   &__video:hover &__fullscreen {
-    opacity: .5;
+    opacity: .65;
   }
 
   &__fullscreen {
@@ -150,12 +151,8 @@
     height: 30px;
     border: none;
     background: #000 url("./icons/zoom.svg") no-repeat center/24px 30px;
-    opacity: 0;
+    opacity: 0.2;
     transition: var(--transition);
-
-    &:hover {
-      opacity: .7 !important;
-    }
   }
 
   &__submit {
