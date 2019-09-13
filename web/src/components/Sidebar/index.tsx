@@ -6,7 +6,7 @@ import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { ISkillset, IUser } from '../../types'
 import { Layout } from '../../UI'
-import { Nav, SkillCreator, UserSkillset } from '../index'
+import { Nav, SkillCreator, UserSkillset, UserProgress } from '../index'
 
 interface Params {
   skillset: string
@@ -36,6 +36,7 @@ class Sidebar extends Component<Props> {
       <Layout.Aside className={className}>
         {user && (
           <>
+            <UserProgress/>
             <UserSkillset onChange={onClose}/>
             <Nav/>
             <SkillCreator

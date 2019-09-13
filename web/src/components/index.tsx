@@ -3,6 +3,7 @@ import HelpToStart from './HelpToStart'
 import Page from './Page'
 import Footer from './Footer'
 import ProgressBar from './ProgressBar'
+import UserProgress from './UserProgress'
 import Notifications from './Notifications'
 import Filters from './Filters'
 import FeatureController from './FeatureController'
@@ -52,6 +53,7 @@ export {
   Page,
   Footer,
   ProgressBar,
+  UserProgress,
   Notifications,
   Filters,
   FeatureController,
