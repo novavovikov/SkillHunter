@@ -15,7 +15,7 @@ class UserProgress extends Component<Props> {
   get status () {
     const { resources } = this.props
 
-    const progress = Object.values(resources).reduce((acc, { total, data }) => {
+    const { done, total } = Object.values(resources).reduce((acc, { total, data }) => {
       const resourcesWithDone = data.filter(({ status }) => status === EResourceStatus.Done)
       const resourcesWithPlan = data.filter(({ status }) => status === EResourceStatus.Plan)
 
@@ -28,7 +28,11 @@ class UserProgress extends Component<Props> {
       done: 0
     })
 
-    return progress.done / progress.total * 100
+    if (total) {
+      return done / total * 100
+    }
+
+    return 0
   }
 
   render () {
