@@ -54,17 +54,17 @@ class HelpToStart extends Component<{}, State> {
           <div className={s.HelpToStart__header}>
             <i className={s.HelpToStart__icon}/>
             <h3 className={s.HelpToStart__title}>
-              Hi! Skillhunter help improve your skills
+              Hi! Skillhunter helps you with improving your skills
             </h3>
           </div>
 
           <div className={s.HelpToStart__body}>
             <div className={cn(s.HelpToStart__section, s.HelpToStart__section_done)}>
               <h4 className={s.HelpToStart__title}>
-                Add skill set and skills
+                Add skillset and skills
               </h4>
               <p className={s.HelpToStart__text}>
-                It’s may be profession, hobby or activity. Each skillset contains any skills
+                Profession, hobby or activity. Each skillset contains several skills
               </p>
             </div>
 
@@ -76,7 +76,7 @@ class HelpToStart extends Component<{}, State> {
                 Add resources
               </h4>
               <p className={s.HelpToStart__text}>
-                Each skill contains any resource for self-development. <br/>
+                Each skill contains resources for self-development. <br/>
                 Use button Add resource or recommendations
               </p>
 
@@ -103,7 +103,7 @@ class HelpToStart extends Component<{}, State> {
               className={s.HelpToStart__submit}
               onClick={this.resetState}
             >
-              I understand, close it
+              Got it, close it
             </button>
           </div>
         </div>
