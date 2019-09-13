@@ -1,9 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Session, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Session,
+  UseGuards
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
 import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
+import { HttpMessageType } from '../../constants/exception'
 import { RoleType } from '../../constants/role-type'
 import { Skill } from '../skill/skill.entity'
 import { SkillService } from '../skill/skill.service'
@@ -123,7 +136,18 @@ export class SkillsetController {
   async removeResource (
     @Param('skillsetId') skillsetId: string,
   ) {
-    const skillset = await this.skillsetService.findById(Number(skillsetId))
+    const skillset = await this.skillsetService.findById(Number(skillsetId), {
+      relations: ['users']
+    })
+
+    if (skillset.users.length) {
+      throw new HttpException({
+        message: 'This skillset has relations',
+        type: HttpMessageType.warning,
+        statusCode: HttpStatus.BAD_REQUEST
+      }, HttpStatus.BAD_REQUEST)
+    }
+
     return await this.skillsetService.remove(skillset)
   }
 }
