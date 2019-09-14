@@ -15,6 +15,7 @@ import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
 import { UserSettings } from '../user-settings/user-settings.entity'
 import { UserSettingsService } from '../user-settings/user-settings.service'
+import { MailService } from '../mail/mail.service'
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { UserSettingsService } from '../user-settings/user-settings.service'
   ],
   controllers: [UserController],
   providers: [
+    MailService,
     UserService,
     UserSettingsService,
     UserSkillService,

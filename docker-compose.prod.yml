@@ -48,23 +48,8 @@ services:
     volumes:
       - landing:/app/out
       - static:/app/src/static
-    environment:
-      - NODE_ENV=prod
-      - DOMAIN=skillhunter.io
-      - PORT=4321
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - TELEGRAM_BOT_ID=718396767:AAGha-b2mIDH9TmVb1OZNebu23jmv6Xu8Zo
-      - GOOGLE_CLIENT_ID=71152846727-1i6m8nnkch3morlj2o5fq0jfug55piu9.apps.googleusercontent.com
-      - GOOGLE_CLIENT_SECRET=Fuph7bjuvg_8bVnc4QQu5QG3
-      - FACEBOOK_CLIENT_ID=2147135318727842
-      - FACEBOOK_CLIENT_SECRET=cd99bb88dee8c6a5a897adb5606fc949
-      - FACEBOOK_CALLBACK_URL=https://app.skillhunter.io/api/auth/facebook/callback
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_HOST
-      - POSTGRES_PORT
-      - POSTGRES_DB
+    env_file:
+      - prod.env
     working_dir: /app
     ports:
       - 4321:4321

@@ -4,11 +4,13 @@ import { Strategy } from 'passport-google-oauth20'
 import { UserService } from '../../user/user.service'
 import { AuthService } from '../auth.service'
 import { GOOGLE_STRATEGY } from '../constants/auth'
+import { MailService } from '../../mail/mail.service'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor (
     private userService: UserService,
+    private mailService: MailService,
   ) {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
@@ -42,6 +44,13 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
         picture,
         name: profile.displayName,
         googleId: profile.id,
+      })
+
+      this.mailService.send({
+        to: 'novavovikov@gmail.com',
+        subject: 'Registration',
+        template: 'registration',
+        context: user,
       })
     }
 

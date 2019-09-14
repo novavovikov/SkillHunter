@@ -15,8 +15,9 @@ async function bootstrap () {
   app.setGlobalPrefix(API_BASE_PATH)
 
   if (env === 'dev') {
-    const options = new DocumentBuilder().setTitle('SkillHunter Application').
-      setDescription('APIs for the SkillHunter application.').
+    const appName = process.env.APP_NAME
+    const options = new DocumentBuilder().setTitle(`${appName} Application`).
+      setDescription(`APIs for the ${appName} application.`).
       setVersion('1.0.0').
       setBasePath(API_BASE_PATH).
       setExternalDoc('For more information', 'http://swagger.io').

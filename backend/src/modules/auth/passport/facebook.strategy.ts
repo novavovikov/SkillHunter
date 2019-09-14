@@ -4,11 +4,13 @@ import { Strategy } from 'passport-facebook'
 import { UserService } from '../../user/user.service'
 import { AuthService } from '../auth.service'
 import { FACEBOOK_STRATEGY } from '../constants/auth'
+import { MailService } from '../../mail/mail.service'
 
 @Injectable()
 export class FacebookStrategy extends PassportStrategy(Strategy) {
   constructor (
     private userService: UserService,
+    private mailService: MailService,
   ) {
     super({
       clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -42,6 +44,13 @@ export class FacebookStrategy extends PassportStrategy(Strategy) {
         picture,
         facebookId: profile.id,
         name: profile.displayName,
+      })
+
+      this.mailService.send({
+        to: 'novavovikov@gmail.com',
+        subject: 'Registration',
+        template: 'registration',
+        context: user,
       })
     }
 

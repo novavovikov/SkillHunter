@@ -7,6 +7,7 @@ import { UserService } from '../user/user.service'
 import { GoogleStrategy } from './passport/google.strategy'
 import { JWTStrategy } from './passport/jwt.strategy'
 import { FacebookStrategy } from './passport/facebook.strategy'
+import { MailService } from '../mail/mail.service'
 
 @Module({
   controllers: [AuthController],
@@ -14,6 +15,7 @@ import { FacebookStrategy } from './passport/facebook.strategy'
   providers: [
     UserService,
     AuthService,
+    MailService,
     JWTStrategy,
     GoogleStrategy,
     FacebookStrategy

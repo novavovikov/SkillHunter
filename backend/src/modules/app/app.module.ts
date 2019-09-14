@@ -11,9 +11,10 @@ import { UserResourceModule } from '../user-resource/user-resource.module'
 import { UserSettingsModule } from '../user-settings/user-settings.module'
 import { UserSkillModule } from '../user-skill/user-skill.module'
 import { UserModule } from '../user/user.module'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { CacheModule } from '../cache/cache.module'
+import { MailModule } from '../mail/mail.module'
+import { AppService } from './app.service'
+import { AppController } from './app.controller'
 import config from '../../../ormconfig'
 
 @Module({
@@ -31,6 +32,7 @@ import config from '../../../ormconfig'
     ResourceModule,
     CacheModule,
     TelegramModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
