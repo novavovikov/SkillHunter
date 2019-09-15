@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Typed from 'typed.js'
 import SkillsetForm from '../SkillsetForm'
 import Container from '../Container'
 
 import s from './Banner.scss'
-import { APP_ROUTE } from '../../constants/routes'
 
 const Banner = () => {
   useEffect(() => {

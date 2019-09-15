@@ -36,7 +36,7 @@ class SkillsetStep extends Component<Props> {
         onSubmit={this.onSubmit}
       >
         <H2 className={s.SkillsetStep__title}>
-          Create your skillset and improve it
+          Create your skillset and improve it!
         </H2>
 
         <AutoComplete
