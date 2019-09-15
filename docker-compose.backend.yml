@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - landing:/app/out
+    env_file:
+      - prod.env
+    working_dir: /app
+    ports:
+      - 4321:4321
+    restart: always
+    depends_on:
+      - redis
+    networks:
+      - SkillHunter
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+      - ./redis/redis.conf:/opt/bitnami/redis/etc/redis.conf
+    networks:
+      - SkillHunter
+
+volumes:
+  redis_data:
+
+networks:
+  SkillHunter:

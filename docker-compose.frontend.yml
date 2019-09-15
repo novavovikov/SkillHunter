@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  proxy:
+    build: ./proxy
+    volumes:
+      - landing:/var/www/landing
+      - web_app:/var/www/web_app
+      - admin_panel:/var/www/admin_panel
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - landing
+      - web_app
+      - admin_panel
+    restart: always
+
+  landing:
+    build: ./landing
+    volumes:
+      - landing:/app/out
+    working_dir: /app
+
+  web_app:
+    build: ./web
+    volumes:
+      - web_app:/app/dist
+    working_dir: /app
+
+  admin_panel:
+    build: ./admin
+    volumes:
+      - admin_panel:/app/dist
+    working_dir: /app
+
+volumes:
+  landing:
+  web_app:
+  admin_panel:
