@@ -12,7 +12,7 @@ services:
     depends_on:
       - redis
     networks:
-      - SkillHunter
+      - app
 
   redis:
     image: "redis:alpine"
@@ -22,7 +22,7 @@ services:
       - redis_data:/data
       - ./redis/redis.conf:/opt/bitnami/redis/etc/redis.conf
     networks:
-      - SkillHunter
+      - app
 
 volumes:
   redis_data:
