@@ -6,6 +6,8 @@ services:
     env_file:
       - prod.env
     working_dir: /app
+    expose:
+      - 4321
     ports:
       - 4321:4321
     restart: always
