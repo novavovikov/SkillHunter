@@ -8,6 +8,12 @@ pipeline {
       }
     }
 
+    stage('Build') {
+      steps {
+        sh 'docker-compose -f docker-compose.frontend.yml build --no-cache'
+      }
+    }
+
     stage('Landing') {
       steps {
         sh 'docker-compose -f docker-compose.frontend.yml run landing sh -c "npm run build && npm run export"'
