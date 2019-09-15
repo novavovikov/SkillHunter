@@ -15,26 +15,38 @@ services:
       - web_app
       - admin_panel
     restart: always
+    networks:
+      - skillhunter
 
   landing:
     build: ./landing
     volumes:
       - landing:/app/out
     working_dir: /app
+    networks:
+      - skillhunter
 
   web_app:
     build: ./web
     volumes:
       - web_app:/app/dist
     working_dir: /app
+    networks:
+      - skillhunter
 
   admin_panel:
     build: ./admin
     volumes:
       - admin_panel:/app/dist
     working_dir: /app
+    networks:
+      - skillhunter
 
 volumes:
   landing:
   web_app:
   admin_panel:
+
+networks:
+  skillhunter:
+    external: true
