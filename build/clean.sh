@@ -12,5 +12,6 @@ fi
 
 docker system prune --all --force --volumes
 
-docker network create skillhunter
+docker network inspect skillhunter &>/dev/null ||
+    docker network create --driver bridge skillhunter
 
