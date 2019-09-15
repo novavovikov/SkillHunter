@@ -14,12 +14,7 @@ import { Resource } from '../resource/resource.entity'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      User,
-      UserSkill,
-      UserResource,
-      Resource
-    ]),
+    TypeOrmModule.forFeature([User, UserSkill, UserResource, Resource]),
     HttpModule.register({
       timeout: 6000,
     }),

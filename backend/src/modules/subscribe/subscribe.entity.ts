@@ -1,4 +1,9 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 
 @Entity()
 export class Subscribe {
@@ -13,10 +18,8 @@ export class Subscribe {
   })
   email: string
 
-
   @Column({ nullable: true })
   skillset: string
-
 
   @Column({ nullable: true })
   expectations: string

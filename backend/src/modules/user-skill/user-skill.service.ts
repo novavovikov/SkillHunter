@@ -7,35 +7,26 @@ import { UserSkill } from './user-skill.entity'
 
 @Injectable()
 export class UserSkillService {
-  constructor (
+  constructor(
     @InjectRepository(UserSkill)
-    private userSkillRepository: Repository<UserSkill>,
+    private userSkillRepository: Repository<UserSkill>
   ) {}
 
-  find (
-    criteria: any,
-    options?: FindManyOptions<UserSkill>,
-  ) {
+  find(criteria: any, options?: FindManyOptions<UserSkill>) {
     return this.userSkillRepository.find({
       where: criteria,
       ...options,
     })
   }
 
-  findOne (
-    criteria: any,
-    options?: FindOneOptions<UserSkill>,
-  ) {
+  findOne(criteria: any, options?: FindOneOptions<UserSkill>) {
     return this.userSkillRepository.findOne({
       where: criteria,
       ...options,
     })
   }
 
-  findById (
-    id: number | string,
-    options?: FindOneOptions<UserSkill>,
-  ) {
+  findById(id: number | string, options?: FindOneOptions<UserSkill>) {
     return this.userSkillRepository.findOne({
       where: {
         id: Number(id),
@@ -44,10 +35,7 @@ export class UserSkillService {
     })
   }
 
-  getSkillsBySkillsetId (
-    user: User,
-    skillsetId: number,
-  ) {
+  getSkillsBySkillsetId(user: User, skillsetId: number) {
     return this.userSkillRepository.find({
       where: {
         user,
@@ -59,11 +47,7 @@ export class UserSkillService {
     })
   }
 
-  async addSkills (
-    user: User,
-    skillsetId: number,
-    skills: Skill[],
-  ) {
+  async addSkills(user: User, skillsetId: number, skills: Skill[]) {
     const userSkills = skills.map(skill => {
       return this.userSkillRepository.create({
         user,
@@ -75,20 +59,20 @@ export class UserSkillService {
     return this.userSkillRepository.save(userSkills)
   }
 
-  deleteSkills (data: any) {
+  deleteSkills(data: any) {
     return this.userSkillRepository.delete(data)
   }
 
-  async removeSkillsBySkillsetId (
-    user: User,
-    skillsetId: number,
-  ) {
-    const userResources = await this.userSkillRepository.find({ user, skillsetId })
+  async removeSkillsBySkillsetId(user: User, skillsetId: number) {
+    const userResources = await this.userSkillRepository.find({
+      user,
+      skillsetId,
+    })
 
     return await this.userSkillRepository.remove(userResources)
   }
 
-  async removeAllSkills (user: User) {
+  async removeAllSkills(user: User) {
     const userSkills = await this.userSkillRepository.find({ user })
 
     return await this.userSkillRepository.remove(userSkills)

@@ -48,13 +48,18 @@ export class Resource {
   @JoinTable({ name: 'skill_resources' })
   skills: Skill[]
 
-  @ManyToMany(() => User, (user: User) => user.likedResources, { cascade: true })
+  @ManyToMany(() => User, (user: User) => user.likedResources, {
+    cascade: true,
+  })
   @JoinTable({ name: 'resource_likes' })
   usersLikes: User[]
 
   @RelationId((resource: Resource) => resource.usersLikes)
   userIdsLikes: number[]
 
-  @OneToMany(() => UserResource, (userResource: UserResource) => userResource.resource)
+  @OneToMany(
+    () => UserResource,
+    (userResource: UserResource) => userResource.resource
+  )
   userResources: UserResource[]
 }

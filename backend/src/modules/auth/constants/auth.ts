@@ -5,7 +5,7 @@ export const BACK_URL = '/login'
 export const AUTH_COOKIE_OPTIONS = {
   domain: process.env.DOMAIN,
   path: '/',
-  expires: addMonths(new Date(), 1)
+  expires: addMonths(new Date(), 1),
 }
 
 export const JWT_STRATEGY = {

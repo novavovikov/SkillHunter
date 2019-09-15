@@ -8,12 +8,12 @@ import { User } from './user.entity'
 
 @Injectable()
 export class UserService {
-  constructor (
+  constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private userRepository: Repository<User>
   ) {}
 
-  findAll () {
+  findAll() {
     return this.userRepository.find({
       order: {
         id: 'DESC',
@@ -21,7 +21,7 @@ export class UserService {
     })
   }
 
-  async findById (id: number | string, options?: FindOneOptions<User>) {
+  async findById(id: number | string, options?: FindOneOptions<User>) {
     return await this.userRepository.findOne({
       where: {
         id: Number(id),
@@ -30,26 +30,26 @@ export class UserService {
     })
   }
 
-  async create (data: UserDto) {
+  async create(data: UserDto) {
     const user = this.userRepository.create(data)
 
     return this.userRepository.save({
       ...user,
-      settings: {}
+      settings: {},
     })
   }
 
-  async update (id: number, data: UserDto) {
+  async update(id: number, data: UserDto) {
     await this.userRepository.update({ id }, data)
     return await this.userRepository.findOne({ id })
   }
 
-  async delete (id: number) {
+  async delete(id: number) {
     await this.userRepository.delete({ id })
     return { deleted: true }
   }
 
-  async findByAuthData (searchData: UserDto, userData: UserDto = {}) {
+  async findByAuthData(searchData: UserDto, userData: UserDto = {}) {
     const user = await this.userRepository.findOne(searchData)
 
     if (!user) {
@@ -69,17 +69,14 @@ export class UserService {
     return user
   }
 
-  findOne (
-    criteria: any,
-    options?: FindOneOptions<User>,
-  ) {
+  findOne(criteria: any, options?: FindOneOptions<User>) {
     return this.userRepository.findOne({
       where: criteria,
       ...options,
     })
   }
 
-  findByPayload (payload: any) {
+  findByPayload(payload: any) {
     const { id, googleId, facebookId } = payload
 
     if (googleId) {
@@ -89,15 +86,12 @@ export class UserService {
     return this.findOne({ id, facebookId })
   }
 
-  addSkillset (
-    user: User,
-    skillset: Skillset
-  ) {
+  addSkillset(user: User, skillset: Skillset) {
     user.skillsets = unique([...user.skillsets, skillset])
     return this.userRepository.save(user)
   }
 
-  async removeSkillset (userId: number, skillsetId: number) {
+  async removeSkillset(userId: number, skillsetId: number) {
     const user = await this.findById(userId, {
       relations: ['skillsets'],
     })

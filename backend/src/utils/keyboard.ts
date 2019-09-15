@@ -10,7 +10,7 @@ const initialOptions = {
 
 export const generateKeyboard = (
   data: any[],
-  options: Partial<GenerateKeyboardOptions> = {},
+  options: Partial<GenerateKeyboardOptions> = {}
 ) => {
   const config = {
     ...initialOptions,

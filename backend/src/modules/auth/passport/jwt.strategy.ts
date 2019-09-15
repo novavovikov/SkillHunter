@@ -6,20 +6,20 @@ import { JWT_STRATEGY } from '../constants/auth'
 
 @Injectable()
 export class JWTStrategy extends PassportStrategy(Strategy) {
-  constructor (private userService: UserService) {
+  constructor(private userService: UserService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: JWT_STRATEGY.secretOrKey,
     })
   }
 
-  async validate (payload: any, done: VerifiedCallback) {
+  async validate(payload: any, done: VerifiedCallback) {
     const user = await this.userService.findByPayload(payload)
 
     if (!user) {
       return done(
         new HttpException('Unauthorized access', HttpStatus.UNAUTHORIZED),
-        false,
+        false
       )
     }
 

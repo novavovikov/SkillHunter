@@ -8,18 +8,12 @@ import { UserSettings } from './user-settings.entity'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      User,
-      UserSettings,
-    ]),
+    TypeOrmModule.forFeature([User, UserSettings]),
     HttpModule.register({
       timeout: 10000,
     }),
   ],
-  providers: [
-    UserSettingsService,
-    UserService
-  ],
+  providers: [UserSettingsService, UserService],
   controllers: [UserSettingsController],
 })
 export class UserSettingsModule {}

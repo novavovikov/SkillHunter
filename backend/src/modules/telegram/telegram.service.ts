@@ -4,18 +4,16 @@ import { TELEGRAM_URI } from './constants/telegram'
 
 @Injectable()
 export class TelegramService {
-  constructor (
-    private readonly http: HttpService,
-  ) {}
+  constructor(private readonly http: HttpService) {}
 
-  sendEvent (method: string, params: any ) {
+  sendEvent(method: string, params: any) {
     try {
-      return this
-        .http.post(`${TELEGRAM_URI}/${method}`, params)
+      return this.http
+        .post(`${TELEGRAM_URI}/${method}`, params)
         .pipe(map(({ data }) => data))
         .toPromise()
         .catch(err => {
-           console.log('TelegramService: ', err)
+          console.log('TelegramService: ', err)
           return []
         })
     } catch (err) {

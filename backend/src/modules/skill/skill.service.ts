@@ -8,12 +8,12 @@ import { Skill } from './skill.entity'
 
 @Injectable()
 export class SkillService {
-  constructor (
+  constructor(
     @InjectRepository(Skill)
-    private skillRepository: Repository<Skill>,
+    private skillRepository: Repository<Skill>
   ) {}
 
-  findAll () {
+  findAll() {
     return this.skillRepository.find({
       order: {
         id: 'DESC',
@@ -21,31 +21,25 @@ export class SkillService {
     })
   }
 
-  async like (field: string, value: string) {
-    return await this.skillRepository.
-      createQueryBuilder().
-      where(`accepted = true`).
-      andWhere(`LOWER(${field}) LIKE :${field}`,
-        {
-          [field]: `${value.toLowerCase()}%`,
-        },
-      ).
-      limit(10).
-      getMany()
-  }
-
-  find (
-    criteria: any,
-    options?: FindOneOptions<Skill>
-  ) {
-    return this.skillRepository.
-      find({
-        where: criteria,
-        ...options,
+  async like(field: string, value: string) {
+    return await this.skillRepository
+      .createQueryBuilder()
+      .where(`accepted = true`)
+      .andWhere(`LOWER(${field}) LIKE :${field}`, {
+        [field]: `${value.toLowerCase()}%`,
       })
+      .limit(10)
+      .getMany()
   }
 
-  findById (id: number | string, options?: FindOneOptions<Skill>) {
+  find(criteria: any, options?: FindOneOptions<Skill>) {
+    return this.skillRepository.find({
+      where: criteria,
+      ...options,
+    })
+  }
+
+  findById(id: number | string, options?: FindOneOptions<Skill>) {
     return this.skillRepository.findOne({
       where: {
         id: Number(id),
@@ -54,31 +48,30 @@ export class SkillService {
     })
   }
 
-  findByIds (skills: number[]) {
+  findByIds(skills: number[]) {
     return this.skillRepository.findByIds(skills)
   }
 
-  update (
-    id: number,
-    data: Partial<SkillDto>
-  ) {
+  update(id: number, data: Partial<SkillDto>) {
     return this.skillRepository.update({ id }, data)
   }
 
-  delete (id: number) {
+  delete(id: number) {
     return this.skillRepository.delete({ id })
   }
 
-  async setSkills (skills: SkillDto[]) {
+  async setSkills(skills: SkillDto[]) {
     if (!skills.length) {
       return []
     }
 
     // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
-    const foundSkills = await this.skillRepository.find({ name: In(skills.map(({ name }) => name)) })
+    const foundSkills = await this.skillRepository.find({
+      name: In(skills.map(({ name }) => name)),
+    })
 
     const uniqueSkills = skills.filter(
-      skill => !foundSkills.find(({ name }) => skill.name === name),
+      skill => !foundSkills.find(({ name }) => skill.name === name)
     )
 
     if (uniqueSkills.length) {
@@ -88,7 +81,7 @@ export class SkillService {
     return []
   }
 
-  async addResourceToSkill (skillId: number | string, resource: Resource) {
+  async addResourceToSkill(skillId: number | string, resource: Resource) {
     const skill: Skill = await this.findById(skillId, {
       relations: ['resources'],
     })
@@ -102,15 +95,15 @@ export class SkillService {
     return this.skillRepository.save(skill)
   }
 
-  async getSkillList (skills: string[]) {
+  async getSkillList(skills: string[]) {
     let skillList: Skill[] = await this.find({
       name: In(skills),
     })
 
     if (skillList.length !== skills.length) {
-      const notExistentSkills = skills.
-        filter(item => !skillList.find(({ name }) => name === item)).
-        map(name => ({ name }))
+      const notExistentSkills = skills
+        .filter(item => !skillList.find(({ name }) => name === item))
+        .map(name => ({ name }))
       const createdSkills: Skill[] = await this.setSkills(notExistentSkills)
 
       skillList = [...skillList, ...createdSkills]

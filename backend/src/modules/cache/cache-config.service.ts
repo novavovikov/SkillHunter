@@ -1,5 +1,9 @@
 import * as redisStore from 'cache-manager-redis-store'
-import { CacheModuleOptions, CacheOptionsFactory, Injectable } from '@nestjs/common'
+import {
+  CacheModuleOptions,
+  CacheOptionsFactory,
+  Injectable,
+} from '@nestjs/common'
 
 @Injectable()
 export class CacheConfigService implements CacheOptionsFactory {
@@ -7,7 +11,7 @@ export class CacheConfigService implements CacheOptionsFactory {
    * Example retry strategy for when redis is used for the cache
    * This example is only compatible with cache-manager-redis-store because it used node_redis
    */
-  retryStrategy () {
+  retryStrategy() {
     return {
       retry_strategy: (options: any) => {
         if (options.error && options.error.code === 'ECONNREFUSED') {
@@ -27,7 +31,7 @@ export class CacheConfigService implements CacheOptionsFactory {
     }
   }
 
-  createCacheOptions (): CacheModuleOptions {
+  createCacheOptions(): CacheModuleOptions {
     return {
       store: redisStore,
       host: process.env.REDIS_HOST || 'redis',

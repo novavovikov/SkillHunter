@@ -14,29 +14,24 @@ import { ApiUseTags } from '@nestjs/swagger'
 @ApiUseTags('user-settings')
 @UseGuards(AuthGuard('jwt'))
 export class UserSettingsController {
-  constructor (
+  constructor(
     private userService: UserService,
-    private userSettingsService: UserSettingsService,
+    private userSettingsService: UserSettingsService
   ) {}
 
   @Get()
-  getSettings (
-    @UserData() user: User,
-  ) {
+  getSettings(@UserData() user: User) {
     return this.userSettingsService.findByUser(user)
   }
 
   @Put()
-  updateSettings (
-    @UserData() user: User,
-    @Body() data: any
-  ) {
+  updateSettings(@UserData() user: User, @Body() data: any) {
     return this.userSettingsService.update(user, data)
   }
 
   @Put(':userId')
   @Roles([RoleType.Admin])
-  async updateSettingsByUserId (
+  async updateSettingsByUserId(
     @Param('userId') userId: string,
     @Body() data: any
   ) {

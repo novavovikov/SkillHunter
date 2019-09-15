@@ -18,9 +18,6 @@ export class UserSettings {
   @Column({ type: 'boolean', default: true })
   push: boolean
 
-  @OneToOne(
-    () => User,
-    user => user.settings,
-  )
+  @OneToOne(() => User, user => user.settings)
   user: User
 }

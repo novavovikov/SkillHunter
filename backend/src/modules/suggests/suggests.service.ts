@@ -4,15 +4,16 @@ import { HH_URI, SUGGESTS } from './constants/uri'
 
 @Injectable()
 export class SuggestsService {
-  constructor (private readonly http: HttpService) {}
+  constructor(private readonly http: HttpService) {}
 
-  async getDataFromHH (type: SUGGESTS, query: string) {
+  async getDataFromHH(type: SUGGESTS, query: string) {
     try {
-      return await this.http.get(encodeURI(`${HH_URI[type]}${query}`)).
-        pipe(map(({ data }) => data)).
-        toPromise().
-        then(({ items }) => items.map(({ text }) => ({ name: text }))).
-        catch(err => {
+      return await this.http
+        .get(encodeURI(`${HH_URI[type]}${query}`))
+        .pipe(map(({ data }) => data))
+        .toPromise()
+        .then(({ items }) => items.map(({ text }) => ({ name: text })))
+        .catch(err => {
           return []
         })
     } catch (err) {

@@ -10,7 +10,7 @@ const DATA = [
   { id: 7, nested: { value: '7' } },
 ]
 
-describe(('keyboard'), () => {
+describe('keyboard', () => {
   test('should return array of double array', () => {
     expect(generateKeyboard(DATA, { field: 'nested.value' })).toEqual([
       [{ text: '1', callback_data: 1 }, { text: '2', callback_data: 2 }],
@@ -21,26 +21,38 @@ describe(('keyboard'), () => {
   })
 
   test('should return array of triple array', () => {
-    expect(generateKeyboard(DATA, { count: 3, field: 'nested.value' })).toEqual([
-      [{ text: '1', callback_data: 1 }, { text: '2', callback_data: 2 }, { text: '3', callback_data: 3 }],
-      [{ text: '4', callback_data: 4 }, { text: '5', callback_data: 5 }, { text: '6', callback_data: 6 }],
-      [{ text: '7', callback_data: 7 }],
-    ])
+    expect(generateKeyboard(DATA, { count: 3, field: 'nested.value' })).toEqual(
+      [
+        [
+          { text: '1', callback_data: 1 },
+          { text: '2', callback_data: 2 },
+          { text: '3', callback_data: 3 },
+        ],
+        [
+          { text: '4', callback_data: 4 },
+          { text: '5', callback_data: 5 },
+          { text: '6', callback_data: 6 },
+        ],
+        [{ text: '7', callback_data: 7 }],
+      ]
+    )
   })
 
   test('should return array of fourth array', () => {
-    expect(generateKeyboard(DATA, { count: 4, field: 'nested.value' })).toEqual([
+    expect(generateKeyboard(DATA, { count: 4, field: 'nested.value' })).toEqual(
       [
-        { text: '1', callback_data: 1 },
-        { text: '2', callback_data: 2 },
-        { text: '3', callback_data: 3 },
-        { text: '4', callback_data: 4 },
-      ],
-      [
-        { text: '5', callback_data: 5 },
-        { text: '6', callback_data: 6 },
-        { text: '7', callback_data: 7 },
-      ],
-    ])
+        [
+          { text: '1', callback_data: 1 },
+          { text: '2', callback_data: 2 },
+          { text: '3', callback_data: 3 },
+          { text: '4', callback_data: 4 },
+        ],
+        [
+          { text: '5', callback_data: 5 },
+          { text: '6', callback_data: 6 },
+          { text: '7', callback_data: 7 },
+        ],
+      ]
+    )
   })
 })

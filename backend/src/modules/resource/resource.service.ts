@@ -1,4 +1,9 @@
-import { HttpException, HttpService, HttpStatus, Injectable } from '@nestjs/common'
+import {
+  HttpException,
+  HttpService,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { JSDOM, VirtualConsole } from 'jsdom'
 import { map } from 'rxjs/operators'
@@ -13,20 +18,20 @@ const extractor = require('unfluff')
 
 @Injectable()
 export class ResourceService {
-  constructor (
+  constructor(
     @InjectRepository(Resource)
     private resourceRepository: Repository<Resource>,
-    private readonly http: HttpService,
+    private readonly http: HttpService
   ) {}
 
-  async findOne (data: Partial<Resource>, options?: FindOneOptions<Resource>) {
+  async findOne(data: Partial<Resource>, options?: FindOneOptions<Resource>) {
     return await this.resourceRepository.findOne({
       where: data,
       ...options,
     })
   }
 
-  async findById (id: number | string, options?: FindOneOptions<Resource>) {
+  async findById(id: number | string, options?: FindOneOptions<Resource>) {
     return await this.resourceRepository.findOne({
       where: {
         id: Number(id),
@@ -35,7 +40,7 @@ export class ResourceService {
     })
   }
 
-  validateResourceLink (link: string) {
+  validateResourceLink(link: string) {
     const url = new URL(link)
 
     for (const domain of RESOURCES_BLACK_LIST) {
@@ -47,22 +52,17 @@ export class ResourceService {
     return true
   }
 
-  update (
-    criteria: any,
-    data: Partial<Resource>,
-  ) {
+  update(criteria: any, data: Partial<Resource>) {
     return this.resourceRepository.update(criteria, data)
   }
 
-  async getFromLink (
-    link: string,
-    locale: string = 'en'
-  ) {
+  async getFromLink(link: string, locale: string = 'en') {
     try {
-      return await this.http.get(link).
-        pipe(map(({ data }) => data)).
-        toPromise().
-        then(async resp => {
+      return await this.http
+        .get(link)
+        .pipe(map(({ data }) => data))
+        .toPromise()
+        .then(async resp => {
           const virtualConsole = new VirtualConsole()
           const dom = new JSDOM(resp, {
             virtualConsole,
@@ -70,7 +70,10 @@ export class ResourceService {
           const { document } = dom.window
           const url: URL = new URL(link)
           const FaviconClass = new Favicon(this.http)
-          const icon: string = await FaviconClass.getFaviconFromDocument(document, url.origin)
+          const icon: string = await FaviconClass.getFaviconFromDocument(
+            document,
+            url.origin
+          )
           const titleNode: HTMLTitleElement = document.querySelector('title')
 
           const data = extractor.lazy(resp, locale)
@@ -83,10 +86,10 @@ export class ResourceService {
               ? titleNode.text
               : data.title() || data.softTitle(),
             text: data.description() || data.text(),
-            image: data.image()
+            image: data.image(),
           }
-        }).
-        catch(err => {
+        })
+        .catch(err => {
           return null
         })
     } catch (err) {
@@ -94,29 +97,31 @@ export class ResourceService {
     }
   }
 
-  async getBook (
-    author: string,
-    title: string
-  ) {
-    return await this.http.get(encodeURI(`https://www.googleapis.com/books/v1/volumes?q=${author} ${title}`)).
-      pipe(map(({ data }) => data)).
-      toPromise().
-      then((resp: any) => {
-        const { selfLink, volumeInfo  }: any = resp.items[0]
+  async getBook(author: string, title: string) {
+    return await this.http
+      .get(
+        encodeURI(
+          `https://www.googleapis.com/books/v1/volumes?q=${author} ${title}`
+        )
+      )
+      .pipe(map(({ data }) => data))
+      .toPromise()
+      .then((resp: any) => {
+        const { selfLink, volumeInfo }: any = resp.items[0]
 
         return {
           link: selfLink,
           title: volumeInfo.title,
           author: volumeInfo.authors,
-          icon: volumeInfo.imageLinks.thumbnail
+          icon: volumeInfo.imageLinks.thumbnail,
         }
-      }).
-      catch(err => {
+      })
+      .catch(err => {
         return null
       })
   }
 
-  async findAll (options?: FindOneOptions<Resource>) {
+  async findAll(options?: FindOneOptions<Resource>) {
     return this.resourceRepository.find({
       order: {
         id: 'DESC',
@@ -125,13 +130,13 @@ export class ResourceService {
     })
   }
 
-  async create (data) {
+  async create(data) {
     const resource = this.resourceRepository.create(data)
     await this.resourceRepository.save(resource)
     return resource
   }
 
-  async createByLink (link: string) {
+  async createByLink(link: string) {
     const foundResource: Resource = await this.findOne({ link })
     if (foundResource) {
       return foundResource
@@ -145,17 +150,20 @@ export class ResourceService {
     return this.create(receivedResource)
   }
 
-  async setResourceLike (resourceId: number, user: User) {
+  async setResourceLike(resourceId: number, user: User) {
     const resource: Resource = await this.findById(resourceId, {
       relations: ['usersLikes'],
     })
 
     if (!resource) {
-      throw new HttpException({
-        message: 'The resource is not found',
-        type: HttpMessageType.error,
-        statusCode: HttpStatus.BAD_REQUEST
-      }, HttpStatus.BAD_REQUEST)
+      throw new HttpException(
+        {
+          message: 'The resource is not found',
+          type: HttpMessageType.error,
+          statusCode: HttpStatus.BAD_REQUEST,
+        },
+        HttpStatus.BAD_REQUEST
+      )
     }
 
     if (resource.usersLikes.find(({ id }) => id === user.id)) {
@@ -177,20 +185,20 @@ export class ResourceService {
     }
   }
 
-  async removeResourceLike (
-    resourceId: number,
-    user: User
-  ) {
+  async removeResourceLike(resourceId: number, user: User) {
     const resource: Resource = await this.findById(resourceId, {
       relations: ['usersLikes'],
     })
 
     if (!resource) {
-      throw new HttpException({
-        message: 'The resource is not found',
-        type: HttpMessageType.error,
-        statusCode: HttpStatus.NOT_FOUND
-      }, HttpStatus.NOT_FOUND)
+      throw new HttpException(
+        {
+          message: 'The resource is not found',
+          type: HttpMessageType.error,
+          statusCode: HttpStatus.NOT_FOUND,
+        },
+        HttpStatus.NOT_FOUND
+      )
     }
 
     resource.usersLikes = resource.usersLikes.filter(({ id }) => id !== user.id)
@@ -204,7 +212,7 @@ export class ResourceService {
     }
   }
 
-  remove (resource: Resource) {
+  remove(resource: Resource) {
     return this.resourceRepository.remove(resource)
   }
 }

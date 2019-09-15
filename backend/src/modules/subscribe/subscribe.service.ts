@@ -7,12 +7,12 @@ import { Subscribe } from './subscribe.entity'
 
 @Injectable()
 export class SubscribeService {
-  constructor (
+  constructor(
     @InjectRepository(Subscribe)
-    private subscribeRepository: Repository<Subscribe>,
+    private subscribeRepository: Repository<Subscribe>
   ) {}
 
-  findAll () {
+  findAll() {
     return this.subscribeRepository.find({
       order: {
         id: 'ASC',
@@ -20,13 +20,13 @@ export class SubscribeService {
     })
   }
 
-  async create (data: SubscribeDto) {
+  async create(data: SubscribeDto) {
     const subscriber = this.subscribeRepository.create(data)
     await this.subscribeRepository.save(subscriber)
     return subscriber
   }
 
-  async findByEmail (email: string) {
+  async findByEmail(email: string) {
     return await this.subscribeRepository.findOne({ where: { email } })
   }
 }

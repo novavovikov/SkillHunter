@@ -9,7 +9,7 @@ import {
   Post,
   Put,
   Session,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiImplicitBody, ApiUseTags } from '@nestjs/swagger'
@@ -30,24 +30,24 @@ import { SkillDto } from '../skill/skill.dto'
 @UseGuards(RolesGuard)
 @UseGuards(AuthGuard('jwt'))
 export class SkillsetController {
-  constructor (
+  constructor(
     private userSkillService: UserSkillService,
     private skillsetService: SkillsetService,
-    private skillService: SkillService,
+    private skillService: SkillService
   ) {}
 
   @Get()
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  getSkillsets () {
+  getSkillsets() {
     return this.skillsetService.findAll()
   }
 
   @Get('recommendation/skills/:skillsetName')
   @ApiUseTags('skillset')
-  async getSkillsetByName (
+  async getSkillsetByName(
     @UserData() user: User,
-    @Param('skillsetName') skillsetName: string,
+    @Param('skillsetName') skillsetName: string
   ) {
     const skillset = await this.skillsetService.findByName(skillsetName, {
       relations: ['skills'],
@@ -59,13 +59,13 @@ export class SkillsetController {
 
     const userSkills = await this.userSkillService.find({
       skillsetId: skillset.id,
-      user
+      user,
     })
 
     return skillset.skills.reduce((acc, skill) => {
       if (
         !skill.accepted ||
-        userSkills.find((userSkill) => skill.id === userSkill.skill.id)
+        userSkills.find(userSkill => skill.id === userSkill.skill.id)
       ) {
         return acc
       }
@@ -76,25 +76,19 @@ export class SkillsetController {
 
   @Get('landing')
   @ApiUseTags('skillset')
-  getSkillsetFromLanding (
-    @Session() session
-  ) {
+  getSkillsetFromLanding(@Session() session) {
     return session.skillset
   }
 
   @Get(':skillsetId')
   @ApiUseTags('skillset')
-  getUser (
-    @Param('skillsetId') skillsetId: string,
-  ) {
+  getUser(@Param('skillsetId') skillsetId: string) {
     return this.skillsetService.findById(skillsetId)
   }
 
   @Post()
   @ApiUseTags('skillset')
-  setSkillsets (
-    @Body('skillsets') skillsets: SkillsetDto[],
-  ) {
+  setSkillsets(@Body('skillsets') skillsets: SkillsetDto[]) {
     return this.skillsetService.setSkillsets(skillsets)
   }
 
@@ -104,10 +98,7 @@ export class SkillsetController {
     name: 'skill ids',
     type: [Number],
   })
-  async setSkills (
-    @Body() skills,
-    @Param('skillsetId') skillsetId: string,
-  ) {
+  async setSkills(@Body() skills, @Param('skillsetId') skillsetId: string) {
     const skillList: Skill[] = await this.skillService.findByIds(skills)
     return this.skillsetService.setSkills(skillsetId, skillList)
   }
@@ -116,9 +107,9 @@ export class SkillsetController {
   @UseGuards(AuthGuard('jwt'))
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  async updateSkill (
+  async updateSkill(
     @Body() data: Partial<SkillDto>,
-    @Param('skillsetId') skillsetId: string,
+    @Param('skillsetId') skillsetId: string
   ) {
     const id = Number(skillsetId)
     await this.skillsetService.update(id, data)
@@ -133,19 +124,20 @@ export class SkillsetController {
   @UseGuards(AuthGuard('jwt'))
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  async removeResource (
-    @Param('skillsetId') skillsetId: string,
-  ) {
+  async removeResource(@Param('skillsetId') skillsetId: string) {
     const skillset = await this.skillsetService.findById(Number(skillsetId), {
-      relations: ['users']
+      relations: ['users'],
     })
 
     if (skillset.users.length) {
-      throw new HttpException({
-        message: 'This skillset has relations',
-        type: HttpMessageType.warning,
-        statusCode: HttpStatus.BAD_REQUEST
-      }, HttpStatus.BAD_REQUEST)
+      throw new HttpException(
+        {
+          message: 'This skillset has relations',
+          type: HttpMessageType.warning,
+          statusCode: HttpStatus.BAD_REQUEST,
+        },
+        HttpStatus.BAD_REQUEST
+      )
     }
 
     return await this.skillsetService.remove(skillset)

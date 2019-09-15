@@ -1,4 +1,12 @@
-import { AfterLoad, Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn, RelationId } from 'typeorm'
+import {
+  AfterLoad,
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  RelationId,
+} from 'typeorm'
 import { ResourceType } from '../../constants/resource-type'
 import { UserResourceStatusType } from '../../constants/status-type'
 import { Resource } from '../resource/resource.entity'
@@ -6,18 +14,12 @@ import { UserSkill } from '../user-skill/user-skill.entity'
 import { User } from '../user/user.entity'
 
 @Entity()
-@Index(
-  ['user', 'skillsetId', 'userSkill', 'resource'],
-  { unique: true },
-)
+@Index(['user', 'skillsetId', 'userSkill', 'resource'], { unique: true })
 export class UserResource {
   @PrimaryGeneratedColumn()
   id: number
 
-  @ManyToOne(
-    () => User,
-    (user: User) => user.resources,
-  )
+  @ManyToOne(() => User, (user: User) => user.resources)
   user: User
 
   @Column()
@@ -42,20 +44,18 @@ export class UserResource {
   @ManyToOne(
     () => UserSkill,
     (userSkill: UserSkill) => userSkill.userResources,
-    { eager: true },
+    { eager: true }
   )
   userSkill: UserSkill
 
-  @ManyToOne(
-    () => Resource,
-    (resource: Resource) => resource.userResources,
-    { eager: true },
-  )
+  @ManyToOne(() => Resource, (resource: Resource) => resource.userResources, {
+    eager: true,
+  })
   resource: Resource
 
   likes: number
   @AfterLoad()
-  getLikes () {
+  getLikes() {
     if (this.resource && this.resource.userIdsLikes) {
       this.likes = this.resource.userIdsLikes.length
     }

@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Put,
+  UseGuards,
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
@@ -11,31 +19,27 @@ import { SkillService } from './skill.service'
 @UseGuards(RolesGuard)
 @UseGuards(AuthGuard('jwt'))
 export class SkillController {
-  constructor (
-    private skillService: SkillService,
-  ) {}
+  constructor(private skillService: SkillService) {}
 
   @Get()
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  getSkills () {
+  getSkills() {
     return this.skillService.findAll()
   }
 
   @Get(':skillId')
   @ApiUseTags('skill')
-  getSkill (
-    @Param('skillId') skillId: string,
-  ) {
+  getSkill(@Param('skillId') skillId: string) {
     return this.skillService.findById(skillId)
   }
 
   @Put(':skillId')
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  async updateSkill (
+  async updateSkill(
     @Body() data: Partial<SkillDto>,
-    @Param('skillId') skillId: string,
+    @Param('skillId') skillId: string
   ) {
     const id = Number(skillId)
     await this.skillService.update(id, data)
@@ -49,9 +53,7 @@ export class SkillController {
   @Delete(':skillId')
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  deleteSkill (
-    @Param('skillId') skillId: string,
-  ) {
+  deleteSkill(@Param('skillId') skillId: string) {
     return this.skillService.delete(Number(skillId))
   }
 }

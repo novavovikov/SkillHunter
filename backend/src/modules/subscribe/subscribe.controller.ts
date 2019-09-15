@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
@@ -10,12 +17,12 @@ import { ValidationPipe } from '../../common/pipes/validation.pipe'
 
 @Controller('subscribe')
 export class SubscribeController {
-  constructor (private subscribeService: SubscribeService) {}
+  constructor(private subscribeService: SubscribeService) {}
 
   @Post()
   @UsePipes(new ValidationPipe())
   @ApiUseTags('subscribe')
-  createSubscriber (@Body() data: SubscribeDto) {
+  createSubscriber(@Body() data: SubscribeDto) {
     return this.subscribeService.create(data)
   }
 
@@ -24,7 +31,7 @@ export class SubscribeController {
   @UseGuards(RolesGuard)
   @UseGuards(AuthGuard('jwt'))
   @ApiUseTags('admin')
-  getSubscribers () {
+  getSubscribers() {
     return this.subscribeService.findAll()
   }
 }

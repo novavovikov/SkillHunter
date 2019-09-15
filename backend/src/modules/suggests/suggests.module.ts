@@ -15,10 +15,6 @@ import { SuggestsService } from './suggests.service'
     }),
   ],
   controllers: [SuggestsController],
-  providers: [
-    SuggestsService,
-    SkillService,
-    SkillsetService
-  ],
+  providers: [SuggestsService, SkillService, SkillsetService],
 })
 export class SuggestsModule {}

@@ -18,7 +18,7 @@ import { MailService } from '../mail/mail.service'
     MailService,
     JWTStrategy,
     GoogleStrategy,
-    FacebookStrategy
-  ]
+    FacebookStrategy,
+  ],
 })
 export class AuthModule {}

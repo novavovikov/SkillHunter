@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Brackets, FindManyOptions, FindOneOptions, In, Repository } from 'typeorm'
+import {
+  Brackets,
+  FindManyOptions,
+  FindOneOptions,
+  In,
+  Repository,
+} from 'typeorm'
 import { getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Resource } from '../resource/resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
@@ -9,12 +15,12 @@ import { UserResource } from './user-resource.entity'
 
 @Injectable()
 export class UserResourceService {
-  constructor (
+  constructor(
     @InjectRepository(UserResource)
-    private userResourceRepository: Repository<UserResource>,
+    private userResourceRepository: Repository<UserResource>
   ) {}
 
-  find (
+  find(
     criteria: Partial<UserResource>,
     options?: FindManyOptions<UserResource>
   ) {
@@ -24,45 +30,58 @@ export class UserResourceService {
     })
   }
 
-  async findOne (
+  async findOne(
     criteria: Partial<UserResource>,
     options?: FindOneOptions<UserResource>
   ) {
     return this.userResourceRepository.findOne({
       where: criteria,
-      ...options
+      ...options,
     })
   }
 
-  findById (
+  findById(
     resourceId: string | number,
     options?: FindOneOptions<UserResource>
   ) {
-    return this.userResourceRepository.findOne({ id: Number(resourceId) }, options)
+    return this.userResourceRepository.findOne(
+      { id: Number(resourceId) },
+      options
+    )
   }
 
-  findByTitleResource (userId: number, query: string) {
-    return this.userResourceRepository.
-      createQueryBuilder('userResource').
-      leftJoinAndSelect('userResource.user', 'user').
-      leftJoinAndSelect('userResource.resource', 'resource').
-      where('user.id = :userId', { userId }).
-      andWhere(new Brackets(qb => {
-        qb.where('LOWER(userResource.title) like LOWER(:title) ', { title: `%${query}%` }).
-          orWhere('LOWER(userResource.author) like LOWER(:author) ', { author: `%${query}%` }).
-          orWhere('LOWER(resource.title) like LOWER(:title) ', { title: `%${query}%` }).
-          orWhere('LOWER(resource.author) like LOWER(:author) ', { author: `%${query}%` })
-      })).
-      limit(10).
-      getMany()
+  findByTitleResource(userId: number, query: string) {
+    return this.userResourceRepository
+      .createQueryBuilder('userResource')
+      .leftJoinAndSelect('userResource.user', 'user')
+      .leftJoinAndSelect('userResource.resource', 'resource')
+      .where('user.id = :userId', { userId })
+      .andWhere(
+        new Brackets(qb => {
+          qb.where('LOWER(userResource.title) like LOWER(:title) ', {
+            title: `%${query}%`,
+          })
+            .orWhere('LOWER(userResource.author) like LOWER(:author) ', {
+              author: `%${query}%`,
+            })
+            .orWhere('LOWER(resource.title) like LOWER(:title) ', {
+              title: `%${query}%`,
+            })
+            .orWhere('LOWER(resource.author) like LOWER(:author) ', {
+              author: `%${query}%`,
+            })
+        })
+      )
+      .limit(10)
+      .getMany()
   }
 
-  async addResource (
+  async addResource(
     user: User,
     skillsetId: number,
     userSkill: UserSkill,
     resource: Resource,
-    data: Partial<UserResource> = {},
+    data: Partial<UserResource> = {}
   ) {
     const userResource = this.userResourceRepository.create({
       ...data,
@@ -72,28 +91,22 @@ export class UserResourceService {
       resource,
     })
 
-    const savedUserResource = await this.userResourceRepository.save(userResource)
-
-    return getUserResourceWithLikedField(
-      user.id,
-      savedUserResource,
+    const savedUserResource = await this.userResourceRepository.save(
+      userResource
     )
+
+    return getUserResourceWithLikedField(user.id, savedUserResource)
   }
 
-  updateResource (
-    user: User,
-    id: number,
-    data: Partial<UserResource>,
-  ) {
+  updateResource(user: User, id: number, data: Partial<UserResource>) {
     return this.userResourceRepository.update({ id, user }, data)
   }
 
-  async getResourcesBySkillId (
+  async getResourcesBySkillId(
     userId: number,
     skillsetId: number,
-    skillId: number,
+    skillId: number
   ) {
-
     const resources = await this.userResourceRepository.find({
       relations: ['resource', 'userSkill'],
       where: {
@@ -106,15 +119,12 @@ export class UserResourceService {
       },
     })
 
-    return resources.map((userResource) => {
-      return getUserResourceWithLikedField(
-        userId,
-        userResource,
-      )
+    return resources.map(userResource => {
+      return getUserResourceWithLikedField(userId, userResource)
     })
   }
 
-  async getResourcesBulk (
+  async getResourcesBulk(
     user: User,
     skillsetId: number,
     userSkillIds: number[],
@@ -127,22 +137,26 @@ export class UserResourceService {
         user,
         skillsetId,
         userSkill: {
-          id: userSkillId
+          id: userSkillId,
         },
       }
 
-      const userResources: UserResource[] = await this.userResourceRepository.find({
-        where,
-        order: {
-          id: 'DESC',
-        },
-        take: Number(limit)
-      })
+      const userResources: UserResource[] = await this.userResourceRepository.find(
+        {
+          where,
+          order: {
+            id: 'DESC',
+          },
+          take: Number(limit),
+        }
+      )
 
       if (userResources.length) {
         result[userSkillId] = {
           total: await this.userResourceRepository.count(where),
-          data: userResources.map(userResource => getUserResourceWithLikedField(user.id, userResource))
+          data: userResources.map(userResource =>
+            getUserResourceWithLikedField(user.id, userResource)
+          ),
         }
       } else {
         result[userSkillId] = { total: 0, data: [] }
@@ -152,23 +166,20 @@ export class UserResourceService {
     return result
   }
 
-  remove (userResource: UserResource) {
+  remove(userResource: UserResource) {
     return this.userResourceRepository.remove(userResource)
   }
 
-  async removeResourcesBySkillsetId (
-    user: User,
-    skillsetId: number,
-  ) {
-    const userResources = await this.userResourceRepository.find({ user, skillsetId })
+  async removeResourcesBySkillsetId(user: User, skillsetId: number) {
+    const userResources = await this.userResourceRepository.find({
+      user,
+      skillsetId,
+    })
 
     return await this.userResourceRepository.remove(userResources)
   }
 
-  async removeResourcesByUserSkillIds (
-    user: User,
-    userSkillIds: number[],
-  ) {
+  async removeResourcesByUserSkillIds(user: User, userSkillIds: number[]) {
     const userResources = await this.userResourceRepository.find({
       user,
       userSkill: In(userSkillIds),
@@ -177,9 +188,7 @@ export class UserResourceService {
     return await this.userResourceRepository.remove(userResources)
   }
 
-  async removeAllResources (
-    user: User,
-  ) {
+  async removeAllResources(user: User) {
     const userResources = await this.userResourceRepository.find({ user })
 
     return await this.userResourceRepository.remove(userResources)

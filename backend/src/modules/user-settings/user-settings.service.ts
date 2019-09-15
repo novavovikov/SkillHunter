@@ -6,27 +6,21 @@ import { User } from '../user/user.entity'
 
 @Injectable()
 export class UserSettingsService {
-  constructor (
+  constructor(
     @InjectRepository(UserSettings)
-    private userSettingsRepository: Repository<UserSettings>,
+    private userSettingsRepository: Repository<UserSettings>
   ) {}
 
-  findByUser (
-    user: User,
-    options?: FindOneOptions<UserSettings>,
-  ) {
+  findByUser(user: User, options?: FindOneOptions<UserSettings>) {
     return this.userSettingsRepository.findOne({ user }, options)
   }
 
-  async update (user: User, data: any) {
+  async update(user: User, data: any) {
     await this.userSettingsRepository.update({ user }, data)
     return await this.userSettingsRepository.findOne({ user })
   }
 
-  async delete (
-    user: User,
-    options?: FindOneOptions<UserSettings>,
-  ) {
+  async delete(user: User, options?: FindOneOptions<UserSettings>) {
     await this.userSettingsRepository.delete({ user })
     return { deleted: true }
   }

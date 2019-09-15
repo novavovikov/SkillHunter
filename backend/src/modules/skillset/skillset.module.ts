@@ -9,17 +9,8 @@ import { Skillset } from './skillset.entity'
 import { SkillsetService } from './skillset.service'
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      UserSkill,
-      Skillset,
-      Skill,
-    ])],
+  imports: [TypeOrmModule.forFeature([UserSkill, Skillset, Skill])],
   controllers: [SkillsetController],
-  providers: [
-    UserSkillService,
-    SkillsetService,
-    SkillService,
-  ],
+  providers: [UserSkillService, SkillsetService, SkillService],
 })
 export class SkillsetModule {}

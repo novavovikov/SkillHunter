@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { In } from 'typeorm'
@@ -17,18 +28,18 @@ import { UserSkillService } from './user-skill.service'
 @UseGuards(RolesGuard)
 @UseGuards(AuthGuard('jwt'))
 export class UserSkillController {
-  constructor (
+  constructor(
     private userSkillService: UserSkillService,
     private userResourceService: UserResourceService,
     private skillsetService: SkillsetService,
-    private skillService: SkillService,
+    private skillService: SkillService
   ) {}
 
   @Get('recommendation/resources')
   @ApiUseTags('skill')
-  async getRecommendationsResources (
+  async getRecommendationsResources(
     @Query('skillIds') skillIds: string,
-    @UserData() user: User,
+    @UserData() user: User
   ) {
     if (!skillIds) {
       return []
@@ -36,39 +47,46 @@ export class UserSkillController {
 
     const ids = skillIds.split(',').map(Number)
 
-    const userSkills = await this.userSkillService.find({
-      id: In(ids),
-    }, {
-      join: {
-        alias: 'userSkill',
-        leftJoinAndSelect: {
-          skill: 'userSkill.skill',
-          resources: 'skill.resources',
-        },
+    const userSkills = await this.userSkillService.find(
+      {
+        id: In(ids),
       },
-    })
+      {
+        join: {
+          alias: 'userSkill',
+          leftJoinAndSelect: {
+            skill: 'userSkill.skill',
+            resources: 'skill.resources',
+          },
+        },
+      }
+    )
 
-    const userResources = await this.userResourceService.find({
-      user,
-    }, {
-      where: {
-        userSkill: {
-          id: In(ids),
-        },
+    const userResources = await this.userResourceService.find(
+      {
+        user,
       },
-    })
+      {
+        where: {
+          userSkill: {
+            id: In(ids),
+          },
+        },
+      }
+    )
 
     return userSkills.reduce((acc, userSkill) => {
       const { resources } = userSkill.skill
 
-      const recommendations = resources.filter(({ author, id, accepted}) => (
-        accepted &&
-        !author &&
-        !userResources.some(({ userSkill, resource }) => (
-          userSkill.id === userSkill.id &&
-          resource.id === id
-        ))
-      ))
+      const recommendations = resources.filter(
+        ({ author, id, accepted }) =>
+          accepted &&
+          !author &&
+          !userResources.some(
+            ({ userSkill, resource }) =>
+              userSkill.id === userSkill.id && resource.id === id
+          )
+      )
 
       return {
         ...acc,
@@ -79,30 +97,30 @@ export class UserSkillController {
 
   @Get(':skillsetId/list')
   @ApiUseTags('user-skill')
-  getSkills (
-    @UserData() user: User,
-    @Param('skillsetId') skillsetId: string,
-  ) {
+  getSkills(@UserData() user: User, @Param('skillsetId') skillsetId: string) {
     return this.userSkillService.getSkillsBySkillsetId(user, Number(skillsetId))
   }
 
   @Get(':skillId')
   @ApiUseTags('user-skill')
-  async getSkillResources (
+  async getSkillResources(
     @UserData() user: User,
-    @Param('skillId') skillId: string,
+    @Param('skillId') skillId: string
   ) {
     const userSkill = await this.userSkillService.findOne({
       id: skillId,
-      user
+      user,
     })
 
     if (!userSkill) {
-      throw new HttpException({
-        message: 'Skill does not exist',
-        type: HttpMessageType.error,
-        statusCode: HttpStatus.NOT_FOUND
-      }, HttpStatus.NOT_FOUND)
+      throw new HttpException(
+        {
+          message: 'Skill does not exist',
+          type: HttpMessageType.error,
+          statusCode: HttpStatus.NOT_FOUND,
+        },
+        HttpStatus.NOT_FOUND
+      )
     }
 
     return userSkill
@@ -110,10 +128,10 @@ export class UserSkillController {
 
   @Post(':skillsetId')
   @ApiUseTags('user-skill')
-  async adSkills (
+  async adSkills(
     @UserData() user: User,
     @Param('skillsetId') skillsetId: string,
-    @Body('skills') skills: string[],
+    @Body('skills') skills: string[]
   ) {
     const skillList: Skill[] = await this.skillService.getSkillList(skills)
     const createdSkills = await this.userSkillService.find({
@@ -122,18 +140,23 @@ export class UserSkillController {
       skill: In(skillList.map(({ id }) => id)),
     })
 
-    const newSkills = skillList.filter(({ id }: Skill) => !createdSkills.find(({ skill }) => id === skill.id))
+    const newSkills = skillList.filter(
+      ({ id }: Skill) => !createdSkills.find(({ skill }) => id === skill.id)
+    )
 
     const foundSkillset = await this.skillsetService.findById(skillsetId, {
       relations: ['skills'],
     })
 
     if (!foundSkillset) {
-      throw new HttpException({
-        message: 'Skillset does not exist',
-        type: HttpMessageType.error,
-        statusCode: HttpStatus.NOT_FOUND,
-      }, HttpStatus.NOT_FOUND)
+      throw new HttpException(
+        {
+          message: 'Skillset does not exist',
+          type: HttpMessageType.error,
+          statusCode: HttpStatus.NOT_FOUND,
+        },
+        HttpStatus.NOT_FOUND
+      )
     }
 
     foundSkillset.skills = unique([...foundSkillset.skills, ...newSkills])
@@ -143,7 +166,7 @@ export class UserSkillController {
       return await this.userSkillService.addSkills(
         user,
         Number(skillsetId),
-        newSkills,
+        newSkills
       )
     }
 
@@ -152,13 +175,13 @@ export class UserSkillController {
 
   @Delete()
   @ApiUseTags('user-skill')
-  async deleteSkills (
-    @UserData() user: User,
-    @Query('ids') ids: string,
-  ) {
+  async deleteSkills(@UserData() user: User, @Query('ids') ids: string) {
     const userSkillsIds = ids.split(',').map(Number)
 
-    await this.userResourceService.removeResourcesByUserSkillIds(user, userSkillsIds)
+    await this.userResourceService.removeResourcesByUserSkillIds(
+      user,
+      userSkillsIds
+    )
     return this.userSkillService.deleteSkills(userSkillsIds)
   }
 }

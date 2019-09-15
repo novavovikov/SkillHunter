@@ -52,40 +52,29 @@ export class User {
   @Column({ nullable: true })
   telegramId: number
 
-  @OneToOne(
-    () => UserSettings,
-    settings => settings.user,
-    {
-      cascade: ['insert', 'remove', 'update'],
-      onDelete: 'CASCADE',
-    },
-  )
+  @OneToOne(() => UserSettings, settings => settings.user, {
+    cascade: ['insert', 'remove', 'update'],
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   settings: UserSettings
 
-  @ManyToMany(
-    () => Resource,
-    (resource: Resource) => resource.usersLikes,
-  )
+  @ManyToMany(() => Resource, (resource: Resource) => resource.usersLikes)
   likedResources: Resource[]
 
-  @ManyToMany(
-    () => Skillset,
-    (skillset: Skillset) => skillset.users,
-    { cascade: true, eager: true },
-  )
+  @ManyToMany(() => Skillset, (skillset: Skillset) => skillset.users, {
+    cascade: true,
+    eager: true,
+  })
   @JoinTable({ name: 'user_skillsets' })
   skillsets: Skillset[]
 
-  @OneToMany(
-    () => UserSkill,
-    (userSkill: UserSkill) => userSkill.user,
-  )
+  @OneToMany(() => UserSkill, (userSkill: UserSkill) => userSkill.user)
   skills: UserSkill[]
 
   @OneToMany(
     () => UserResource,
-    (userResource: UserResource) => userResource.user,
+    (userResource: UserResource) => userResource.user
   )
   resources: UserResource[]
 }

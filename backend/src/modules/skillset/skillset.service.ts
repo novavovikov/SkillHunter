@@ -8,12 +8,12 @@ import { Skillset } from './skillset.entity'
 
 @Injectable()
 export class SkillsetService {
-  constructor (
+  constructor(
     @InjectRepository(Skillset)
-    private skillsetRepository: Repository<Skillset>,
+    private skillsetRepository: Repository<Skillset>
   ) {}
 
-  findAll () {
+  findAll() {
     return this.skillsetRepository.find({
       order: {
         id: 'DESC',
@@ -21,13 +21,13 @@ export class SkillsetService {
     })
   }
 
-  find (criteria) {
+  find(criteria) {
     return this.skillsetRepository.find({
       where: criteria,
     })
   }
 
-  async findById (id: number | string, options?: FindOneOptions<Skillset>) {
+  async findById(id: number | string, options?: FindOneOptions<Skillset>) {
     return await this.skillsetRepository.findOne({
       where: {
         id: Number(id),
@@ -36,40 +36,40 @@ export class SkillsetService {
     })
   }
 
-  async findByName (name: string, options?: FindOneOptions<Skillset>) {
+  async findByName(name: string, options?: FindOneOptions<Skillset>) {
     return await this.skillsetRepository.findOne({
       where: { name },
       ...options,
     })
   }
 
-  async like (field: string, value: string) {
-    return await this.skillsetRepository.
-      createQueryBuilder().
-      where(`accepted = true`).
-      andWhere(`LOWER(${field}) LIKE :${field}`,
-        {
-          [field]: `${value.toLowerCase()}%`,
-        },
-      ).
-      limit(10).
-      getMany()
+  async like(field: string, value: string) {
+    return await this.skillsetRepository
+      .createQueryBuilder()
+      .where(`accepted = true`)
+      .andWhere(`LOWER(${field}) LIKE :${field}`, {
+        [field]: `${value.toLowerCase()}%`,
+      })
+      .limit(10)
+      .getMany()
   }
 
-  save (skillset: Skillset) {
+  save(skillset: Skillset) {
     return this.skillsetRepository.save(skillset)
   }
 
-  async setSkillsets (skillsets: SkillsetDto[]) {
+  async setSkillsets(skillsets: SkillsetDto[]) {
     if (!skillsets.length) {
       return []
     }
 
     // Можно игнорить значения, которые есть в базе при insert, но тогда Id проставляются не последовательно
-    const foundSkillsets = await this.skillsetRepository.find({ name: In(skillsets.map(({ name }) => name)) })
+    const foundSkillsets = await this.skillsetRepository.find({
+      name: In(skillsets.map(({ name }) => name)),
+    })
 
     const uniqueSkillsets = skillsets.filter(
-      skillset => !foundSkillsets.find(({ name }) => skillset.name === name),
+      skillset => !foundSkillsets.find(({ name }) => skillset.name === name)
     )
 
     if (uniqueSkillsets.length) {
@@ -79,10 +79,7 @@ export class SkillsetService {
     return []
   }
 
-  async setSkills (
-    skillsetId: number | string,
-    skills: Skill[]
-  ) {
+  async setSkills(skillsetId: number | string, skills: Skill[]) {
     const user = await this.findById(skillsetId, {
       relations: ['skills'],
     })
@@ -91,14 +88,11 @@ export class SkillsetService {
     return await this.skillsetRepository.save(user)
   }
 
-  update (
-    criteria: any,
-    data: Partial<Skillset>,
-  ) {
+  update(criteria: any, data: Partial<Skillset>) {
     return this.skillsetRepository.update(criteria, data)
   }
 
-  remove (skillset: Skillset) {
+  remove(skillset: Skillset) {
     return this.skillsetRepository.remove(skillset)
   }
 }

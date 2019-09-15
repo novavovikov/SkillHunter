@@ -8,9 +8,9 @@ import { MailService } from '../../mail/mail.service'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
-  constructor (
+  constructor(
     private userService: UserService,
-    private mailService: MailService,
+    private mailService: MailService
   ) {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
@@ -19,18 +19,21 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  async validate (
+  async validate(
     @Req() req,
     accessToken: string,
     refreshToken: string,
     profile: any,
-    done,
+    done
   ) {
     let user = null
     const { email, locale, picture } = profile._json
 
     if (email) {
-      user = await this.userService.findByAuthData({ email }, { googleId: profile.id })
+      user = await this.userService.findByAuthData(
+        { email },
+        { googleId: profile.id }
+      )
     }
 
     if (!user) {
@@ -54,7 +57,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       })
     }
 
-    const token = AuthService.signPayload({ id: user.id, googleId: user.googleId })
+    const token = AuthService.signPayload({
+      id: user.id,
+      googleId: user.googleId,
+    })
 
     done(null, { ...user, token })
   }

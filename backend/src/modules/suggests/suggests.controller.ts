@@ -11,16 +11,16 @@ import { SuggestsService } from './suggests.service'
 @ApiUseTags('suggests')
 @UseGuards(AuthGuard('jwt'))
 export class SuggestsController {
-  constructor (
+  constructor(
     private suggestsService: SuggestsService,
     private skillService: SkillService,
-    private skillsetService: SkillsetService,
+    private skillsetService: SkillsetService
   ) {}
 
   @Get()
-  async getSuggests (
+  async getSuggests(
     @Query('skillset') skillset: string,
-    @Query('skill') skill: string,
+    @Query('skill') skill: string
   ) {
     if (skillset) {
       // FIXME remove integration with HH

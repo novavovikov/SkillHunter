@@ -1,4 +1,1 @@
-export const RESOURCES_BLACK_LIST = [
-  'localhost',
-  'skillhunter.io'
-]
+export const RESOURCES_BLACK_LIST = ['localhost', 'skillhunter.io']

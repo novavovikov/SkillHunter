@@ -4,9 +4,9 @@ import { User } from '../../modules/user/user.entity'
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor (private readonly _reflector: Reflector) {}
+  constructor(private readonly _reflector: Reflector) {}
 
-  canActivate (context: ExecutionContext): boolean {
+  canActivate(context: ExecutionContext): boolean {
     const roles = this._reflector.get<string[]>('roles', context.getHandler())
 
     if (!roles) {
@@ -14,7 +14,7 @@ export class RolesGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest()
-    const user = <User> request.user
+    const user = <User>request.user
 
     return roles.includes(user.role)
   }
