@@ -28,4 +28,4 @@ volumes:
   redis_data:
 
 networks:
-  SkillHunter:
+  app:
