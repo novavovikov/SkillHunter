@@ -1,20 +1,9 @@
 # SkillHunter
 SkillHunter project
 
-# установка проекта
-в файл `~/.bashrc` добавте 
-```
-export USER_ID=$(id -u)
-export GROUP_ID=$(id -g)
-``
-затем выполните в терминале 
+## Запуск проекта для локальной разработки:
 ```sh
-source ~/.bashrc
-```
-
-## Запуск проекта
-```sh
-docker-compose up
+./run-dev.sh
 ```
 
 ## backend 
@@ -24,23 +13,15 @@ docker-compose up
 ## database 
 [PostgreSQL](https://www.postgresql.org/)
 
-### Запуск команд
-переход в терминал образа
-```sh
-docker-compose run backend sh
-```
-затем доступны команды, например:
+### Backend
+Есть такие дополнительные утилиты как:
 форматирование
 ```sh
 npm run format
 ```
 миграции
 ```sh
-npm run typeorm -- migration:generate -n [MigrationName]
-```
-установка зависимости
-```sh
-npm i -S [package-name]
+npm run typeorm migration:generate -- -n [MigrationName]
 ```
 
 

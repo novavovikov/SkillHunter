@@ -28,19 +28,6 @@ export class AuthController {
   @ApiUseTags('auth')
   googleAuth() {}
 
-  @Get('google/callback')
-  @UseGuards(AuthGuard('google'))
-  @ApiUseTags('auth')
-  async googleCallback(
-    @UserData() user,
-    @Res() res,
-    @Next() next
-  ): Promise<null> {
-    res.cookie('authToken', user.token, AUTH_COOKIE_OPTIONS)
-    res.redirect(BACK_URL)
-    return null
-  }
-
   @Get('facebook')
   @UseGuards(AuthGuard('facebook'))
   @ApiUseTags('auth')
@@ -70,6 +57,19 @@ export class AuthController {
       googleId: user.googleId,
       facebookId: user.facebookId,
     })
+  }
+
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  @ApiUseTags('auth')
+  async googleCallback(
+    @UserData() user,
+    @Res() res,
+    @Next() next
+  ): Promise<null> {
+    res.cookie('authToken', user.token, AUTH_COOKIE_OPTIONS)
+    res.redirect(BACK_URL)
+    return null
   }
 
   @Get('facebook/callback')
