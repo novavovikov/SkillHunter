@@ -12,4 +12,5 @@ fi
 
 docker system prune --all --force --volumes
 
+docker network create skillhunter
 
