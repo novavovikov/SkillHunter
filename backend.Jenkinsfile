@@ -1,22 +1,26 @@
 pipeline {
   agent any
 
+  environment {
+    DOCKER_FILE = "./deployment/prod/docker-compose.backend.yml"
+  }
+
    stages {
     stage('Clean') {
       steps {
-        sh './build/clean.sh'
+        sh './deployment/clean.sh'
       }
     }
 
     stage('Build') {
       steps {
-        sh 'docker-compose -f docker-compose.backend.yml build --no-cache'
+        sh 'docker-compose -f ${DOCKER_FILE} build --no-cache'
       }
     }
 
     stage('Start') {
       steps {
-        sh 'docker-compose -f docker-compose.backend.yml up -d --force-recreate'
+        sh 'docker-compose -f ${DOCKER_FILE} up -d --force-recreate'
       }
     }
   }

@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   proxy:
-    build: ./proxy
+    build: ../../proxy
     volumes:
       - landing:/var/www/landing
       - web_app:/var/www/web_app
@@ -15,32 +15,24 @@ services:
       - web_app
       - admin_panel
     restart: always
-    networks:
-      - skillhunter
 
   landing:
-    build: ./landing
+    build: ../../landing
     volumes:
       - landing:/app/out
     working_dir: /app
-    networks:
-      - skillhunter
 
   web_app:
-    build: ./web
+    build: ../../web
     volumes:
       - web_app:/app/dist
     working_dir: /app
-    networks:
-      - skillhunter
 
   admin_panel:
-    build: ./admin
+    build: ../../admin
     volumes:
       - admin_panel:/app/dist
     working_dir: /app
-    networks:
-      - skillhunter
 
 volumes:
   landing:
@@ -49,4 +41,3 @@ volumes:
 
 networks:
   skillhunter:
-    external: true

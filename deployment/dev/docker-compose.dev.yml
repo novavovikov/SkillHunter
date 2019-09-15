@@ -5,8 +5,8 @@ services:
     image: node:10.15.3-alpine
     working_dir: /app
     volumes:
-      - ./backend:/app
-      - ./backend/node_modules:/app/node_modules
+      - ../../backend:/app
+      - ../../backend/node_modules:/app/node_modules
     ports:
       - 4321:4321
     dns:
@@ -27,7 +27,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./backend/pgdata:/var/lib/postgresql/data/pgdata
+      - ../../backend/pgdata:/var/lib/postgresql/data/pgdata
     env_file:
       - dev.env
     user: $USER_ID:$GROUP_ID
@@ -40,7 +40,7 @@ services:
       - 6379:6379
     volumes:
       - redis_data:/data
-      - ./redis/redis.conf:/opt/bitnami/redis/etc/redis.conf
+      - ../../redis/redis.conf:/opt/bitnami/redis/etc/redis.conf
     networks:
       - SkillHunter
 
@@ -52,8 +52,8 @@ services:
       - 8.8.8.8
     working_dir: /app
     volumes:
-      - ./web:/app
-      - ./web/node_modules:/app/node_modules
+      - ../../web:/app
+      - ../../web/node_modules:/app/node_modules
     command: sh -c "npm i && npm run start"
     restart: always
     networks:
@@ -67,8 +67,8 @@ services:
       - 8.8.8.8
     working_dir: /app
     volumes:
-      - ./admin:/app
-      - ./admin/node_modules:/app/node_modules
+      - ../../admin:/app
+      - ../../admin/node_modules:/app/node_modules
     command: sh -c "npm i && npm run start"
     restart: always
     networks:
