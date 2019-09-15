@@ -47,7 +47,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       })
 
       this.mailService.send({
-        to: 'novavovikov@gmail.com',
+        to: 'novavovikov@gmail.com, smolinvalentin@gmail.com',
         subject: 'Registration',
         template: 'registration',
         context: user,
