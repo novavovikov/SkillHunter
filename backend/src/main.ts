@@ -38,7 +38,7 @@ async function bootstrap () {
   }))
 
   await app.listen(port)
-  Logger.log(`Server running on http://backend:${port}`)
+  Logger.log(`Server running on http://localhost:${port}`)
 }
 
 bootstrap()
