@@ -50,7 +50,6 @@ const Footer: FC = () => {
           ))}
         </div>
       </div>
-
     </Layout.Footer>
   )
 }

@@ -8,6 +8,7 @@ import { addSkillsSaga } from '../../redux/actions/skills'
 import { IconButton, Popup } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './SkillCreator.css'
+import { addParamToQuery, deleteParamFromQuery } from '../../utils/url'
 
 interface Params {
   skillset: string
@@ -26,13 +27,14 @@ class SkillCreator extends Component<Props> {
   }
 
   showPopup = () => {
-    const queryParams = this.urlSearchParams
-    queryParams.append(CREATOR_SKILL_QUERY.param, CREATOR_SKILL_QUERY.value)
+    const { history, location } = this.props
+    const search = addParamToQuery(
+      location.search,
+      CREATOR_SKILL_QUERY.param,
+      CREATOR_SKILL_QUERY.value,
+    )
 
-    this.props.history.push({
-      search: queryParams.toString()
-    })
-
+    history.push({ search })
     analytics({
       event: 'click_add_skill',
       category: 'skillset'
@@ -40,12 +42,10 @@ class SkillCreator extends Component<Props> {
   }
 
   closePopup = () => {
-    const queryParams = this.urlSearchParams
-    queryParams.delete(CREATOR_SKILL_QUERY.param)
+    const { location, history } = this.props
+    const search = deleteParamFromQuery(location.search, CREATOR_SKILL_QUERY.param)
 
-    this.props.history.push({
-      search: queryParams.toString()
-    })
+    history.push({ search })
   }
 
   addSkills = (skills: string[]) => {

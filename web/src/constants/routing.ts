@@ -11,7 +11,6 @@ export const ROUTES = {
   INTRODUCTION: '/introduction',
   SKILLSET: '/skillset',
   SKILL: '/skill',
-  EVALUATION: '/evaluation',
   RESOURCE: '/resource',
   UPDATE: '/update',
   PLAN: '/plan',
@@ -20,4 +19,9 @@ export const ROUTES = {
 export const CREATOR_SKILL_QUERY = {
   param: 'creator',
   value: 'skill',
+}
+
+export const SIDEBAR_QUERY = {
+  param: 'sidebar',
+  value: 'visible',
 }

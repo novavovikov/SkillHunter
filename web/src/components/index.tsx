@@ -12,6 +12,7 @@ import ResourceContent from './ResourceContent'
 import Sidebar from './Sidebar'
 import Faq from './Faq'
 import HeaderMenu from './HeaderMenu'
+import MobileMenu from './MobileMenu'
 import Search from './Search'
 import SearchResults from './SearchResults'
 import ShareMenu from './ShareMenu'
@@ -60,6 +61,7 @@ export {
   Header,
   Sidebar,
   HeaderMenu,
+  MobileMenu,
   Search,
   SearchResults,
   ShareMenu,

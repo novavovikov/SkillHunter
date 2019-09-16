@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect, RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { Page, UserSkill, HelpToStart } from '../../components'
+import { HelpToStart, Page, UserSkill } from '../../components'
 import { CREATOR_SKILL_QUERY, ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { getResourcesSaga } from '../../redux/actions/resources'
@@ -15,6 +15,7 @@ import { analytics } from '../../utils/analytics'
 import { getSkillsetIdFromUserData } from '../../utils/skillset'
 import { GetResourcesSagaPayload } from '../../redux/interfaces/resources'
 import * as s from './Skillset.css'
+import { addParamToQuery } from '../../utils/url'
 
 interface Params {
   skillset: string
@@ -71,14 +72,14 @@ class Skillset extends React.Component<Props> {
   }
 
   handleSkillCreator = () => {
-    const { location } = this.props
-    const queryParams = new URLSearchParams(location.search)
-    queryParams.append(CREATOR_SKILL_QUERY.param, CREATOR_SKILL_QUERY.value)
+    const { location, history } = this.props
+    const search = addParamToQuery(
+      location.search,
+      CREATOR_SKILL_QUERY.param,
+      CREATOR_SKILL_QUERY.value,
+    )
 
-    this.props.history.push({
-      search: queryParams.toString(),
-    })
-
+    history.push({ search })
     analytics({
       event: 'click_add_skill',
       category: 'skillset'

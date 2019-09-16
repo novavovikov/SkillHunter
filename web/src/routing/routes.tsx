@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router'
+import {  Route, RouteComponentProps, Switch, withRouter } from 'react-router'
 import { PAGE_VIEW_EVENT } from '../constants/analytics'
 import { ROUTES } from '../constants/routing'
 import { RootState } from '../redux/reducers'
@@ -117,11 +117,6 @@ class Routes extends Component<Props> {
           <PrivateRoute
             path={ROUTES.SKILLSET}
             component={Skillset}
-          />
-
-          <PrivateRoute
-            path={`${ROUTES.EVALUATION}/:skillset`}
-            component={() => <Mock title="Evaluation is coming soon"/>}
           />
 
           <PrivateRoute

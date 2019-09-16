@@ -10,10 +10,6 @@ const CONTROLS = [
     to: ROUTES.SKILLSET,
   },
   {
-    label: 'Evaluation',
-    to: ROUTES.EVALUATION,
-  },
-  {
     label: 'Plan',
     to: ROUTES.PLAN,
   },

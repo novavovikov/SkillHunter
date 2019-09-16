@@ -1,0 +1,51 @@
+@import "../../styles/variables.css";
+
+.MobileMenu {
+  display: flex;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--z-header);
+  border-top: 1px solid var(--color-alto);
+
+  &__control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 40px;
+    background: no-repeat center/20px 20px;
+    border: none;
+
+    &_home {
+      background-image: url("./icons/home.svg");
+    }
+
+    &_search {
+      background-image: url("./icons/menu-search.svg");
+    }
+
+    &_add {
+      background-image: url("./icons/add-square-button.svg");
+    }
+
+    &_library {
+      background-image: url("./icons/tasks-list.svg");
+    }
+
+    &_profile {
+    }
+  }
+
+  &__avatar {
+    display: block;
+    width: 26px;
+    height: 26px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 auto;
+    @apply --img;
+  }
+}

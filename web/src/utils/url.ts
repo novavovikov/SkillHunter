@@ -23,13 +23,30 @@ export const getUrl = (url: string): URL | null => {
 }
 
 export const getUrlFromClipboard = () => {
-  return navigator.
-    clipboard.
-    readText().
-    then((url: string) => {
-      return getUrl(url)
-    }).
-    catch(() => {
-      return null
-    })
+  return navigator
+    .clipboard
+    .readText()
+    .then(getUrl)
+    .catch(() => null)
+}
+
+export const addParamToQuery = (
+  search: string,
+  param: string,
+  value: string,
+) => {
+  const urlSearchParams = new URLSearchParams(search)
+  urlSearchParams.append(param, value)
+
+  return urlSearchParams.toString()
+}
+
+export const deleteParamFromQuery = (
+  search: string,
+  param: string,
+) => {
+  const urlSearchParams = new URLSearchParams(search)
+  urlSearchParams.delete(param)
+
+  return urlSearchParams.toString()
 }

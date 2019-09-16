@@ -1,48 +1,68 @@
-import cn from 'classnames'
 import React, { Component } from 'react'
+import { compose } from 'redux'
+import { RouteComponentProps, withRouter } from 'react-router'
+import cn from 'classnames'
 import { IconTypes } from '../../types'
 import { Head, Icon, Layout } from '../../UI'
 import { Footer, Header, Sidebar } from '../index'
 import * as s from './Page.css'
+import { SIDEBAR_QUERY } from '../../constants/routing'
+import { addParamToQuery, deleteParamFromQuery } from '../../utils/url'
 
-interface Props {
+interface Props extends RouteComponentProps {
   sidebar: boolean
   search: boolean
   userMenu: boolean
 }
 
-interface State {
-  sidebarVisibility: boolean
-}
-
-class Page extends Component<Props, State> {
+class Page extends Component<Props> {
   static defaultProps = {
     sidebar: true,
     search: true,
     userMenu: true,
   }
 
-  state = {
-    sidebarVisibility: false,
+  toggleSidebar = () => {
+    const { location } = this.props
+
+    new URLSearchParams(location.search)
+      .get(SIDEBAR_QUERY.param)
+      ? this.closeSidebar()
+      : this.openSidebar()
   }
 
-  toggleSidebar = () => {
-    const { sidebarVisibility } = this.state
+  openSidebar = () => {
+    const { location, history } = this.props
+    const search = addParamToQuery(
+      location.search,
+      SIDEBAR_QUERY.param,
+      SIDEBAR_QUERY.value,
+    )
 
-    this.setState({
-      sidebarVisibility: !sidebarVisibility,
-    })
+    history.push({ search })
   }
 
   closeSidebar = () => {
-    this.setState({
-      sidebarVisibility: false
-    })
+    const { location, history } = this.props
+    const search = deleteParamFromQuery(
+      location.search,
+      SIDEBAR_QUERY.param,
+    )
+
+    history.push({ search })
   }
 
   render () {
-    const { children, sidebar, search, userMenu } = this.props
-    const { sidebarVisibility } = this.state
+    const {
+      children,
+      sidebar,
+      search,
+      userMenu,
+      location,
+    } = this.props
+
+    const sidebarVisibility = new URLSearchParams(location.search)
+      .get(SIDEBAR_QUERY.param)
 
     return (
       <Layout.Wrap>
@@ -57,10 +77,10 @@ class Page extends Component<Props, State> {
           {sidebar && (
             <>
               <button
+                onClick={this.toggleSidebar}
                 className={cn(s.Page__switcher, {
                   [s.Page__switcher_active]: sidebarVisibility
                 })}
-                onClick={this.toggleSidebar}
               >
                 <Icon
                   type={IconTypes.dots}
@@ -91,4 +111,6 @@ class Page extends Component<Props, State> {
   }
 }
 
-export default Page
+export default compose<any>(
+  withRouter,
+)(Page)
