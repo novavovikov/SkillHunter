@@ -8,11 +8,13 @@ import { resources, ResourcesState } from './resources'
 import { skills } from './skills'
 import { user, UserState } from './user'
 import { userSkill, UserSkillState } from './userSkill'
+import { userSettings, UserSettingsState } from './userSettings'
 
 export interface RootState {
   app: AppState
   notifications: NotificationState
   user: UserState
+  userSettings: UserSettingsState
   skills: IUserSkill[]
   userSkill: UserSkillState
   resources: ResourcesState
@@ -25,6 +27,7 @@ export default () => {
     app,
     notifications,
     user,
+    userSettings,
     userSkill,
     skills,
     resources,

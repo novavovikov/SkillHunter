@@ -1,53 +1,46 @@
 import React, { Component } from 'react'
 import cn from 'classnames'
-import { ajax } from '../../utils/ajax'
 import { Popup } from '../../UI'
-import * as s from './HelpToStart.css'
 import Video from './video'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { RootState } from '../../redux/reducers'
+import { getUserSettingsDataSaga } from '../../redux/actions/userSettings'
+import { UserSettingsState } from '../../redux/reducers/userSettings'
+import * as s from './HelpToStart.css'
 
-interface UserSettings {
-  id: number
-  newsletter: boolean
-  onboarding: boolean
-  private: boolean
-  push: boolean
+interface Props {
+  userSettings: UserSettingsState
+  getUserSettingsData: () => void
 }
 
-interface State {
-  settings: UserSettings | null
-}
-
-class HelpToStart extends Component<{}, State> {
-  state = {
-    settings: null,
-  }
-
+class HelpToStart extends Component<Props> {
   componentDidMount (): void {
-    ajax.get('user-settings').then(({ data }) => {
-      this.setState({ settings: data })
-    })
+    this.props.getUserSettingsData()
   }
 
   resetState = () => {
-    this.setState({
-      settings: null,
-    })
-
-    ajax.put('user-settings', {
-      onboarding: false,
-    })
+    // this.setState({
+    //   settings: null,
+    // })
+    //
+    // ajax.put('user-settings', {
+    //   onboarding: false,
+    // })
   }
 
   render () {
-    const { settings }: State = this.state
+    const { userSettings } = this.props
 
-    if (!settings || !settings!.onboarding) {
+    if (!userSettings) {
       return null
     }
 
+    console.log(2, userSettings)
+
     return (
       <Popup
-        isOpen={settings!.onboarding}
+        isOpen={userSettings.onboarding}
         onClose={this.resetState}
       >
         <div className={s.HelpToStart}>
@@ -112,4 +105,11 @@ class HelpToStart extends Component<{}, State> {
   }
 }
 
-export default HelpToStart
+export default compose(
+  connect(
+    ({ userSettings }: RootState) => ({ userSettings }),
+    {
+      getUserSettingsData: getUserSettingsDataSaga,
+    },
+  ),
+)(HelpToStart)

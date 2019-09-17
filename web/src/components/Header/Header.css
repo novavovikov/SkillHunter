@@ -17,6 +17,10 @@
     flex: 250px 0 0;
     margin: 0 10px 0 0;
 
+    @media(--xl) {
+      flex-basis: 210px;
+    }
+
     @media(--lg) {
       flex: auto;
     }

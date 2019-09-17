@@ -53,8 +53,8 @@ export class User {
   telegramId: number
 
   @OneToOne(() => UserSettings, settings => settings.user, {
-    cascade: ['insert', 'remove', 'update'],
-    onDelete: 'CASCADE',
+    cascade: true,
+    eager: true,
   })
   @JoinColumn()
   settings: UserSettings

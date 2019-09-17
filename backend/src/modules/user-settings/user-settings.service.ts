@@ -11,7 +11,17 @@ export class UserSettingsService {
     private userSettingsRepository: Repository<UserSettings>
   ) {}
 
-  findByUser(user: User, options?: FindOneOptions<UserSettings>) {
+  async findByUser(user: User, options?: FindOneOptions<UserSettings>) {
+    console.log(222, user)
+    console.log(await this.userSettingsRepository.find({
+      where: {
+        user: {
+          id: user.id
+        }
+      },
+      relations: ['user']
+    }))
+    console.log(await this.userSettingsRepository.findOne({ user }, options))
     return this.userSettingsRepository.findOne({ user }, options)
   }
 

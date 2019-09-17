@@ -11,10 +11,10 @@ import { analytics } from '../../utils/analytics'
 import * as s from './HeaderMenu.css'
 
 const MENU = [
-  // {
-  //   label: 'Account settings',
-  //   to: ROUTES.SETTINGS,
-  // },
+  {
+    label: 'Settings',
+    to: ROUTES.SETTINGS,
+  },
   {
     label: 'Logout',
     to: ROUTES.LOGOUT,

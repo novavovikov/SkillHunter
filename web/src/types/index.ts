@@ -95,6 +95,13 @@ export interface IUser {
   skillsets: ISkillset[]
 }
 
+export interface IUserSettings {
+  newsletter: boolean
+  onboarding: boolean
+  private: boolean
+  push: boolean
+}
+
 export type IconSizes = 'free' | '18' | '24' | null
 
 export enum IconTypes {
