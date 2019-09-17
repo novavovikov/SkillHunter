@@ -28,7 +28,7 @@ class ResourceHeader extends PureComponent<Props> {
     return (
       <header className={s.ResourceHeader}>
         <Link
-          to={ROUTES.SKILLSET}
+          to={ROUTES.LIBRARY}
           className={s.ResourceHeader__back}
           onClick={this.handleBack}
         >

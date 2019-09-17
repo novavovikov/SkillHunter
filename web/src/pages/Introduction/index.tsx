@@ -64,7 +64,7 @@ class Introduction extends React.Component<Props, State> {
     const { skills, skillset } = this.state
     const { history, addUserSkillset } = this.props
 
-    addUserSkillset(skillset, skills, () => history.push(`${ROUTES.SKILLSET}/${skillset}`))
+    addUserSkillset(skillset, skills, () => history.push(`${ROUTES.LIBRARY}/${skillset}`))
   }
 
   render () {

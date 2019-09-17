@@ -18,7 +18,7 @@ class Logo extends Component<Props> {
     const { skillset } = params
 
     if (skillset) {
-      return `${ROUTES.SKILLSET}/${skillset}`
+      return `${ROUTES.LIBRARY}/${skillset}`
     }
 
     return ROUTES.HOME

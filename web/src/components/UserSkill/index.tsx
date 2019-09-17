@@ -90,7 +90,7 @@ class UserSkill extends Component<Props, State> {
     })
 
     if (asPage) {
-      history.push(`${ROUTES.SKILLSET}/${match.params.skillset}`)
+      history.push(`${ROUTES.LIBRARY}/${match.params.skillset}`)
     }
   }
 
@@ -117,7 +117,7 @@ class UserSkill extends Component<Props, State> {
       asPage,
     } = this.props
 
-    const skillRoute = `${ROUTES.SKILLSET}/${match.params.skillset}${ROUTES.SKILL}/${data.id}`
+    const skillRoute = `${ROUTES.LIBRARY}/${match.params.skillset}${ROUTES.SKILL}/${data.id}`
     const resourcesData = asPage
       ? resources.data
       : resources.data.slice(0, UserSkill.resourceCount)
@@ -129,7 +129,7 @@ class UserSkill extends Component<Props, State> {
              {asPage
                ? (
                  <Link
-                   to={`${ROUTES.SKILLSET}/${match.params.skillset}`}
+                   to={`${ROUTES.LIBRARY}/${match.params.skillset}`}
                    className={s.UserSkill__switcher}
                  >
                    <Icon

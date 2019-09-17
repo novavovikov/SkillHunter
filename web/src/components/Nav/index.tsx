@@ -6,8 +6,8 @@ import * as s from './Nav.css'
 
 const CONTROLS = [
   {
-    label: 'Skillset',
-    to: ROUTES.SKILLSET,
+    label: 'Library',
+    to: ROUTES.LIBRARY,
   },
   {
     label: 'Plan',

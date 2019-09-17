@@ -56,7 +56,7 @@ class Resource extends Component<Props, State> {
       const { id, title, resource }: IUserResource = userResource
 
       await ajax.delete(`${API.USER_RESOURCE}/${id}`)
-      history.push(ROUTES.SKILLSET)
+      history.push(ROUTES.LIBRARY)
 
       analytics({
         event: 'click_delete_source',

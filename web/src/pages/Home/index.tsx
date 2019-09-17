@@ -32,7 +32,7 @@ class Home extends React.Component<Props> {
 
     const [skillset] = user.skillsets
 
-    return `${ROUTES.SKILLSET}/${skillset.name}`
+    return `${ROUTES.LIBRARY}/${skillset.name}`
   }
 
   render () {

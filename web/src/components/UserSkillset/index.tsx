@@ -147,7 +147,7 @@ class UserSkillset extends React.Component<Props, State> {
                   className={s.UserSkillset__item}
                 >
                   <NavLink
-                    to={`${ROUTES.SKILLSET}/${name}`}
+                    to={`${ROUTES.LIBRARY}/${name}`}
                     className={s.UserSkillset__link}
                     activeClassName={s.UserSkillset__link_active}
                     onClick={() => this.handleSkillset(name)}

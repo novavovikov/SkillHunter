@@ -103,19 +103,19 @@ class Routes extends Component<Props> {
           />
 
           <PrivateRoute
-            path={`${ROUTES.SKILLSET}/:skillset${ROUTES.SKILL}/:skillId`}
+            path={`${ROUTES.LIBRARY}/:skillset${ROUTES.SKILL}/:skillId`}
             component={Resources}
             exact
           />
 
           <PrivateRoute
-            path={`${ROUTES.SKILLSET}/:skillset`}
+            path={`${ROUTES.LIBRARY}/:skillset`}
             component={Skillset}
             exact
           />
 
           <PrivateRoute
-            path={ROUTES.SKILLSET}
+            path={ROUTES.LIBRARY}
             component={Skillset}
           />
 

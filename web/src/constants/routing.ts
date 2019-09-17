@@ -9,7 +9,7 @@ export const ROUTES = {
   SETTINGS: '/settings',
   LOGOUT: '/logout',
   INTRODUCTION: '/introduction',
-  SKILLSET: '/skillset',
+  LIBRARY: '/library',
   SKILL: '/skill',
   RESOURCE: '/resource',
   UPDATE: '/update',
