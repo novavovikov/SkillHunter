@@ -1,0 +1,21 @@
+@import "../../styles/variables.css";
+
+.NotificationSettings {
+  position: relative;
+
+  &__title {
+    margin: 0 0 7px;
+  }
+
+  &__desc {
+    margin: 0 0 30px
+  }
+
+  &__item {
+    margin: 0 0 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -51,21 +51,15 @@ class HeaderMenu extends React.Component<Props, State> {
 
     switch (value) {
       case MenuValues.help:
-        return this.setState({
-          helpVisibility: true,
-        })
+        return this.openHelp()
       case MenuValues.settings:
         return history.push(ROUTES.SETTINGS)
       case MenuValues.logout:
         return history.push(ROUTES.LOGOUT)
     }
 
-    const event = value
-      ? `click_${value}`
-      : 'click_menu'
-
     analytics({
-      event,
+      event: `click_${value}`,
       category: 'user_menu'
     })
   }

@@ -8,7 +8,7 @@
   --transition: .5s;
   --transition-slow: .8s;
 
-  --shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  --shadow: 1px 1px 4px rgba(0, 0, 0, .23);
 
   --radius: 3px;
   --radius-lg: 5px;

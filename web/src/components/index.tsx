@@ -44,6 +44,7 @@ import Tabs from './Tabs'
 import Nav from './Nav'
 import SignUpBlock from './SignUpBlock'
 import RoadMap from './RoadMap'
+import NotificationSettings from './NotificationSettings'
 import RemoveAccount from './RemoveAccount'
 import * as Steps from './Steps'
 import * as Text from './Text'
@@ -96,6 +97,7 @@ export {
   SignUpBlock,
   RoadMap,
   Steps,
+  NotificationSettings,
   RemoveAccount,
   Text,
 }

@@ -2,11 +2,14 @@
 // Please do not change this file!
 interface CssExports {
   'RemoveAccount': string;
+  'RemoveAccount__button': string;
   'RemoveAccount__form': string;
+  'RemoveAccount__formTitle': string;
   'RemoveAccount__input': string;
   'RemoveAccount__submit': string;
   'RemoveAccount__text': string;
   'RemoveAccount__title': string;
+  'RemoveAccount__warning': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

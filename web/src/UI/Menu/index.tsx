@@ -36,7 +36,6 @@ class Menu extends React.Component<Props, State> {
   }
 
   toggleMenu = () => {
-    console.log(2)
     this.setState({
       isOpen: !this.state.isOpen
     })

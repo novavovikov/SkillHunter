@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component, FormEvent } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { ROUTES } from '../../constants/routing'
 import { ajax } from '../../utils/ajax'
-import { Button, Popup, Input } from '../../UI'
+import { Button, H3, Input, Popup } from '../../UI'
 import * as s from './RemoveAccount.css'
 
 interface State {
@@ -53,20 +53,31 @@ class RemoveAccount extends Component<RouteComponentProps, State> {
 
     return (
       <div className={s.RemoveAccount}>
-        <Button onClick={this.openRemovePopup}>
-          Remove account?
-        </Button>
+        <H3 className={s.RemoveAccount__title}>
+          Deleting your account
+        </H3>
+
+        <p className={s.RemoveAccount__text}>
+          This will remove your account and all associated data. You will not be able to log in with your account or
+          access any data you have saved.
+        </p>
+
+        <div className={s.RemoveAccount__button}>
+          <Button onClick={this.openRemovePopup}>
+            Delete My Account
+          </Button>
+        </div>
 
         <Popup
           isOpen={isOpen}
           onClose={this.closeRemovePopup}
         >
           <form className={s.RemoveAccount__form} onSubmit={this.onSubmit}>
-            <div className={s.RemoveAccount__title}>
-              Are you sure you want to do this?
+            <div className={s.RemoveAccount__formTitle}>
+              Are you absolutely sure you want to remove your SkillHunter account?
             </div>
-            <div className={s.RemoveAccount__text}>
-              If you want to do this then enter "Yes".
+            <div className={s.RemoveAccount__warning}>
+              This action is NOT UNDOABLE.
             </div>
 
             <Input
@@ -82,7 +93,7 @@ class RemoveAccount extends Component<RouteComponentProps, State> {
               className={s.RemoveAccount__submit}
               disabled={!inputValue}
             >
-              Remove account?
+              Delete account?
             </Button>
 
             <Button

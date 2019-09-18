@@ -1,24 +1,24 @@
 import React, { FC } from 'react'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { Page, RemoveAccount } from '../../components'
-import { addNotification } from '../../redux/actions/notifications'
-import { INotification } from '../../types'
+import { NotificationSettings, Page, RemoveAccount } from '../../components'
+import * as s from './Settings.css'
 
-interface Props {
-  showNotification: (data: INotification) => void
-}
-
-const Settings: FC<Props> = ({ showNotification }) => {
+const Settings: FC = () => {
   return (
     <Page sidebar={false}>
-      <RemoveAccount/>
+      <div className={s.Settings}>
+        <div className={s.Settings__section}>
+          <div className={s.Settings__content}>
+            <NotificationSettings/>
+          </div>
+        </div>
+        <div className={s.Settings__section}>
+          <div className={s.Settings__content}>
+            <RemoveAccount/>
+          </div>
+        </div>
+      </div>
     </Page>
   )
 }
 
-export default compose(
-  connect(null, {
-    showNotification: addNotification,
-  }),
-)(Settings)
+export default Settings
