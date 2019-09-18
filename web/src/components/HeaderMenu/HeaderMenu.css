@@ -20,6 +20,7 @@
     color: var(--color-dodger-blue);
     background: none;
     border: none;
+    cursor: pointer;
   }
 
   &__avatar {
@@ -38,34 +39,6 @@
     @media(--md) {
       width: 32px;
       height: 32px;
-    }
-  }
-
-  &__name {
-    margin: 0 0 0 10px;
-  }
-
-  &__list {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    min-width: 100%;
-    background: #fff;
-    border-radius: 0 0 var(--radius) var(--radius);
-    box-shadow: var(--shadow);
-    z-index: 10;
-  }
-
-  &__item {
-    display: flex;
-    align-items: center;
-    min-height: 40px;
-    padding: 5px 10px;
-    transition: var(--transition);
-    white-space: nowrap;
-
-    &:hover {
-      background: var(--color-link-water);
     }
   }
 }

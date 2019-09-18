@@ -21,7 +21,7 @@ export class UserSettingsController {
 
   @Get()
   getSettings(@UserData() user: User) {
-    return this.userSettingsService.findByUser(user)
+    return this.userSettingsService.findByUser(user) || null
   }
 
   @Put()

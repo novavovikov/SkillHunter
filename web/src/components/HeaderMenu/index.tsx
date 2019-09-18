@@ -1,71 +1,89 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { compose } from 'redux'
-import { ROUTES } from '../../constants/routing'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { IconTypes } from '../../types'
-import { Animation, Icon, OutsideClickWrapper } from '../../UI'
+import { Icon, Item, Menu } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './HeaderMenu.css'
+import { HelpToStart } from '../index'
+import { RouteComponentProps, withRouter } from 'react-router'
+import { ROUTES } from '../../constants/routing'
+
+enum MenuValues {
+  help = 'help',
+  settings = 'settings',
+  logout = 'logout'
+}
 
 const MENU = [
   {
+    label: 'Help',
+    value: MenuValues.help,
+  },
+  {
     label: 'Settings',
-    to: ROUTES.SETTINGS,
+    value: MenuValues.settings,
   },
   {
     label: 'Logout',
-    to: ROUTES.LOGOUT,
+    value: MenuValues.logout,
   },
 ]
 
-interface Props {
+interface Props extends RouteComponentProps {
   user: UserState,
 }
 
 interface State {
-  isOpen: boolean,
+  helpVisibility: boolean
 }
 
 class HeaderMenu extends React.Component<Props, State> {
   state = {
-    isOpen: false,
+    helpVisibility: false,
   }
 
-  closeMenu = () => {
-    this.setState({
-      isOpen: false,
-    })
-  }
+  handleMenuItem = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const { history } = this.props
+    const { value } = e.target as HTMLButtonElement
 
-  handleButton = () => {
-    const { isOpen } = this.state
-
-    this.setState({
-      isOpen: !isOpen
-    })
-
-    if (!isOpen) {
-      analytics({
-        event: 'click_user_menu',
-        category: 'user_menu'
-      })
+    switch (value) {
+      case MenuValues.help:
+        return this.setState({
+          helpVisibility: true,
+        })
+      case MenuValues.settings:
+        return history.push(ROUTES.SETTINGS)
+      case MenuValues.logout:
+        return history.push(ROUTES.LOGOUT)
     }
-  }
 
-  handleMenuLink = () => {
-    this.closeMenu()
+    const event = value
+      ? `click_${value}`
+      : 'click_menu'
 
     analytics({
-      event: 'click_logout',
+      event,
       category: 'user_menu'
     })
   }
 
+  openHelp = () => {
+    this.setState({
+      helpVisibility: true,
+    })
+  }
+
+  closeHelp = () => {
+    this.setState({
+      helpVisibility: false,
+    })
+  }
+
   render () {
-    const { isOpen } = this.state
+    const { helpVisibility } = this.state
     const { user } = this.props
 
     if (!user) {
@@ -73,49 +91,49 @@ class HeaderMenu extends React.Component<Props, State> {
     }
 
     return (
-      <OutsideClickWrapper
-        className={s.HeaderMenu}
-        handler={this.closeMenu}
-      >
-        <button
-          className={s.HeaderMenu__info}
-          onClick={this.handleButton}
-        >
-          <span className={s.HeaderMenu__avatar}>
-            {user.picture && (
-              <img
-                src={user.picture}
-                alt=""
+      <>
+        <Menu
+          size="free"
+          Component={(props) => (
+            <div className={s.HeaderMenu__info}>
+              <div className={s.HeaderMenu__avatar}>
+                {user!.picture && (
+                  <img
+                    src={user!.picture}
+                    alt=""
+                  />
+                )}
+              </div>
+
+              <Icon
+                type={props.isOpen ? IconTypes.arrowUp : IconTypes.arrowDown}
+                size="24"
               />
-            )}
-          </span>
+            </div>
+          )}
+        >
+          {MENU.map(({ value, label }) => (
+            <Item
+              key={value}
+              value={value}
+              onClick={this.handleMenuItem}
+            >
+              {label}
+            </Item>
+          ))}
+        </Menu>
 
-          <Icon
-            type={isOpen ? IconTypes.arrowUp : IconTypes.arrowDown}
-            size="24"
-          />
-        </button>
-
-        <Animation.Dropdown in={isOpen}>
-          <div className={s.HeaderMenu__list}>
-            {MENU.map(({ to, label }) => (
-              <Link
-                key={to}
-                to={to}
-                className={s.HeaderMenu__item}
-                onClick={this.handleMenuLink}
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
-        </Animation.Dropdown>
-      </OutsideClickWrapper>
+        <HelpToStart
+          isOpen={helpVisibility}
+          onClose={this.closeHelp}
+        />
+      </>
     )
   }
 }
 
 export default compose(
+  withRouter,
   connect(
     ({ user }: RootState) => ({ user }),
   ),

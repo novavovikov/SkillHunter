@@ -4,9 +4,6 @@ interface CssExports {
   'HeaderMenu': string;
   'HeaderMenu__avatar': string;
   'HeaderMenu__info': string;
-  'HeaderMenu__item': string;
-  'HeaderMenu__list': string;
-  'HeaderMenu__name': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

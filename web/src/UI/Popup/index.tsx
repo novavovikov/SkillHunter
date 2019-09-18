@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import * as s from './Popup.css'
 
 interface Props {
-  isOpen: boolean
+  isOpen?: boolean
   onClose?: () => void
 }
 

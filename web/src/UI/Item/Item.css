@@ -3,6 +3,7 @@
 .Item {
   display: flex;
   align-items: center;
+  width: 100%;
   background: #fff;
   border: none;
   text-align: left;

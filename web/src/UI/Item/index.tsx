@@ -8,12 +8,13 @@ const Item: FC<Props> = (props) => {
   const { children, ...rest } = props
 
   return (
-    <div
+    <button
       className={s.Item}
+      type="button"
       {...rest}
     >
       {children}
-    </div>
+    </button>
   )
 }
 

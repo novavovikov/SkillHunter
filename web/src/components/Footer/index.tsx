@@ -49,7 +49,7 @@ class Footer extends Component {
             className={s.Footer__link}>help@skillhunter.io</a>
           </div>
 
-          <div>
+          <div className={s.Footer__links}>
             {EXTERNAL_LINKS.map(({ href, label }) => (
               <a
                 key={label}

@@ -14,6 +14,11 @@ export const userSettings: Reducer<UserSettingsState, UserSettingsAction> = (
   switch (action.type) {
     case UserSettingsActionTypes.SET_USER_SETTINGS:
       return action.payload
+    case UserSettingsActionTypes.UPDATE_USER_SETTINGS:
+      return {
+        ...state,
+        ...action.payload
+      } as IUserSettings
     default:
       return state
   }

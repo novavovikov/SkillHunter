@@ -5,43 +5,62 @@ import Video from './video'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { RootState } from '../../redux/reducers'
-import { getUserSettingsDataSaga } from '../../redux/actions/userSettings'
+import { getUserSettingsSaga, updateUserSettingsSaga } from '../../redux/actions/userSettings'
 import { UserSettingsState } from '../../redux/reducers/userSettings'
 import * as s from './HelpToStart.css'
+import { IUserSettings } from '../../types'
 
 interface Props {
-  userSettings: UserSettingsState
-  getUserSettingsData: () => void
+  isOpen: boolean
+  onClose: () => void
+  userSettings: Partial<UserSettingsState>
+  getUserSettings: () => void
+  updateUserSettings: (data: Partial<IUserSettings>) => void
 }
 
 class HelpToStart extends Component<Props> {
+  static defaultProps = {
+    userSettings: {
+      onboarding: false,
+    },
+  }
+
   componentDidMount (): void {
-    this.props.getUserSettingsData()
-  }
-
-  resetState = () => {
-    // this.setState({
-    //   settings: null,
-    // })
-    //
-    // ajax.put('user-settings', {
-    //   onboarding: false,
-    // })
-  }
-
-  render () {
     const { userSettings } = this.props
 
     if (!userSettings) {
+      this.props.getUserSettings()
+    }
+  }
+
+  onClose = () => {
+    const {
+      updateUserSettings,
+      onClose,
+      isOpen,
+    } = this.props
+
+    if (isOpen) {
+      return onClose()
+    }
+
+    return updateUserSettings({
+      onboarding: false,
+    })
+  }
+
+  render () {
+    const { userSettings, isOpen } = this.props
+    const isVisible = isOpen || (userSettings && userSettings!.onboarding)
+
+    if (!isVisible) {
       return null
     }
 
-    console.log(2, userSettings)
-
     return (
       <Popup
-        isOpen={userSettings.onboarding}
-        onClose={this.resetState}
+        isOpen={isVisible}
+        onClose={this.onClose}
       >
         <div className={s.HelpToStart}>
           <div className={s.HelpToStart__header}>
@@ -94,7 +113,7 @@ class HelpToStart extends Component<Props> {
           <div className={s.HelpToStart__footer}>
             <button
               className={s.HelpToStart__submit}
-              onClick={this.resetState}
+              onClick={this.onClose}
             >
               Got it, close it
             </button>
@@ -109,7 +128,8 @@ export default compose(
   connect(
     ({ userSettings }: RootState) => ({ userSettings }),
     {
-      getUserSettingsData: getUserSettingsDataSaga,
+      getUserSettings: getUserSettingsSaga,
+      updateUserSettings: updateUserSettingsSaga,
     },
   ),
 )(HelpToStart)

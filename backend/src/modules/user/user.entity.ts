@@ -54,9 +54,7 @@ export class User {
 
   @OneToOne(() => UserSettings, settings => settings.user, {
     cascade: true,
-    eager: true,
   })
-  @JoinColumn()
   settings: UserSettings
 
   @ManyToMany(() => Resource, (resource: Resource) => resource.usersLikes)

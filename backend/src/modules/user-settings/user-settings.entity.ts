@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { User } from '../user/user.entity'
 
 @Entity()
@@ -19,5 +19,6 @@ export class UserSettings {
   push: boolean
 
   @OneToOne(() => User, user => user.settings)
+  @JoinColumn()
   user: User
 }

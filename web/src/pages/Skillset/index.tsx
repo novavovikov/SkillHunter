@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect, RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { HelpToStart, Page, UserSkill } from '../../components'
+import { Page, UserSkill } from '../../components'
 import { CREATOR_SKILL_QUERY, ROUTES } from '../../constants/routing'
 import { withUser } from '../../providers/User'
 import { getResourcesSaga } from '../../redux/actions/resources'
@@ -122,8 +122,6 @@ class Skillset extends React.Component<Props> {
             </Button>
           </div>
         )}
-
-        <HelpToStart/>
       </Page>
     )
   }

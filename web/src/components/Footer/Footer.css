@@ -24,6 +24,15 @@
     }
   }
 
+  &__links {
+    display: flex;
+    align-items: center;
+
+    @media (--xs) {
+      margin: 0 -10px;
+    }
+  }
+
   &__link {
     position: relative;
     padding: 0 20px;
