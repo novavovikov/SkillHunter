@@ -29,10 +29,7 @@ import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserDto } from './user.dto'
 import { User } from './user.entity'
 import { UserService } from './user.service'
-import {
-  WELCOME_RESOURCE_ID,
-  WELCOME_SKILL_NAME,
-} from '../../constants/welcome'
+import { WELCOME_RESOURCE_ID, WELCOME_SKILL_NAME } from '../../constants/welcome'
 import { ResourceService } from '../resource/resource.service'
 import { UserSkill } from '../user-skill/user-skill.entity'
 import { UserSettingsService } from '../user-settings/user-settings.service'
@@ -110,8 +107,27 @@ export class UserController {
   @Put(':userId')
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  updateUserById(@Body() data: UserDto, @Param('userId') userId: string) {
-    return this.userService.update(Number(userId), data)
+  async updateUserById (
+    @Body() data: UserDto,
+    @Param('userId') userId: string,
+  ) {
+    const user = await this.userService.findById(Number(userId))
+
+    if (!user) {
+      throw new HttpException(
+        {
+          message: 'The user is not found',
+          type: HttpMessageType.error,
+          statusCode: HttpStatus.NOT_FOUND,
+        },
+        HttpStatus.NOT_FOUND,
+      )
+    }
+
+    return this.userService.save({
+      ...user,
+      ...data
+    } as User)
   }
 
   @Put()
