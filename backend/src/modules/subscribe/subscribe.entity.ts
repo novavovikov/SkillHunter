@@ -20,7 +20,4 @@ export class Subscribe {
 
   @Column({ nullable: true })
   skillset: string
-
-  @Column({ nullable: true })
-  expectations: string
 }
