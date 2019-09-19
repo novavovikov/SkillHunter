@@ -4,7 +4,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import session from 'express-session'
 import { SESSION_SECRET_KEY } from './constants/sessions'
 import { AppModule } from './modules/app/app.module'
-import 'dotenv/config'
 
 const API_BASE_PATH = 'api'
 const env = process.env.NODE_ENV || 'dev'
