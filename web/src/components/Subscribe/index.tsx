@@ -96,11 +96,11 @@ class Subscribe extends Component<Props, State> {
       return (
         <div className={s.Subscribe}>
           <H4 className={s.Subscribe__title}>
-            Request was sent early
+            Request has already been sent.
           </H4>
 
           <p className={s.Subscribe__text}>
-            Wait letter to {subscribe!.email}
+            We will send you a letter at {subscribe!.email}  when the feature is released
           </p>
         </div>
       )
@@ -112,7 +112,7 @@ class Subscribe extends Component<Props, State> {
         onSubmit={this.submitForm}
       >
         <H4 className={s.Subscribe__title}>
-          Sign up with your email address to receive news about release this feature.
+          Sign up with your email address to receive news of this feature release.
         </H4>
 
         <Input

@@ -2,11 +2,15 @@
 
 .Subscribe {
   margin: 40px auto;
-  max-width: 500px;
-  padding: 40px;
+  max-width: 560px;
+  padding: 40px 30px;
   background: #fff;
   border-radius: var(--radius);
   animation: ShowSubscribe var(--transition-fast) forwards;
+
+  @media(--md) {
+    padding: 20px;
+  }
 
   &__title {
     margin: 0 0 20px;
