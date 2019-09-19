@@ -21,7 +21,12 @@ export class SubscribeController {
   @UseGuards(RolesGuard)
   @ApiUseTags('admin')
   getSubscribers () {
-    return this.subscribeService.findAll()
+    return this.subscribeService.findAll({
+      order: {
+        id: 'DESC',
+      },
+      relations: ['user']
+    })
   }
 
   @Get()

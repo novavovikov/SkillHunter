@@ -21,6 +21,7 @@ const Subscribers: React.FC = () => {
           <Table.Th>email</Table.Th>
           <Table.Th>created</Table.Th>
           <Table.Th>feature</Table.Th>
+          <Table.Th>userId</Table.Th>
         </Table.Tr>
       </Table.Head>
       <Table.Body>
@@ -39,6 +40,12 @@ const Subscribers: React.FC = () => {
             </Table.Td>
             <Table.Td>
               {subscriber.feature}
+            </Table.Td>
+            <Table.Td>
+              {subscriber.user
+                ? subscriber.user.id
+                : '—'
+              }
             </Table.Td>
           </Table.Tr>
         ))}

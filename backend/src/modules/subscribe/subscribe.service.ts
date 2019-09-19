@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindOneOptions, Repository } from 'typeorm'
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm'
 
 import { Subscribe } from './subscribe.entity'
 
@@ -11,12 +11,8 @@ export class SubscribeService {
     private subscribeRepository: Repository<Subscribe>
   ) {}
 
-  findAll() {
-    return this.subscribeRepository.find({
-      order: {
-        id: 'ASC',
-      },
-    })
+  findAll(options: FindManyOptions<Subscribe> = {}) {
+    return this.subscribeRepository.find(options)
   }
 
   findOne (criteria: any, options?: FindOneOptions<Subscribe>) {
