@@ -1,10 +1,12 @@
-const fileLoaderWithOptions = {
+const fileLoaderWithOptions = (env) => ({
   loader: 'file-loader',
   options: {
     outputPath: 'static/',
-    name: '[name].[ext]'
+    name: env === 'development'
+      ? '[contenthash].[ext]'
+      : '[name].[ext]'
   }
-}
+})
 
 module.exports = (env) => ({
   rules: [
@@ -58,13 +60,13 @@ module.exports = (env) => ({
           use: 'svg-inline-loader',
         },
         {
-          use: fileLoaderWithOptions,
+          use: fileLoaderWithOptions(env),
         },
       ],
     },
     {
       test: /\.(gif|png|jpe?g|ico)$/i,
-      use: fileLoaderWithOptions,
+      use: fileLoaderWithOptions(env),
     },
   ],
 })

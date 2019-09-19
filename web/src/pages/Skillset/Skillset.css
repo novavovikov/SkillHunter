@@ -8,18 +8,36 @@
     @apply --font-xl;
     max-width: 100%;
     width: 450px;
-    margin: 0 auto;
+    margin: 100px auto 50px;
 
     &:before {
       content: '';
       display: block;
-      padding-bottom: 100%;
+      width: 88px;
+      height: 88px;
       margin: 0 auto 20px;
-      background: url("./images/skillset-empty.svg") no-repeat center/contain;
+      background: url("./images/library-empty.svg") no-repeat center/contain;
+    }
+
+    @media (--md) {
+      margin: 40px 0;
     }
   }
 
+  &__emptyText {
+    @apply --font-xl;
+    font-weight: bold;
+    line-height: 1.6;
+    margin: 33px 0;
+  }
+
   &__btn {
-    margin: 20px 0 0;
+    font-weight: bold;
+  }
+
+  &__btnLabel {
+    width: 100%;
+    font-weight: normal;
+    @apply --font-m;
   }
 }

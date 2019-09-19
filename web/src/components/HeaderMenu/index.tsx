@@ -49,6 +49,11 @@ class HeaderMenu extends React.Component<Props, State> {
     const { history } = this.props
     const { value } = e.target as HTMLButtonElement
 
+    analytics({
+      event: `click_${value}`,
+      category: 'user_menu'
+    })
+
     switch (value) {
       case MenuValues.help:
         return this.openHelp()
@@ -57,11 +62,6 @@ class HeaderMenu extends React.Component<Props, State> {
       case MenuValues.logout:
         return history.push(ROUTES.LOGOUT)
     }
-
-    analytics({
-      event: `click_${value}`,
-      category: 'user_menu'
-    })
   }
 
   openHelp = () => {

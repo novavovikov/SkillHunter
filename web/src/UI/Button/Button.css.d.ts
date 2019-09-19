@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'Button': string;
+  'Button_gray': string;
   'Button_large': string;
   'Button_plus': string;
   'Button_transparent': string;

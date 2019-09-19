@@ -63,7 +63,10 @@ class RemoveAccount extends Component<RouteComponentProps, State> {
         </p>
 
         <div className={s.RemoveAccount__button}>
-          <Button onClick={this.openRemovePopup}>
+          <Button
+            onClick={this.openRemovePopup}
+            theme="gray"
+          >
             Delete My Account
           </Button>
         </div>

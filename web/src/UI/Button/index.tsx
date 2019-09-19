@@ -3,7 +3,7 @@ import React, { ButtonHTMLAttributes, FC } from 'react'
 import * as s from './Button.css'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  theme?: string
+  theme?: 'plus' | 'large' | 'gray' | 'transparent'
 }
 
 const Button: FC<Props> = (
@@ -22,6 +22,7 @@ const Button: FC<Props> = (
         {
           [s.Button_plus]: theme === 'plus',
           [s.Button_large]: theme === 'large',
+          [s.Button_gray]: theme === 'gray',
           [s.Button_transparent]: theme === 'transparent',
         },
       )}

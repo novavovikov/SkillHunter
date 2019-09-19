@@ -26,4 +26,13 @@
       background: var(--color-alto);
     }
   }
+
+  &_gray {
+    color: var(--color-tundora);
+    background: var(--color-alto);
+
+    &:hover {
+      background: var(--color-silver);
+    }
+  }
 }

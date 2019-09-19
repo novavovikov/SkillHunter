@@ -110,15 +110,22 @@ class Skillset extends React.Component<Props> {
 
         {!isLoading && !skills.length && (
           <div className={s.Skillset__empty}>
-            <div>
-              Skillset list is empty
+            <div className={s.Skillset__emptyText}>
+              You library is empty
+              <div className={s.Skillset__btnLabel}>
+                Add some skills
+              </div>
             </div>
 
             <Button
-              onClick={this.handleSkillCreator}
               className={s.Skillset__btn}
+              onClick={this.handleSkillCreator}
+              theme="large"
             >
-              Add skill
+              Add
+              <span className={s.Skillset__btnLabel}>
+              skills
+              </span>
             </Button>
           </div>
         )}
