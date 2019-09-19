@@ -3,13 +3,13 @@ import { Table } from '../../components'
 import { ajax } from '../../utils/ajax'
 
 const Subscribers: React.FC = () => {
-  const [users, setUsers] = React.useState([])
+  const [subscribers, setSubscribers] = React.useState([])
 
   React.useEffect(() => {
     ajax.
-      get('subscribe').
+      get('subscribe/list').
       then(({ data }: any) => {
-        setUsers(data)
+        setSubscribers(data)
       }).catch(err => console.warn('Users', err))
   }, [])
 
@@ -20,29 +20,25 @@ const Subscribers: React.FC = () => {
           <Table.Th>id</Table.Th>
           <Table.Th>email</Table.Th>
           <Table.Th>created</Table.Th>
-          <Table.Th>skillset</Table.Th>
-          <Table.Th>expectation</Table.Th>
+          <Table.Th>feature</Table.Th>
         </Table.Tr>
       </Table.Head>
       <Table.Body>
-        {users.map((user: any) => (
+        {subscribers.map((subscriber: any) => (
           <Table.Tr
-            key={user.id}
+            key={subscriber.id}
           >
             <Table.Td>
-              {user.id}
+              {subscriber.id}
             </Table.Td>
             <Table.Td>
-              {user.email}
+              {subscriber.email}
             </Table.Td>
             <Table.Td>
-              {user.created}
+              {subscriber.created}
             </Table.Td>
             <Table.Td>
-              {user.profession}
-            </Table.Td>
-            <Table.Td>
-              {user.expectation}
+              {subscriber.feature}
             </Table.Td>
           </Table.Tr>
         ))}
