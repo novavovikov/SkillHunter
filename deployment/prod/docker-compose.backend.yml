@@ -10,7 +10,7 @@ services:
       - 4321
     ports:
       - 4321:4321
-    restart: always
+    restart: on-failure
     depends_on:
       - redis
     networks:
