@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY *.json /app/
 COPY *.js /app/
+COPY migrations/ /app/migrations/
 COPY src/ /app/src/
 COPY test/ /app/test/
 

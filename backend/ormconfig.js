@@ -8,7 +8,7 @@ module.exports = {
   ssl: process.env.NODE_ENV === 'prod',
   migrationsTableName: 'typeorm_migrations',
   migrations: [
-    'migrations/*.ts'
+    __dirname + '/migrations/**/*{.ts,.js}'
   ],
   entities: [
     'src/modules/**/*.entity.ts',
@@ -17,4 +17,4 @@ module.exports = {
     migrationsDir: 'migrations'
   },
   synchronize: false,
-};
+}
