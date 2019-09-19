@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  UseGuards,
-  UsePipes,
-} from '@nestjs/common'
+import { Body, Controller, Get, HttpException, HttpStatus, Post, UseGuards, UsePipes } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
@@ -14,24 +7,54 @@ import { RoleType } from '../../constants/role-type'
 import { SubscribeService } from './subscribe.service'
 import { SubscribeDto } from './subscribe.dto'
 import { ValidationPipe } from '../../common/pipes/validation.pipe'
+import { UserData } from '../../common/decorators/user.decorator'
+import { User } from '../user/user.entity'
+import { HttpMessageType } from '../../constants/exception'
 
 @Controller('subscribe')
+@UseGuards(AuthGuard('jwt'))
 export class SubscribeController {
   constructor(private subscribeService: SubscribeService) {}
+
+  @Get('list')
+  @Roles([RoleType.Admin])
+  @UseGuards(RolesGuard)
+  @ApiUseTags('admin')
+  getSubscribers () {
+    return this.subscribeService.findAll()
+  }
+
+  @Get()
+  @ApiUseTags('subscribe')
+  async getSubscribe (
+    @UserData() user: User,
+  ) {
+    const subscribe = await this.subscribeService.findOne({ user })
+
+    if (!subscribe) {
+      throw new HttpException(
+        {
+          message: 'The subscribe is not found',
+          type: HttpMessageType.error,
+          statusCode: HttpStatus.NOT_FOUND,
+        },
+        HttpStatus.NOT_FOUND
+      )
+    }
+
+    return subscribe
+  }
 
   @Post()
   @UsePipes(new ValidationPipe())
   @ApiUseTags('subscribe')
-  createSubscriber(@Body() data: SubscribeDto) {
-    return this.subscribeService.create(data)
-  }
-
-  @Get()
-  @Roles([RoleType.Admin])
-  @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard('jwt'))
-  @ApiUseTags('admin')
-  getSubscribers() {
-    return this.subscribeService.findAll()
+  createSubscriber (
+    @Body() data: SubscribeDto,
+    @UserData() user: User,
+  ) {
+    return this.subscribeService.create({
+      ...data,
+      user,
+    })
   }
 }

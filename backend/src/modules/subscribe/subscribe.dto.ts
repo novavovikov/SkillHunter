@@ -9,8 +9,5 @@ export class SubscribeDto {
   email: string
 
   @ApiModelProperty()
-  skillset: string
-
-  @ApiModelProperty()
-  expectations: string
+  feature: string
 }

@@ -1,0 +1,42 @@
+@import "../../styles/variables.css";
+
+.Subscribe {
+  margin: 40px auto;
+  max-width: 500px;
+  padding: 40px;
+  background: #fff;
+  border-radius: var(--radius);
+  animation: ShowSubscribe var(--transition-fast) forwards;
+
+  &__title {
+    margin: 0 0 20px;
+  }
+
+  &__text {
+    margin: 0;
+  }
+
+  &__field {
+    margin: 0 0 40px;
+
+    &_invalid {
+      input {
+        border-color: var(--color-red-orange);
+
+        &:focus {
+          border-color: var(--color-red-orange);
+        }
+      }
+    }
+  }
+}
+
+@keyframes ShowSubscribe {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

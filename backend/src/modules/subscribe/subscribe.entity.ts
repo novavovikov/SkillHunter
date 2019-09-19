@@ -1,9 +1,10 @@
 import {
   Column,
   CreateDateColumn,
-  Entity,
+  Entity, JoinColumn, OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
+import { User } from '../user/user.entity'
 
 @Entity()
 export class Subscribe {
@@ -18,9 +19,10 @@ export class Subscribe {
   })
   email: string
 
-  @Column({ nullable: true })
-  skillset: string
+  @Column()
+  feature: string
 
-  @Column({ nullable: true })
-  expectations: string
+  @OneToOne(() => User)
+  @JoinColumn()
+  user: User
 }

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Page, RoadMap } from '../../components'
+import { Page, RoadMap, Subscribe } from '../../components'
 import { H2, Head } from '../../UI'
 import * as s from './Mock.css'
 
@@ -23,6 +23,7 @@ const Mock: FC<Props> = ({ title }) => {
         </div>
 
         <RoadMap/>
+        <Subscribe/>
       </div>
     </Page>
   )

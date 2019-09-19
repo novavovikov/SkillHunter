@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { SubscribeDto } from './subscribe.dto'
+import { FindOneOptions, Repository } from 'typeorm'
 
 import { Subscribe } from './subscribe.entity'
 
@@ -20,7 +19,14 @@ export class SubscribeService {
     })
   }
 
-  async create(data: SubscribeDto) {
+  findOne (criteria: any, options?: FindOneOptions<Subscribe>) {
+    return this.subscribeRepository.findOne({
+      where: criteria,
+      ...options,
+    })
+  }
+
+  async create (data: Partial<Subscribe>) {
     const subscriber = this.subscribeRepository.create(data)
     await this.subscribeRepository.save(subscriber)
     return subscriber
