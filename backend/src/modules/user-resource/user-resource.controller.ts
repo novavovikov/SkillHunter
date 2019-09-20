@@ -17,10 +17,7 @@ import { UserData } from '../../common/decorators/user.decorator'
 import { RolesGuard } from '../../common/guards/roles.guard'
 import { UserGuard } from '../../common/guards/user.guard'
 import { HttpMessageType } from '../../constants/exception'
-import {
-  excludeFieldsFromObject,
-  getUserResourceWithLikedField,
-} from '../../utils/normalizer'
+import { excludeFieldsFromObject, getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Resource } from '../resource/resource.entity'
 import { ResourceService } from '../resource/resource.service'
 import { SkillService } from '../skill/skill.service'
@@ -84,7 +81,7 @@ export class UserResourceController {
     @Param('resourceId') resourceId: string,
     @UserData() user: User
   ) {
-    const userResource = await this.userResourceService.findById(resourceId, {
+    const userResource = await this.userResourceService.findOne({ id: Number(resourceId) }, {
       join: {
         alias: 'userResource',
         leftJoinAndSelect: {
@@ -158,7 +155,7 @@ export class UserResourceController {
       )
     }
 
-    const userSkill = await this.userSkillService.findById(skillId, {
+    const userSkill = await this.userSkillService.findOne({ id: skillId }, {
       relations: ['userResources'],
     })
 
@@ -188,7 +185,9 @@ export class UserResourceController {
       )
     }
 
-    const resource: Resource = await this.resourceService.findById(resourceId)
+    const resource: Resource = await this.resourceService.findOne({
+      id: resourceId,
+    })
 
     if (!resource) {
       throw new HttpException(

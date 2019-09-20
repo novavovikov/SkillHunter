@@ -12,7 +12,12 @@ import { UserSkillService } from './user-skill.service'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserSkill, UserResource, Skillset, Skill]),
+    TypeOrmModule.forFeature([
+      UserSkill,
+      UserResource,
+      Skillset,
+      Skill
+    ]),
   ],
   controllers: [UserSkillController],
   providers: [

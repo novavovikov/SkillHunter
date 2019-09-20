@@ -26,15 +26,6 @@ export class UserSkillService {
     })
   }
 
-  findById(id: number | string, options?: FindOneOptions<UserSkill>) {
-    return this.userSkillRepository.findOne({
-      where: {
-        id: Number(id),
-      },
-      ...options,
-    })
-  }
-
   getSkillsBySkillsetId(user: User, skillsetId: number) {
     return this.userSkillRepository.find({
       where: {

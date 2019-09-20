@@ -29,7 +29,10 @@ import { UserSkillService } from '../user-skill/user-skill.service'
 import { UserDto } from './user.dto'
 import { User } from './user.entity'
 import { UserService } from './user.service'
-import { WELCOME_RESOURCE_ID, WELCOME_SKILL_NAME } from '../../constants/welcome'
+import {
+  WELCOME_RESOURCE_ID,
+  WELCOME_SKILL_NAME,
+} from '../../constants/welcome'
 import { ResourceService } from '../resource/resource.service'
 import { UserSkill } from '../user-skill/user-skill.entity'
 import { UserSettingsService } from '../user-settings/user-settings.service'
@@ -107,10 +110,7 @@ export class UserController {
   @Put(':userId')
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
-  async updateUserById (
-    @Body() data: UserDto,
-    @Param('userId') userId: string,
-  ) {
+  async updateUserById(@Body() data: UserDto, @Param('userId') userId: string) {
     const user = await this.userService.findById(Number(userId))
 
     if (!user) {
@@ -120,13 +120,13 @@ export class UserController {
           type: HttpMessageType.error,
           statusCode: HttpStatus.NOT_FOUND,
         },
-        HttpStatus.NOT_FOUND,
+        HttpStatus.NOT_FOUND
       )
     }
 
     return this.userService.save({
       ...user,
-      ...data
+      ...data,
     } as User)
   }
 
@@ -317,9 +317,9 @@ export class UserController {
     userSkill: UserSkill
   ) => {
     // FIXME don't use ID an NAME
-    const welcomeResource = await this.resourceService.findById(
-      WELCOME_RESOURCE_ID
-    )
+    const welcomeResource = await this.resourceService.findOne({
+      id: WELCOME_RESOURCE_ID
+    })
 
     if (userSkill && welcomeResource) {
       return this.userResourceService.addResource(

@@ -15,6 +15,7 @@ import { CacheModule } from '../cache/cache.module'
 import { MailModule } from '../mail/mail.module'
 import { AppService } from './app.service'
 import { AppController } from './app.controller'
+import { ActivityModule } from '../activity/activity.module'
 import config from '../../../ormconfig'
 
 @Module({
@@ -33,6 +34,7 @@ import config from '../../../ormconfig'
     CacheModule,
     TelegramModule,
     MailModule,
+    ActivityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

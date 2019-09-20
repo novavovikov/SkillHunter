@@ -1,20 +1,7 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  UseGuards,
-} from '@nestjs/common'
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common'
 import { TELEGRAM_BOT_ID, TELEGRAM_CACHE_KEY } from './constants/telegram'
 import { TelegramService } from './telegram.service'
-import {
-  TelegramCallbackQueryDto,
-  TelegramInitiatorDto,
-  TelegramMessageDto,
-} from './telegram.dto'
+import { TelegramCallbackQueryDto, TelegramInitiatorDto, TelegramMessageDto } from './telegram.dto'
 import { UserService } from '../user/user.service'
 import { AuthService } from '../auth/auth.service'
 import { UserData } from '../../common/decorators/user.decorator'
@@ -29,11 +16,7 @@ import { CacheService } from '../cache/cache.service'
 import { ResourceService } from '../resource/resource.service'
 import { UserResourceService } from '../user-resource/user-resource.service'
 import { Resource } from '../resource/resource.entity'
-import {
-  LOGOUT_TELEGRAM_COMMAND,
-  START_TELEGRAM_COMMAND,
-  TELEGRAM_COMMANDS,
-} from './constants/commands'
+import { LOGOUT_TELEGRAM_COMMAND, START_TELEGRAM_COMMAND, TELEGRAM_COMMANDS } from './constants/commands'
 import { ApiUseTags } from '@nestjs/swagger'
 
 interface UserData {
@@ -258,7 +241,7 @@ export class TelegramController {
       })
     }
 
-    const userSkill = await this.userSkillService.findById(skillId, {
+    const userSkill = await this.userSkillService.findOne({ id: skillId }, {
       relations: ['userResources'],
     })
 

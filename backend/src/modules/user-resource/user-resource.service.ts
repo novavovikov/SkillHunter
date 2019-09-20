@@ -1,12 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import {
-  Brackets,
-  FindManyOptions,
-  FindOneOptions,
-  In,
-  Repository,
-} from 'typeorm'
+import { Brackets, FindManyOptions, FindOneOptions, In, Repository } from 'typeorm'
 import { getUserResourceWithLikedField } from '../../utils/normalizer'
 import { Resource } from '../resource/resource.entity'
 import { UserSkill } from '../user-skill/user-skill.entity'
@@ -20,7 +14,7 @@ export class UserResourceService {
     private userResourceRepository: Repository<UserResource>
   ) {}
 
-  find(
+  find (
     criteria: Partial<UserResource>,
     options?: FindManyOptions<UserResource>
   ) {
@@ -30,7 +24,17 @@ export class UserResourceService {
     })
   }
 
-  async findOne(
+  async count (
+    criteria: Partial<UserResource>,
+    options?: FindManyOptions<UserResource>,
+  ) {
+    return this.userResourceRepository.count({
+      where: criteria,
+      ...options,
+    })
+  }
+
+  findOne (
     criteria: Partial<UserResource>,
     options?: FindOneOptions<UserResource>
   ) {
@@ -38,16 +42,6 @@ export class UserResourceService {
       where: criteria,
       ...options,
     })
-  }
-
-  findById(
-    resourceId: string | number,
-    options?: FindOneOptions<UserResource>
-  ) {
-    return this.userResourceRepository.findOne(
-      { id: Number(resourceId) },
-      options
-    )
   }
 
   findByTitleResource(userId: number, query: string) {
@@ -141,7 +135,7 @@ export class UserResourceService {
         },
       }
 
-      const userResources: UserResource[] = await this.userResourceRepository.find(
+      const [userResources, total] = await this.userResourceRepository.findAndCount(
         {
           where,
           order: {
@@ -153,7 +147,7 @@ export class UserResourceService {
 
       if (userResources.length) {
         result[userSkillId] = {
-          total: await this.userResourceRepository.count(where),
+          total,
           data: userResources.map(userResource =>
             getUserResourceWithLikedField(user.id, userResource)
           ),

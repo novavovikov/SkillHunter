@@ -23,7 +23,6 @@ import { User } from '../user/user.entity'
 import { Resource } from './resource.entity'
 import { ResourceService } from './resource.service'
 import { SkillDto } from '../skill/skill.dto'
-import { RESOURCES_BLACK_LIST } from '../../constants/resources'
 
 @Controller('resource')
 export class ResourceController {
@@ -61,7 +60,7 @@ export class ResourceController {
   @ApiUseTags('admin')
   async updateResourceCache(@Param('resourceId') resourceId: string) {
     const id = Number(resourceId)
-    const resource = await this.resourceService.findById(id)
+    const resource = await this.resourceService.findOne({ id })
     const receivedResource = await this.resourceService.getFromLink(
       resource.link
     )
@@ -172,7 +171,7 @@ export class ResourceController {
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
   async removeResource(@Param('resourceId') resourceId: string) {
-    const resource = await this.resourceService.findById(Number(resourceId))
+    const resource = await this.resourceService.findOne({ id: Number(resourceId) })
     return this.resourceService.remove(resource)
   }
 }

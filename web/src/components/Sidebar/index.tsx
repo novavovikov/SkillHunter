@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
 import { RootState } from '../../redux/reducers'
-import { UserState } from '../../redux/reducers/user'
 import { ISkillset, IUser } from '../../types'
 import { Layout } from '../../UI'
-import { Nav, SkillCreator, UserSkillset, UserProgress } from '../index'
+import { Nav, SkillCreator, UserProgress, UserSkillset } from '../index'
 
 interface Params {
   skillset: string
@@ -14,7 +13,7 @@ interface Params {
 
 interface Props extends RouteComponentProps<Params> {
   className?: string
-  user: UserState
+  user: IUser
   onClose: () => void
 }
 

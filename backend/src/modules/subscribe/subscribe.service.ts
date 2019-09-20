@@ -15,14 +15,14 @@ export class SubscribeService {
     return this.subscribeRepository.find(options)
   }
 
-  findOne (criteria: any, options?: FindOneOptions<Subscribe>) {
+  findOne(criteria: any, options?: FindOneOptions<Subscribe>) {
     return this.subscribeRepository.findOne({
       where: criteria,
       ...options,
     })
   }
 
-  async create (data: Partial<Subscribe>) {
+  async create(data: Partial<Subscribe>) {
     const subscriber = this.subscribeRepository.create(data)
     await this.subscribeRepository.save(subscriber)
     return subscriber

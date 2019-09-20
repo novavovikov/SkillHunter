@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpService,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common'
+import { HttpException, HttpService, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { JSDOM, VirtualConsole } from 'jsdom'
 import { map } from 'rxjs/operators'
@@ -24,18 +19,18 @@ export class ResourceService {
     private readonly http: HttpService
   ) {}
 
-  async findOne(data: Partial<Resource>, options?: FindOneOptions<Resource>) {
-    return await this.resourceRepository.findOne({
-      where: data,
+  findAll (options?: FindOneOptions<Resource>) {
+    return this.resourceRepository.find({
+      order: {
+        id: 'DESC',
+      },
       ...options,
     })
   }
 
-  async findById(id: number | string, options?: FindOneOptions<Resource>) {
-    return await this.resourceRepository.findOne({
-      where: {
-        id: Number(id),
-      },
+  findOne (criteria: Partial<Resource>, options?: FindOneOptions<Resource>) {
+    return this.resourceRepository.findOne({
+      where: criteria,
       ...options,
     })
   }
@@ -121,17 +116,8 @@ export class ResourceService {
       })
   }
 
-  async findAll(options?: FindOneOptions<Resource>) {
-    return this.resourceRepository.find({
-      order: {
-        id: 'DESC',
-      },
-      ...options,
-    })
-  }
-
   async create(data) {
-    const resource = this.resourceRepository.create(data)
+    const resource = await this.resourceRepository.create(data)
     await this.resourceRepository.save(resource)
     return resource
   }
@@ -151,7 +137,7 @@ export class ResourceService {
   }
 
   async setResourceLike(resourceId: number, user: User) {
-    const resource: Resource = await this.findById(resourceId, {
+    const resource: Resource = await this.findOne({ id: resourceId }, {
       relations: ['usersLikes'],
     })
 
@@ -186,7 +172,7 @@ export class ResourceService {
   }
 
   async removeResourceLike(resourceId: number, user: User) {
-    const resource: Resource = await this.findById(resourceId, {
+    const resource: Resource = await this.findOne({ id: resourceId }, {
       relations: ['usersLikes'],
     })
 

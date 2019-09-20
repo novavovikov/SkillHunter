@@ -8,7 +8,7 @@ import {
   Param,
   Post,
   UseGuards,
-  UsePipes
+  UsePipes,
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
@@ -31,20 +31,18 @@ export class SubscribeController {
   @Roles([RoleType.Admin])
   @UseGuards(RolesGuard)
   @ApiUseTags('admin')
-  getSubscribers () {
+  getSubscribers() {
     return this.subscribeService.findAll({
       order: {
         id: 'DESC',
       },
-      relations: ['user']
+      relations: ['user'],
     })
   }
 
   @Get()
   @ApiUseTags('subscribe')
-  async getSubscribe (
-    @UserData() user: User,
-  ) {
+  async getSubscribe(@UserData() user: User) {
     const subscribe = await this.subscribeService.findOne({ user })
 
     if (!subscribe) {
@@ -64,10 +62,7 @@ export class SubscribeController {
   @Post()
   @UsePipes(new ValidationPipe())
   @ApiUseTags('subscribe')
-  createSubscriber (
-    @Body() data: SubscribeDto,
-    @UserData() user: User,
-  ) {
+  createSubscriber(@Body() data: SubscribeDto, @UserData() user: User) {
     return this.subscribeService.create({
       ...data,
       user,
@@ -78,7 +73,9 @@ export class SubscribeController {
   @Roles([RoleType.Admin])
   @ApiUseTags('admin')
   async removeSubscribe(@Param('subscribeId') subscribeId: string) {
-    const subscribe = await this.subscribeService.findOne({ id: Number(subscribeId) })
+    const subscribe = await this.subscribeService.findOne({
+      id: Number(subscribeId),
+    })
     return this.subscribeService.remove(subscribe)
   }
 }
