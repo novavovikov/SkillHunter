@@ -3,7 +3,7 @@
 export USER_ID=$(id -u)
 export GROUP_ID=$(id -g)
 
-export COMPOSE_FILE=./deployment/dev/docker-compose.dev.yml
+export COMPOSE_FILE=./build/dev/docker-compose.dev.yml
 
 docker-compose build
 docker-compose up --force-recreate
