@@ -5,6 +5,7 @@ pipeline {
         DOCKER_FILE = "./deployment/prod/docker-compose.backend.yml"
     }
 
+   stages {
     stage('Build') {
       steps {
         sh 'docker-compose -f ${DOCKER_FILE} build --no-cache'

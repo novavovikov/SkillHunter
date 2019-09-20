@@ -1,10 +1,11 @@
 pipeline {
-    agent any
+  agent any
 
-    environment {
-        DOCKER_FILE = "./deployment/prod/docker-compose.frontend.yml"
-    }
+  environment {
+    DOCKER_FILE = "./deployment/prod/docker-compose.frontend.yml"
+  }
 
+   stages {
     stage('Build') {
       steps {
         sh 'docker-compose -f ${DOCKER_FILE} build --no-cache'
