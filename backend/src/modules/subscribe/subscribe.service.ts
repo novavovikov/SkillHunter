@@ -28,7 +28,7 @@ export class SubscribeService {
     return subscriber
   }
 
-  async findByEmail(email: string) {
-    return await this.subscribeRepository.findOne({ where: { email } })
+  remove(subscribe: Subscribe) {
+    return this.subscribeRepository.remove(subscribe)
   }
 }

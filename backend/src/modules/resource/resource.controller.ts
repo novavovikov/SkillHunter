@@ -173,6 +173,6 @@ export class ResourceController {
   @ApiUseTags('admin')
   async removeResource(@Param('resourceId') resourceId: string) {
     const resource = await this.resourceService.findById(Number(resourceId))
-    return await this.resourceService.remove(resource)
+    return this.resourceService.remove(resource)
   }
 }

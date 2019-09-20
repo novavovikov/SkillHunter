@@ -1,4 +1,15 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, UseGuards, UsePipes } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  UseGuards,
+  UsePipes
+} from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiUseTags } from '@nestjs/swagger'
 import { Roles } from '../../common/decorators/roles.decorator'
@@ -61,5 +72,13 @@ export class SubscribeController {
       ...data,
       user,
     })
+  }
+
+  @Delete(':subscribeId')
+  @Roles([RoleType.Admin])
+  @ApiUseTags('admin')
+  async removeSubscribe(@Param('subscribeId') subscribeId: string) {
+    const subscribe = await this.subscribeService.findOne({ id: Number(subscribeId) })
+    return this.subscribeService.remove(subscribe)
   }
 }

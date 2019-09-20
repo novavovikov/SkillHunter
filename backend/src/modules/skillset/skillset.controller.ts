@@ -140,6 +140,6 @@ export class SkillsetController {
       )
     }
 
-    return await this.skillsetService.remove(skillset)
+    return this.skillsetService.remove(skillset)
   }
 }
