@@ -91,6 +91,10 @@
         background: var(--color-salem);
       }
     }
+
+    @media (--xs) {
+      font-size: 0;
+    }
   }
 
   &__menu {
