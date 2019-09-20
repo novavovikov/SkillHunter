@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Link } from 'react-router-dom'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { ROUTES } from '../../constants/routing'
 import { EResourceStatus, IconTypes, IUserResource } from '../../types'
 import { Icon, Item, Menu, Status } from '../../UI'
@@ -7,7 +7,7 @@ import { analytics } from '../../utils/analytics'
 import { ResourceStatus, ShareMenu } from '../index'
 import * as s from './ResourceHeader.css'
 
-interface Props {
+interface Props extends RouteComponentProps {
   data: IUserResource
   changeStatus: (status: EResourceStatus | string) => void
   handleLike: () => void
@@ -16,6 +16,10 @@ interface Props {
 
 class ResourceHeader extends PureComponent<Props> {
   handleBack = () => {
+    const { history } = this.props
+
+    history.goBack()
+
     analytics({
       event: 'click_back',
       category: 'source_page'
@@ -27,14 +31,13 @@ class ResourceHeader extends PureComponent<Props> {
 
     return (
       <header className={s.ResourceHeader}>
-        <Link
-          to={ROUTES.LIBRARY}
+        <button
           className={s.ResourceHeader__back}
           onClick={this.handleBack}
         >
           <Icon type={IconTypes.arrowLeft}/>
           Back
-        </Link>
+        </button>
 
         {!data.viewOnly && (
           <div className={s.ResourceHeader__item}>
@@ -63,10 +66,10 @@ class ResourceHeader extends PureComponent<Props> {
           className={s.ResourceHeader__item}
           onClick={handleLike}
         >
-            <Icon
-              type={data.isLiked ? IconTypes.heartFilled : IconTypes.heart}
-              active={data.isLiked}
-            />
+          <Icon
+            type={data.isLiked ? IconTypes.heartFilled : IconTypes.heart}
+            active={data.isLiked}
+          />
           <span className={s.ResourceHeader__label}>
             {data.likes}
           </span>
@@ -95,4 +98,4 @@ class ResourceHeader extends PureComponent<Props> {
   }
 }
 
-export default ResourceHeader
+export default withRouter(ResourceHeader)
