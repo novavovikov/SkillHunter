@@ -1,9 +1,10 @@
-import { ISkill, IUserSkill } from '../../types'
+import { IUserSkill } from '../../types'
 import { SkillsActionTypes } from '../actionTypes/skills'
 import {
   AddSkills,
   AddSkillsSaga,
-  GetSkillsDataPayload, RemoveSkills,
+  GetSkillsDataPayload,
+  RemoveSkills,
   RemoveSkillsSaga,
   SetSkillsData,
 } from '../interfaces/skills'

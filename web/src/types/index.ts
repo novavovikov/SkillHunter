@@ -1,5 +1,12 @@
 import { ENotifications } from '../constants/notification'
 
+export interface IActivityByResources {
+  Total: number
+  Backlog: number
+  Plan: number
+  Done: number
+}
+
 export enum EResourceStatus {
   Backlog = 'Backlog',
   Plan = 'Plan',

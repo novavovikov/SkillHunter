@@ -44,6 +44,7 @@ class ResourcesPage extends Component<Props> {
     getUserSkill(this.skillId)
   }
 
+  // FIXME два раза отправляются запросы
   componentDidUpdate () {
     const { userSkill, getResources } = this.props
     const skillsetId = this.skillsetId

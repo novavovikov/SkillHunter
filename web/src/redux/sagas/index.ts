@@ -5,6 +5,7 @@ import { watchSkillsetData } from './skillset'
 import { watchSkillsData } from './skills'
 import { watchResources } from './resources'
 import { watchUserSkill } from './userSkill'
+import { watchActivity } from './activity'
 
 export default function * rootSaga () {
   yield all([
@@ -14,5 +15,6 @@ export default function * rootSaga () {
     watchSkillsData(),
     watchResources(),
     watchUserSkill(),
+    watchActivity(),
   ])
 }

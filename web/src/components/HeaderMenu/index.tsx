@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { RootState } from '../../redux/reducers'
@@ -40,7 +40,7 @@ interface State {
   helpVisibility: boolean
 }
 
-class HeaderMenu extends React.Component<Props, State> {
+class HeaderMenu extends Component<Props, State> {
   state = {
     helpVisibility: false,
   }

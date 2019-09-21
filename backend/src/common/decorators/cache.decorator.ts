@@ -17,16 +17,10 @@ export function Cache<T>(options?: CacheManagerOptions) {
   ) => {
     const originalMethod = descriptor.value
     const className = target.constructor.name
-    // const returnType = Reflect.getMetadata('design:returntype', target, methodName);
-    // if (!returnType || returnType.name !== 'Observable') {
-    //   throw new InternalServerErrorException('Target Method should return Observable');
-    // }
 
-    // @ts-ignore
     descriptor.value = function(...args: any[]) {
       const cache = this.cacheService
       if (!cache || !(cache instanceof CacheService)) {
-        // TODO: Can we do design time check if CacheService injected?
         throw new InternalServerErrorException(
           'Target Class should inject CacheService'
         )

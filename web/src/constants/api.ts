@@ -14,4 +14,7 @@ export const API = {
 
   SKILLSET: 'skillset',
   RESOURCE: 'resource',
+
+  SKILLSET_ACTIVITY: 'activity/skillset',
+  SKILL_ACTIVITY: 'activity/skill',
 }

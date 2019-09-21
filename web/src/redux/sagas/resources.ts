@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery, select } from 'redux-saga/effects'
 import { API } from '../../constants/api'
 import { ENotifications } from '../../constants/notification'
 import { EResourceTypes } from '../../types'
@@ -83,6 +83,7 @@ function * addResourceSaga ({ payload }: AddResourceSaga) {
 function * updateResourceSaga ({ payload }: UpdateResourceSaga) {
   try {
     const { id, ...otherProps } = payload
+
     const { data } = yield call(ajax.put, `${API.USER_RESOURCE}/${id}`, otherProps)
 
     yield put(ac.updateResource(data))

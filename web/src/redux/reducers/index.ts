@@ -9,6 +9,7 @@ import { skills } from './skills'
 import { user, UserState } from './user'
 import { userSkill, UserSkillState } from './userSkill'
 import { userSettings, UserSettingsState } from './userSettings'
+import { activity, ActivityState } from './activity'
 
 export interface RootState {
   app: AppState
@@ -19,6 +20,7 @@ export interface RootState {
   userSkill: UserSkillState
   resources: ResourcesState
   recommendedResources: RecommendedResourcesState
+  activity: ActivityState
   loading: LoadingState
 }
 
@@ -32,6 +34,7 @@ export default () => {
     skills,
     resources,
     recommendedResources,
+    activity,
     loading,
   })
 }

@@ -1,4 +1,4 @@
-import React, { Component, FC } from 'react'
+import React, { Component } from 'react'
 import { Layout, Logo } from '../../UI'
 import { HeaderMenu, Search } from '../index'
 import * as s from './Header.css'

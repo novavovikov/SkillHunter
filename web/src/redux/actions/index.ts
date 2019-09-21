@@ -7,6 +7,7 @@ import * as resources from './resources'
 import * as recommendedResources from './recommendedResources'
 import * as userSkill from './userSkill'
 import * as notifications from './notifications'
+import * as activity from './activity'
 import * as loading from './loading'
 
 export default {
@@ -19,5 +20,6 @@ export default {
   ...recommendedResources,
   ...userSkill,
   ...notifications,
+  ...activity,
   ...loading
 }

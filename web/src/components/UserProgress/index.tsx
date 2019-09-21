@@ -3,67 +3,51 @@ import cn from 'classnames'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { RootState } from '../../redux/reducers'
-import { ResourcesState } from '../../redux/reducers/resources'
-import { IUser } from '../../types'
+import { IActivityByResources, IUser } from '../../types'
 import * as s from './UserProgress.css'
 import { RouteComponentProps, withRouter } from 'react-router'
-import { ajax } from '../../utils/ajax'
 import { withUser } from '../../providers/User'
-
-interface ActivityByResources {
-  Total: number
-  Backlog: number
-  Plan: number
-  Done: number
-}
+import { ActivityState } from '../../redux/reducers/activity'
+import { getSkillActivitySaga, getSkillsetActivitySaga } from '../../redux/actions/activity'
+import { ResourcesState } from '../../redux/reducers/resources'
 
 interface Params {
-  skillset: string
   skillId: string
+  skillset: string
 }
 
 interface Props extends RouteComponentProps<Params> {
   user: IUser
+  activity: ActivityState
   resources: ResourcesState
+  getSkillsetActivity: (skillsetId: number) => void
+  getSkillActivity: (skillId: number) => void
 }
 
-interface State {
-  skillset: ActivityByResources | null
-  skill: {
-    [skillId: string]: ActivityByResources
-  }
-}
-
-class UserProgress extends Component<Props, State> {
-  state = {
-    skillset: null,
-    skill: {},
-  }
-
+class UserProgress extends Component<Props> {
   componentDidMount (): void {
     this.getSkillsetProgress()
     this.getSkillProgress()
   }
 
-  componentDidUpdate ({ match }: Props): void {
-    const { skillset } = this.props.match.params
-
-    if (skillset !== match.params.skillset) {
+  componentDidUpdate ({ match, resources }: Props): void {
+    if (JSON.stringify(resources) !== JSON.stringify(this.props.resources)) {
       this.getSkillsetProgress()
+      this.getSkillProgress()
     }
   }
 
   get status () {
-    const { skillId } = this.props.match.params
-    const { skillset, skill } = this.state
-    const skillData = skill[skillId as never]
+    const { activity, match } = this.props
+    const { skillId } = match.params
+    const skillData = activity.skill[skillId]
 
     if (skillData) {
       return this.calculateProgress(skillData)
     }
 
-    if (skillset) {
-      return this.calculateProgress(skillset)
+    if (activity.skillset) {
+      return this.calculateProgress(activity.skillset)
     }
 
     return 0
@@ -82,7 +66,7 @@ class UserProgress extends Component<Props, State> {
     return null
   }
 
-  calculateProgress = (data: ActivityByResources | null) => {
+  calculateProgress = (data: IActivityByResources | null) => {
     if (!data) {
       return 0
     }
@@ -97,34 +81,25 @@ class UserProgress extends Component<Props, State> {
   }
 
   getSkillsetProgress () {
+    const { getSkillsetActivity, match } = this.props
+
+    if (match.params.skillId) {
+      return
+    }
+
     const skillsetId = this.skillsetId
 
     if (skillsetId) {
-      ajax
-        .get(`activity/skillset/${skillsetId}`)
-        .then(({ data }) => {
-          this.setState({
-            skillset: data,
-          })
-        })
+      getSkillsetActivity(skillsetId)
     }
   }
 
   getSkillProgress () {
-    const { skill } = this.state
-    const { skillId } = this.props.match.params
+    const { getSkillActivity, match } = this.props
+    const { skillId } = match.params
 
-    if (skillId && !skill[skillId as never]) {
-      ajax
-        .get(`activity/skill/${skillId}`)
-        .then(({ data }) => {
-          this.setState({
-            skill: {
-              ...skill,
-              [skillId]: data,
-            },
-          })
-        })
+    if (skillId) {
+      getSkillActivity(Number(skillId))
     }
   }
 
@@ -162,8 +137,13 @@ export default compose(
   withRouter,
   withUser,
   connect(
-    ({ resources }: RootState) => ({
+    ({ activity, resources }: RootState) => ({
+      activity,
       resources
-    })
+    }),
+    {
+      getSkillsetActivity: getSkillsetActivitySaga,
+      getSkillActivity: getSkillActivitySaga,
+    },
   )
 )(UserProgress)
