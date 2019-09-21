@@ -10,20 +10,20 @@
   }
 
   &__enter {
-    transform: translate(100%, 0);
+    transform: translate(150%, 0);
 
     &_active {
       transform: translate(0%);
-      transition: var(--transition-fast);
+      transition: var(--transition);
     }
   }
 
   &__exit {
-    transform: translate(-100%, 0);
+    transform: translate(-150%, 0);
 
     &_active {
-      transform: translate(-200%, 0);
-      transition: var(--transition-fast);
+      transform: translate(-300%, 0);
+      transition: var(--transition);
     }
   }
 }
