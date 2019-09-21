@@ -25,6 +25,7 @@ import Menu from './Menu'
 import Item from './Item'
 import Checkbox from './Checkbox'
 import Tip from './Tip'
+import * as Steps from './Steps'
 
 export {
   Animation,
@@ -54,4 +55,5 @@ export {
   Item,
   Checkbox,
   Tip,
+  Steps
 }

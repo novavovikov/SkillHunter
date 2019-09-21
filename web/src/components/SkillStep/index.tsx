@@ -6,21 +6,13 @@ import * as s from './SkillStep.css'
 
 interface Props extends RouteComponentProps {
   skillset: string
-  setStep?: (id: string) => void
+  onCancel: () => void
   onSubmit: (skills: string[]) => void
 }
 
 class SkillStep extends Component<Props> {
-  onCancel = () => {
-    const { setStep } = this.props
-
-    if (typeof setStep === 'function') {
-      setStep('Skillset')
-    }
-  }
-
   render () {
-    const { onSubmit, skillset } = this.props
+    const { onCancel, onSubmit, skillset } = this.props
 
     return (
       <div className={s.SkillStep}>
@@ -33,7 +25,7 @@ class SkillStep extends Component<Props> {
           theme="step"
           skillset={skillset}
           onSubmit={onSubmit}
-          onCancel={this.onCancel}
+          onCancel={onCancel}
         />
       </div>
     )

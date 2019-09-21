@@ -15,11 +15,10 @@ export const getUserDataSaga = (): GetUserDataSaga => ({
   type: UserActionTypes.SAGA_GET_USER,
 })
 
-export const addUserSkillsetSaga = (skillset: string, skills: string[], callback?: () => void): AddUserSkillsetSaga => ({
+export const addUserSkillsetSaga = (skillset: string, skills: string[]): AddUserSkillsetSaga => ({
   type: UserActionTypes.SAGA_ADD_USER_SKILLSET,
   skillset,
-  skills,
-  callback
+  skills
 })
 
 export const copyUserSkillsetSaga = (source: string, target: string): CopyUserSkillsetSaga => ({

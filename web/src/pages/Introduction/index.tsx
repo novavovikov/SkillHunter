@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import { Page, SkillsetStep, SkillStep, Steps } from '../../components'
+import { Onboarding, Page, SkillsetStep, SkillStep } from '../../components'
+import { Steps } from '../../UI'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { addSkillsetSaga } from '../../redux/actions/skillset'
@@ -12,20 +13,29 @@ import { UserState } from '../../redux/reducers/user'
 import { ISkillset } from '../../types'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
+import * as s from './Introduction.css'
+
+enum ESteps {
+  skillset,
+  skills,
+  onboarding
+}
 
 interface Props extends RouteComponentProps {
   user: UserState
   addSkillset: (data: [Partial<ISkillset>]) => void,
-  addUserSkillset: (skillset: string, skills: string[], callback?: () => void) => void
+  addUserSkillset: (skillset: string, skills: string[]) => void
 }
 
 interface State {
+  activeStep: ESteps
   skillset: string
   skills: string[]
 }
 
 class Introduction extends React.Component<Props, State> {
   state = {
+    activeStep: ESteps.skillset,
     skillset: '',
     skills: [],
   }
@@ -37,6 +47,10 @@ class Introduction extends React.Component<Props, State> {
           skillset: data || ''
         })
     })
+  }
+
+  setActiveStep = (activeStep: ESteps) => {
+    this.setState({ activeStep })
   }
 
   setSkillset = (skillset: string) => {
@@ -54,21 +68,31 @@ class Introduction extends React.Component<Props, State> {
       input_skillset: skillset,
       category: 'introduction_1'
     })
+
+    this.setActiveStep(ESteps.skills)
   }
 
   submitSkills = (skills: string[]) => {
-    this.setState({ skills }, this.onSubmit)
+    const { skillset } = this.state
+    const { addUserSkillset } = this.props
+
+    addUserSkillset(skillset, skills)
+    this.setActiveStep(ESteps.onboarding)
   }
 
-  onSubmit = () => {
-    const { skills, skillset } = this.state
-    const { history, addUserSkillset } = this.props
+  submitOnBoarding = () => {
+    const { history } = this.props
+    const { skillset } = this.state
 
-    addUserSkillset(skillset, skills, () => history.push(`${ROUTES.LIBRARY}/${skillset}`))
+    history.push(`${ROUTES.LIBRARY}/${skillset}`)
+  }
+
+  cancelSkills = () => {
+    this.setActiveStep(ESteps.skillset)
   }
 
   render () {
-    const { skillset } = this.state
+    const { skillset, activeStep } = this.state
 
     return (
       <Page
@@ -77,21 +101,25 @@ class Introduction extends React.Component<Props, State> {
         userMenu={false}
       >
         <Steps.Wrap
-          initStep="Skillset"
-          steps={['Skillset', 'Skills']}
+          activeStep={activeStep}
+          className={s.Introduction}
         >
-          <Steps.Content id={'Skillset'}>
+          <Steps.Content id={ESteps.skillset}>
             <SkillsetStep
               skillset={skillset}
               onChange={this.setSkillset}
               onSubmit={this.submitSkillset}
             />
           </Steps.Content>
-          <Steps.Content id={'Skills'}>
+          <Steps.Content id={ESteps.skills}>
             <SkillStep
               skillset={skillset}
+              onCancel={this.cancelSkills}
               onSubmit={this.submitSkills}
             />
+          </Steps.Content>
+          <Steps.Content id={ESteps.onboarding}>
+            <Onboarding onSubmit={this.submitOnBoarding}/>
           </Steps.Content>
         </Steps.Wrap>
       </Page>

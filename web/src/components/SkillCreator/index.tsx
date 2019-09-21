@@ -7,8 +7,8 @@ import { CREATOR_SKILL_QUERY } from '../../constants/routing'
 import { addSkillsSaga } from '../../redux/actions/skills'
 import { IconButton, Popup } from '../../UI'
 import { analytics } from '../../utils/analytics'
-import * as s from './SkillCreator.css'
 import { addParamToQuery, deleteParamFromQuery } from '../../utils/url'
+import * as s from './SkillCreator.css'
 
 interface Params {
   skillset: string

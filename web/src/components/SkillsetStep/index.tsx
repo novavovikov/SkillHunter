@@ -5,7 +5,6 @@ import * as s from './SkillsetStep.css'
 interface Props {
   skillset: string
   onChange: (skillset: string) => void
-  setStep?: (id: string) => void
   onSubmit: () => void
 }
 
@@ -19,12 +18,9 @@ class SkillsetStep extends Component<Props> {
 
   onSubmit = (e: any) => {
     e.preventDefault()
-    const { setStep, onSubmit } = this.props
+    const { onSubmit } = this.props
 
-    if (setStep) {
-      onSubmit()
-      setStep('Skills')
-    }
+    onSubmit()
   }
 
   render () {

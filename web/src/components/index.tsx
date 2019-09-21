@@ -47,8 +47,8 @@ import SignUpBlock from './SignUpBlock'
 import RoadMap from './RoadMap'
 import NotificationSettings from './NotificationSettings'
 import RemoveAccount from './RemoveAccount'
-import * as Steps from './Steps'
 import * as Text from './Text'
+import Onboarding from './Onboarding'
 
 export {
   Analytics,
@@ -98,8 +98,8 @@ export {
   Nav,
   SignUpBlock,
   RoadMap,
-  Steps,
   NotificationSettings,
   RemoveAccount,
   Text,
+  Onboarding,
 }
