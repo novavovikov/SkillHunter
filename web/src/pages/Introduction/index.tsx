@@ -2,8 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
+import linkImg from './images/link.png'
+import importantImg from './images/important.png'
+import focusImg from './images/focus.png'
 import { Onboarding, Page, SkillsetStep, SkillStep } from '../../components'
-import { Steps } from '../../UI'
+import { Steps, Mark } from '../../UI'
 import { API } from '../../constants/api'
 import { ROUTES } from '../../constants/routing'
 import { addSkillsetSaga } from '../../redux/actions/skillset'
@@ -18,13 +21,19 @@ import * as s from './Introduction.css'
 enum ESteps {
   skillset,
   skills,
-  onboarding
+  onboardingLink,
+  onboardingImportant,
+  onboardingFocus,
 }
 
 interface Props extends RouteComponentProps {
   user: UserState
   addSkillset: (data: [Partial<ISkillset>]) => void,
-  addUserSkillset: (skillset: string, skills: string[]) => void
+  addUserSkillset: (
+    skillset: string,
+    skills: string[],
+    callback: () => void
+  ) => void
 }
 
 interface State {
@@ -76,8 +85,17 @@ class Introduction extends React.Component<Props, State> {
     const { skillset } = this.state
     const { addUserSkillset } = this.props
 
-    addUserSkillset(skillset, skills)
-    this.setActiveStep(ESteps.onboarding)
+    addUserSkillset(skillset, skills, () => {
+      this.setActiveStep(ESteps.onboardingLink)
+    })
+  }
+
+  submitOnBoardingLink = () => {
+    this.setActiveStep(ESteps.onboardingImportant)
+  }
+
+  submitOnBoardingImportant = () => {
+    this.setActiveStep(ESteps.onboardingFocus)
   }
 
   submitOnBoarding = () => {
@@ -118,8 +136,31 @@ class Introduction extends React.Component<Props, State> {
               onSubmit={this.submitSkills}
             />
           </Steps.Content>
-          <Steps.Content id={ESteps.onboarding}>
-            <Onboarding onSubmit={this.submitOnBoarding}/>
+          <Steps.Content id={ESteps.onboardingLink}>
+            <Onboarding
+              img={linkImg}
+              onCancel={this.submitOnBoarding}
+              onSubmit={this.submitOnBoardingLink}
+            >
+              Useful <Mark>is no longer lost</Mark> in chat history and bookmarks
+            </Onboarding>
+          </Steps.Content>
+          <Steps.Content id={ESteps.onboardingImportant}>
+            <Onboarding
+              img={importantImg}
+              onCancel={this.submitOnBoarding}
+              onSubmit={this.submitOnBoardingImportant}
+            >
+              You <Mark>study only</Mark> what is <Mark>important now</Mark>
+            </Onboarding>
+          </Steps.Content>
+          <Steps.Content id={ESteps.onboardingFocus}>
+            <Onboarding
+              img={focusImg}
+              onSubmit={this.submitOnBoarding}
+            >
+              <Mark>Focus on</Mark> resource what you haven't learned yet
+            </Onboarding>
           </Steps.Content>
         </Steps.Wrap>
       </Page>

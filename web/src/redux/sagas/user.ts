@@ -29,13 +29,17 @@ function * getUserDataSaga () {
   yield put(ac.removeLoading('user'))
 }
 
-function * addUserSkillset ({ skillset, skills }: AddUserSkillsetSaga) {
+function * addUserSkillset ({ skillset, skills, callback }: AddUserSkillsetSaga) {
   yield put(ac.addLoading('userSkillset'))
 
   try {
     const { data: skillsets } = yield call(ajax.post, API.USER_SKILLSET, { skillset, skills })
 
     yield put(ac.updateUserData({ skillsets }))
+
+    if (callback) {
+      yield callback()
+    }
   } catch (error) {
     yield put(errorHandler('addUserSkillset: ', error))
   }

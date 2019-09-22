@@ -2,16 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'Onboarding': string;
-  'Onboarding__aside': string;
   'Onboarding__button': string;
-  'Onboarding__caption': string;
-  'Onboarding__content': string;
-  'Onboarding__description': string;
   'Onboarding__footer': string;
   'Onboarding__img': string;
-  'Onboarding__img_active': string;
-  'Onboarding__item': string;
-  'Onboarding__item_active': string;
+  'Onboarding__subtitle': string;
   'Onboarding__title': string;
 }
 declare var cssExports: CssExports;
