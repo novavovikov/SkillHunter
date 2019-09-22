@@ -53,7 +53,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy) {
       })
 
       this.mailService.send({
-        to: 'novavovikov@gmail.com',
+        to: email,
         subject: 'We’re so happy to have you on board!',
         template: 'registration',
         context: user,
