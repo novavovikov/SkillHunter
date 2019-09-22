@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { MailerModule, HandlebarsAdapter } from '@nest-modules/mailer'
+import { MailerModule, PugAdapter } from '@nest-modules/mailer'
 import { MailService } from './mail.service'
 
 const appName = process.env.APP_NAME
@@ -16,7 +16,7 @@ const password = process.env.MAIL_PASSWORD
       },
       template: {
         dir: __dirname + '/templates',
-        adapter: new HandlebarsAdapter(),
+        adapter: new PugAdapter(),
         options: {
           strict: true,
         },
