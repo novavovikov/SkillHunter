@@ -12,8 +12,7 @@ import { ROUTES } from '../../constants/routing'
 import { addSkillsetSaga } from '../../redux/actions/skillset'
 import { addUserSkillsetSaga } from '../../redux/actions/user'
 import { RootState } from '../../redux/reducers'
-import { UserState } from '../../redux/reducers/user'
-import { ISkillset } from '../../types'
+import { ISkillset, IUser } from '../../types'
 import { ajax } from '../../utils/ajax'
 import { analytics } from '../../utils/analytics'
 import * as s from './Introduction.css'
@@ -21,13 +20,13 @@ import * as s from './Introduction.css'
 enum ESteps {
   skillset,
   skills,
-  onboardingLink,
-  onboardingImportant,
-  onboardingFocus,
+  onBoardingLink,
+  onBoardingImportant,
+  onBoardingFocus,
 }
 
 interface Props extends RouteComponentProps {
-  user: UserState
+  user: IUser
   addSkillset: (data: [Partial<ISkillset>]) => void,
   addUserSkillset: (
     skillset: string,
@@ -81,24 +80,22 @@ class Introduction extends React.Component<Props, State> {
   }
 
   submitSkills = (skills: string[]) => {
-    const { addUserSkillset, history } = this.props
+    const { addUserSkillset, history, user } = this.props
     const { skillset } = this.state
 
     addUserSkillset(skillset, skills, () => {
-      const isOnBoarded = sessionStorage.getItem('OnBoarding_intro')
-
-      isOnBoarded
+      user.skillsets.length
         ? history.push(`${ROUTES.LIBRARY}/${skillset}`)
-        : this.setActiveStep(ESteps.onboardingLink)
+        : this.setActiveStep(ESteps.onBoardingLink)
     })
   }
 
   submitOnBoardingLink = () => {
-    this.setActiveStep(ESteps.onboardingImportant)
+    this.setActiveStep(ESteps.onBoardingImportant)
   }
 
   submitOnBoardingImportant = () => {
-    this.setActiveStep(ESteps.onboardingFocus)
+    this.setActiveStep(ESteps.onBoardingFocus)
   }
 
   submitOnBoarding = () => {
@@ -106,7 +103,6 @@ class Introduction extends React.Component<Props, State> {
     const { skillset } = this.state
 
     history.push(`${ROUTES.LIBRARY}/${skillset}`)
-    sessionStorage.setItem('OnBoarding_intro', 'done')
   }
 
   cancelSkills = () => {
@@ -140,7 +136,7 @@ class Introduction extends React.Component<Props, State> {
               onSubmit={this.submitSkills}
             />
           </Steps.Content>
-          <Steps.Content id={ESteps.onboardingLink}>
+          <Steps.Content id={ESteps.onBoardingLink}>
             <Onboarding
               img={linkGif}
               onCancel={this.submitOnBoarding}
@@ -149,7 +145,7 @@ class Introduction extends React.Component<Props, State> {
               Useful <Mark>is no longer lost</Mark> in chat history and bookmarks
             </Onboarding>
           </Steps.Content>
-          <Steps.Content id={ESteps.onboardingImportant}>
+          <Steps.Content id={ESteps.onBoardingImportant}>
             <Onboarding
               img={importantGif}
               onCancel={this.submitOnBoarding}
@@ -158,7 +154,7 @@ class Introduction extends React.Component<Props, State> {
               You <Mark>study only</Mark> what is <Mark>important now</Mark>
             </Onboarding>
           </Steps.Content>
-          <Steps.Content id={ESteps.onboardingFocus}>
+          <Steps.Content id={ESteps.onBoardingFocus}>
             <Onboarding
               img={focusGif}
               onSubmit={this.submitOnBoarding}
