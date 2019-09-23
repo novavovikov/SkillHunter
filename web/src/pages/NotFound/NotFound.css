@@ -14,8 +14,13 @@
   }
 
   &__title {
-    font-weight: bold;
     @apply --h1;
+    font-weight: bold;
+    min-height: 42px;
+
+    @media(--md) {
+      min-height: 24px;
+    }
   }
 
   &__subtitle {
