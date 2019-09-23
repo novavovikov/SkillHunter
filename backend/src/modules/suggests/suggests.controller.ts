@@ -9,7 +9,6 @@ import { SuggestsService } from './suggests.service'
 
 @Controller('suggests')
 @ApiUseTags('suggests')
-@UseGuards(AuthGuard('jwt'))
 export class SuggestsController {
   constructor(
     private suggestsService: SuggestsService,

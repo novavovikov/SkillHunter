@@ -1,11 +1,12 @@
 import {
+  Body,
   Controller,
   Get,
   HttpException,
   HttpStatus,
   Next,
-  Param,
-  Res,
+  Param, Post,
+  Res, Session,
   UseGuards,
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
@@ -83,5 +84,15 @@ export class AuthController {
     res.cookie('authToken', user.token, AUTH_COOKIE_OPTIONS)
     res.redirect(BACK_URL)
     return null
+  }
+
+  @Post('registration')
+  @ApiUseTags('auth')
+  registration(
+    @Body('skillset') skillset: string,
+    @Session() session,
+  ) {
+    session.skillset = skillset
+    return skillset
   }
 }

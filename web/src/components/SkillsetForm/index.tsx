@@ -1,9 +1,10 @@
-import axios from 'axios'
 import React, { ChangeEvent, Component, FormEvent } from 'react'
 import { AutoComplete, Button } from '../../UI'
 import { analytics } from '../../utils/analytics'
-import s from './SkillsetForm.css'
 import { ROUTES } from '../../constants/routing'
+import { ajax } from '../../utils/ajax'
+import s from './SkillsetForm.css'
+import { API } from '../../constants/api'
 
 class SkillsetForm extends Component {
   state = {
@@ -20,7 +21,7 @@ class SkillsetForm extends Component {
     e.preventDefault()
     const { inputValue } = this.state
 
-    axios.post('/api/registration', {
+    ajax.post(API.AUTH_REGISTRATION, {
       skillset: inputValue,
     })
 

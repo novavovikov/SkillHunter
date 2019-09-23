@@ -1,6 +1,7 @@
 export const API = {
   BASE_URL: '/api/',
 
+  AUTH_REGISTRATION: 'auth/registration',
   AUTH_GOOGLE: 'auth/google',
   AUTH_FACEBOOK: 'auth/facebook',
 

@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import Input from '../Input'
 import Button from '../Button'
 import { APP_ROUTE } from '../../constants/routes'
-import s from './SkillsetForm.scss'
 import { analytics } from './utils/analytics'
+import s from './SkillsetForm.scss'
 
 class SkillsetForm extends Component {
   state = {
@@ -21,7 +21,7 @@ class SkillsetForm extends Component {
     e.preventDefault()
     const { inputValue } = this.state
 
-    axios.post('/api/registration', {
+    axios.post('/api/auth/registration', {
       skillset: inputValue
     })
 
