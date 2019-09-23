@@ -25,7 +25,7 @@ const password = process.env.MAIL_PASSWORD
       },
     }),
     ServeStaticModule.forRoot({
-      rootPath: `${__dirname}/templates`
+      rootPath: `${__dirname}/static`
     }),
   ],
   controllers: [],
