@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import {  Route, RouteComponentProps, Switch, withRouter } from 'react-router'
-import { PAGE_VIEW_EVENT } from '../constants/analytics'
+import {  Route, Switch } from 'react-router'
 import { ROUTES } from '../constants/routing'
 import { RootState } from '../redux/reducers'
-import { analytics } from '../utils/analytics'
 import PrivateRoute from './privateRoute'
 import UpdatePage from '../pages/UpdatePage'
 
@@ -24,20 +22,11 @@ const Resources = React.lazy(() => import('../pages/Resources'))
 const Mock = React.lazy(() => import('../pages/Mock'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
-interface Props extends RouteComponentProps {
+interface Props {
   statusCode: number
 }
 
 class Routes extends Component<Props> {
-  componentDidMount (): void {
-    this.props.history.listen(() => {
-      analytics({
-        event: PAGE_VIEW_EVENT,
-        page_url: window.location.href
-      })
-    })
-  }
-
   render () {
     const { statusCode } = this.props
 
@@ -138,7 +127,6 @@ class Routes extends Component<Props> {
 }
 
 export default compose(
-  withRouter,
   connect(
     ({ app }: RootState) => ({
       statusCode: app.statusCode

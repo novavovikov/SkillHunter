@@ -1,17 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { withRouter, RouteComponentProps } from 'react-router'
 import { PAGE_VIEW_EVENT } from '../../constants/analytics'
 import { RootState } from '../../redux/reducers'
 import { IUser } from '../../types'
 import { analytics } from '../../utils/analytics'
 
-interface Props {
+interface Props extends RouteComponentProps {
   userData: IUser
 }
 
 class Analytics extends Component<Props> {
   componentDidMount (): void {
     this.sendAnalyticEvent()
+
+    this.props.history.listen(() => {
+      analytics({
+        event: PAGE_VIEW_EVENT,
+        page_url: window.location.href
+      })
+    })
   }
 
   componentDidUpdate ({ userData }: Readonly<Props>): void {
@@ -40,8 +49,11 @@ class Analytics extends Component<Props> {
   }
 }
 
-export default connect(
-  ({ user }: RootState) => ({
-    userData: user,
-  }),
+export default compose(
+  withRouter,
+  connect(
+    ({ user }: RootState) => ({
+      userData: user,
+    }),
+  )
 )(Analytics)

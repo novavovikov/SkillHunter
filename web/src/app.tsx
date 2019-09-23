@@ -15,10 +15,10 @@ class App extends Component {
       <ReduxStore>
         <Router>
           <Routes/>
+          <Analytics/>
         </Router>
         <Notifications/>
         <ProgressBar/>
-        <Analytics/>
       </ReduxStore>
     )
   }

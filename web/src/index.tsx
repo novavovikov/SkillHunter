@@ -17,7 +17,7 @@ declare let module: { hot: any }
 
 if (module.hot) {
   module.hot.accept('./app', () => {
-    const HotApp = require('./app').default
+    const HotApp = require('./app')
 
     ReactDOM.render(
       <HotApp/>,
