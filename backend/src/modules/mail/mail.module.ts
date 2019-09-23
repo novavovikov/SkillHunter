@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common'
+import { join } from 'path'
 import { MailerModule, PugAdapter } from '@nest-modules/mailer'
+import { ServeStaticModule } from '@nestjs/serve-static'
 import { MailService } from './mail.service'
 
 const appName = process.env.APP_NAME
@@ -21,6 +23,9 @@ const password = process.env.MAIL_PASSWORD
           strict: true,
         },
       },
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: `${__dirname}/templates`
     }),
   ],
   controllers: [],
