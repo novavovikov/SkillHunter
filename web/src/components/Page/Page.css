@@ -88,8 +88,8 @@
     }
   }
 
-  &_withSidebar {
-    width: calc(100% - 250px);
+  &__content {
+    width: calc(100% - 260px);
 
     @media(--xl) {
       width: calc(100% - 220px);

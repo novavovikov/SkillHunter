@@ -1,0 +1,27 @@
+@import "../../styles/variables.css";
+
+.SkillsetForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__input {
+    max-width: 100%;
+    width: 472px;
+  }
+
+  &__footer {
+    margin: 53px 0 0;
+
+    @media (--md) {
+      margin-top: 25px;
+    }
+  }
+
+  &__label {
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    letter-spacing: -0.25px;
+  }
+}

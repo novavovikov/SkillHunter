@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { compose } from 'redux'
 import { RouteComponentProps, withRouter } from 'react-router'
-import cn from 'classnames'
-import { IconTypes } from '../../types'
 import { Head, Icon, Layout } from '../../UI'
 import { Footer, Header, Sidebar } from '../index'
-import * as s from './Page.css'
 import { SIDEBAR_QUERY } from '../../constants/routing'
 import { addParamToQuery, deleteParamFromQuery } from '../../utils/url'
+import cn from 'classnames'
+import * as s from './Page.css'
+import { IconTypes } from '../../types'
 
 interface Props extends RouteComponentProps {
   sidebar: boolean
@@ -74,35 +74,35 @@ class Page extends Component<Props> {
         />
 
         <Layout.Main>
-          {sidebar && (
-            <>
-              <button
-                onClick={this.toggleSidebar}
-                className={cn(s.Page__switcher, {
-                  [s.Page__switcher_active]: sidebarVisibility
-                })}
-              >
-                <Icon
-                  type={IconTypes.dots}
-                  size="24"
+          <Layout.Container>
+            {sidebar && (
+              <Layout.Content>
+                <button
+                  onClick={this.toggleSidebar}
+                  className={cn(s.Page__switcher, {
+                    [s.Page__switcher_active]: sidebarVisibility,
+                  })}
+                >
+                  <Icon
+                    type={IconTypes.dots}
+                    size="24"
+                  />
+                </button>
+                <Sidebar
+                  className={cn(s.Page__sidebar, {
+                    [s.Page__sidebar_opened]: sidebarVisibility,
+                  })}
+                  onClose={this.closeSidebar}
                 />
-              </button>
-              <Sidebar
-                className={cn(s.Page__sidebar, {
-                  [s.Page__sidebar_opened]: sidebarVisibility,
-                })}
-                onClose={this.closeSidebar}
-              />
-            </>
-          )}
 
-          <Layout.Content
-            className={cn({
-              [s.Page_withSidebar]: sidebar,
-            })}
-          >
-            {children}
-          </Layout.Content>
+                <div className={s.Page__content}>
+                  {children}
+                </div>
+              </Layout.Content>
+            )}
+
+            {!sidebar && children}
+          </Layout.Container>
         </Layout.Main>
 
         <Footer/>

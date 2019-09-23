@@ -48,7 +48,9 @@ import RoadMap from './RoadMap'
 import NotificationSettings from './NotificationSettings'
 import RemoveAccount from './RemoveAccount'
 import * as Text from './Text'
+import Banner from './Banner'
 import Onboarding from './Onboarding'
+import SkillsetForm from './SkillsetForm'
 
 export {
   Analytics,
@@ -101,5 +103,7 @@ export {
   NotificationSettings,
   RemoveAccount,
   Text,
+  Banner,
   Onboarding,
+  SkillsetForm,
 }

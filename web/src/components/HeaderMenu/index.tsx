@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { RouteComponentProps, withRouter } from 'react-router'
 import { RootState } from '../../redux/reducers'
 import { UserState } from '../../redux/reducers/user'
 import { IconTypes } from '../../types'
-import { Icon, Item, Menu } from '../../UI'
+import { Button, Icon, Item, Menu } from '../../UI'
 import { analytics } from '../../utils/analytics'
 import * as s from './HeaderMenu.css'
 import { HelpToStart } from '../index'
-import { RouteComponentProps, withRouter } from 'react-router'
 import { ROUTES } from '../../constants/routing'
 
 enum MenuValues {
@@ -76,51 +76,74 @@ class HeaderMenu extends Component<Props, State> {
     })
   }
 
+  handleAuth = () => {
+    analytics({
+      event: 'click_signup_btn',
+      category: 'landing',
+    })
+
+    window.location.href = ROUTES.APP
+  }
+
   render () {
     const { helpVisibility } = this.state
     const { user } = this.props
 
-    if (!user) {
-      return null
+    if (user) {
+      return (
+        <>
+          <Menu
+            size="free"
+            Component={(props) => (
+              <div className={s.HeaderMenu__info}>
+                <div className={s.HeaderMenu__avatar}>
+                  {user!.picture && (
+                    <img
+                      src={user!.picture}
+                      alt=""
+                    />
+                  )}
+                </div>
+
+                <Icon
+                  type={props.isOpen ? IconTypes.arrowUp : IconTypes.arrowDown}
+                  size="24"
+                />
+              </div>
+            )}
+          >
+            {MENU.map(({ value, label }) => (
+              <Item
+                key={value}
+                value={value}
+                onClick={this.handleMenuItem}
+              >
+                {label}
+              </Item>
+            ))}
+          </Menu>
+
+          <HelpToStart
+            isOpen={helpVisibility}
+            onClose={this.closeHelp}
+          />
+        </>
+      )
     }
 
     return (
       <>
-        <Menu
-          size="free"
-          Component={(props) => (
-            <div className={s.HeaderMenu__info}>
-              <div className={s.HeaderMenu__avatar}>
-                {user!.picture && (
-                  <img
-                    src={user!.picture}
-                    alt=""
-                  />
-                )}
-              </div>
-
-              <Icon
-                type={props.isOpen ? IconTypes.arrowUp : IconTypes.arrowDown}
-                size="24"
-              />
-            </div>
-          )}
+        <Button
+          theme="transparent"
+          onClick={this.handleAuth}
+          className={s.HeaderMenu__button}
         >
-          {MENU.map(({ value, label }) => (
-            <Item
-              key={value}
-              value={value}
-              onClick={this.handleMenuItem}
-            >
-              {label}
-            </Item>
-          ))}
-        </Menu>
+          Sign in
+        </Button>
 
-        <HelpToStart
-          isOpen={helpVisibility}
-          onClose={this.closeHelp}
-        />
+        <Button onClick={this.handleAuth}>
+          Sign up
+        </Button>
       </>
     )
   }

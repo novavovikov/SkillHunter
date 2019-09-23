@@ -8,6 +8,7 @@ import PrivateRoute from './privateRoute'
 import UpdatePage from '../pages/UpdatePage'
 
 const ToS = React.lazy(() => import('../pages/ToS'))
+const Landing = React.lazy(() => import('../pages/Landing'))
 const Cookie = React.lazy(() => import('../pages/Cookie'))
 const Login = React.lazy(() => import('../pages/Login'))
 const Share = React.lazy(() => import('../pages/Share'))
@@ -46,6 +47,12 @@ class Routes extends Component<Props> {
           <Route
             path={ROUTES.COOKIE}
             component={Cookie}
+            exact
+          />
+
+          <Route
+            path={ROUTES.LANDING}
+            component={Landing}
             exact
           />
 

@@ -22,6 +22,14 @@ const Aside: FC<LayoutProps> = ({ children, className }) => {
   )
 }
 
+const Container: FC<LayoutProps> = ({ children, className }) => {
+  return (
+    <div className={cn(s.Layout__container, className)}>
+      {children}
+    </div>
+  )
+}
+
 const Content: FC<LayoutProps> = ({ children, className }) => {
   return (
     <div className={cn(s.Layout__content, className)}>
@@ -57,6 +65,7 @@ const Main: FC<LayoutProps> = ({ children, className }) => {
 export {
   Wrap,
   Aside,
+  Container,
   Content,
   Main,
   Header,

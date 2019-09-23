@@ -2,11 +2,11 @@
 // Please do not change this file!
 interface CssExports {
   'Page': string;
+  'Page__content': string;
   'Page__sidebar': string;
   'Page__sidebar_opened': string;
   'Page__switcher': string;
   'Page__switcher_active': string;
-  'Page_withSidebar': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

@@ -4,6 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 20px 0;
+  text-align: center;
 
   @media(--xs) {
     flex-direction: column;

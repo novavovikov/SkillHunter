@@ -1,9 +1,14 @@
 export const ROUTES = {
+  APP: process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://app.skillhunter.io',
+
   HOME: '/',
   WELCOME: '/welcome',
   TOS: '/tos',
   COOKIE: '/cookie',
   LOGIN: '/login',
+  LANDING: '/landing',
   AUTH: '/auth',
   SHARE: '/share',
   SETTINGS: '/settings',

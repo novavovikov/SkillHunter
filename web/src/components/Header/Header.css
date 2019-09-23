@@ -1,14 +1,21 @@
 @import "../../styles/variables.css";
 
 .Header {
-  display: flex;
-  align-items: center;
-  height: 80px;
-  padding: 5px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: var(--z-header);
 
-  @media(--md) {
-    height: 60px;
+  &__content {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    padding: 5px 0;
+
+    @media(--md) {
+      height: 60px;
+    }
   }
 
   &__logo {
@@ -30,5 +37,9 @@
     display: flex;
     align-items: center;
     margin: 0 0 0 auto;
+
+    @media(--lg) {
+      margin-left: 10px;
+    }
   }
 }

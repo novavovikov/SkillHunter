@@ -41,4 +41,13 @@
       height: 32px;
     }
   }
+
+  &__button {
+    color: var(--color-tundora);
+    margin: 0 10px 0 0;
+
+    &:hover {
+      color: var(--color-dodger-blue);
+    }
+  }
 }

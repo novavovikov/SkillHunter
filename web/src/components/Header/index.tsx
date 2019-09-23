@@ -9,22 +9,31 @@ interface Props {
 }
 
 class Header extends Component<Props> {
+  static defaultProps = {
+    search: true,
+    userMenu: true
+  }
+
   render () {
     const { search, userMenu } = this.props
 
     return (
       <Layout.Header className={s.Header}>
-        <div className={s.Header__logo}>
-          <Logo/>
-        </div>
+        <Layout.Container>
+          <div className={s.Header__content}>
+            <div className={s.Header__logo}>
+              <Logo/>
+            </div>
 
-        {search && <Search/>}
+            {search && <Search/>}
 
-        {userMenu && (
-          <div className={s.Header__section}>
-            <HeaderMenu/>
+            {userMenu && (
+              <div className={s.Header__section}>
+                <HeaderMenu/>
+              </div>
+            )}
           </div>
-        )}
+        </Layout.Container>
       </Layout.Header>
     )
   }

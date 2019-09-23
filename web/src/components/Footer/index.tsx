@@ -42,38 +42,40 @@ class Footer extends Component {
   render () {
     return (
       <Layout.Footer>
-        <div className={s.Footer}>
-          <div className={s.Footer__copyright}>
-            <span className={s.Footer__copyrightText}>© 2019 SkillHunter</span> | <a
-            href="mailto:help@skillhunter.io"
-            className={s.Footer__link}>help@skillhunter.io</a>
-          </div>
+        <Layout.Container>
+          <div className={s.Footer}>
+            <div className={s.Footer__copyright}>
+              <span className={s.Footer__copyrightText}>© 2019 SkillHunter</span> | <a
+              href="mailto:help@skillhunter.io"
+              className={s.Footer__link}>help@skillhunter.io</a>
+            </div>
 
-          <div className={s.Footer__links}>
-            {EXTERNAL_LINKS.map(({ href, label }) => (
-              <a
-                key={label}
-                href={href}
-                className={s.Footer__link}
-                target="_blank"
-                onClick={this.handleExternalLink}
-              >
-                {label}
-              </a>
-            ))}
+            <div className={s.Footer__links}>
+              {EXTERNAL_LINKS.map(({ href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className={s.Footer__link}
+                  target="_blank"
+                  onClick={this.handleExternalLink}
+                >
+                  {label}
+                </a>
+              ))}
 
-            {INTERNAL_LINKS.map(({ href, label }) => (
-              <Link
-                key={label}
-                to={href}
-                className={s.Footer__link}
-                onClick={this.handleInternalLink}
-              >
-                {label}
-              </Link>
-            ))}
+              {INTERNAL_LINKS.map(({ href, label }) => (
+                <Link
+                  key={label}
+                  to={href}
+                  className={s.Footer__link}
+                  onClick={this.handleInternalLink}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        </Layout.Container>
       </Layout.Footer>
     )
   }

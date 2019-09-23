@@ -18,6 +18,7 @@
     &_closed {
       background-color: #fff;
       height: 50px;
+      @apply --font-xl;
       border: 1px solid transparent;
       border-radius: var(--radius);
       padding-left: 15px;
