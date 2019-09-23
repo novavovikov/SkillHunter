@@ -3,8 +3,8 @@ const fileLoaderWithOptions = (env) => ({
   options: {
     outputPath: 'static/',
     name: env === 'development'
-      ? '[contenthash].[ext]'
-      : '[name].[ext]'
+      ? '[name].[ext]'
+      : '[contenthash].[ext]'
   }
 })
 

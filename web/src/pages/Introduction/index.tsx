@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { compose } from 'redux'
-import linkImg from './images/link.png'
-import importantImg from './images/important.png'
-import focusImg from './images/focus.png'
+import linkGif from './images/link.gif'
+import importantGif from './images/important.gif'
+import focusGif from './images/focus.gif'
 import { Onboarding, Page, SkillsetStep, SkillStep } from '../../components'
 import { Steps, Mark } from '../../UI'
 import { API } from '../../constants/api'
@@ -50,11 +50,10 @@ class Introduction extends React.Component<Props, State> {
   }
 
   componentDidMount (): void {
-    ajax.get(`${API.SKILLSET}/landing`).
-      then(({ data }) => {
-        this.setState({
-          skillset: data || ''
-        })
+    ajax.get(`${API.SKILLSET}/landing`).then(({ data }) => {
+      this.setState({
+        skillset: data || ''
+      })
     })
   }
 
@@ -82,11 +81,15 @@ class Introduction extends React.Component<Props, State> {
   }
 
   submitSkills = (skills: string[]) => {
+    const { addUserSkillset, history } = this.props
     const { skillset } = this.state
-    const { addUserSkillset } = this.props
 
     addUserSkillset(skillset, skills, () => {
-      this.setActiveStep(ESteps.onboardingLink)
+      const isOnBoarded = sessionStorage.getItem('OnBoarding_intro')
+
+      isOnBoarded
+        ? history.push(`${ROUTES.LIBRARY}/${skillset}`)
+        : this.setActiveStep(ESteps.onboardingLink)
     })
   }
 
@@ -103,6 +106,7 @@ class Introduction extends React.Component<Props, State> {
     const { skillset } = this.state
 
     history.push(`${ROUTES.LIBRARY}/${skillset}`)
+    sessionStorage.setItem('OnBoarding_intro', 'done')
   }
 
   cancelSkills = () => {
@@ -138,7 +142,7 @@ class Introduction extends React.Component<Props, State> {
           </Steps.Content>
           <Steps.Content id={ESteps.onboardingLink}>
             <Onboarding
-              img={linkImg}
+              img={linkGif}
               onCancel={this.submitOnBoarding}
               onSubmit={this.submitOnBoardingLink}
             >
@@ -147,7 +151,7 @@ class Introduction extends React.Component<Props, State> {
           </Steps.Content>
           <Steps.Content id={ESteps.onboardingImportant}>
             <Onboarding
-              img={importantImg}
+              img={importantGif}
               onCancel={this.submitOnBoarding}
               onSubmit={this.submitOnBoardingImportant}
             >
@@ -156,7 +160,7 @@ class Introduction extends React.Component<Props, State> {
           </Steps.Content>
           <Steps.Content id={ESteps.onboardingFocus}>
             <Onboarding
-              img={focusImg}
+              img={focusGif}
               onSubmit={this.submitOnBoarding}
             >
               <Mark>Focus on</Mark> resource what you haven't learned yet
