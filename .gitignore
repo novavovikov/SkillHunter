@@ -1,1 +1,11 @@
 .idea
+SkillHunter.iml
+.config/
+.npm/
+.home/
+.next/
+out/
+dist/
+node_modules/
+pgdata/
+documentation/
